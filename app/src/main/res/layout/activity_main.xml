@@ -31,6 +31,8 @@
                 <TextView style="@style/Body" android:text="@string/kmh" android:gravity="center" />
                 <TextView style="@style/Body" android:layout_marginTop="24dp" android:gravity="center"
                     android:text="@string/test_source" android:textSize="16sp" />
+                <Button android:id="@+id/quick_map" style="@style/Action" android:layout_width="match_parent"
+                    android:layout_marginTop="16dp" android:text="@string/home_quick_map" />
             </LinearLayout>
             <LinearLayout android:layout_width="0dp" android:layout_height="match_parent"
                 android:layout_weight="0.68" android:orientation="vertical" android:layoutDirection="rtl">
@@ -51,12 +53,16 @@
                         android:layout_marginEnd="@dimen/space_small" android:gravity="center_vertical">
                         <TextView style="@style/Title" android:text="@string/media" android:textSize="24sp" />
                         <TextView style="@style/Body" android:layout_marginTop="8dp" android:id="@+id/media_state" android:text="@string/media_idle" />
+                        <Button android:id="@+id/quick_media" style="@style/Action" android:layout_width="match_parent"
+                            android:layout_marginTop="8dp" android:text="@string/home_quick_media" />
                     </LinearLayout>
                     <LinearLayout style="@style/Card" android:layout_width="0dp"
                         android:layout_height="match_parent" android:layout_weight="1"
                         android:layout_marginStart="@dimen/space_small" android:gravity="center_vertical">
                         <TextView style="@style/Title" android:text="@string/vehicle" android:textSize="24sp" />
                         <TextView style="@style/Body" android:layout_marginTop="8dp" android:id="@+id/vehicle_state" android:text="@string/vehicle_stale" android:textColor="@color/gold" />
+                        <Button android:id="@+id/quick_vehicle" style="@style/Action" android:layout_width="match_parent"
+                            android:layout_marginTop="8dp" android:text="@string/home_quick_vehicle" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>

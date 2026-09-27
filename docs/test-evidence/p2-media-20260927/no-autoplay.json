@@ -1,0 +1,8 @@
+{
+  "result": "PASS",
+  "home_stopped_test_preview_after_restart": true,
+  "position_unchanged_after_settle": true,
+  "app_service_records": 0,
+  "app_media_sessions": 0,
+  "scope": "Static TEST shell without playback code; not a future playback-engine test"
+}

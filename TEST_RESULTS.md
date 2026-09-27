@@ -2,7 +2,23 @@
 
 No Darbak OS release is Stable. See the per-stage evidence below.
 
-## 2026-09-27 — Stopped Media verification setup (pending rerun)
+## 2026-09-27 — P2 stopped Media verification: PASS / STOP
+
+- Tested `abc0b3dd756e39498d23df1597b0f0dd7ac8db04`, [run36342407385](https://github.com/abo-sultann/DarbakOS/actions/runs/36342407385), job108684931636. Application remains7ce4930; only smoke expectations/verification and documentation changed.
+- Initial run36341691472 passed Build/Lint and4 tests, but failed obsolete `خامل` smoke expectation. Corrected to exact TEST track/stopped position; no application defect found or app change made.
+- Build/Lint PASS: 0 errors,17 warnings (previous16 plus unused media_idle from this increment; no unrelated cleanup).
+- API25/x86,1024x600/160dpi,1GB RAM/software GPU: **4/4 instrumentation PASS** in2.387s; text/view fit, RTL,16dp gap, navigation/recreation preserved.
+- **6/6 actual-tap quick-action returns PASS**, correct destinations/selected tabs with Android Back and Return Home. Exact media, navigation TEST examples, unavailable speed/navigation, test-only normal vehicle, full stale warning and global TEST asserted after every return.
+- **Cold Restart PASS:** force-stop from Settings then launch lands on Home; all labels checked immediately and after2s settling. Track/position unchanged, `متوقف (تجريبي)` remains visible. App service records0; app MediaSessions0. System telecom has one inactive unrelated session; not attributed to Darbak. Audio diagnostics retained.
+- No-autoplay conclusion combines runtime observations with inspected MainActivity/manifest: static TextViews only, no playback/MediaSession/audio-focus code, service, receiver, permission or runtime dependency. This verifies the current static TEST shell, not a future media engine or physical T3.
+- Visual review of actual Home and cold-restart Home: no clipping/overlap. `يا طريق • مقطع تجريبي` and `01:24 / 04:10 • متوقف (تجريبي)` fit fully; global test badge remains visible. Track y382–410, position/state y416–444, Media button y452–508; bottom navigation begins y528. All quick targets remain56px high.
+- APK20,529 bytes; downloaded SHA256 verified: `3d7b23b011ecc3fe71e43b01f507912df49e9bc7cb6941fe4ad8d51627612b81`. Launch386ms (single emulator observation). Crash buffer empty; no app ANR found by smoke.
+- Durable [evidence](docs/test-evidence/p2-media-20260927/) includes prior failure, Home/restart PNG/XML, returned Home XML, no-autoplay result and raw services/sessions/audio,6-flow/4-test results, lint, APK summary and launch/memory/crash. Full artifact10939271595 expires2026-10-11.
+- Local source guard, Python syntax and whitespace PASS. Existing REFERENCES/platform/testing choices reused; no new component. No physical hardware/ARMv7/Stable acceptance.
+
+**Disposition: complete, checkpoint and STOP. No P3 or next batch.**
+
+## 2026-09-27 — Stopped Media verification setup (historical; resolved above)
 
 - Mainea52d9b / implementation7ce4930: run36341691472 passed Build/Lint and4 instrumentation tests, but smoke stopped at outdated `خامل` expectation after Media changed to explicit stopped TEST preview.
 - Actual screenshot reviewed: track and position/test qualifier fit; no clipping/overlap. No app defect found.

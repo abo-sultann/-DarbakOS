@@ -1,6 +1,11 @@
-# Next Task — P2 stopped-media-card verification
+# P2 stopped-media-card verification — COMPLETE / STOP
 
-## Start point
+## Closure — 2026-09-27
+Testedabc0b3d in run36342407385. Corrected obsolete test expectation; application unchanged. Build/Lint,4/4 API25 tests,6/6 quick-action returns and Cold Restart checks pass. Media remains visibly stopped/TEST with unchanged position and no app service/MediaSession. Home/restart screenshots reviewed; no clipping/overlap. Evidence recorded in TEST_RESULTS.md.
+
+STOP. This file records closure, not a new assignment. No P3 or additional batch.
+
+## Original start point
 Prior P2 Home/navigation gates passed. Main now contains one bounded Home-only increment: the Media card shows a static TEST track/title and saved position in an explicitly stopped state. No playback engine, MediaSession, storage scan or service was added.
 
 ## Goal

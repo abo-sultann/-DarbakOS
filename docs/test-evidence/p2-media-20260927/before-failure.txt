@@ -1,0 +1,6 @@
+Run36341691472 / job108682905911 / code7ce49300781e1505a9d85d764b481025bdb567c9
+Build/Lint and4 instrumentation tests passed. Smoke failed before quick actions:
+assert_home_states, scripts/emulator_smoke.py line55:
+assert 'خامل' in node(tree, 'media_state').get('text', '')
+AssertionError
+Reason: old expectation, now explicitly stopped TEST preview.

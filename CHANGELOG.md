@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-09-27 — Stopped Media verification closed / STOP
+- Corrected outdated idle-text smoke expectation for stopped TEST preview; application unchanged.
+- Added exact media/navigation-test regressions and Cold Restart/settled Home checks with no app service/MediaSession assertions and raw diagnostics.
+- Codeabc0b3d passed Build/Lint,4 API25 tests and6 quick-action returns; screenshots reviewed at1024x600 without clipping/overlap.
+- Saved evidence and updated state/results/gate. No next batch or P3.
+
 ## 2026-09-27 — Navigation-card verification closed / STOP
 - Verified existing b054d7d Build/Lint,4 API25 tests and6 quick-action round trips from run36325924001; no application change needed.
 - Reviewed Home1024x600: no clipping/overlap; maneuver and ETA/distance each explicitly test-only, navigation unavailable visible.

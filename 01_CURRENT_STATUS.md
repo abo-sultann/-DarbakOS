@@ -1,10 +1,11 @@
 # Current Status
 
-State: P2 NAVIGATION CARD VERIFIED — BATCH CLOSED / STOP
+State: P2 STOPPED MEDIA VERIFIED — BATCH CLOSED / STOP
 Updated: 2026-09-27.
 Target: t3-p3 / sun8iw11p1 / Android7.1 API25 / ARMv7 / ~1GB / 1024x600.
 
 ## Completed
+- Stopped Media TEST preview verified, with no clipping/overlap and no app service/session after Cold Restart. Corrected obsolete smoke expectation; no app change needed.4 tests and6 quick-action returns passed with all prior states.
 - Glanceable navigation card verified: maneuver and ETA/distance each explicitly test-only; navigation unavailable remains visible. Screenshot has no clipping/overlap;4 tests and6 quick-action returns pass. No application fix needed.
 - Quiet Home summary verified after correcting proven card clipping: one summary explicitly labeled `(تجريبي)`, with global TEST and full stale warning visible. Build/Lint,4 instrumentation tests and6 quick-action returns passed; screenshot reviewed.
 - Second P2 quick-action increment verified: all three Home buttons reach the correct sections; Android Back and Return Home both restore Home and its test states (6 actual-tap round trips).
@@ -23,13 +24,13 @@ Target: t3-p3 / sun8iw11p1 / Android7.1 API25 / ARMv7 / ~1GB / 1024x600.
 - Verified navigation, cold restart to Home, readable RTL screens and corrected inter-card spacing. No crash/ANR observed in this run.
 
 ## Verified checkpoint
-- Tested code: `b054d7d5a6e1d9f82d5fbe290a5cf415a418cbb3`; reviewed main2612b6a has identical app/build/test inputs.
-- Successful existing run: https://github.com/abo-sultann/DarbakOS/actions/runs/36325924001 (inspected, not rerun).
-- Build/Lint: 0 errors,16 warnings; instrumentation4/4; actual quick-action round trips6/6.
-- API25/x86,1024x600/160dpi: no clipping/overlap; navigation examples explicitly test-only. Eight captured Home states rechecked for all prior unavailable/idle/stale/test-only labels.
-- APK20,213 bytes; launch408ms (emulator observation only).
-- Evidence: `docs/test-evidence/p2-navigation-20260927/`; details/history: `TEST_RESULTS.md`.
-- No crash/ANR observed. TEST only; T3/Test Station untested.
+- Tested code: `abc0b3dd756e39498d23df1597b0f0dd7ac8db04`; application remains7ce4930.
+- Successful rerun: https://github.com/abo-sultann/DarbakOS/actions/runs/36342407385
+- Build/Lint: 0 errors,17 warnings; instrumentation4/4; quick-action round trips6/6.
+- API25/x86,1024x600/160dpi: readable stopped TEST media; no clipping/overlap. Cold Restart lands on Home, position stays unchanged, app services0/media sessions0. Prior unavailable/navigation-test/vehicle-stale/test labels preserved.
+- APK20,529 bytes; launch386ms (emulator observation only).
+- Evidence: `docs/test-evidence/p2-media-20260927/`; details/history: `TEST_RESULTS.md`.
+- No crash/ANR observed. Static TEST shell only; T3/Test Station untested.
 
 ## Not yet done
 - Further P2 increments or P3: not started in this verification batch.
@@ -39,7 +40,7 @@ Target: t3-p3 / sun8iw11p1 / Android7.1 API25 / ARMv7 / ~1GB / 1024x600.
 - No firmware or MCU flash approved; all master-plan safety gates remain in force.
 
 ## Current gate
-The requested navigation-card verification batch is complete. STOP here.
+The requested stopped-Media verification batch is complete. STOP here.
 Do not start another P2 increment, P3, hardware work or any other task under this batch.
 `02_NEXT_TASK.md` records closure, not a new assignment. No Stable/T3 acceptance is claimed.
 

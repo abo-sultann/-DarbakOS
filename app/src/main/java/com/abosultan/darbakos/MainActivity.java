@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import com.abosultan.darbakos.core.CoreStateStore;
 
 /** P1 shell only. No services, sensors, media playback or external app launches. */
 public final class MainActivity extends Activity {
@@ -25,6 +26,8 @@ public final class MainActivity extends Activity {
     @Override public void onCreate(Bundle state) {
         super.onCreate(state);
         setContentView(R.layout.activity_main);
+        // P3: establish truthful cold-boot state before any source/backend is connected.
+        if (state == null) CoreStateStore.get().resetForColdBoot();
         for (int i = 0; i < BUTTONS.length; i++) {
             final int destination = i;
             findViewById(BUTTONS[i]).setOnClickListener(v -> showSection(destination));

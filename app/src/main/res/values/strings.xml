@@ -33,4 +33,6 @@
     <string name="home_quick_vehicle">حالة السيارة</string>
     <string name="home_normal">السيارة ✓ طبيعية (تجريبي)</string>
     <string name="home_no_alerts">لا توجد تنبيهات مهمة</string>
+    <string name="navigation_next_turn_test">بعد 800 م • انعطف يمينًا (تجريبي)</string>
+    <string name="navigation_eta_test">12 د • 7.4 كم (تجريبي)</string>
 </resources>

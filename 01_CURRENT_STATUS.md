@@ -1,10 +1,11 @@
 # Current Status
 
-State: P2 HOME QUICK-ACTIONS VERIFIED — BATCH CLOSED / STOP
+State: P2 QUIET HOME SUMMARY VERIFIED — BATCH CLOSED / STOP
 Updated: 2026-09-27.
 Target: t3-p3 / sun8iw11p1 / Android7.1 API25 / ARMv7 / ~1GB / 1024x600.
 
 ## Completed
+- Quiet Home summary verified after correcting proven card clipping: one summary explicitly labeled `(تجريبي)`, with global TEST and full stale warning visible. Build/Lint,4 instrumentation tests and6 quick-action returns passed; screenshot reviewed.
 - Second P2 quick-action increment verified: all three Home buttons reach the correct sections; Android Back and Return Home both restore Home and its test states (6 actual-tap round trips).
 - Existing 4 API25/1024x600 tests passed again; Home screenshot and all 56px-high quick-action touch targets fit without clipping or overlap. No application fix needed.
 - Verification-only gate for the existing first P2 Home test-state increment passed; no application changes were needed.
@@ -21,14 +22,13 @@ Target: t3-p3 / sun8iw11p1 / Android7.1 API25 / ARMv7 / ~1GB / 1024x600.
 - Verified navigation, cold restart to Home, readable RTL screens and corrected inter-card spacing. No crash/ANR observed in this run.
 
 ## Verified checkpoint
-- Tested code: `cf062d6dfcee442755751e096acf6623fe29c8f8`.
-- App implementation remains `b87ba3371d2d9c2aa3655c2ec7d8859f7519f24a`; this batch changed only targeted smoke checks and documentation/evidence.
-- Successful run: https://github.com/abo-sultann/DarbakOS/actions/runs/36323597028
-- Build/Lint: 0 errors, 14 warnings. Existing instrumentation: 4/4; actual quick-action round trips: 6/6.
-- API25/x86, 1024x600/160dpi: screenshot readable, 16dp card gap retained, quick targets 280x56/292x56/292x56px, unavailable/idle/stale labels preserved.
-- APK19,557 bytes; PSS8,776KB (8.57MiB); launch399ms. Emulator snapshots only, not T3/ARMv7 performance measurements.
-- Evidence: `docs/test-evidence/p2-quick-actions-20260927/`; details/history: `TEST_RESULTS.md`.
-- No crash/ANR observed during this run. TEST only; T3/Test Station untested.
+- Tested code: `9ac0b10586a1fa76a165717a064b90a69d3f74e3`.
+- Successful run: https://github.com/abo-sultann/DarbakOS/actions/runs/36324401688
+- Build/Lint: 0 errors,15 warnings; instrumentation4/4; actual quick-action round trips6/6.
+- API25/x86,1024x600/160dpi: no clipping/overlap,56px touch targets retained. Normal summary explicitly test-only; unavailable/idle/stale labels preserved.
+- APK19,837 bytes; launch277ms (emulator observation only).
+- Evidence: `docs/test-evidence/p2-quiet-home-20260927/`; details/history: `TEST_RESULTS.md`.
+- No crash/ANR observed. TEST only; T3/Test Station untested.
 
 ## Not yet done
 - Further P2 increments or P3: not started in this verification batch.
@@ -38,7 +38,7 @@ Target: t3-p3 / sun8iw11p1 / Android7.1 API25 / ARMv7 / ~1GB / 1024x600.
 - No firmware or MCU flash approved; all master-plan safety gates remain in force.
 
 ## Current gate
-The requested quick-actions verification-only batch is complete. STOP here.
+The requested quiet Home verification batch is complete. STOP here.
 Do not start another P2 increment, P3, hardware work or any other task under this batch.
 `02_NEXT_TASK.md` records closure, not a new assignment. No Stable/T3 acceptance is claimed.
 

@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-09-27 — Quiet Home verification closed / STOP
+- Fixed proven clipping introduced by the new vehicle summary by merging the redundant title/summary.
+- Labeled normal explicitly `(تجريبي)` beside the status, preserving global TEST and full stale warning.
+- Extended existing Home assertions; code9ac0b10 passed Build/Lint,4 API25 tests and6 quick-action returns. Actual screenshot reviewed at1024x600.
+- Saved failure/final evidence and updated state/results/gate. No next batch or P3.
+
 ## 2026-09-27 — Home quick-actions verification closed / STOP
 - Added targeted emulator smoke checks for three Home quick actions, correct destination/selected tab, Android Back and Return Home, with label/56px target assertions.
 - Code `cf062d6` passed Build/Lint,4 existing API25 tests and6 actual-tap round trips at1024x600.

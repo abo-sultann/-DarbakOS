@@ -1,0 +1,44 @@
+[
+  {
+    "button": "quick_map",
+    "destination": "الخريطة",
+    "return": "system_back",
+    "bounds": "[32,384][312,440]",
+    "result": "PASS"
+  },
+  {
+    "button": "quick_map",
+    "destination": "الخريطة",
+    "return": "back_home",
+    "bounds": "[32,384][312,440]",
+    "result": "PASS"
+  },
+  {
+    "button": "quick_media",
+    "destination": "الوسائط",
+    "return": "system_back",
+    "bounds": "[700,436][992,492]",
+    "result": "PASS"
+  },
+  {
+    "button": "quick_media",
+    "destination": "الوسائط",
+    "return": "back_home",
+    "bounds": "[700,436][992,492]",
+    "result": "PASS"
+  },
+  {
+    "button": "quick_vehicle",
+    "destination": "السيارة",
+    "return": "system_back",
+    "bounds": "[360,446][652,502]",
+    "result": "PASS"
+  },
+  {
+    "button": "quick_vehicle",
+    "destination": "السيارة",
+    "return": "back_home",
+    "bounds": "[360,446][652,502]",
+    "result": "PASS"
+  }
+]

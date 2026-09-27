@@ -1,6 +1,11 @@
-# Next Task — P2 quiet Home summary verification
+# P2 quiet Home summary verification — COMPLETE / STOP
 
-## Start point
+## Closure — 2026-09-27
+Tested9ac0b10 in run36324401688. Corrected the proven vehicle-card clipping and qualified the normal summary as test-only. Build/Lint,4/4 API25 tests and6/6 quick-action returns pass. Home screenshot/semantic review passes; evidence recorded in TEST_RESULTS.md.
+
+STOP. This file records closure, not a new assignment. Do not start P3 or another batch.
+
+## Original start point
 The prior P2 quick-actions gate passed. Main now contains one further bounded Home-only increment: a quiet normal vehicle summary ("السيارة ✓ طبيعية") alongside the explicit stale TEST-source warning. This is presentation/test data only and must not imply real vehicle connectivity.
 
 ## Goal

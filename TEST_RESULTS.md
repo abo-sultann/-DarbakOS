@@ -2,7 +2,23 @@
 
 No Darbak OS release is Stable. See the per-stage evidence below.
 
-## 2026-09-27 — Quiet Home verification: defect confirmed / recheck pending
+## 2026-09-27 — P2 quiet Home summary: PASS / STOP
+
+- Tested code `9ac0b10586a1fa76a165717a064b90a69d3f74e3`, [run36324401688](https://github.com/abo-sultann/DarbakOS/actions/runs/36324401688), job108634243574.
+- Proven regression: initial d75e683 run36324136031 failed the existing fit test (1/4 failures), with the vehicle title outside its card after the added summary. Original failure output retained.
+- Minimal fix: merge redundant title/summary into one platform TextView. Qualify normal directly as `السيارة ✓ طبيعية (تجريبي)` so the affirmative checkmark does not stand alone as a real vehicle assessment. Global `نسخة اختبار • بيانات تجريبية` and full gold stale warning remain visible. No data integration or new component/dependency.
+- Build and Lint PASS: 0 errors, 15 warnings (previous14 plus unused home_no_alerts from this increment; no unrelated cleanup).
+- API25/x86, 1024x600/160dpi, 1GB RAM/software GPU: existing instrumentation **4/4 PASS** in2.602s, including all-view/text fit and16dp gap.
+- Actual UIAutomator-bound taps: three quick actions × Android Back/Return Home = **6/6 PASS**. Correct destination/selected tab and unavailable speed/navigation, idle media, stale warning, global TEST and qualified summary asserted after each return. Existing navigation/Settings/recreation/cold restart checks pass.
+- Visual/semantic review of actual Home PNG and UI XML: no clipping, overlap or ellipsis. Summary occupies y350–378, full stale warning y386–438, vehicle button y446–502, bottom navigation begins y528. TEST badge is legible at top. Summary explicitly describes a test state, never a live vehicle assessment; no numeric vehicle readings or connectivity claim.
+- All quick-action targets retain56px height; map280px wide, media/vehicle292px. Crash buffer empty; no app ANR detected.
+- APK19,837 bytes, downloaded SHA256 verified: `a142b9a2182206dd30c057dfe70ca474713c4a17357b1ef874bb84faf5ef3c99`. Launch277ms (single emulator observation, not a benchmark).
+- Durable [evidence](docs/test-evidence/p2-quiet-home-20260927/): before-failure output, final PNG/XML, lint XML, four-test output, six-flow JSON, summary, launch/memory/crash. Full artifact10933013785 expires2026-10-11.
+- Local source guard, Python syntax and whitespace PASS. No physical T3/ARMv7/Test Station validation or Stable claim.
+
+**Disposition: verification batch complete; commit/push and STOP. No next batch/P3.**
+
+## 2026-09-27 — Quiet Home verification setup (historical; resolved above)
 
 - Existing run36324136031 at d75e683 passed Build/Lint but failed 1/4 instrumentation tests: vehicle title clipped (Rect360,330–652,363) after adding the summary. Smoke stopped before screenshot/navigation; no pass claimed.
 - Minimal correction: replace the redundant vehicle title plus summary with one summary line; explicitly qualify normal as `(تجريبي)` on that line, retaining the global TEST badge and full stale-source warning. No new component/dependency.

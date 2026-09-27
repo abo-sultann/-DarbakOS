@@ -1,6 +1,11 @@
-# Next Task — P2 glanceable navigation-card verification
+# P2 glanceable navigation-card verification — COMPLETE / STOP
 
-## Start point
+## Closure — 2026-09-27
+Verified b054d7d using run36325924001; current app/build/test inputs match. Build/Lint,4/4 API25 tests and6/6 quick-action returns pass. Actual Home screenshot and eight captured Home UI states confirm test-only maneuver/ETA/distance, visible unavailable state and preserved prior states. No defect or application change needed. Evidence/results are recorded in TEST_RESULTS.md.
+
+STOP. This file records closure, not a new assignment. No P3 or additional batch.
+
+## Original start point
 All prior P2 Home gates passed. Main now contains one bounded Home-only increment: the navigation card uses explicit TEST-only next-turn and ETA/distance examples to validate the intended glanceable hierarchy. No navigation engine, GPS, OsmAnd or service was added.
 
 ## Goal

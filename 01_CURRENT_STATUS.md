@@ -1,10 +1,11 @@
 # Current Status
 
-State: P2 QUIET HOME SUMMARY VERIFIED — BATCH CLOSED / STOP
+State: P2 NAVIGATION CARD VERIFIED — BATCH CLOSED / STOP
 Updated: 2026-09-27.
 Target: t3-p3 / sun8iw11p1 / Android7.1 API25 / ARMv7 / ~1GB / 1024x600.
 
 ## Completed
+- Glanceable navigation card verified: maneuver and ETA/distance each explicitly test-only; navigation unavailable remains visible. Screenshot has no clipping/overlap;4 tests and6 quick-action returns pass. No application fix needed.
 - Quiet Home summary verified after correcting proven card clipping: one summary explicitly labeled `(تجريبي)`, with global TEST and full stale warning visible. Build/Lint,4 instrumentation tests and6 quick-action returns passed; screenshot reviewed.
 - Second P2 quick-action increment verified: all three Home buttons reach the correct sections; Android Back and Return Home both restore Home and its test states (6 actual-tap round trips).
 - Existing 4 API25/1024x600 tests passed again; Home screenshot and all 56px-high quick-action touch targets fit without clipping or overlap. No application fix needed.
@@ -22,12 +23,12 @@ Target: t3-p3 / sun8iw11p1 / Android7.1 API25 / ARMv7 / ~1GB / 1024x600.
 - Verified navigation, cold restart to Home, readable RTL screens and corrected inter-card spacing. No crash/ANR observed in this run.
 
 ## Verified checkpoint
-- Tested code: `9ac0b10586a1fa76a165717a064b90a69d3f74e3`.
-- Successful run: https://github.com/abo-sultann/DarbakOS/actions/runs/36324401688
-- Build/Lint: 0 errors,15 warnings; instrumentation4/4; actual quick-action round trips6/6.
-- API25/x86,1024x600/160dpi: no clipping/overlap,56px touch targets retained. Normal summary explicitly test-only; unavailable/idle/stale labels preserved.
-- APK19,837 bytes; launch277ms (emulator observation only).
-- Evidence: `docs/test-evidence/p2-quiet-home-20260927/`; details/history: `TEST_RESULTS.md`.
+- Tested code: `b054d7d5a6e1d9f82d5fbe290a5cf415a418cbb3`; reviewed main2612b6a has identical app/build/test inputs.
+- Successful existing run: https://github.com/abo-sultann/DarbakOS/actions/runs/36325924001 (inspected, not rerun).
+- Build/Lint: 0 errors,16 warnings; instrumentation4/4; actual quick-action round trips6/6.
+- API25/x86,1024x600/160dpi: no clipping/overlap; navigation examples explicitly test-only. Eight captured Home states rechecked for all prior unavailable/idle/stale/test-only labels.
+- APK20,213 bytes; launch408ms (emulator observation only).
+- Evidence: `docs/test-evidence/p2-navigation-20260927/`; details/history: `TEST_RESULTS.md`.
 - No crash/ANR observed. TEST only; T3/Test Station untested.
 
 ## Not yet done
@@ -38,7 +39,7 @@ Target: t3-p3 / sun8iw11p1 / Android7.1 API25 / ARMv7 / ~1GB / 1024x600.
 - No firmware or MCU flash approved; all master-plan safety gates remain in force.
 
 ## Current gate
-The requested quiet Home verification batch is complete. STOP here.
+The requested navigation-card verification batch is complete. STOP here.
 Do not start another P2 increment, P3, hardware work or any other task under this batch.
 `02_NEXT_TASK.md` records closure, not a new assignment. No Stable/T3 acceptance is claimed.
 

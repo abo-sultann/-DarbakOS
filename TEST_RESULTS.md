@@ -2,6 +2,21 @@
 
 No Darbak OS release is Stable. See the per-stage evidence below.
 
+## 2026-09-27 — P2 navigation-card verification: PASS / STOP
+
+- Verified code `b054d7d5a6e1d9f82d5fbe290a5cf415a418cbb3` using [run36325924001](https://github.com/abo-sultann/DarbakOS/actions/runs/36325924001), job108638552766. Existing successful run inspected, not rerun. Main2612b6a differs only in the task document; application/build/test input diff is empty.
+- Build/Lint PASS: 0 errors,16 warnings (previous15 plus unused navigation_detail after replacement; no unrelated cleanup).
+- API25/x86,1024x600/160dpi,1GB RAM/software GPU: **4/4 instrumentation PASS**,2.817s, including text/view fit,16dp gap, RTL, section navigation and recreation.
+- **6/6 actual-tap quick-action round trips PASS**: Map/Media/Vehicle via Android Back and Return Home. Existing navigation/Settings/cold restart smoke passed. Touch targets remain56px high.
+- Actual Home screenshot reviewed: no clipping/overlap. Maneuver is bold24sp; ETA/distance20sp below; gold unavailable state clearly separated. Maneuver bounds y195–228, ETA y234–262, unavailable y270–298, all inside the navigation card y88–324.
+- Semantic check: `بعد 800 م • انعطف يمينًا (تجريبي)` and `12 د • 7.4 كم (تجريبي)` each carry their own test qualifier; global `نسخة اختبار • بيانات تجريبية` and `الملاحة • غير متاحة` remain visible. These are static TEST examples, not live guidance.
+- Post-run assertions against eight captured Home UI trees (launch, six quick-action returns, cold restart) passed for both navigation examples, unavailable navigation/speed, idle media, test-only normal vehicle summary, full stale warning and global TEST badge. Retained JSON distinguishes this evidence inspection from a new runtime test.
+- Crash buffer empty; no app ANR found. APK20,213 bytes; downloaded SHA256 verified: `8c838a340926fe45edee2ea5364d993fa8177bed941f963b243d5dacbb07c166`. Launch408ms, single emulator observation only.
+- Durable [evidence](docs/test-evidence/p2-navigation-20260927/): Home PNG, initial/return/restart UI XML, semantic-review JSON,6-flow JSON,4-test output, summary, lint XML, launch/memory/crash. Full artifact10933768031 expires2026-10-11.
+- Source guard and whitespace checks PASS. No application defect found, no app/test/build change needed. Existing REFERENCES/platform choices reused; no new component or dependency.
+
+**Disposition: complete, checkpoint and STOP. No P3/next batch or T3/Stable acceptance.**
+
 ## 2026-09-27 — P2 quiet Home summary: PASS / STOP
 
 - Tested code `9ac0b10586a1fa76a165717a064b90a69d3f74e3`, [run36324401688](https://github.com/abo-sultann/DarbakOS/actions/runs/36324401688), job108634243574.

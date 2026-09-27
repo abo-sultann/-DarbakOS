@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-09-27 — Navigation-card verification closed / STOP
+- Verified existing b054d7d Build/Lint,4 API25 tests and6 quick-action round trips from run36325924001; no application change needed.
+- Reviewed Home1024x600: no clipping/overlap; maneuver and ETA/distance each explicitly test-only, navigation unavailable visible.
+- Rechecked all labels in eight captured Home states, retained evidence and updated status/results/gate. No next batch/P3.
+
 ## 2026-09-27 — Quiet Home verification closed / STOP
 - Fixed proven clipping introduced by the new vehicle summary by merging the redundant title/summary.
 - Labeled normal explicitly `(تجريبي)` beside the status, preserving global TEST and full stale warning.

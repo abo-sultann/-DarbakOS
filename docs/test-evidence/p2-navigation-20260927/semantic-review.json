@@ -1,0 +1,128 @@
+{
+  "result": "PASS",
+  "method": "Post-run checks of captured emulator UI XML; not a new emulator run",
+  "captures": [
+    {
+      "capture": "home.xml",
+      "result": "PASS",
+      "checks": [
+        "navigation_instruction",
+        "navigation_eta",
+        "navigation_state",
+        "vehicle_summary",
+        "vehicle_state",
+        "media_state",
+        "speed_value",
+        "test_badge"
+      ]
+    },
+    {
+      "capture": "quick-map-back_home-returned.xml",
+      "result": "PASS",
+      "checks": [
+        "navigation_instruction",
+        "navigation_eta",
+        "navigation_state",
+        "vehicle_summary",
+        "vehicle_state",
+        "media_state",
+        "speed_value",
+        "test_badge"
+      ]
+    },
+    {
+      "capture": "quick-map-system_back-returned.xml",
+      "result": "PASS",
+      "checks": [
+        "navigation_instruction",
+        "navigation_eta",
+        "navigation_state",
+        "vehicle_summary",
+        "vehicle_state",
+        "media_state",
+        "speed_value",
+        "test_badge"
+      ]
+    },
+    {
+      "capture": "quick-media-back_home-returned.xml",
+      "result": "PASS",
+      "checks": [
+        "navigation_instruction",
+        "navigation_eta",
+        "navigation_state",
+        "vehicle_summary",
+        "vehicle_state",
+        "media_state",
+        "speed_value",
+        "test_badge"
+      ]
+    },
+    {
+      "capture": "quick-media-system_back-returned.xml",
+      "result": "PASS",
+      "checks": [
+        "navigation_instruction",
+        "navigation_eta",
+        "navigation_state",
+        "vehicle_summary",
+        "vehicle_state",
+        "media_state",
+        "speed_value",
+        "test_badge"
+      ]
+    },
+    {
+      "capture": "quick-vehicle-back_home-returned.xml",
+      "result": "PASS",
+      "checks": [
+        "navigation_instruction",
+        "navigation_eta",
+        "navigation_state",
+        "vehicle_summary",
+        "vehicle_state",
+        "media_state",
+        "speed_value",
+        "test_badge"
+      ]
+    },
+    {
+      "capture": "quick-vehicle-system_back-returned.xml",
+      "result": "PASS",
+      "checks": [
+        "navigation_instruction",
+        "navigation_eta",
+        "navigation_state",
+        "vehicle_summary",
+        "vehicle_state",
+        "media_state",
+        "speed_value",
+        "test_badge"
+      ]
+    },
+    {
+      "capture": "cold-restart-home.xml",
+      "result": "PASS",
+      "checks": [
+        "navigation_instruction",
+        "navigation_eta",
+        "navigation_state",
+        "vehicle_summary",
+        "vehicle_state",
+        "media_state",
+        "speed_value",
+        "test_badge"
+      ]
+    }
+  ],
+  "expected_text": {
+    "navigation_instruction": "بعد 800 م • انعطف يمينًا (تجريبي)",
+    "navigation_eta": "12 د • 7.4 كم (تجريبي)",
+    "navigation_state": "الملاحة • غير متاحة",
+    "vehicle_summary": "السيارة ✓ طبيعية (تجريبي)",
+    "vehicle_state": "آخر قراءة تجريبية قديمة • لا تعرض كقراءة حية",
+    "media_state": "لا يوجد تشغيل • خامل",
+    "speed_value": "—",
+    "test_badge": "نسخة اختبار • بيانات تجريبية"
+  }
+}

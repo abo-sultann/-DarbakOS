@@ -23,7 +23,7 @@ assert re.search(r'minSdk\s+25\b', build)
 assert not re.search(r'^\s*(?:implementation|api|runtimeOnly)\b', build, re.M)
 assert not list(main.rglob('*.so')), 'No native ABI dependency expected in P1'
 strings = ET.parse(main / 'res/values/strings.xml').getroot()
-assert any('تجريبية' in (item.text or '') for item in strings)
+assert all(not re.search(r'TEST|experimental|preview|prototype|تجريب|معاينة|اختبار', item.text or '', re.I) for item in strings), 'No temporary user-facing copy'
 java = '\n'.join(p.read_text() for p in main.rglob('*.java'))
 assert not any(name in java for name in ('MediaPlayer', 'LocationManager', 'BluetoothAdapter'))
-print('PASS: XML, minSdk25, RTL, landscape, TEST labeling, no permissions/services/runtime dependencies/native code')
+print('PASS: XML, minSdk25, RTL, landscape, honest production-facing copy, no permissions/services/runtime dependencies/native code')

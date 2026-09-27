@@ -26,7 +26,8 @@ public final class ShellTest {
                     activity.findViewById(R.id.shell_root).getLayoutDirection());
                 assertEquals(View.VISIBLE, activity.findViewById(R.id.home_panel).getVisibility());
                 assertEquals("—", ((TextView) activity.findViewById(R.id.speed_value)).getText().toString());
-                assertTrue(((TextView) activity.findViewById(R.id.test_badge)).getText().toString().contains("تجريبية"));
+                assertEquals("دربك OS", ((TextView) activity.findViewById(R.id.test_badge)).getText().toString());
+                assertEquals("السرعة غير متاحة", activity.findViewById(R.id.speed_value).getContentDescription().toString());
                 assertTrue(activity.findViewById(R.id.nav_home).isSelected());
             });
         }
@@ -86,6 +87,31 @@ public final class ShellTest {
                 assertEquals("RTL must keep the gap between dashboard cards",
                     activity.getResources().getDimensionPixelSize(R.dimen.space),
                     map[0] - speed[0] - speedCard.getWidth());
+            });
+        }
+    }
+
+    @Test public void appsFitRtlAndUnavailableActionsStayInApps() {
+        try (ActivityScenario<MainActivity> scenario = ActivityScenario.launch(MainActivity.class)) {
+            scenario.onActivity(activity -> activity.findViewById(R.id.nav_apps).performClick());
+            InstrumentationRegistry.getInstrumentation().waitForIdleSync();
+            scenario.onActivity(activity -> {
+                assertVisibleWithin(activity.findViewById(R.id.shell_root), new Rect(0, 0, 1024, 600));
+                assertEquals(View.VISIBLE, activity.findViewById(R.id.apps_preview).getVisibility());
+                int[] ids = {R.id.apps_recent, R.id.apps_favorite, R.id.apps_manage};
+                String[] labels = {"الأخيرة", "المفضلة", "إدارة التطبيقات"};
+                int previousLeft = 1024;
+                for (int i = 0; i < ids.length; i++) {
+                    TextView button = activity.findViewById(ids[i]);
+                    assertEquals(labels[i], button.getText().toString());
+                    assertFalse("Unconnected action must be disabled", button.isEnabled());
+                    assertTrue(button.getHeight() >= 56 && button.getWidth() >= 56);
+                    assertTrue("Apps actions must run right to left", button.getLeft() < previousLeft);
+                    previousLeft = button.getLeft();
+                }
+                activity.findViewById(R.id.back_home).performClick();
+                assertEquals(View.GONE, activity.findViewById(R.id.apps_preview).getVisibility());
+                assertTrue(activity.findViewById(R.id.nav_home).isSelected());
             });
         }
     }

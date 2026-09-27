@@ -32,7 +32,11 @@ def dump(name):
     adb('shell', 'uiautomator', 'dump', '/sdcard/darbak-ui.xml')
     xml = adb('shell', 'cat', '/sdcard/darbak-ui.xml')
     save(name + '.xml', xml)
-    return ET.fromstring(xml)
+    tree = ET.fromstring(xml)
+    for item in tree.iter('node'):
+        assert not re.search(r'TEST|experimental|preview|prototype|تجريب|معاينة|اختبار',
+                             item.get('text', '') + item.get('content-desc', ''), re.I), item.attrib
+    return tree
 
 
 def node(tree, resource):
@@ -49,15 +53,16 @@ def tap(tree, resource):
 
 
 def assert_home_states(tree):
-    assert node(tree, 'vehicle_summary').get('text') == 'السيارة ✓ طبيعية (تجريبي)'
+    assert node(tree, 'vehicle_summary').get('text') == 'حالة السيارة'
     assert node(tree, 'speed_value').get('text') == '—'
     assert 'غير متاحة' in node(tree, 'navigation_state').get('text', '')
-    assert node(tree, 'media_track').get('text') == 'يا طريق • مقطع تجريبي'
-    assert node(tree, 'media_state').get('text') == '01:24 / 04:10 • متوقف (تجريبي)'
-    assert node(tree, 'navigation_instruction').get('text') == 'بعد 800 م • انعطف يمينًا (تجريبي)'
-    assert node(tree, 'navigation_eta').get('text') == '12 د • 7.4 كم (تجريبي)'
-    assert node(tree, 'vehicle_state').get('text') == 'آخر قراءة تجريبية قديمة • لا تعرض كقراءة حية'
-    assert 'بيانات تجريبية' in node(tree, 'test_badge').get('text', '')
+    assert node(tree, 'media_track').get('text') == 'لا يوجد مقطع محدد'
+    assert node(tree, 'media_state').get('text') == 'متوقف'
+    assert node(tree, 'navigation_instruction').get('text') == 'لا يوجد مسار نشط'
+    assert node(tree, 'navigation_eta').get('text') == 'اختر وجهة لبدء الملاحة'
+    assert node(tree, 'vehicle_state').get('text') == 'بيانات السيارة غير متاحة'
+    assert node(tree, 'test_badge').get('text') == 'دربك OS'
+    assert not any(n.get('resource-id', '').endswith(':id/apps_preview') for n in tree.iter('node'))
     assert node(tree, 'nav_home').get('selected') == 'true'
 
 
@@ -86,7 +91,7 @@ try:
     result = subprocess.check_output(ADB + ['shell', 'am', 'instrument', '-w',
         PACKAGE + '.test/androidx.test.runner.AndroidJUnitRunner'], text=True, timeout=180)
     save('instrumentation.txt', result)
-    assert 'OK (4 tests)' in result and 'FAILURES' not in result, result
+    assert 'OK (5 tests)' in result and 'FAILURES' not in result, result
     adb('shell', 'am', 'force-stop', PACKAGE)
     launch = adb('shell', 'am', 'start', '-W', '-n', ACTIVITY)
     save('launch.txt', launch)
@@ -119,6 +124,14 @@ try:
         tap(tree, 'nav_' + section)
         tree = dump(section)
         assert any(n.get('resource-id', '').endswith(':id/section_title') for n in tree.iter('node'))
+        if section == 'apps':
+            for resource, label in (('apps_recent', 'الأخيرة'), ('apps_favorite', 'المفضلة'), ('apps_manage', 'إدارة التطبيقات')):
+                target = node(tree, resource)
+                assert target.get('text') == label and target.get('enabled') == 'false'
+                x1, y1, x2, y2 = map(int, re.findall(r'\d+', target.get('bounds')))
+                assert 0 <= x1 < x2 <= 1024 and 0 <= y1 < y2 <= 600 and y2-y1 >= 56
+        else:
+            assert not any(n.get('resource-id', '').endswith(':id/apps_preview') for n in tree.iter('node'))
         screenshot(section + '-1024x600')
     tap(tree, 'settings_button')
     tree = dump('settings')
@@ -141,10 +154,10 @@ try:
     assert 'ServiceRecord{' not in services, services
     assert PACKAGE not in sessions, sessions
     save('no-autoplay.json', json.dumps({
-        'result': 'PASS', 'home_stopped_test_preview_after_restart': True,
-        'position_unchanged_after_settle': True, 'app_service_records': 0,
+        'result': 'PASS', 'home_stopped_unavailable_media_after_restart': True,
+        'no_track_or_fabricated_position_after_settle': True, 'app_service_records': 0,
         'app_media_sessions': 0,
-        'scope': 'Static TEST shell without playback code; not a future playback-engine test'
+        'scope': 'Production-facing shell without playback code; not a future playback-engine test'
     }, indent=2))
     save('meminfo.txt', adb('shell', 'dumpsys', 'meminfo', PACKAGE))
     time.sleep(2)
@@ -159,7 +172,7 @@ try:
     save('summary.json', json.dumps({
         'result': 'PASS', 'commit': subprocess.check_output(['git', 'rev-parse', 'HEAD'], text=True).strip(),
         'api': 25, 'abi': adb('shell', 'getprop', 'ro.product.cpu.abi').strip(),
-        'resolution': '1024x600', 'density': 160, 'instrumented_tests': 4,
+        'resolution': '1024x600', 'density': 160, 'instrumented_tests': 5,
         'quick_action_round_trips': len(quick_results),
         'apk_bytes': apk.stat().st_size, 'apk_sha256': hashlib.sha256(apk.read_bytes()).hexdigest(),
         't3_validated': False

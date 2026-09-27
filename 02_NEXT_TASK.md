@@ -1,33 +1,23 @@
-# P2 verification gate — COMPLETE / STOP
-
-## Closure — 2026-09-27
-- PASS: Build/Lint, existing 4 API25/1024x600 tests, navigation/cold restart and Home screenshot inspection.
-- Tested code `682d895c9e08ac6a4d3c9eacce69853db41cd6b2`; run https://github.com/abo-sultann/DarbakOS/actions/runs/36308631278.
-- Main `17fe772` differs only in this task document; all application/build/test inputs match the tested code.
-- Home states are visibly distinct; no stale vehicle reading is shown live. No observed defect required an application change.
-- Evidence: `docs/test-evidence/p2-verification-20260927/`; details in TEST_RESULTS.
-- This bounded batch is finished. STOP. No following task or phase is started or assigned here.
-
-## Original verification scope (retained)
+# Next Task — P2 Home quick-actions verification gate
 
 ## Start point
-P1 is complete. The first P2 Home test-state increment is now implemented on main.
+Previous P2 state-label gate passed. A second bounded P2 increment is now on main: lightweight Home quick actions route to the existing Map, Media and Vehicle placeholder sections. No new service or integration was added.
 
 ## Goal
-Verify the existing P2 increment only. Do not expand scope.
+Verify this increment only; do not expand scope.
 
 ## Required verification
-- Build/lint on the proven API25 workflow.
-- Run the existing API25/1024x600 navigation/layout tests.
-- Inspect Home screenshot for clipping/overlap/card spacing.
-- Confirm the Home visibly distinguishes: speed unavailable, navigation unavailable, media idle, vehicle stale.
-- Confirm no stale vehicle value is presented as live.
-- If an observed defect is caused by this increment, fix only that defect and rerun affected checks.
-- Record exact run/commit/evidence in TEST_RESULTS.md and update CURRENT_STATUS/CHANGELOG.
-- Commit/push the completed checkpoint, then STOP. Do not begin another P2 increment or P3.
+- Build/Lint using the proven API25 workflow.
+- Run existing API25/1024x600 tests and smoke navigation.
+- Verify quick_map -> Map, quick_media -> Media, quick_vehicle -> Vehicle, and Back -> Home.
+- Inspect Home screenshot at 1024x600 for clipping, overlap, card spacing and touch-target fit after the added buttons.
+- Ensure existing unavailable/idle/stale labels remain visible and no stale vehicle value appears live.
+- If this increment causes a proven defect, fix only that defect and rerun affected checks.
+- Record evidence in TEST_RESULTS.md and update CURRENT_STATUS.md/CHANGELOG.md.
+- Commit + push the completed checkpoint, then STOP.
 
 ## Constraints
-No sensors, OsmAnd, Trip, playback, hardware/firmware/root/MCU/70mai, new services, heavy dependencies, or T3 testing.
+No OsmAnd, sensors, Trip, playback, Vehicle services, firmware/root/MCU/70mai, new dependencies, P3, or T3 testing.
 
 ## Finish definition
-The P2 test-state increment is build/test/screenshot verified and checkpointed in GitHub. If verification cannot run, document the exact blocker and leave it unaccepted.
+Quick actions and 1024x600 Home fit are verified and checkpointed. If verification cannot run, record the exact blocker and leave this increment unaccepted.

@@ -1,0 +1,33 @@
+{
+  "baseline_code": "27e0e79236522cd175b49f38317c9b7b533e8122",
+  "tested_code": "6bcc62319d8690ee1316655de61bf15106669192",
+  "apk_bytes": {
+    "before": 20925,
+    "after": 22607,
+    "delta": 1682
+  },
+  "pss_kb": {
+    "before": 8890,
+    "after": 9007,
+    "delta": 117
+  },
+  "launch_ms": {
+    "before": 368,
+    "after": 301,
+    "delta": -67
+  },
+  "views": {
+    "before": 49,
+    "after": 49
+  },
+  "activities": {
+    "before": 1,
+    "after": 1
+  },
+  "pixel_identical": [
+    "home-1024x600.png",
+    "apps-1024x600.png",
+    "cold-restart-home-1024x600.png"
+  ],
+  "limitations": "Separate single emulator snapshots; deltas do not establish causal CPU/memory/startup performance or T3 acceptance."
+}

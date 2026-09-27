@@ -2,6 +2,31 @@
 
 No Darbak OS release is Stable. See the per-stage evidence below.
 
+## 2026-09-27 — P3 Core State foundation: PASS / STOP
+
+- Tested `6bcc62319d8690ee1316655de61bf15106669192`, [run36344308617](https://github.com/abo-sultann/DarbakOS/actions/runs/36344308617), job108690318096. This gate added tests only; no application defect found or application fix needed.
+- Build/Lint PASS: 0 errors,17 existing warnings. API25/x86,1024x600/160dpi,1GB RAM/software GPU: **8/8 instrumentation PASS** in3.657s, comprising all5 prior UI tests and3 focused CoreState tests.
+- Core tests: coldBoot explicitly makes speed/navigation/vehicle UNAVAILABLE and mediaPlaying=false; singleton reads preserve snapshot identity, reset creates a new cold snapshot and leaves held immutable snapshots valid; fresh Activity resets core state, while recreation preserves the same snapshot and Home remains selected.
+- Existing **6/6 actual-tap quick-action returns PASS**, all sections/Apps/RTL/Back/Home/recreation/fit preserved. Cold process restart lands on Home with honest unavailable/no-route/no-track/stopped states; settled state remains unchanged, app services0/media sessions0.
+- Home/Apps screenshots visually reviewed and pixel-identical to P2 baseline27e0e79; cold-restart Home also pixel-identical. No clipping/overlap, temporary wording, fabricated values or autoplay.
+- Source/manifest/build review and guards: no new permission, Android Service, receiver, runtime dependency or native library; APK contains no .so. Core uses immutable Java fields and synchronized in-memory snapshot/reset only, with no thread/timer/task, disk, network or playback work. P2 UI remains static and is not yet bound to a live source; this verifies only the requested internal foundation.
+
+| Observation | P2 baseline27e0e79 | Core6bcc623 | Delta |
+|---|---:|---:|---:|
+| APK bytes | 20,925 | 22,607 | +1,682 (+8.04%) |
+| Process PSS KB | 8,890 | 9,007 | +117 (+1.32%) |
+| Launch TotalTime ms | 368 | 301 | -67 |
+| Views / Activities | 49 / 1 | 49 / 1 | 0 / 0 |
+| Crash / app ANR observed | 0 / 0 | 0 / 0 | none |
+
+Separate single emulator observations, not controlled benchmarks: do not attribute PSS/startup variation solely to Core State. CPU performance is not established; raw CPU/gfx diagnostics retained, no 0% CPU claim or physical T3/ARMv7 extrapolation.
+
+- Downloaded APK SHA256 verified: `276558073babaa7c20122c2cea4398318a8d72635b64f499d986fce6586a91d8`.
+- Durable [evidence](docs/test-evidence/p3-core-state-20260927/): comparison JSON, Home/Apps/restart PNG, UI XML,8-test/6-flow outputs, no-autoplay/services/sessions/audio, lint, summary and raw resource/crash observations. Full artifact10939119217 expires2026-10-11.
+- Existing REFERENCES/platform and test-harness choices reused; no component built from scratch in this verification gate. Local source guard, Python syntax, whitespace and exact unchanged resource/manifest/dependency diffs PASS.
+
+**Disposition: Core State foundation complete; checkpoint and STOP. No Guardian, logging/reporting or other P3 work. No Stable/T3 acceptance.**
+
 ## 2026-09-27 — P2 final-product UI verification: PASS / STOP
 
 - Owner instruction: current Darbak OS interface is the final-product UI, not a disposable prototype. Unconnected sources display truthful unavailable/stopped states. This supersedes earlier user-facing TEST-copy requirements; historical test records below remain historical.

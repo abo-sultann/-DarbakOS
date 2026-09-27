@@ -1,0 +1,9 @@
+
+com.abosultan.darbakos.CoreStateTest:...
+com.abosultan.darbakos.ShellTest:.....
+
+Time: 3.657
+
+OK (8 tests)
+
+

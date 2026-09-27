@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-09-27 — P3 Core State verification closed / STOP
+- Added3 focused API25 tests for truthful coldBoot, singleton snapshot/reset retention and fresh Activity versus recreation semantics; retained all5 UI tests.
+- Code6bcc623 passed Build/Lint,8 tests,6 quick-action returns and Cold Restart/no-autoplay. No application defect/fix needed.
+- Home/Apps/restart images pixel-identical to P2. Recorded APK +1,682 bytes, PSS +117KB and launch snapshots with benchmark limitations; no crash/ANR.
+- Saved evidence and updated state/results/gate. No Guardian, logging or further P3 work.
+
 ## 2026-09-27 — Final-product UI verification closed / STOP
 - Accepted current Darbak UI as final-product interface with truthful disconnected states; historical TEST-copy expectations superseded.
 - Corrected enabled Apps actions without backends: disabled/dimmed them while preserving intended labels/RTL layout.

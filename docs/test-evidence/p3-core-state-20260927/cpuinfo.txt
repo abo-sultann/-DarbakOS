@@ -1,0 +1,23 @@
+Load: 0.0 / 0.0 / 0.0
+CPU usage from 42790ms to 40210ms ago (2026-09-27 19:27:19.442 to 2026-09-27 19:27:22.022):
+  40% 1513/system_server: 27% user + 12% kernel / faults: 72696 minor 578 major
+  10% 1329/netd: 3.1% user + 6.9% kernel / faults: 1556 minor
+  4.2% 1324/media.codec: 3.1% user + 1.1% kernel / faults: 10734 minor 35 major
+  2.3% 1322/installd: 1.1% user + 1.1% kernel / faults: 287 minor
+  1.9% 1238/kworker/1:1H: 0% user + 1.9% kernel
+  1.1% 1251/logd: 0.7% user + 0.3% kernel / faults: 55 minor
+  0.7% 1301/surfaceflinger: 0% user + 0.7% kernel / faults: 64 minor
+  0.7% 1315/logcat: 0.7% user + 0% kernel / faults: 1 minor
+  0.3% 1242/kworker/0:1H: 0% user + 0.3% kernel
+  0.3% 1249/jbd2/vdc-8: 0% user + 0.3% kernel
+  0.3% 1260/vold: 0.3% user + 0% kernel / faults: 127 minor
+  0.3% 1300/servicemanager: 0% user + 0.3% kernel / faults: 4 minor
+  0.3% 1319/audioserver: 0% user + 0.3% kernel / faults: 41 minor
+  0.3% 1328/mediaserver: 0% user + 0.3% kernel / faults: 140 minor
+  0.3% 1504/hostapd: 0% user + 0.3% kernel
+ +0% 1719/com.android.inputmethod.latin: 0% user + 0% kernel
+ +0% 1725/sdcard: 0% user + 0% kernel
+ +0% 1758/com.android.systemui: 0% user + 0% kernel
+ +0% 1841/com.android.phone: 0% user + 0% kernel
+ +0% 1860/com.android.settings:CryptKeeper: 0% user + 0% kernel
+60% TOTAL: 23% user + 30% kernel + 6.5% iowait + 0.2% softirq

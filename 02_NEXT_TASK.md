@@ -1,6 +1,11 @@
-# Next Task — P3 Core State foundation verification
+# P3 Core State foundation verification — COMPLETE / STOP
 
-## Start point
+## Closure — 2026-09-27
+Code6bcc623 passed run36344308617: Build/Lint,8/8 API25 tests (all5 UI +3 Core),6/6 quick-action returns and Cold Restart/no-autoplay. Core coldBoot/reset/snapshot/recreation semantics verified. Home/Apps/restart images match P2 pixel-for-pixel. Resource deltas and crash observations recorded in TEST_RESULTS.md; no app fix needed.
+
+STOP. No Guardian, logging/reporting, another P3 component or additional batch.
+
+## Original start point
 P2 final-product UI is closed and verified. P3 begins with the smallest internal foundation: DarbakState + CoreStateStore. Cold boot initializes truthful unavailable/stopped state. This adds no Android Service, disk logging, sensor, network, playback, Guardian recovery or backend.
 
 ## Goal

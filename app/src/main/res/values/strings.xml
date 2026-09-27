@@ -31,6 +31,6 @@
     <string name="home_quick_map">فتح الخريطة</string>
     <string name="home_quick_media">الوسائط</string>
     <string name="home_quick_vehicle">حالة السيارة</string>
-    <string name="home_normal">السيارة ✓ طبيعية</string>
+    <string name="home_normal">السيارة ✓ طبيعية (تجريبي)</string>
     <string name="home_no_alerts">لا توجد تنبيهات مهمة</string>
 </resources>

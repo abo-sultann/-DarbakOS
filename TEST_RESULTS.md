@@ -2,6 +2,13 @@
 
 No Darbak OS release is Stable. See the per-stage evidence below.
 
+## 2026-09-27 — Quiet Home verification: defect confirmed / recheck pending
+
+- Existing run36324136031 at d75e683 passed Build/Lint but failed 1/4 instrumentation tests: vehicle title clipped (Rect360,330–652,363) after adding the summary. Smoke stopped before screenshot/navigation; no pass claimed.
+- Minimal correction: replace the redundant vehicle title plus summary with one summary line; explicitly qualify normal as `(تجريبي)` on that line, retaining the global TEST badge and full stale-source warning. No new component/dependency.
+- Reuse existing platform TextView/layout and recorded REFERENCES decisions. Extend existing Home assertions to require the qualified summary on launch and all six quick-action returns.
+- Full Build/Lint/API25/1024x600 rerun and visual review pending. Same verification batch only; STOP after checkpoint.
+
 ## 2026-09-27 — P2 Home quick-actions verification: PASS / STOP
 
 Tested `cf062d6dfcee442755751e096acf6623fe29c8f8` in [run 36323597028](https://github.com/abo-sultann/DarbakOS/actions/runs/36323597028), job108632008811.

@@ -59,8 +59,8 @@
                     <LinearLayout style="@style/Card" android:layout_width="0dp"
                         android:layout_height="match_parent" android:layout_weight="1"
                         android:layout_marginStart="@dimen/space_small" android:gravity="center_vertical">
-                        <TextView style="@style/Title" android:text="@string/vehicle" android:textSize="24sp" />
-                        <TextView style="@style/Body" android:layout_marginTop="6dp" android:text="@string/home_normal" android:textColor="@color/text_primary" />
+                        <TextView android:id="@+id/vehicle_summary" style="@style/Body"
+                            android:text="@string/home_normal" android:textColor="@color/text_primary" />
                         <TextView style="@style/Body" android:layout_marginTop="8dp" android:id="@+id/vehicle_state" android:text="@string/vehicle_stale" android:textColor="@color/gold" />
                         <Button android:id="@+id/quick_vehicle" style="@style/Action" android:layout_width="match_parent"
                             android:layout_marginTop="8dp" android:text="@string/home_quick_vehicle" />

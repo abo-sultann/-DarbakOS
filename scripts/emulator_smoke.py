@@ -49,6 +49,7 @@ def tap(tree, resource):
 
 
 def assert_home_states(tree):
+    assert node(tree, 'vehicle_summary').get('text') == 'السيارة ✓ طبيعية (تجريبي)'
     assert node(tree, 'speed_value').get('text') == '—'
     assert 'غير متاحة' in node(tree, 'navigation_state').get('text', '')
     assert 'خامل' in node(tree, 'media_state').get('text', '')

@@ -1,4 +1,14 @@
-# Next Task — P2 verification gate
+# P2 verification gate — COMPLETE / STOP
+
+## Closure — 2026-09-27
+- PASS: Build/Lint, existing 4 API25/1024x600 tests, navigation/cold restart and Home screenshot inspection.
+- Tested code `682d895c9e08ac6a4d3c9eacce69853db41cd6b2`; run https://github.com/abo-sultann/DarbakOS/actions/runs/36308631278.
+- Main `17fe772` differs only in this task document; all application/build/test inputs match the tested code.
+- Home states are visibly distinct; no stale vehicle reading is shown live. No observed defect required an application change.
+- Evidence: `docs/test-evidence/p2-verification-20260927/`; details in TEST_RESULTS.
+- This bounded batch is finished. STOP. No following task or phase is started or assigned here.
+
+## Original verification scope (retained)
 
 ## Start point
 P1 is complete. The first P2 Home test-state increment is now implemented on main.

@@ -2,6 +2,41 @@
 
 No Darbak OS release is Stable. See the per-stage evidence below.
 
+## 2026-09-27 — P2 verification-only gate: PASS / STOP
+
+Verified existing implementation `682d895c9e08ac6a4d3c9eacce69853db41cd6b2` using
+[successful run 36308631278](https://github.com/abo-sultann/DarbakOS/actions/runs/36308631278), job `108590098596`.
+At review, main was `17fe772379ac00e2848e5e71487eee36d21af72c`. Its only difference from the tested commit is
+`02_NEXT_TASK.md`: `git diff --exit-code 682d895 HEAD -- app scripts .github gradle gradlew gradlew.bat build.gradle settings.gradle gradle.properties` passed.
+The completed CI run was inspected, not rerun unnecessarily; downloaded evidence was checked against its exact code/hash.
+
+| Required check | Verified result |
+|---|---|
+| Build/Lint | Successful workflow build of app/test APKs; lint XML: 0 errors, 14 warnings |
+| Runtime | API25/default/x86, 1024x600, 160dpi; existing workflow's 1GB RAM/software GPU configuration |
+| Existing instrumentation | 4/4 passed in 2.706s; launch/RTL, destinations/Back, recreation/Home, measured fit and 16dp gap |
+| Navigation/cold restart | Existing UI-driven smoke passed, with crash/ANR checks |
+| Home screenshot | Inspected actual emulator PNG: no clipped text, overlap or lost card spacing; vehicle text fits on two lines |
+| Speed | Visible dash and disconnected test-source label; accessibility says speed unavailable |
+| Navigation | Visible `الملاحة • غير متاحة` |
+| Media | Visible `لا يوجد تشغيل • خامل` |
+| Vehicle stale | Visible `آخر قراءة تجريبية قديمة • لا تعرض كقراءة حية`; no numeric vehicle reading shown as live |
+| Test provenance | Global test-data badge visible; state text corroborated against captured Home UI XML |
+| Crash/ANR | Empty crash buffer; smoke found no app ANR during the run |
+| APK/hash | 18,793 bytes; SHA256 `f325038a164061b0b2e7c749108be8fcec7718d8a75d8533ba8a135df4730c8f` verified locally |
+| Observations | Launch TotalTime408ms/WaitTime415ms; PSS8,610KB (8.41MiB), single emulator snapshots only |
+| Changes needed | None to application/build/tests: no defect proven in this increment |
+
+Lint warnings: 4 pinned test-library version suggestions, fixed landscape, 2 baseline-alignment suggestions,
+nested weights, background overdraw, and 5 unused resources (including the 3 new generic state strings).
+These do not block the requested gate; no cleanup or feature work was added. CPU performance and real T3/ARMv7/TestStation behavior are not established.
+
+Durable evidence: [p2-verification-20260927](docs/test-evidence/p2-verification-20260927/), including Home PNG/XML,
+explicit verification checks, instrumentation result, APK summary, launch/memory and empty crash output.
+Full artifact: `10927543936`, named `DarbakOS-P1-TEST-682d895c9e08ac6a4d3c9eacce69853db41cd6b2` (existing workflow name retained), expires 2026-10-11.
+Local source guard and documentation whitespace checks passed. No hardware/system work, next P2 increment or P3 was started.
+**Disposition: checkpoint this verification result, then STOP. Not a Stable/T3 acceptance.**
+
 ## 2026-09-27 — P1 final acceptance at initial emulator stage
 
 **PASS. Code:** `72fde4a84d57e52830cd509f2556ac867e2777e5`.

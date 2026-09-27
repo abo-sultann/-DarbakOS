@@ -1,0 +1,17 @@
+{
+  "result": "PASS",
+  "run_id": 36308631278,
+  "tested_commit": "682d895c9e08ac6a4d3c9eacce69853db41cd6b2",
+  "verified_main": "17fe772379ac00e2848e5e71487eee36d21af72c",
+  "source_equivalence": "git diff --exit-code 682d895 HEAD -- app scripts .github gradle gradlew gradlew.bat build.gradle settings.gradle gradle.properties passed; only 02_NEXT_TASK.md differs",
+  "home_ui_checks": {
+    "speed_unavailable": true,
+    "navigation_unavailable": true,
+    "media_idle": true,
+    "vehicle_stale_not_live": true,
+    "test_label_visible": true
+  },
+  "visual_review": "Home screenshot manually inspected: no clipping/overlap; card spacing preserved; stale label fully visible over two lines; no live vehicle number shown",
+  "application_changes": false,
+  "scope": "verification only; stop after checkpoint"
+}

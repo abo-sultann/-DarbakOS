@@ -1,29 +1,23 @@
-# P2 production-facing shell verification — COMPLETE / STOP
+# Next Task — P3 Core State foundation verification
 
-## Closure — 2026-09-27
-Code27e0e79 passed run36343420707: Build/Lint,5/5 API25 instrumentation,6/6 quick-action returns and Cold Restart/no-autoplay. Home/Apps screenshots and RTL/fit reviewed. Temporary wording/fabricated live values are absent. Corrected enabled-but-unconnected Apps actions to visibly disabled; no backend added. Updated old wording tests without removing behavioral checks. Evidence recorded in TEST_RESULTS.md.
-
-STOP. No new assignment, P3, backend or additional batch.
-
-## Original start point
-P2 is now treated as the real Darbak OS UI, not a disposable prototype. Main removes user-facing TEST/preview/fake-data wording from Home and Apps. Sources that are not yet connected show honest final states such as unavailable, stopped, or no active route. The Apps section contains the intended Recent, Favorites and App Management actions, but their backend behavior is not implemented yet.
+## Start point
+P2 final-product UI is closed and verified. P3 begins with the smallest internal foundation: DarbakState + CoreStateStore. Cold boot initializes truthful unavailable/stopped state. This adds no Android Service, disk logging, sensor, network, playback, Guardian recovery or backend.
 
 ## Goal
-Verify the production-facing P2 shell and Apps presentation without expanding backend scope.
+Verify the core-state owner is API25-safe, lightweight and does not regress the final P2 UI.
 
 ## Required verification
 - Build/Lint and all existing API25/1024x600 tests.
-- Inspect Home and Apps screenshots at 1024x600 for clipping/overlap, RTL readability and touch-target fit.
-- Confirm no user-facing wording says TEST, experimental, preview, or presents fabricated live values.
-- Confirm disconnected features use honest final-state copy: speed unavailable, no active navigation route, media stopped/no selected track, vehicle data unavailable.
-- Confirm Apps actions appear only in Apps and labels are Recent, Favorites, App Management.
-- Regress quick actions, Back/Home, Cold Restart and no-autoplay behavior.
-- Update tests that legitimately encoded the old temporary wording; do not weaken behavioral assertions.
-- Fix only proven defects from this conversion, rerun affected checks, record evidence, update CURRENT_STATUS.md / TEST_RESULTS.md / CHANGELOG.md.
+- Add focused tests for DarbakState.coldBoot and CoreStateStore reset/snapshot semantics without weakening existing UI assertions.
+- Cold Restart must still land on Home with speed/navigation/vehicle unavailable and media stopped; no fabricated live state.
+- Confirm no new Android Service/permission/runtime dependency/native library/background execution was introduced.
+- Regress Home, Apps, RTL, quick actions, Back/Home and no-autoplay.
+- Record resource/APK delta and crash/ANR observations.
+- Fix only defects proven by this P3 increment; update CURRENT_STATUS.md, TEST_RESULTS.md and CHANGELOG.md.
 - Commit + push, then STOP.
 
 ## Constraints
-Do not implement PackageManager discovery/install/uninstall, OsmAnd/GPS/Trip, playback, Vehicle sources, services, new dependencies, P3, firmware/root/MCU/70mai or T3 work in this gate.
+Do not add Guardian recovery, file logging/report export, services, sensors, OsmAnd/GPS/Trip, playback, Vehicle sources, PackageManager backend, new dependencies, firmware/root/MCU/70mai or T3 work in this gate.
 
 ## Finish definition
-The P2 shell reads as a final-product Darbak UI while unavailable backends remain truthful, passes API25/1024x600 regression and visual checks, and is checkpointed in GitHub.
+P3 Core State foundation is verified on API25/1024x600 with P2 UI unchanged and truthful cold-boot semantics, checkpointed in GitHub. No Stable/T3 acceptance is implied.

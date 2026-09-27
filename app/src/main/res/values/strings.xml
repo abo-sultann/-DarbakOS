@@ -28,4 +28,7 @@
     <string name="settings_detail">واجهة عربية • عرض أفقي • مظهر دربك الداكن</string>
     <string name="placeholder_note">معاينة تجريبية</string>
     <string name="back_home">العودة للرئيسية</string>
+    <string name="home_quick_map">فتح الخريطة</string>
+    <string name="home_quick_media">الوسائط</string>
+    <string name="home_quick_vehicle">حالة السيارة</string>
 </resources>

@@ -80,8 +80,14 @@
             <TextView android:id="@+id/section_title" style="@style/Title" android:gravity="center" />
             <TextView android:id="@+id/section_detail" style="@style/Body" android:gravity="center"
                 android:layout_marginTop="16dp" />
-            <TextView style="@style/Body" android:text="@string/placeholder_note" android:gravity="center"
+            <TextView android:id="@+id/section_note" style="@style/Body" android:text="@string/placeholder_note" android:gravity="center"
                 android:textColor="@color/gold" android:layout_marginTop="16dp" />
+            <LinearLayout android:id="@+id/apps_preview" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="horizontal" android:gravity="center" android:layout_marginTop="16dp" android:visibility="gone">
+                <Button style="@style/Action" android:layout_width="0dp" android:layout_weight="1" android:text="@string/apps_recent_test" />
+                <Button style="@style/Action" android:layout_width="0dp" android:layout_weight="1" android:layout_marginStart="@dimen/space_small" android:text="@string/apps_favorite_test" />
+                <Button style="@style/Action" android:layout_width="0dp" android:layout_weight="1" android:layout_marginStart="@dimen/space_small" android:text="@string/apps_manage_test" />
+            </LinearLayout>
             <Button android:id="@+id/back_home" style="@style/Action" android:layout_width="wrap_content"
                 android:layout_marginTop="24dp" android:text="@string/back_home" />
         </LinearLayout>

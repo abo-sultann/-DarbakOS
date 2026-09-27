@@ -30,6 +30,9 @@ public final class MainActivity extends Activity {
             findViewById(BUTTONS[i]).setOnClickListener(v -> showSection(destination));
         }
         findViewById(R.id.back_home).setOnClickListener(v -> showSection(0));
+        findViewById(R.id.quick_map).setOnClickListener(v -> showSection(1));
+        findViewById(R.id.quick_media).setOnClickListener(v -> showSection(2));
+        findViewById(R.id.quick_vehicle).setOnClickListener(v -> showSection(3));
         // Recreate restores only the visible shell; a fresh process launch starts at Home.
         showSection(state == null ? 0 : state.getInt(STATE_SECTION, 0));
         enterFullscreen();

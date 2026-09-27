@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-09-27 — Final-product UI verification closed / STOP
+- Accepted current Darbak UI as final-product interface with truthful disconnected states; historical TEST-copy expectations superseded.
+- Corrected enabled Apps actions without backends: disabled/dimmed them while preserving intended labels/RTL layout.
+- Updated exact state tests and rejected temporary visible/accessibility wording; added Apps fit/RTL/unavailability test without dropping prior behavior checks.
+- Code27e0e79 passed Build/Lint,5 API25 tests,6 quick-action returns and Cold Restart/no-autoplay; Home/Apps images reviewed.
+- Saved evidence and updated state/results/gate; no P3/backend/next batch.
+
 ## 2026-09-27 — Stopped Media verification closed / STOP
 - Corrected outdated idle-text smoke expectation for stopped TEST preview; application unchanged.
 - Added exact media/navigation-test regressions and Cold Restart/settled Home checks with no app service/MediaSession assertions and raw diagnostics.

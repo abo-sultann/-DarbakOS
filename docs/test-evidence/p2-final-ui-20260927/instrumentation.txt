@@ -1,0 +1,8 @@
+
+com.abosultan.darbakos.ShellTest:.....
+
+Time: 3.214
+
+OK (5 tests)
+
+

@@ -2,6 +2,23 @@
 
 No Darbak OS release is Stable. See the per-stage evidence below.
 
+## 2026-09-27 — P2 final-product UI verification: PASS / STOP
+
+- Owner instruction: current Darbak OS interface is the final-product UI, not a disposable prototype. Unconnected sources display truthful unavailable/stopped states. This supersedes earlier user-facing TEST-copy requirements; historical test records below remain historical.
+- Tested `27e0e79236522cd175b49f38317c9b7b533e8122` in [run36343420707](https://github.com/abo-sultann/DarbakOS/actions/runs/36343420707), job108687799511.
+- Proven defect in conversion: three Apps buttons were enabled despite having no listeners/backend. Disabled and visually dimmed those actions, retaining intended labels/layout and existing unavailable message. No backend added.
+- Updated obsolete source/instrumentation/smoke TEST-copy requirements to exact final-state assertions. Added rejection of temporary wording in all string values and every captured visible text/accessibility description. Behavioral navigation, Back/Home, fit, RTL, cold restart and no-autoplay assertions retained.
+- Build/Lint PASS: 0 errors,17 warnings. API25/x86,1024x600/160dpi,1GB RAM/software GPU: **5/5 instrumentation PASS** in3.214s (4 existing plus Apps fit/RTL/unavailable actions).
+- **6/6 actual-tap quick-action returns PASS**. All sections/Settings visited. Apps actions appear in Apps only, labels `الأخيرة` / `المفضلة` / `إدارة التطبيقات`, each disabled and at least56px high. New instrumentation validates right-to-left order, full text/view fit and Return Home hiding Apps actions.
+- Visual review: actual Home and Apps screenshots have no clipping/overlap, Arabic/RTL readable. Home shows unavailable speed, no active route with navigation unavailable, no selected media/stopped, and vehicle data unavailable. No fake turn/distance/time/track/position/normal-vehicle readings. No TEST/experimental/preview wording in UI or captured accessibility text.
+- Cold Restart returns to Home; immediate/settled states remain unavailable/stopped. App services0 and MediaSessions0. No playback implementation or background behavior introduced. Crash buffer empty; no app ANR detected.
+- APK20,925 bytes; downloaded SHA256 verified: `60e793776f91ae2e29334e8c1ddd74a48258fd8b00aeebf7d6e8767b770b0cab`.
+- Durable [evidence](docs/test-evidence/p2-final-ui-20260927/): Home/Apps/restart PNG, all UI XML,5-test/6-flow results, no-autoplay/services/sessions/audio, summary, lint and runtime observations. Full artifact10939787622 expires2026-10-11.
+- Local source guard, Python syntax and whitespace PASS. Reused existing Android Views/disabled-button capability and recorded REFERENCES/test harness; no new dependencies/services/backend.
+- Final-product UI acceptance here is emulator-stage only; physical T3/ARMv7 and Stable release acceptance remain outstanding. Internal resource IDs/package/artifact names retaining test history are not user-visible labels.
+
+**Disposition: complete, commit/push and STOP. No P3 or additional backend/batch.**
+
 ## 2026-09-27 — P2 stopped Media verification: PASS / STOP
 
 - Tested `abc0b3dd756e39498d23df1597b0f0dd7ac8db04`, [run36342407385](https://github.com/abo-sultann/DarbakOS/actions/runs/36342407385), job108684931636. Application remains7ce4930; only smoke expectations/verification and documentation changed.

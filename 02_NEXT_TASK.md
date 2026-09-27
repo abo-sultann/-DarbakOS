@@ -1,6 +1,11 @@
-# Next Task — P2 production-facing shell verification
+# P2 production-facing shell verification — COMPLETE / STOP
 
-## Start point
+## Closure — 2026-09-27
+Code27e0e79 passed run36343420707: Build/Lint,5/5 API25 instrumentation,6/6 quick-action returns and Cold Restart/no-autoplay. Home/Apps screenshots and RTL/fit reviewed. Temporary wording/fabricated live values are absent. Corrected enabled-but-unconnected Apps actions to visibly disabled; no backend added. Updated old wording tests without removing behavioral checks. Evidence recorded in TEST_RESULTS.md.
+
+STOP. No new assignment, P3, backend or additional batch.
+
+## Original start point
 P2 is now treated as the real Darbak OS UI, not a disposable prototype. Main removes user-facing TEST/preview/fake-data wording from Home and Apps. Sources that are not yet connected show honest final states such as unavailable, stopped, or no active route. The Apps section contains the intended Recent, Favorites and App Management actions, but their backend behavior is not implemented yet.
 
 ## Goal

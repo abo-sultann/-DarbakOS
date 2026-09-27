@@ -6,4 +6,4 @@ local.properties
 *.jks
 *.keystore
 __pycache__/
-test-evidence/
+/test-evidence/

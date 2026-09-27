@@ -1,23 +1,32 @@
-# Next Task — finish P1 verification
+# Next Task — P2 Home test states (one small batch)
+
+## Start point
+P1 passed initial API25 emulator validation at `72fde4a`; see `TEST_RESULTS.md`.
+Use the existing platform-View shell and design tokens. Do not recreate the project or reopen the master plan.
 
 ## Goal
-Inspect the **P1 Android baseline** GitHub Actions run for the P1 implementation commit. Finish the same P1 batch: build/lint, API25 emulator tests, screenshots and observations. Do not start P2 while this gate is pending.
+Complete one bounded part of the approved P2 phase: reusable Home card presentation for clearly labeled test states.
+Keep the existing navigation and Arabic 1024x600 layout.
 
 ## Required output
-- Build debug/instrumentation APKs and pass lint.
-- Pass four Android instrumentation tests on API25/x86 at 1024x600/160dpi.
-- Pass navigation/cold-restart smoke and visually inspect generated screenshots.
-- Record APK size/hash, launch/RAM/CPU observations, crash/ANR status and run URL.
-- Fix only observed failures, rerun affected checks, and push the checkpoint.
-
-## Environment constraint
-Current Work has JDK17 but no SDK/adb/emulator/KVM. SDK download timed out at proxy; Gradle download returned Network is unreachable. Use the checked-in GitHub Actions workflow. If Actions cannot run, preserve the precise blocker and keep P1 unaccepted. Reproduce with `docs/P1_BUILD_AND_TEST.md`.
+- Extend the existing Home card primitives to render a small explicit test fixture set: unavailable/idle and stale data.
+- Keep speed unavailable unless visibly marked as simulated; stale values must never appear live.
+- Preserve test labeling, physical left speed position, RTL navigation, large touch targets and owner's Launcher palette.
+- Review REFERENCES and relevant existing owner/upstream components before adding anything; record any reuse.
+- Add/extend only tests needed for the changed states and their navigation/layout behavior.
+- Build/lint and run affected API25/1024x600 tests; inspect changed screens and record observations.
 
 ## Constraints
-Do not add OsmAnd, vehicle hardware, firmware, root, MCU, 70mai or production Trip integration in this batch.
-Do not use modern dependencies that force minSdk >25.
-Avoid heavy UI frameworks/dependencies unless measured and justified.
-Reuse suitable reference code/concepts only after recording them in REFERENCES.md.
+No real sensors, OsmAnd, Trip, media playback, hardware/firmware/root/MCU/70mai integration, new services or heavy UI dependencies.
+Do not enter P3 Core/Guardian in this batch. Do not use the real T3 as the first test device.
 
 ## Finish definition
-Build succeeds, shell launches in the initial test environment, results are written to TEST_RESULTS.md, changes are committed/pushed, CURRENT_STATUS and NEXT_TASK are updated before starting another phase.
+One test-state/card increment is implemented, tested and visually checked. Commit/push it, then update
+`01_CURRENT_STATUS.md`, this next single task, `CHANGELOG.md` and `TEST_RESULTS.md` before doing more.
+
+## Build environment note
+Current Work has no Android SDK/emulator and build downloads are unavailable locally. The checked-in
+GitHub Actions workflow provisions tools explicitly and has a proven successful API25 run.
+Use `docs/P1_BUILD_AND_TEST.md`; inspect the run and artifact for the exact new commit.
+If direct git push lacks credentials, use the authorized GitHub connector for an atomic non-force commit/ref update,
+then synchronize the local checkout. Never mark tests passed before reading their actual evidence.

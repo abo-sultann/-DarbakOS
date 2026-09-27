@@ -19,3 +19,4 @@ GitHub is the durable source of truth so work can continue across ChatGPT/Work q
 ## P1 test shell
 Build/emulator steps: [docs/P1_BUILD_AND_TEST.md](docs/P1_BUILD_AND_TEST.md).
 Use `01_CURRENT_STATUS.md` and `TEST_RESULTS.md` for the actual validation state.
+Verified P1 Home: [API25 emulator screenshot](docs/test-evidence/p1-20260927/home-1024x600.png).

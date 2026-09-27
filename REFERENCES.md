@@ -64,3 +64,5 @@ Reviewed before implementing the shell; no map/hardware integration is in this b
 No API33-only Femto stack, firmware references, or external launcher modules are needed for P1. APK size and runtime observations must be measured, not inferred from the reference projects.
 
 P1 CI correction: use [android-actions/setup-android v3](https://github.com/android-actions/setup-android/tree/v3) (MIT, build-time action only) to provision command-line tools after the first runner proved sdkmanager was absent. No app dependency added.
+
+P1 measured result at `72fde4a`: runtime APK 18,221 bytes with no native libraries; 8,636KB PSS in API25/x86 emulator; build, 4 tests, RTL fit and navigation passed. CPU unavailable; ARMv7/T3/TestStation remain untested. See TEST_RESULTS for limitations. No Dashline code was copied.

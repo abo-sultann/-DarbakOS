@@ -1,0 +1,16 @@
+Load: 0.0 / 0.0 / 0.0
+CPU usage from 23430ms to 21070ms ago (2026-09-27 08:42:52.701 to 2026-09-27 08:42:55.061):
+  51% 1497/system_server: 41% user + 9.7% kernel / faults: 70447 minor 569 major
+  10% 1318/netd: 0.8% user + 9.7% kernel / faults: 1393 minor
+  4.6% 1312/installd: 1.6% user + 2.9% kernel / faults: 293 minor
+  2.1% 1237/kworker/1:1H: 0% user + 2.1% kernel
+  1.2% 1250/logd: 0.4% user + 0.8% kernel / faults: 47 minor
+  1.2% 1305/logcat: 0.8% user + 0.4% kernel / faults: 1 minor
+  0.8% 1241/kworker/0:1H: 0% user + 0.8% kernel
+  0.8% 1259/vold: 0.4% user + 0.4% kernel / faults: 81 minor
+  0.8% 1298/servicemanager: 0.4% user + 0.4% kernel / faults: 4 minor
+  0.4% 1248/jbd2/vdc-8: 0% user + 0.4% kernel
+  0.4% 1299/surfaceflinger: 0% user + 0.4% kernel / faults: 57 minor
+  0.4% 1309/audioserver: 0.4% user + 0% kernel / faults: 41 minor
+  0.4% 1474/hostapd: 0% user + 0.4% kernel
+55% TOTAL: 29% user + 17% kernel + 9.2% iowait + 0.2% softirq

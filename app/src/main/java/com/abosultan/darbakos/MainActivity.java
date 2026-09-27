@@ -43,6 +43,7 @@ public final class MainActivity extends Activity {
         boolean home = section == 0;
         findViewById(R.id.home_panel).setVisibility(home ? View.VISIBLE : View.GONE);
         findViewById(R.id.section_panel).setVisibility(home ? View.GONE : View.VISIBLE);
+        findViewById(R.id.apps_preview).setVisibility(section == 4 ? View.VISIBLE : View.GONE);
         ((TextView) findViewById(R.id.section_title)).setText(TITLES[section]);
         ((TextView) findViewById(R.id.section_detail)).setText(DETAILS[section]);
         for (int i = 0; i < BUTTONS.length; i++) {

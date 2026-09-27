@@ -2,7 +2,31 @@
 
 No Darbak OS release is Stable. See the per-stage evidence below.
 
-## 2026-09-27 — Home quick-actions verification (in progress)
+## 2026-09-27 — P2 Home quick-actions verification: PASS / STOP
+
+Tested `cf062d6dfcee442755751e096acf6623fe29c8f8` in [run 36323597028](https://github.com/abo-sultann/DarbakOS/actions/runs/36323597028), job108632008811.
+This batch adds targeted tests to the existing smoke script only. Application code remains the implementation from `b87ba33`; no app defect was found.
+
+- **Build/Lint:** passed; 0 lint errors / 14 existing warnings (same categories as the preceding gate).
+- **Existing instrumentation:** 4/4 passed in2.824s on API25/x86, 1024x600/160dpi, 1GB emulator RAM/software GPU. Includes RTL/fit/16dp gap, navigation, recreation and Home behavior.
+- **New actual-touch verification:** each quick action tapped using UIAutomator bounds, exact section title/selected tab asserted, then Android Back and Return Home tested separately. **6/6 round trips passed**; Home unavailable/idle/stale labels and selected Home tab rechecked after every return.
+
+| Button | Destination | Measured target | Android Back | Return Home |
+|---|---|---|---|---|
+| quick_map | الخريطة | 280x56px | PASS | PASS |
+| quick_media | الوسائط | 292x56px | PASS | PASS |
+| quick_vehicle | السيارة | 292x56px | PASS | PASS |
+
+- **Screenshot:** final Home1024x600 inspected against the reviewed pre-test Home; pixel-identical. No clipping/overlap, spacing retained, all targets inside screen and at least56px high. Vehicle stale label is fully visible across two lines; no numeric stale reading is displayed live.
+- **Regression smoke:** existing nav sections, Settings and cold restart still passed. Crash buffer empty; no app ANR detected during run.
+- **APK:**19,557 bytes; downloaded SHA256 verified: `a3d330a43e291e3daa9fc2d904e4fb59a0b9c2547045967040d8535c8d5b3a14`.
+- **Observations:** launch TotalTime399ms/WaitTime408ms; PSS8,776KB (~8.57MiB). Single emulator observations; no real-device or CPU-performance claim.
+- **Evidence:** [p2-quick-actions-20260927](docs/test-evidence/p2-quick-actions-20260927/) retains Home PNG/XML,6-round-trip result JSON, summary, instrumentation, launch/memory/crash output. Full artifact10933750584 expires2026-10-11 and includes destination/return UI XML and logs.
+- **Local checks:** source constraints, Python syntax and whitespace passed. No app/build dependency changes, hardware testing, new features or next phase.
+
+**Disposition:** current verification batch complete; checkpoint and STOP. Not Stable/T3 acceptance.
+
+## 2026-09-27 — Home quick-actions verification setup (historical)
 - Main `d80f4fa6a247820826dd67ef59f5dbb75f313f45`; application implementation `b87ba3371d2d9c2aa3655c2ec7d8859f7519f24a`.
 - Existing run https://github.com/abo-sultann/DarbakOS/actions/runs/36323265109 passed Build/Lint and the four existing tests, but did not tap the new quick actions.
 - Actual Home PNG/UI XML inspected: no clipping/overlap; quick_map 280x56px, quick_media 292x56px, quick_vehicle 292x56px. Unavailable/idle/stale labels remain visible.

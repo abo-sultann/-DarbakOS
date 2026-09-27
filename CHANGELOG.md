@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-09-27 — Home quick-actions verification closed / STOP
+- Added targeted emulator smoke checks for three Home quick actions, correct destination/selected tab, Android Back and Return Home, with label/56px target assertions.
+- Code `cf062d6` passed Build/Lint,4 existing API25 tests and6 actual-tap round trips at1024x600.
+- Reviewed final Home image; no clipping/overlap or app defect found. App code unchanged.
+- Preserved evidence and updated state/gate/results. No additional P2 increment or P3 started.
+
 ## 2026-09-27 — P2 verification-only checkpoint / STOP
 - Verified the existing Home unavailable/idle/stale labels from code `682d895`; main `17fe772` has identical application/build/test inputs.
 - Reviewed successful Build/Lint, 4 API25/1024x600 tests, navigation/restart smoke and the actual Home screenshot.

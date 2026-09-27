@@ -25,6 +25,8 @@ Target: t3-p3 / sun8iw11p1 / Android 7.1 API25 / ARMv7 / ~1GB / 1024x600.
 - No MCU flash is approved.
 
 ## Current gate
+Implementation is pushed as `6d784f3`. Initial CI failed before build because sdkmanager was absent; explicit SDK provisioning added for the rerun.
+
 Stay in P1 until build, API25 emulator tests and screenshot inspection pass. Do not start P2.
 
 ## Continuation rule

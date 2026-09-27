@@ -62,3 +62,5 @@ Reviewed before implementing the shell; no map/hardware integration is in this b
 | [Android Emulator Runner v2](https://github.com/ReactiveCircus/android-emulator-runner) | Official README/action inputs; MIT | CI action only, not vendored. Use API25/x86 1024x600/160dpi, software GPU, 1GB RAM. | x86 emulator validates Android behavior/layout, not ARMv7 performance or real T3 acceptance. |
 
 No API33-only Femto stack, firmware references, or external launcher modules are needed for P1. APK size and runtime observations must be measured, not inferred from the reference projects.
+
+P1 CI correction: use [android-actions/setup-android v3](https://github.com/android-actions/setup-android/tree/v3) (MIT, build-time action only) to provision command-line tools after the first runner proved sdkmanager was absent. No app dependency added.

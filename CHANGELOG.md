@@ -6,6 +6,9 @@
 - Added pinned Gradle/AGP, four Android instrumentation tests, emulator smoke/evidence workflow and build instructions.
 - Local source checks passed; APK/runtime acceptance awaits remote CI because local Android tools/downloads are unavailable.
 
+## P1 CI environment fix
+- First remote run exposed missing sdkmanager on Ubuntu24.04; explicitly provision Android SDK tools. Still within the original P1 verification batch.
+
 ## Planning baseline v1.0
 - Established Darbak OS dedicated project repository.
 - Added Work master plan and continuation/checkpoint workflow.

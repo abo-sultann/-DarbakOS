@@ -37,4 +37,7 @@
     <string name="navigation_eta_test">12 د • 7.4 كم (تجريبي)</string>
     <string name="media_track_test">يا طريق • مقطع تجريبي</string>
     <string name="media_position_test">01:24 / 04:10 • متوقف (تجريبي)</string>
+    <string name="apps_recent_test">الأخيرة • تجريبي</string>
+    <string name="apps_favorite_test">المفضلة • تجريبي</string>
+    <string name="apps_manage_test">إدارة التطبيقات • معاينة</string>
 </resources>

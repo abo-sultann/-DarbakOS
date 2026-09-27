@@ -1,16 +1,17 @@
-# Next Task — P1 Laptop Baseline
+# Next Task — finish P1 verification
 
 ## Goal
-Create the smallest buildable Darbak OS Android baseline for API 25 and 1024x600 landscape, suitable for laptop/emulator testing before any real T3 experiment.
+Inspect the **P1 Android baseline** GitHub Actions run for the P1 implementation commit. Finish the same P1 batch: build/lint, API25 emulator tests, screenshots and observations. Do not start P2 while this gate is pending.
 
 ## Required output
-- Minimal Android project/shell compatible with API25 and ARMv7 target constraints.
-- Arabic RTL-first 1024x600 landscape baseline.
-- Lightweight Darbak design-system primitives sufficient for the shell.
-- Home shell with placeholder/test state only; no heavy integrations yet.
-- Build instructions reproducible from a clean checkout.
-- Basic tests/checks for launch, navigation shell, RTL, 1024x600 fit and obvious crashes.
-- Record build/runtime observations and resource measurements available in the test environment.
+- Build debug/instrumentation APKs and pass lint.
+- Pass four Android instrumentation tests on API25/x86 at 1024x600/160dpi.
+- Pass navigation/cold-restart smoke and visually inspect generated screenshots.
+- Record APK size/hash, launch/RAM/CPU observations, crash/ANR status and run URL.
+- Fix only observed failures, rerun affected checks, and push the checkpoint.
+
+## Environment constraint
+Current Work has JDK17 but no SDK/adb/emulator/KVM. SDK download timed out at proxy; Gradle download returned Network is unreachable. Use the checked-in GitHub Actions workflow. If Actions cannot run, preserve the precise blocker and keep P1 unaccepted. Reproduce with `docs/P1_BUILD_AND_TEST.md`.
 
 ## Constraints
 Do not add OsmAnd, vehicle hardware, firmware, root, MCU, 70mai or production Trip integration in this batch.

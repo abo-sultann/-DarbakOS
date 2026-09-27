@@ -47,3 +47,18 @@ For every code-level reuse append:
 - Do not duplicate stable OsmAnd/Android capabilities.
 - Never import a full launcher simply to obtain one useful component.
 - Concept inspiration does not justify copying code; code-level reuse requires an exact source and license check.
+
+## P1 reuse review — 2026-09-27
+Reviewed before implementing the shell; no map/hardware integration is in this batch.
+
+| Source/version | Inspected component/license | Decision and Darbak destination | Compatibility |
+|---|---|---|---|
+| Android platform Views/API25 | Activity, LinearLayout, TextView, Button, drawable resources; Android SDK APIs | Use existing framework layout, focus, saved-instance state and RTL capabilities. No UI runtime library or custom rendering engine. | minSdk 25; Java 8 bytecode; no native libraries. Runtime results go in TEST_RESULTS.md. |
+| [Launcher.2026](https://github.com/abo-sultann/Launcher.2026/tree/eafa48965c501b0297f33d9a23556ab9a04a41da) and [DarbakLauncher.v2](https://github.com/abo-sultann/DarbakLauncher.v2/tree/d99834deb6f60a3538f0ce1a8030ec4719fdde58) | app/build.gradle.kts; Launcher ui/theme/Color.kt. Owner's repositories; no standalone license found. | Reuse the owner's color values in app/src/main/res/values/colors.xml (XML conversion and descriptive token names). Do not copy Compose, mapsforge, signing configuration or updater. | Existing minSdk 25, but their full Compose/maps stack is unnecessary for this shell. No third-party implementation copied. |
+| [DarbakTestStation](https://github.com/abo-sultann/DarbakTestStation/tree/a9cbbcf80d90edf1276290e1fc0651e0d3fdd562) | app/build.gradle, styles.xml, Android build workflow; owner's repository, no standalone license found | Concept: plain Android/Java, no runtime dependencies, separate test APK. Independently configure this project's build. | Existing minSdk 25; its gold/light palette is not substituted for Launcher palette. |
+| [Dashline](https://github.com/metehankaygsz/dashline/tree/be4c98fcc649abdec55e687c5e7cda02d9c73001) | README, app/build.gradle.kts, LICENSE (GPLv3) | Concept only: landscape cards and classic Views. No GPL code/assets copied, no weather/radio/widgets imported. | Upstream legacy minSdk 19, Java 8, AndroidX Views; no need to import these dependencies for P1. |
+| [Gradle v8.9.0](https://github.com/gradle/gradle/tree/v8.9.0) | gradlew, gradlew.bat, gradle/wrapper/gradle-wrapper.jar; Apache-2.0 | Unmodified official wrapper scripts/JAR copied to the same paths. License retained in third_party/gradle-LICENSE.txt. Project wrapper properties pin Gradle 8.9. | Build-time only, JDK17. No APK/ABI/RAM cost. |
+| [Android Gradle Plugin 8.7](https://developer.android.com/build/releases/agp-8-7-0-release-notes) | Official compatibility table | Pin AGP 8.7.3, Gradle 8.9, JDK17; compileSdk35/build-tools34.0.0. | Compilation SDK does not raise minSdk25; targetSdk25 is a P1 test baseline, not a Play Store release. |
+| [Android Emulator Runner v2](https://github.com/ReactiveCircus/android-emulator-runner) | Official README/action inputs; MIT | CI action only, not vendored. Use API25/x86 1024x600/160dpi, software GPU, 1GB RAM. | x86 emulator validates Android behavior/layout, not ARMv7 performance or real T3 acceptance. |
+
+No API33-only Femto stack, firmware references, or external launcher modules are needed for P1. APK size and runtime observations must be measured, not inferred from the reference projects.

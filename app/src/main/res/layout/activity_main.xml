@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/shell_root" android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical" android:layoutDirection="rtl" android:padding="@dimen/space"
+    android:background="@color/background">
+
+    <LinearLayout android:layout_width="match_parent" android:layout_height="56dp"
+        android:gravity="center_vertical" android:orientation="horizontal">
+        <TextView style="@style/Title" android:layout_width="wrap_content"
+            android:text="@string/brand" android:textColor="@color/gold" />
+        <TextView android:id="@+id/test_badge" style="@style/Body"
+            android:layout_width="0dp" android:layout_weight="1" android:gravity="center"
+            android:text="@string/test_badge" android:textSize="16sp" />
+        <Button android:id="@+id/settings_button" style="@style/Action"
+            android:layout_width="wrap_content" android:text="@string/settings" />
+    </LinearLayout>
+
+    <FrameLayout android:id="@+id/content" android:layout_width="match_parent"
+        android:layout_height="0dp" android:layout_weight="1"
+        android:layout_marginTop="@dimen/space" android:layout_marginBottom="@dimen/space">
+        <!-- Physical speed position stays left; Arabic text and navigation stay RTL. -->
+        <LinearLayout android:id="@+id/home_panel" android:layout_width="match_parent"
+            android:layout_height="match_parent" android:orientation="horizontal" android:layoutDirection="ltr">
+            <LinearLayout style="@style/Card" android:layout_width="0dp"
+                android:layout_height="match_parent" android:layout_weight="0.32"
+                android:layout_marginEnd="@dimen/space" android:gravity="center">
+                <TextView style="@style/Body" android:gravity="center" android:text="@string/speed" />
+                <TextView android:id="@+id/speed_value" style="@style/Title" android:text="@string/speed_empty"
+                    android:contentDescription="@string/speed_accessibility"
+                    android:gravity="center" android:textSize="80sp" android:textColor="@color/accent" />
+                <TextView style="@style/Body" android:text="@string/kmh" android:gravity="center" />
+                <TextView style="@style/Body" android:layout_marginTop="24dp" android:gravity="center"
+                    android:text="@string/test_source" android:textSize="16sp" />
+            </LinearLayout>
+            <LinearLayout android:layout_width="0dp" android:layout_height="match_parent"
+                android:layout_weight="0.68" android:orientation="vertical" android:layoutDirection="rtl">
+                <LinearLayout android:id="@+id/navigation_card" style="@style/Card"
+                    android:layout_width="match_parent" android:layout_height="0dp"
+                    android:layout_weight="0.58" android:gravity="center_vertical">
+                    <TextView style="@style/Body" android:text="@string/map" android:textColor="@color/accent" />
+                    <TextView style="@style/Title" android:layout_marginTop="8dp" android:text="@string/navigation_title" />
+                    <TextView style="@style/Body" android:layout_marginTop="8dp" android:text="@string/navigation_detail" />
+                </LinearLayout>
+                <LinearLayout android:layout_width="match_parent" android:layout_height="0dp"
+                    android:layout_weight="0.42" android:layout_marginTop="@dimen/space"
+                    android:orientation="horizontal">
+                    <LinearLayout style="@style/Card" android:layout_width="0dp"
+                        android:layout_height="match_parent" android:layout_weight="1"
+                        android:layout_marginEnd="@dimen/space_small" android:gravity="center_vertical">
+                        <TextView style="@style/Title" android:text="@string/media" android:textSize="24sp" />
+                        <TextView style="@style/Body" android:layout_marginTop="8dp" android:text="@string/media_idle" />
+                    </LinearLayout>
+                    <LinearLayout style="@style/Card" android:layout_width="0dp"
+                        android:layout_height="match_parent" android:layout_weight="1"
+                        android:layout_marginStart="@dimen/space_small" android:gravity="center_vertical">
+                        <TextView style="@style/Title" android:text="@string/vehicle" android:textSize="24sp" />
+                        <TextView style="@style/Body" android:layout_marginTop="8dp" android:text="@string/vehicle_idle" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout android:id="@+id/section_panel" style="@style/Card"
+            android:layout_width="match_parent" android:layout_height="match_parent"
+            android:visibility="gone" android:gravity="center">
+            <TextView android:id="@+id/section_title" style="@style/Title" android:gravity="center" />
+            <TextView android:id="@+id/section_detail" style="@style/Body" android:gravity="center"
+                android:layout_marginTop="16dp" />
+            <TextView style="@style/Body" android:text="@string/placeholder_note" android:gravity="center"
+                android:textColor="@color/gold" android:layout_marginTop="16dp" />
+            <Button android:id="@+id/back_home" style="@style/Action" android:layout_width="wrap_content"
+                android:layout_marginTop="24dp" android:text="@string/back_home" />
+        </LinearLayout>
+    </FrameLayout>
+
+    <LinearLayout android:id="@+id/navigation" android:layout_width="match_parent"
+        android:layout_height="@dimen/touch_height" android:orientation="horizontal">
+        <Button android:id="@+id/nav_home" style="@style/NavAction" android:text="@string/home" />
+        <Button android:id="@+id/nav_map" style="@style/NavAction" android:text="@string/map" />
+        <Button android:id="@+id/nav_media" style="@style/NavAction" android:text="@string/media" />
+        <Button android:id="@+id/nav_vehicle" style="@style/NavAction" android:text="@string/vehicle" />
+        <Button android:id="@+id/nav_apps" style="@style/NavAction" android:text="@string/apps" />
+    </LinearLayout>
+</LinearLayout>

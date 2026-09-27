@@ -1,0 +1,33 @@
+plugins { id 'com.android.application' }
+
+android {
+    namespace 'com.abosultan.darbakos'
+    compileSdk 35
+    buildToolsVersion '34.0.0'
+    defaultConfig {
+        applicationId 'com.abosultan.darbakos.test'
+        minSdk 25
+        targetSdk 25
+        versionCode 1
+        versionName '0.1.0-p1'
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    lint {
+        abortOnError true
+        warningsAsErrors false
+        // P1 is an API25 sideload test, not a Google Play submission.
+        disable 'ExpiredTargetSdkVersion'
+    }
+}
+
+// Test APK only; the application has no third-party runtime dependencies.
+dependencies {
+    androidTestImplementation 'androidx.test:core:1.5.0'
+    androidTestImplementation 'androidx.test:runner:1.5.2'
+    androidTestImplementation 'androidx.test:rules:1.5.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+}

@@ -15,3 +15,7 @@ Unified in-car operating experience for the owner's Allwinner T3 head unit.
 The real T3 is the final validation target, not the first experiment target. No deep system/firmware work before the exact unit's Factory Snapshot, read-only scan, Golden Backup, SHA-256 verification and recovery path are established.
 
 GitHub is the durable source of truth so work can continue across ChatGPT/Work quota boundaries.
+
+## P1 test shell
+Build/emulator steps: [docs/P1_BUILD_AND_TEST.md](docs/P1_BUILD_AND_TEST.md).
+Use `01_CURRENT_STATUS.md` and `TEST_RESULTS.md` for the actual validation state.

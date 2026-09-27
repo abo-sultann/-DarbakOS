@@ -1,9 +1,13 @@
 # Current Status
 
-State: READY FOR WORK — P1 LAPTOP BASELINE
+State: P1 IMPLEMENTED — BUILD/EMULATOR VERIFICATION PENDING
 Target: t3-p3 / sun8iw11p1 / Android 7.1 API25 / ARMv7 / ~1GB / 1024x600.
 
 ## Completed
+- P1 TEST shell implemented: platform Views/Java, Arabic RTL, landscape, owner Launcher palette, Home and five placeholder sections.
+- No permissions/services/runtime dependencies/native libraries or device takeover.
+- Official Gradle wrapper, build instructions, source guard, four Android instrumentation tests and API25 emulator workflow prepared.
+- Local source/XML/Python/shell checks passed on 2026-09-27; this is not an APK/runtime pass.
 - Dedicated official repository established: abo-sultann/DarbakOS.
 - Darbak OS product direction and major UX/system decisions defined.
 - Firmware safety and exact-device matching policy defined.
@@ -15,13 +19,13 @@ Target: t3-p3 / sun8iw11p1 / Android 7.1 API25 / ARMv7 / ~1GB / 1024x600.
 
 ## Not yet done
 - No Darbak OS production code has been validated.
-- Laptop development baseline has not yet been built/verified.
+- APK build/lint and API25 emulator verification are pending on GitHub Actions; local Android tools/downloads are unavailable.
 - Real T3 commissioning/Golden Backup has not yet been performed.
 - No firmware is approved.
 - No MCU flash is approved.
 
 ## Current gate
-Repository bootstrap is complete. Work may start P1 from 02_NEXT_TASK.md.
+Stay in P1 until build, API25 emulator tests and screenshot inspection pass. Do not start P2.
 
 ## Continuation rule
 A new session reads, in order:

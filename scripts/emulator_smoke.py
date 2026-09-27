@@ -1,0 +1,116 @@
+#!/usr/bin/env python3
+"""API25 emulator-only smoke; UI taps always come from UIAutomator bounds."""
+from pathlib import Path
+import hashlib
+import json
+import re
+import subprocess
+import time
+import xml.etree.ElementTree as ET
+
+ROOT = Path(__file__).resolve().parents[1]
+OUT = ROOT / 'test-evidence'
+OUT.mkdir(exist_ok=True)
+PACKAGE = 'com.abosultan.darbakos.test'
+ACTIVITY = PACKAGE + '/com.abosultan.darbakos.MainActivity'
+devices = subprocess.check_output(['adb', 'devices'], text=True).splitlines()[1:]
+serials = [line.split()[0] for line in devices if line.endswith('\tdevice') and line.startswith('emulator-')]
+assert len(serials) == 1, 'Run with exactly one emulator; this script never targets physical devices'
+ADB = ['adb', '-s', serials[0]]
+
+
+def adb(*args, binary=False):
+    return subprocess.check_output(ADB + list(args), text=not binary, timeout=60)
+
+
+def save(name, value):
+    path = OUT / name
+    path.write_bytes(value) if isinstance(value, bytes) else path.write_text(value)
+
+
+def dump(name):
+    adb('shell', 'uiautomator', 'dump', '/sdcard/darbak-ui.xml')
+    xml = adb('shell', 'cat', '/sdcard/darbak-ui.xml')
+    save(name + '.xml', xml)
+    return ET.fromstring(xml)
+
+
+def tap(tree, resource):
+    nodes = [n for n in tree.iter('node') if n.get('resource-id', '').endswith(':id/' + resource)]
+    assert len(nodes) == 1, 'Missing or ambiguous UI element: ' + resource
+    x1, y1, x2, y2 = map(int, re.findall(r'\d+', nodes[0].get('bounds')))
+    adb('shell', 'input', 'tap', str((x1+x2)//2), str((y1+y2)//2))
+
+
+def screenshot(name):
+    png = adb('exec-out', 'screencap', '-p', binary=True)
+    assert png[:8] == b'\x89PNG\r\n\x1a\n'
+    assert int.from_bytes(png[16:20], 'big') == 1024
+    assert int.from_bytes(png[20:24], 'big') == 600
+    save(name + '.png', png)
+
+
+try:
+    assert adb('shell', 'getprop', 'ro.build.version.sdk').strip() == '25'
+    adb('shell', 'wm', 'size', '1024x600')
+    adb('shell', 'wm', 'density', '160')
+    adb('shell', 'settings', 'put', 'system', 'accelerometer_rotation', '0')
+    adb('shell', 'settings', 'put', 'system', 'user_rotation', '0')
+    for setting in ('window_animation_scale', 'transition_animation_scale', 'animator_duration_scale'):
+        adb('shell', 'settings', 'put', 'global', setting, '0')
+    apk = ROOT / 'app/build/outputs/apk/debug/app-debug.apk'
+    test_apk = ROOT / 'app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk'
+    adb('install', '-r', str(apk))
+    adb('install', '-r', '-t', str(test_apk))
+    adb('logcat', '-c')
+    # Every Android assertion runs on the real framework, not a mocked JVM.
+    result = subprocess.check_output(ADB + ['shell', 'am', 'instrument', '-w',
+        PACKAGE + '.test/androidx.test.runner.AndroidJUnitRunner'], text=True, timeout=180)
+    save('instrumentation.txt', result)
+    assert 'OK (4 tests)' in result and 'FAILURES' not in result, result
+    adb('shell', 'am', 'force-stop', PACKAGE)
+    launch = adb('shell', 'am', 'start', '-W', '-n', ACTIVITY)
+    save('launch.txt', launch)
+    assert 'Status: ok' in launch, launch
+    tree = dump('home')
+    assert any(n.get('resource-id', '').endswith(':id/speed_value') for n in tree.iter('node'))
+    screenshot('home-1024x600')
+    for section in ('map', 'media', 'vehicle', 'apps'):
+        tap(tree, 'nav_' + section)
+        tree = dump(section)
+        assert any(n.get('resource-id', '').endswith(':id/section_title') for n in tree.iter('node'))
+        screenshot(section + '-1024x600')
+    tap(tree, 'settings_button')
+    tree = dump('settings')
+    screenshot('settings-1024x600')
+    # A force-stopped process must reopen Home, even when last stopped in Settings.
+    adb('shell', 'am', 'force-stop', PACKAGE)
+    adb('shell', 'am', 'start', '-W', '-n', ACTIVITY)
+    tree = dump('cold-restart-home')
+    assert any(n.get('resource-id', '').endswith(':id/speed_value') for n in tree.iter('node'))
+    save('meminfo.txt', adb('shell', 'dumpsys', 'meminfo', PACKAGE))
+    time.sleep(2)
+    save('cpuinfo.txt', adb('shell', 'dumpsys', 'cpuinfo'))
+    save('gfxinfo.txt', adb('shell', 'dumpsys', 'gfxinfo', PACKAGE))
+    crash = adb('logcat', '-b', 'crash', '-d')
+    save('crash.txt', crash)
+    assert 'FATAL EXCEPTION' not in crash, crash
+    logs = adb('logcat', '-d')
+    save('logcat.txt', logs)
+    assert 'ANR in ' + PACKAGE not in logs
+    save('summary.json', json.dumps({
+        'result': 'PASS', 'commit': subprocess.check_output(['git', 'rev-parse', 'HEAD'], text=True).strip(),
+        'api': 25, 'abi': adb('shell', 'getprop', 'ro.product.cpu.abi').strip(),
+        'resolution': '1024x600', 'density': 160, 'instrumented_tests': 4,
+        'apk_bytes': apk.stat().st_size, 'apk_sha256': hashlib.sha256(apk.read_bytes()).hexdigest(),
+        't3_validated': False
+    }, indent=2))
+    print('PASS: API25 instrumentation, navigation, RTL/fit, cold restart, screenshots and crash checks')
+finally:
+    # Preserve diagnostics even when an assertion fails.
+    for name, args in [('final-logcat.txt', ('logcat', '-d')),
+                       ('final-crash.txt', ('logcat', '-b', 'crash', '-d'))]:
+        try:
+            save(name, adb(*args))
+        except (subprocess.SubprocessError, OSError):
+            pass

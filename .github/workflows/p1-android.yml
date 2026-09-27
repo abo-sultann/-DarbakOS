@@ -1,0 +1,62 @@
+name: P1 Android baseline
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'app/**'
+      - 'gradle/**'
+      - '*.gradle'
+      - 'gradle.properties'
+      - 'gradlew*'
+      - 'scripts/**'
+      - '.github/workflows/p1-android.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  api25-shell:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Source checks
+        run: python3 scripts/check_baseline.py
+      - name: Install pinned SDK build tools
+        run: sdkmanager 'platforms;android-35' 'build-tools;34.0.0'
+      - name: Build and lint
+        run: ./gradlew :app:assembleDebug :app:assembleDebugAndroidTest :app:lintDebug --no-daemon --console=plain
+      - name: Enable emulator acceleration
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+      - name: API25 1024x600 smoke and instrumentation
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 25
+          target: default
+          arch: x86
+          ram-size: 1024M
+          heap-size: 128M
+          disable-animations: true
+          emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -camera-back none -skin 1024x600 -dpi-device 160
+          script: python3 scripts/emulator_smoke.py
+      - name: Upload TEST APK and evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: DarbakOS-P1-TEST-${{ github.sha }}
+          retention-days: 14
+          path: |
+            app/build/outputs/apk/debug/*.apk
+            app/build/outputs/apk/androidTest/debug/*.apk
+            app/build/reports/lint-results-debug.*
+            test-evidence/

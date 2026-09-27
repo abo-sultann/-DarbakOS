@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Owner's Launcher.2026 palette; provenance in REFERENCES.md. -->
+    <color name="background">#07111D</color>
+    <color name="surface">#111D2B</color>
+    <color name="card">#101E2C</color>
+    <color name="border">#2D5573</color>
+    <color name="accent">#39A9FF</color>
+    <color name="gold">#D7AD55</color>
+    <color name="text_primary">#FFFFFF</color>
+    <color name="text_secondary">#D0E2F1</color>
+    <color name="text_muted">#8299AA</color>
+    <color name="transparent">#00000000</color>
+</resources>

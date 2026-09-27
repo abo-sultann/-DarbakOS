@@ -55,7 +55,10 @@
                         android:layout_height="match_parent" android:layout_weight="1"
                         android:layout_marginEnd="@dimen/space_small" android:gravity="center_vertical">
                         <TextView style="@style/Title" android:text="@string/media" android:textSize="24sp" />
-                        <TextView style="@style/Body" android:layout_marginTop="8dp" android:id="@+id/media_state" android:text="@string/media_idle" />
+                        <TextView android:id="@+id/media_track" style="@style/Body" android:layout_marginTop="6dp"
+                            android:text="@string/media_track_test" android:textColor="@color/text_primary" />
+                        <TextView android:id="@+id/media_state" style="@style/Body" android:layout_marginTop="6dp"
+                            android:text="@string/media_position_test" />
                         <Button android:id="@+id/quick_media" style="@style/Action" android:layout_width="match_parent"
                             android:layout_marginTop="8dp" android:text="@string/home_quick_media" />
                     </LinearLayout>

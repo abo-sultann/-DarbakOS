@@ -40,6 +40,8 @@
                     <TextView style="@style/Body" android:text="@string/map" android:textColor="@color/accent" />
                     <TextView style="@style/Title" android:layout_marginTop="8dp" android:text="@string/navigation_title" />
                     <TextView style="@style/Body" android:layout_marginTop="8dp" android:text="@string/navigation_detail" />
+                    <TextView android:id="@+id/navigation_state" style="@style/Body" android:layout_marginTop="8dp"
+                        android:text="@string/navigation_state" android:textColor="@color/gold" />
                 </LinearLayout>
                 <LinearLayout android:layout_width="match_parent" android:layout_height="0dp"
                     android:layout_weight="0.42" android:layout_marginTop="@dimen/space"
@@ -48,13 +50,13 @@
                         android:layout_height="match_parent" android:layout_weight="1"
                         android:layout_marginEnd="@dimen/space_small" android:gravity="center_vertical">
                         <TextView style="@style/Title" android:text="@string/media" android:textSize="24sp" />
-                        <TextView style="@style/Body" android:layout_marginTop="8dp" android:text="@string/media_idle" />
+                        <TextView style="@style/Body" android:layout_marginTop="8dp" android:id="@+id/media_state" android:text="@string/media_idle" />
                     </LinearLayout>
                     <LinearLayout style="@style/Card" android:layout_width="0dp"
                         android:layout_height="match_parent" android:layout_weight="1"
                         android:layout_marginStart="@dimen/space_small" android:gravity="center_vertical">
                         <TextView style="@style/Title" android:text="@string/vehicle" android:textSize="24sp" />
-                        <TextView style="@style/Body" android:layout_marginTop="8dp" android:text="@string/vehicle_idle" />
+                        <TextView style="@style/Body" android:layout_marginTop="8dp" android:id="@+id/vehicle_state" android:text="@string/vehicle_stale" android:textColor="@color/gold" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>

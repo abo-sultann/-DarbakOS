@@ -7,6 +7,9 @@
 - Local source checks passed; APK/runtime acceptance awaits remote CI because local Android tools/downloads are unavailable.
 
 ## P1 CI environment fix
+### P1 visual verification
+- API25 build and tests passed; screenshot review found reversed relative spacing on the speed card. Corrected RTL margin and added a measured 16dp gap assertion to the existing fit test.
+
 - First remote run exposed missing sdkmanager on Ubuntu24.04; explicitly provision Android SDK tools. Still within the original P1 verification batch.
 
 ## Planning baseline v1.0

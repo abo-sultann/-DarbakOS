@@ -81,6 +81,11 @@ public final class ShellTest {
                 activity.findViewById(R.id.speed_value).getLocationOnScreen(speed);
                 activity.findViewById(R.id.navigation_card).getLocationOnScreen(map);
                 assertTrue(speed[0] < map[0]);
+                View speedCard = (View) activity.findViewById(R.id.speed_value).getParent();
+                speedCard.getLocationOnScreen(speed);
+                assertEquals("RTL must keep the gap between dashboard cards",
+                    activity.getResources().getDimensionPixelSize(R.dimen.space),
+                    map[0] - speed[0] - speedCard.getWidth());
             });
         }
     }

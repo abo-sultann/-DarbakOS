@@ -1,6 +1,6 @@
 # Current Status
 
-State: P1 IMPLEMENTED — BUILD/EMULATOR VERIFICATION PENDING
+State: P1 BUILD/TESTS PASSED — RTL SPACING FIX UNDER REVALIDATION
 Target: t3-p3 / sun8iw11p1 / Android 7.1 API25 / ARMv7 / ~1GB / 1024x600.
 
 ## Completed
@@ -25,7 +25,7 @@ Target: t3-p3 / sun8iw11p1 / Android 7.1 API25 / ARMv7 / ~1GB / 1024x600.
 - No MCU flash is approved.
 
 ## Current gate
-Implementation is pushed as `6d784f3`. Initial CI failed before build because sdkmanager was absent; explicit SDK provisioning added for the rerun.
+Implementation is pushed. CI at `695c614` passed build/lint and 4 API25 tests. Visual review found one RTL card-gap defect; its fix and regression assertion are being revalidated in the same P1 batch.
 
 Stay in P1 until build, API25 emulator tests and screenshot inspection pass. Do not start P2.
 

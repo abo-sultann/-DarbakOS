@@ -1,23 +1,24 @@
-# Next Task — P2 Apps-shell verification
+# Next Task — P2 production-facing shell verification
 
 ## Start point
-Prior P2 Home/navigation/media gates passed. Main now contains one bounded P2 increment: the Apps placeholder section exposes three static preview actions (Recent, Favorites, App management) and only shows them inside Apps. No PackageManager discovery, install/uninstall action, external launch or service was added.
+P2 is now treated as the real Darbak OS UI, not a disposable prototype. Main removes user-facing TEST/preview/fake-data wording from Home and Apps. Sources that are not yet connected show honest final states such as unavailable, stopped, or no active route. The Apps section contains the intended Recent, Favorites and App Management actions, but their backend behavior is not implemented yet.
 
 ## Goal
-Verify only Apps-shell presentation/isolation and prior regressions.
+Verify the production-facing P2 shell and Apps presentation without expanding backend scope.
 
 ## Required verification
-- Build/Lint and existing API25/1024x600 tests.
-- Open Apps and inspect screenshot for clipping/overlap and readable RTL labels/touch targets.
-- Confirm the three preview actions appear in Apps only and do not appear in Map/Media/Vehicle/Settings/Home.
-- Confirm they are clearly preview/test UI and perform no install/uninstall/external launch.
-- Regress Home, quick actions, Back/Home, navigation TEST card, stopped Media/no-autoplay and vehicle test/stale states.
-- If this increment causes a proven defect, fix only that defect and rerun affected checks.
-- Record evidence/results; update CURRENT_STATUS.md, TEST_RESULTS.md and CHANGELOG.md.
+- Build/Lint and all existing API25/1024x600 tests.
+- Inspect Home and Apps screenshots at 1024x600 for clipping/overlap, RTL readability and touch-target fit.
+- Confirm no user-facing wording says TEST, experimental, preview, or presents fabricated live values.
+- Confirm disconnected features use honest final-state copy: speed unavailable, no active navigation route, media stopped/no selected track, vehicle data unavailable.
+- Confirm Apps actions appear only in Apps and labels are Recent, Favorites, App Management.
+- Regress quick actions, Back/Home, Cold Restart and no-autoplay behavior.
+- Update tests that legitimately encoded the old temporary wording; do not weaken behavioral assertions.
+- Fix only proven defects from this conversion, rerun affected checks, record evidence, update CURRENT_STATUS.md / TEST_RESULTS.md / CHANGELOG.md.
 - Commit + push, then STOP.
 
 ## Constraints
-No PackageManager enumeration, APK install/uninstall, external app launch, permissions, services, OsmAnd/GPS/Trip, playback, Vehicle integration, new dependencies, P3, firmware/root/MCU/70mai or T3 work.
+Do not implement PackageManager discovery/install/uninstall, OsmAnd/GPS/Trip, playback, Vehicle sources, services, new dependencies, P3, firmware/root/MCU/70mai or T3 work in this gate.
 
 ## Finish definition
-The static Apps preview is visually/semantically verified and isolated to Apps at API25/1024x600, with prior P2 behavior intact, then checkpointed; otherwise document the exact blocker.
+The P2 shell reads as a final-product Darbak UI while unavailable backends remain truthful, passes API25/1024x600 regression and visual checks, and is checkpointed in GitHub.

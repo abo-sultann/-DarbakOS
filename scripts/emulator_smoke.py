@@ -35,11 +35,26 @@ def dump(name):
     return ET.fromstring(xml)
 
 
-def tap(tree, resource):
+def node(tree, resource):
     nodes = [n for n in tree.iter('node') if n.get('resource-id', '').endswith(':id/' + resource)]
     assert len(nodes) == 1, 'Missing or ambiguous UI element: ' + resource
-    x1, y1, x2, y2 = map(int, re.findall(r'\d+', nodes[0].get('bounds')))
+    return nodes[0]
+
+
+def tap(tree, resource):
+    target = node(tree, resource)
+    assert target.get('enabled') == 'true' and target.get('clickable') == 'true', resource
+    x1, y1, x2, y2 = map(int, re.findall(r'\d+', target.get('bounds')))
     adb('shell', 'input', 'tap', str((x1+x2)//2), str((y1+y2)//2))
+
+
+def assert_home_states(tree):
+    assert node(tree, 'speed_value').get('text') == '—'
+    assert 'غير متاحة' in node(tree, 'navigation_state').get('text', '')
+    assert 'خامل' in node(tree, 'media_state').get('text', '')
+    assert node(tree, 'vehicle_state').get('text') == 'آخر قراءة تجريبية قديمة • لا تعرض كقراءة حية'
+    assert 'بيانات تجريبية' in node(tree, 'test_badge').get('text', '')
+    assert node(tree, 'nav_home').get('selected') == 'true'
 
 
 def screenshot(name):
@@ -75,6 +90,27 @@ try:
     tree = dump('home')
     assert any(n.get('resource-id', '').endswith(':id/speed_value') for n in tree.iter('node'))
     screenshot('home-1024x600')
+    assert_home_states(tree)
+    quick_results = []
+    for section, title in (('map', 'الخريطة'), ('media', 'الوسائط'), ('vehicle', 'السيارة')):
+        button = node(tree, 'quick_' + section)
+        x1, y1, x2, y2 = map(int, re.findall(r'\d+', button.get('bounds')))
+        assert 0 <= x1 < x2 <= 1024 and 0 <= y1 < y2 <= 600
+        assert x2 - x1 >= 56 and y2 - y1 >= 56, 'Quick-action touch target too small'
+        for back_method in ('system_back', 'back_home'):
+            tap(tree, 'quick_' + section)
+            destination = dump('quick-' + section + '-' + back_method)
+            assert node(destination, 'section_title').get('text') == title
+            assert node(destination, 'nav_' + section).get('selected') == 'true'
+            if back_method == 'system_back':
+                adb('shell', 'input', 'keyevent', '4')
+            else:
+                tap(destination, 'back_home')
+            tree = dump('quick-' + section + '-' + back_method + '-returned')
+            assert_home_states(tree)
+            quick_results.append({'button': 'quick_' + section, 'destination': title,
+                                  'return': back_method, 'bounds': button.get('bounds'), 'result': 'PASS'})
+    save('quick-actions.json', json.dumps(quick_results, ensure_ascii=False, indent=2))
     for section in ('map', 'media', 'vehicle', 'apps'):
         tap(tree, 'nav_' + section)
         tree = dump(section)
@@ -102,6 +138,7 @@ try:
         'result': 'PASS', 'commit': subprocess.check_output(['git', 'rev-parse', 'HEAD'], text=True).strip(),
         'api': 25, 'abi': adb('shell', 'getprop', 'ro.product.cpu.abi').strip(),
         'resolution': '1024x600', 'density': 160, 'instrumented_tests': 4,
+        'quick_action_round_trips': len(quick_results),
         'apk_bytes': apk.stat().st_size, 'apk_sha256': hashlib.sha256(apk.read_bytes()).hexdigest(),
         't3_validated': False
     }, indent=2))

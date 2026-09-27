@@ -2,6 +2,13 @@
 
 No Darbak OS release is Stable. See the per-stage evidence below.
 
+## 2026-09-27 — Home quick-actions verification (in progress)
+- Main `d80f4fa6a247820826dd67ef59f5dbb75f313f45`; application implementation `b87ba3371d2d9c2aa3655c2ec7d8859f7519f24a`.
+- Existing run https://github.com/abo-sultann/DarbakOS/actions/runs/36323265109 passed Build/Lint and the four existing tests, but did not tap the new quick actions.
+- Actual Home PNG/UI XML inspected: no clipping/overlap; quick_map 280x56px, quick_media 292x56px, quick_vehicle 292x56px. Unavailable/idle/stale labels remain visible.
+- Extend the existing emulator smoke only: tap each quick action, verify exact destination/selected tab, return with Android Back and Return Home, and recheck Home labels. New run pending; no app code changed.
+- Scope remains verification-only. Finish evidence/checkpoint, then STOP.
+
 ## 2026-09-27 — P2 verification-only gate: PASS / STOP
 
 Verified existing implementation `682d895c9e08ac6a4d3c9eacce69853db41cd6b2` using

@@ -1,6 +1,6 @@
 # Current Status
 
-State: FIRST P2 HOME TEST-STATE INCREMENT VERIFIED — BATCH CLOSED / STOP
+State: P2 HOME QUICK-ACTIONS VERIFICATION IN PROGRESS — NO NEXT PHASE
 Updated: 2026-09-27.
 Target: t3-p3 / sun8iw11p1 / Android7.1 API25 / ARMv7 / ~1GB / 1024x600.
 
@@ -37,6 +37,8 @@ Target: t3-p3 / sun8iw11p1 / Android7.1 API25 / ARMv7 / ~1GB / 1024x600.
 - No firmware or MCU flash approved; all master-plan safety gates remain in force.
 
 ## Current gate
+Current bounded request: verify quick_map/quick_media/quick_vehicle plus Back/Home and screenshot fit. Initial screenshot is readable; targeted real-tap checks are being added to the existing smoke script. Build/runtime verification of those checks is pending. No application defect or change identified. Earlier state-label closure below is historical.
+
 The requested P2 verification-only gate is complete and checkpointed. STOP here.
 Do not begin another P2 increment, P3 or any other task under this batch. `02_NEXT_TASK.md` records closure.
 No real-device performance/stability claim is made; this remains a TEST build.

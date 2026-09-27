@@ -52,7 +52,10 @@ def assert_home_states(tree):
     assert node(tree, 'vehicle_summary').get('text') == 'السيارة ✓ طبيعية (تجريبي)'
     assert node(tree, 'speed_value').get('text') == '—'
     assert 'غير متاحة' in node(tree, 'navigation_state').get('text', '')
-    assert 'خامل' in node(tree, 'media_state').get('text', '')
+    assert node(tree, 'media_track').get('text') == 'يا طريق • مقطع تجريبي'
+    assert node(tree, 'media_state').get('text') == '01:24 / 04:10 • متوقف (تجريبي)'
+    assert node(tree, 'navigation_instruction').get('text') == 'بعد 800 م • انعطف يمينًا (تجريبي)'
+    assert node(tree, 'navigation_eta').get('text') == '12 د • 7.4 كم (تجريبي)'
     assert node(tree, 'vehicle_state').get('text') == 'آخر قراءة تجريبية قديمة • لا تعرض كقراءة حية'
     assert 'بيانات تجريبية' in node(tree, 'test_badge').get('text', '')
     assert node(tree, 'nav_home').get('selected') == 'true'
@@ -124,7 +127,25 @@ try:
     adb('shell', 'am', 'force-stop', PACKAGE)
     adb('shell', 'am', 'start', '-W', '-n', ACTIVITY)
     tree = dump('cold-restart-home')
-    assert any(n.get('resource-id', '').endswith(':id/speed_value') for n in tree.iter('node'))
+    assert_home_states(tree)
+    # Check again after settling: the static preview must not progress or start a session/service.
+    time.sleep(2)
+    tree = dump('cold-restart-home-settled')
+    assert_home_states(tree)
+    screenshot('cold-restart-home-1024x600')
+    services = adb('shell', 'dumpsys', 'activity', 'services', PACKAGE)
+    sessions = adb('shell', 'dumpsys', 'media_session')
+    save('cold-restart-services.txt', services)
+    save('cold-restart-media-session.txt', sessions)
+    save('cold-restart-audio.txt', adb('shell', 'dumpsys', 'audio'))
+    assert 'ServiceRecord{' not in services, services
+    assert PACKAGE not in sessions, sessions
+    save('no-autoplay.json', json.dumps({
+        'result': 'PASS', 'home_stopped_test_preview_after_restart': True,
+        'position_unchanged_after_settle': True, 'app_service_records': 0,
+        'app_media_sessions': 0,
+        'scope': 'Static TEST shell without playback code; not a future playback-engine test'
+    }, indent=2))
     save('meminfo.txt', adb('shell', 'dumpsys', 'meminfo', PACKAGE))
     time.sleep(2)
     save('cpuinfo.txt', adb('shell', 'dumpsys', 'cpuinfo'))

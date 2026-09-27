@@ -2,6 +2,14 @@
 
 No Darbak OS release is Stable. See the per-stage evidence below.
 
+## 2026-09-27 — Stopped Media verification setup (pending rerun)
+
+- Mainea52d9b / implementation7ce4930: run36341691472 passed Build/Lint and4 instrumentation tests, but smoke stopped at outdated `خامل` expectation after Media changed to explicit stopped TEST preview.
+- Actual screenshot reviewed: track and position/test qualifier fit; no clipping/overlap. No app defect found.
+- Correct smoke expectation to exact TEST track/stopped position; preserve prior-state regressions. Add cold-restart/settled Home label checks and capture/assert no app ServiceRecord or MediaSession, plus audio diagnostics.
+- MainActivity/manifest reviewed: static views only, no playback/audio-focus/MediaSession/service code or runtime dependency. Existing REFERENCES/platform/test workflow reused; no new component.
+- Full rerun pending. Same bounded verification batch; finish evidence then STOP.
+
 ## 2026-09-27 — P2 navigation-card verification: PASS / STOP
 
 - Verified code `b054d7d5a6e1d9f82d5fbe290a5cf415a418cbb3` using [run36325924001](https://github.com/abo-sultann/DarbakOS/actions/runs/36325924001), job108638552766. Existing successful run inspected, not rerun. Main2612b6a differs only in the task document; application/build/test input diff is empty.

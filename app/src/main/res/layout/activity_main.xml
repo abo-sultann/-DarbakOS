@@ -41,7 +41,10 @@
                     android:layout_weight="0.58" android:gravity="center_vertical">
                     <TextView style="@style/Body" android:text="@string/map" android:textColor="@color/accent" />
                     <TextView style="@style/Title" android:layout_marginTop="8dp" android:text="@string/navigation_title" />
-                    <TextView style="@style/Body" android:layout_marginTop="8dp" android:text="@string/navigation_detail" />
+                    <TextView android:id="@+id/navigation_instruction" style="@style/Title" android:layout_marginTop="8dp"
+                        android:text="@string/navigation_next_turn_test" android:textSize="24sp" />
+                    <TextView android:id="@+id/navigation_eta" style="@style/Body" android:layout_marginTop="6dp"
+                        android:text="@string/navigation_eta_test" />
                     <TextView android:id="@+id/navigation_state" style="@style/Body" android:layout_marginTop="8dp"
                         android:text="@string/navigation_state" android:textColor="@color/gold" />
                 </LinearLayout>

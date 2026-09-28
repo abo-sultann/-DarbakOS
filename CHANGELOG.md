@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-09-28 — Guardian assessment verification closed / STOP
+- Added7 tests for all1024 classifications, exclusive membership/counts, null/cold/all-healthy, immutable retention after updates/reset and repeated frozen-input assessments. All43 prior tests retained.
+- Codef1d53a6 passed Build/Lint,50/50 API25 tests and6/6 navigation returns/Cold Restart/no-autoplay. No application defect/fix.
+- Home/Apps/restart images pixel-identical; APK +1,296bytes/PSS +92KB, no app crash/ANR; observations are not causal benchmarks.
+- Updated evidence/results/state and closed gate. No watchdog/logging/recovery/background work.
+
 ## 2026-09-28 — Guardian snapshot verification closed / STOP
 - Reproduced an inconsistent snapshot (CORE FAILED, overall HEALTHY) under concurrent updates; fixed capture to hold the existing registry monitor through component reads/aggregation. No production thread/background behavior added.
 - Added7 snapshot tests covering null/cold, all1024 combinations, exact identities, retained values after updates/reset, repeated capture/recovery and20000 concurrent captures. All36 prior tests retained.

@@ -2,6 +2,39 @@
 
 No Darbak OS release is Stable. See the per-stage evidence below.
 
+## 2026-09-28 — P3 Guardian assessment: PASS / STOP
+
+- Tested `f1d53a6e290b538430032becdc82be76d99dce17`, [run36430408151](https://github.com/abo-sultann/DarbakOS/actions/runs/36430408151), job108954834490. Verification adds tests/evidence only; no proven application defect or production fix needed.
+- Build/Lint PASS: 0 errors,17 existing warnings. API25/x86,1024x600/160dpi: **50/50 instrumentation PASS** in4.615s (all43 prior +7 assessment). **6/6 actual-tap quick-action returns PASS**.
+
+| Added test | Verified behavior |
+|---|---|
+| nullSnapshotClassifiesAllFiveUnknownWithoutTouchingLiveState | Null input gives all5 UNKNOWN and UNKNOWN overall while live FAILED states remain untouched |
+| coldSnapshotClassifiesUnknownAndPreservesRevisionZero | Cold snapshot gives all5 UNKNOWN, preserves exact state identities and revision0 |
+| allHealthyHasFiveHealthyMembersAndHealthyOverall | All5 HEALTHY, healthyCount5, other counts0 and HEALTHY overall; revisions stay1 |
+| all1024CombinationsHaveExactExclusiveMembershipCountsAndOverall | All4^5 combinations: each component belongs to exactly one correct bucket; exact counts sum to5; overall matches independent priority and source snapshot |
+| retainedAssessmentSurvivesAllUpdatesResetAndNewSnapshots | Retained mixed assessment and old input remain valid after every component/all4 health updates, new captures/assessments and3 resets |
+| repeatedAssessmentUsesFrozenInputRatherThanCurrentRegistry | Same frozen mixed input produces consistent counts/membership/overall after live state changes to HEALTHY; new input reflects HEALTHY |
+| nullComponentQueriesAreFalseAndPreserveAllAssessmentValues | All4 null membership queries return false repeatedly; counts/membership/overall and registry snapshot identities remain unchanged |
+
+- Assessment helper captures live and frozen object identities plus independent health/revision values before creation and checks them afterward. Exhaustive coverage exercises every component in every health state. All43 prior tests retained, including snapshot concurrency regression; this batch adds no test thread.
+- Complete source review: private final cloned EnumSets, no exposed mutable collections, and pure classification/count/membership methods. No new production Service/Receiver/permission/dependency/native library/thread/timer/Handler/Executor/disk/network/sensor/restart/background execution, callbacks, recovery action or UI caller. MainActivity/resources/manifest/build unchanged; APK contains no .so.
+- REFERENCES.md and recorded reuse choices remain applicable; existing snapshot/platform EnumSet and instrumentation patterns reused. No external implementation/dependency imported.
+- Home/Apps/Cold Restart screenshots visually reviewed and all3 pixel-identical to prior snapshot checkpoint. Final P2 content/RTL/fit/navigation/Back/Home/recreation/no-autoplay preserved; no new clipping/overlap, temporary wording or fabricated data. App service records0/MediaSessions0 after restart/settling.
+
+| Observation | Snapshot3709e35 | Assessmentf1d53a6 | Delta |
+|---|---:|---:|---:|
+| APK bytes | 25,327 | 26,623 | +1,296 |
+| Process PSS KB | 9,055 | 9,147 | +92 |
+| Launch TotalTime ms | 356 | 434 | +78 |
+| Views / Activities | 49 / 1 | 49 / 1 | 0 / 0 |
+| Crash / app ANR observed | 0 / 0 | 0 / 0 | none |
+
+- Launch WaitTime437ms. Both crash buffers empty; no app ANR in either captured log. Separate single emulator observations are not causal performance/CPU benchmarks or proof of zero allocation cost. Assessment is not called by production UI. Physical T3/ARMv7/Test Station and Stable acceptance remain untested.
+- Artifact10973700564: `DarbakOS-P1-TEST-f1d53a6e290b538430032becdc82be76d99dce17`, expires2026-10-12. APK SHA256 `160da01d460decd1f05dce24fe555e54c5ee4fd94676f76837cc4dcf047348ea`.
+- Durable evidence: `docs/test-evidence/p3-guardian-assessment-20260928/` includes instrumentation, screenshots/UI trees, lint, no-autoplay, resource/crash captures and comparison.json.
+- **Batch closed / STOP.** No watchdog, logging, recovery or other part started.
+
 ## 2026-09-28 — P3 Guardian snapshot: PASS / STOP
 
 - Tested `3709e356f0fdc623b86f7895b18c1ff1ef553f05`, [run36427535535](https://github.com/abo-sultann/DarbakOS/actions/runs/36427535535), job108945090176. Added7 focused tests, preserved all36 previous tests, and fixed one proven defect in the incoming snapshot increment.

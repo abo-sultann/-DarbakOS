@@ -1,4 +1,9 @@
-# Next Task — P3 Guardian assessment verification
+# Next Task — P3 Guardian assessment COMPLETE / STOP
+
+## Closure — 2026-09-28
+Verified `f1d53a6e290b538430032becdc82be76d99dce17`: Build/Lint PASS,50/50 API25 tests (all43 prior +7 assessment),6/6 navigation returns. All1024 classifications, counts/membership/null queries and retention/nonmutation pass. Final P2 preserved; no production defect found. Evidence: `docs/test-evidence/p3-guardian-assessment-20260928/` and TEST_RESULTS.md.
+
+STOP. No next task assigned. Do not start watchdog, logging, recovery or any other part. Original scope retained below for audit.
 
 ## Start point
 Guardian snapshot is verified and race-safe. Main now adds GuardianAssessment: an immutable diagnostic classification derived from one GuardianSnapshot. It groups CORE/HOME/NAVIGATION/MEDIA/VEHICLE into healthy/degraded/failed/unknown sets and exposes counts/membership only. It performs no monitoring, action, persistence, UI or Android background work.

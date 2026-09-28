@@ -1,6 +1,6 @@
 # Current Status
 
-State: P3 GUARDIAN SNAPSHOT VERIFIED — BATCH CLOSED / STOP
+State: P3 GUARDIAN ASSESSMENT VERIFIED — BATCH CLOSED / STOP
 Updated: 2026-09-28.
 Target: t3-p3 / sun8iw11p1 / Android7.1 API25 / ARMv7 / ~1GB / 1024x600.
 
@@ -23,14 +23,16 @@ Target: t3-p3 / sun8iw11p1 / Android7.1 API25 / ARMv7 / ~1GB / 1024x600.
 - GuardianPolicy derives overall health with FAILED > DEGRADED > UNKNOWN > HEALTHY precedence. All1024 combinations, null input, every sole source and recovery/reset verified; aggregation preserves every snapshot/revision.
 - GuardianSnapshot freezes exact component states and aggregate under the existing registry monitor. Fixed a proven split-read/aggregate race; retained snapshots survive later updates/reset. Null/cold/mixed/repeated/recovery and20000 concurrent captures verified; no production worker or UI binding.
 
+- GuardianAssessment classifies one frozen snapshot into exclusive healthy/degraded/failed/unknown buckets. All1024 combinations, counts summing to5, null queries, retention after updates/reset and nonmutation verified; no action or UI binding.
+
 ## Verified checkpoint
-- Tested code: `3709e356f0fdc623b86f7895b18c1ff1ef553f05`.
-- Successful run: https://github.com/abo-sultann/DarbakOS/actions/runs/36427535535
-- Build/Lint: 0 errors,17 existing warnings; instrumentation43/43 (all36 prior +7 snapshot); quick-action returns6/6.
-- API25/x86,1024x600/160dpi: final P2 UI/RTL/fit/navigation/no-autoplay preserved. Home/Apps/restart Home images pixel-identical to prior aggregate-policy checkpoint.
-- One proven snapshot consistency defect fixed and regression-tested; no new production Service/Receiver/permission/dependency/native/background behavior. No observed app crash/ANR.
-- APK25,327 bytes (+340); PSS9,055KB (+97); launch356ms versus371ms. Separate single emulator observations, not causal benchmarks.
-- Evidence: `docs/test-evidence/p3-guardian-snapshot-20260928/`; details/history: TEST_RESULTS.md.
+- Tested code: `f1d53a6e290b538430032becdc82be76d99dce17`.
+- Successful run: https://github.com/abo-sultann/DarbakOS/actions/runs/36430408151
+- Build/Lint: 0 errors,17 existing warnings; instrumentation50/50 (all43 prior +7 assessment); quick-action returns6/6.
+- API25/x86,1024x600/160dpi: final P2 UI/RTL/fit/navigation/no-autoplay preserved; Home/Apps/restart images pixel-identical to prior snapshot checkpoint.
+- No defect found or production fix needed in this gate. No new production Service/Receiver/permission/dependency/native/background behavior; no observed app crash/ANR.
+- APK26,623 bytes (+1,296); PSS9,147KB (+92); launch434ms versus356ms. Separate single emulator observations, not causal benchmarks.
+- Evidence: `docs/test-evidence/p3-guardian-assessment-20260928/`; details/history: TEST_RESULTS.md.
 - Physical T3/ARMv7/Test Station and Stable acceptance remain outstanding.
 
 ## Not yet done
@@ -41,8 +43,8 @@ Target: t3-p3 / sun8iw11p1 / Android7.1 API25 / ARMv7 / ~1GB / 1024x600.
 - No firmware or MCU flash approved; all master-plan safety gates remain in force.
 
 ## Current gate
-The requested P3 Guardian snapshot verification batch is complete. STOP here.
-Do not start watchdog/Guardian services, logging/reporting, other P3 work, hardware work or another batch.
+The requested P3 Guardian assessment verification batch is complete. STOP here.
+Do not start watchdog/Guardian services, recovery, logging/reporting, other P3 work, hardware work or another batch.
 `02_NEXT_TASK.md` records closure, not a new assignment. No Stable/T3 acceptance is claimed.
 
 ## Continuation

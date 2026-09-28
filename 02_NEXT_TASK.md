@@ -1,39 +1,33 @@
-# Next Task — P3 Guardian recovery-policy COMPLETE / STOP
-
-## Closure — 2026-09-28
-Verified `987884c136aee594c43c63517d2f77f7465caa47`: Build/Lint PASS,57/57 API25 tests (all50 prior +7 policy),6/6 navigation returns. All6144 combination/level cases, conservative boundaries, exact targets, nonmutation and retained plans pass. Final P2 preserved; no production defect found. Evidence: `docs/test-evidence/p3-guardian-recovery-policy-20260928/` and TEST_RESULTS.md.
-
-STOP. No next task assigned. No actual recovery, watchdog, logging or Supervisor. Original scope retained below for audit.
+# Next Task — P3 Guardian passive Supervisor verification
 
 ## Start point
-Guardian assessment passed50/50 API25 tests. Main now adds GuardianRecoveryPolicy: a pure staged recommendation derived from one frozen GuardianAssessment plus an explicit escalation level. It encodes the approved recovery ladder without executing any action.
+Guardian recovery-policy is closed at 57/57 API25 tests. Main now adds GuardianSupervisor: a caller-driven, passive orchestration step that performs one consistent chain: GuardianSnapshot.capture -> GuardianAssessment.from -> GuardianRecoveryPolicy.recommend.
 
 ## Goal
-Verify the recovery ladder is deterministic, conservative and cannot trigger hidden work before Guardian Supervisor exists.
+Verify the first Supervisor layer composes the already-proven Guardian primitives correctly without becoming a watchdog, scheduler, service or recovery executor.
 
 ## Required verification
 - Build/Lint and every existing API25/1024x600 test.
 - Add focused coverage proving:
-  - null assessment is treated as UNKNOWN and recommends DIAGNOSE only;
-  - HEALTHY always recommends NONE with zero targets at every escalation level;
-  - UNKNOWN always recommends DIAGNOSE and targets exactly unknown components;
-  - DEGRADED recommends DIAGNOSE at level0, LIGHT_REPAIR at level>=1, and never escalates to restart/fallback/safe mode by itself;
-  - FAILED follows exactly: level0 DIAGNOSE, level1 LIGHT_REPAIR, level2 RESTART_COMPONENT, level3 FALLBACK_STABLE, level>=4 SAFE_MODE;
-  - negative escalation is clamped to level0;
-  - plan targets exactly the relevant failed/degraded/unknown components and null target queries are false;
-  - every component independently works as the sole failed/degraded/unknown target;
-  - all1024 health combinations across escalation levels0..5 produce deterministic policy output;
-  - creating plans never mutates assessment/snapshot/registry health or revisions;
-  - retained Plan remains immutable after later registry updates/reset/new assessments.
-- Preserve all50 previous tests and6 quick-action navigation returns.
+  - null registry produces a valid UNKNOWN snapshot/assessment and DIAGNOSE recommendation;
+  - cold registry produces the same conservative UNKNOWN result;
+  - HEALTHY/DEGRADED/FAILED/UNKNOWN states flow exactly from snapshot through assessment into policy;
+  - all1024 health combinations across escalation levels0..5 produce a Result whose snapshot, assessment and plan agree exactly;
+  - negative and high escalation levels preserve the already-verified policy boundaries;
+  - evaluation never mutates registry health/revisions;
+  - retained Result remains immutable after later registry updates/reset;
+  - a later evaluation reflects the new registry state while the older Result remains unchanged;
+  - repeated evaluation of unchanged registry is value-consistent and does not increment revisions;
+  - concurrent caller-driven evaluations/registry updates cannot produce internally split Result state.
+- Preserve all57 prior tests and6 quick-action navigation returns.
 - Confirm Home/Apps/Cold Restart screenshots and final P2 behavior remain unchanged.
-- Confirm no Service/Receiver/permission/dependency/native library/thread/timer/Handler/Executor/disk/network/sensor/restart/background execution was introduced.
+- Confirm production code adds no Service/Receiver/permission/dependency/native library/thread/timer/Handler/Executor/scheduled polling/listener/disk/network/sensor/restart/recovery execution.
 - Record APK/PSS delta and crash/ANR observations.
 - Fix only defects proven by this increment.
 - Update CURRENT_STATUS.md, TEST_RESULTS.md and CHANGELOG.md; Commit + Push; then STOP.
 
 ## Constraints
-Policy only. Do not execute recovery, restart components/apps, enter Safe Mode, rollback versions, add watchdog/polling/heartbeat/timers/listeners, Guardian Service, logging/report export, persistence, UI/notifications, source adapters, OsmAnd/GPS/Trip, playback, Vehicle sources, firmware/root/MCU/70mai or T3 work.
+Passive Supervisor composition only. Do not add watchdog loops, heartbeat/staleness clocks, timers, Android Service, automatic listeners, actual recovery/restart/Safe Mode/rollback, logging/report export, persistence, UI/notifications, source adapters, OsmAnd/GPS/Trip, playback, Vehicle sources, firmware/root/MCU/70mai or T3 work.
 
 ## Finish definition
-Guardian staged recovery recommendation is fully verified on API25/1024x600, conservative boundaries are proven, all previous behavior remains intact, evidence is checkpointed in GitHub, then STOP.
+One caller-driven Guardian Supervisor evaluation is proven internally consistent and side-effect-free on API25/1024x600, all previous behavior remains intact, evidence is checkpointed in GitHub, then STOP.

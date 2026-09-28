@@ -1,6 +1,6 @@
 # Current Status
 
-State: P3 GUARDIAN ASSESSMENT VERIFIED — BATCH CLOSED / STOP
+State: P3 GUARDIAN RECOVERY-POLICY VERIFIED — BATCH CLOSED / STOP
 Updated: 2026-09-28.
 Target: t3-p3 / sun8iw11p1 / Android7.1 API25 / ARMv7 / ~1GB / 1024x600.
 
@@ -25,14 +25,16 @@ Target: t3-p3 / sun8iw11p1 / Android7.1 API25 / ARMv7 / ~1GB / 1024x600.
 
 - GuardianAssessment classifies one frozen snapshot into exclusive healthy/degraded/failed/unknown buckets. All1024 combinations, counts summing to5, null queries, retention after updates/reset and nonmutation verified; no action or UI binding.
 
+- GuardianRecoveryPolicy returns recommendations only: UNKNOWN diagnoses, DEGRADED never exceeds light repair, FAILED follows the explicit0..4 ladder, HEALTHY has no targets. All6144 combination/level cases and integer boundaries verified; no recovery execution or Supervisor.
+
 ## Verified checkpoint
-- Tested code: `f1d53a6e290b538430032becdc82be76d99dce17`.
-- Successful run: https://github.com/abo-sultann/DarbakOS/actions/runs/36430408151
-- Build/Lint: 0 errors,17 existing warnings; instrumentation50/50 (all43 prior +7 assessment); quick-action returns6/6.
-- API25/x86,1024x600/160dpi: final P2 UI/RTL/fit/navigation/no-autoplay preserved; Home/Apps/restart images pixel-identical to prior snapshot checkpoint.
-- No defect found or production fix needed in this gate. No new production Service/Receiver/permission/dependency/native/background behavior; no observed app crash/ANR.
-- APK26,623 bytes (+1,296); PSS9,147KB (+92); launch434ms versus356ms. Separate single emulator observations, not causal benchmarks.
-- Evidence: `docs/test-evidence/p3-guardian-assessment-20260928/`; details/history: TEST_RESULTS.md.
+- Tested code: `987884c136aee594c43c63517d2f77f7465caa47`.
+- Successful run: https://github.com/abo-sultann/DarbakOS/actions/runs/36448995258
+- Build/Lint: 0 errors,17 existing warnings; instrumentation57/57 (all50 prior +7 policy); quick-action returns6/6.
+- API25/x86,1024x600/160dpi: final P2 UI/RTL/fit/navigation/no-autoplay preserved; Home/Apps/restart images pixel-identical to previous assessment checkpoint.
+- No defect found/fix needed. No new production Service/Receiver/permission/dependency/native/background behavior; no observed app crash/ANR. Recovery steps were not executed.
+- APK27,979 bytes (+1,356); PSS8,992KB (-155); launch365ms versus434ms. Separate single emulator observations, not causal benchmarks.
+- Evidence: `docs/test-evidence/p3-guardian-recovery-policy-20260928/`; details/history: TEST_RESULTS.md.
 - Physical T3/ARMv7/Test Station and Stable acceptance remain outstanding.
 
 ## Not yet done
@@ -43,8 +45,8 @@ Target: t3-p3 / sun8iw11p1 / Android7.1 API25 / ARMv7 / ~1GB / 1024x600.
 - No firmware or MCU flash approved; all master-plan safety gates remain in force.
 
 ## Current gate
-The requested P3 Guardian assessment verification batch is complete. STOP here.
-Do not start watchdog/Guardian services, recovery, logging/reporting, other P3 work, hardware work or another batch.
+The requested P3 Guardian recovery-policy verification batch is complete. STOP here.
+Do not start Supervisor, watchdog/Guardian services, actual recovery, logging/reporting, other P3 work, hardware work or another batch.
 `02_NEXT_TASK.md` records closure, not a new assignment. No Stable/T3 acceptance is claimed.
 
 ## Continuation

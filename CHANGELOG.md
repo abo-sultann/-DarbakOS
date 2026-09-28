@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-09-28 — Guardian recovery-policy verification closed / STOP
+- Added7 tests covering6144 combination/level cases, conservative UNKNOWN/DEGRADED limits, exact FAILED ladder, negative/extreme levels, targets and immutable plan/input retention. All50 prior tests preserved.
+- Code987884c passed Build/Lint,57/57 API25 tests and6/6 navigation returns/Cold Restart/no-autoplay. No application defect/fix needed.
+- Home/Apps/restart images pixel-identical; APK +1,356bytes/PSS -155KB, no app crash/ANR; observations are not causal benchmarks.
+- Saved evidence and updated state/gate. Recommendations only; no actual recovery, watchdog, logging or Supervisor.
+
 ## 2026-09-28 — Guardian assessment verification closed / STOP
 - Added7 tests for all1024 classifications, exclusive membership/counts, null/cold/all-healthy, immutable retention after updates/reset and repeated frozen-input assessments. All43 prior tests retained.
 - Codef1d53a6 passed Build/Lint,50/50 API25 tests and6/6 navigation returns/Cold Restart/no-autoplay. No application defect/fix.

@@ -2,6 +2,47 @@
 
 No Darbak OS release is Stable. See the per-stage evidence below.
 
+## 2026-09-28 — P3 Guardian recovery-policy: PASS / STOP
+
+- Tested `987884c136aee594c43c63517d2f77f7465caa47`, [run36448995258](https://github.com/abo-sultann/DarbakOS/actions/runs/36448995258), job109018561155. Tests/evidence only in this gate; no proven application defect or production fix needed.
+- Build/Lint PASS: 0 errors,17 existing warnings. API25/x86,1024x600/160dpi: **57/57 instrumentation PASS** in4.261s (all50 prior +7 recovery-policy). **6/6 actual-tap quick-action returns PASS**.
+- **No recovery was executed.** All returned steps are enum recommendations; no component/app restart, fallback/rollback, Safe Mode entry or Supervisor was introduced.
+
+| Added test | Verified behavior |
+|---|---|
+| nullAssessmentOnlyDiagnosesAllUnknownAtEveryBoundary | Null -> DIAGNOSE with exactly all5 unknown targets, even with live FAILED state |
+| healthyAndUnknownNeverEscalateAtAnyBoundary | HEALTHY -> NONE/zero targets; UNKNOWN -> DIAGNOSE/unknown targets, including extreme levels |
+| degradedWithUnknownNeverPassesLightRepair | Mixed DEGRADED/UNKNOWN: DIAGNOSE at0/negative, LIGHT_REPAIR from1 onward; only degraded targets |
+| failedUsesExactLadderAndClampsNegativeLevels | Exact FAILED ladder0..5, negatives incl.MIN_VALUE clamp to0, MAX_VALUE -> SAFE_MODE |
+| everyComponentCanBeTheSoleRelevantTarget | Each component independently sole FAILED/DEGRADED/UNKNOWN target across levels0..5 |
+| all6144CombinationLevelsAreDeterministicAndNonMutating | All1024 health combinations x6 levels =6144 cases; each called twice; independent expected-step table, precise target membership/count and null query false |
+| retainedPlansSurviveUpdatesResetAndNewAssessments | Plans for all6 levels retain step/targets after updates to every health, reset and new assessments; old assessment/snapshot retained |
+
+| Overall health | Level0 (also negatives) | Level1 | Level2 | Level3 | Level4/5 and upper boundary | Targets |
+|---|---|---|---|---|---|---|
+| HEALTHY | NONE | NONE | NONE | NONE | NONE | none |
+| UNKNOWN/null | DIAGNOSE | DIAGNOSE | DIAGNOSE | DIAGNOSE | DIAGNOSE | exactly unknown |
+| DEGRADED | DIAGNOSE | LIGHT_REPAIR | LIGHT_REPAIR | LIGHT_REPAIR | LIGHT_REPAIR | exactly degraded |
+| FAILED | DIAGNOSE | LIGHT_REPAIR | RESTART_COMPONENT | FALLBACK_STABLE | SAFE_MODE | exactly failed |
+
+- Boundary inputs: Integer.MIN_VALUE,-3,-1,0,1,2,3,4,5,Integer.MAX_VALUE. Frozen and live object identities/health/revisions, assessment counts/membership/overall are checked before/after recommendation. All50 previous tests preserved unchanged, including prior snapshot concurrency regression. No new test thread in this batch.
+- Source review: private cloned EnumSet targets, final step and pure selection only. No new production Service/Receiver/permission/dependency/native library/thread/timer/Handler/Executor/disk/network/sensor/restart/background execution, callbacks or UI caller. Existing MainActivity/resources/manifest/build unchanged; APK has no .so.
+- Existing REFERENCES.md/reuse choices and platform EnumSet/test conventions retained; no external implementation or dependency imported.
+- Home/Apps/Cold Restart screenshots visually reviewed and all3 pixel-identical to previous assessment checkpoint. Final P2 content/RTL/fit/navigation/Back/Home/recreation/no-autoplay preserved, no new clipping/overlap or fabricated data. App services0/MediaSessions0 after restart/settling.
+
+| Observation | Assessmentf1d53a6 | Recovery987884c | Delta |
+|---|---:|---:|---:|
+| APK bytes | 26,623 | 27,979 | +1,356 |
+| Process PSS KB | 9,147 | 8,992 | -155 |
+| Launch TotalTime ms | 434 | 365 | -69 |
+| Views / Activities | 49 / 1 | 49 / 1 | 0 / 0 |
+| Crash / app ANR observed | 0 / 0 | 0 / 0 | none |
+
+- Launch WaitTime370ms. Crash buffers empty; no app ANR in either captured log. Single separate emulator observations are not causal performance/CPU benchmarks or proof of zero allocation cost. Policy has no production UI caller. Physical T3/ARMv7/Test Station and Stable acceptance remain untested.
+- Artifact10982032472: `DarbakOS-P1-TEST-987884c136aee594c43c63517d2f77f7465caa47`, expires2026-10-12. APK SHA256 `6ace2df60f2aa8bd9770f6f46294897e98f29bf2bd30822197c95d66f1f92062`.
+- Evidence: `docs/test-evidence/p3-guardian-recovery-policy-20260928/` includes instrumentation, screenshots/UI trees, lint, no-autoplay, resource/crash captures and comparison.json.
+- **Batch closed / STOP.** No actual recovery, watchdog, logging, Supervisor or further work started.
+
 ## 2026-09-28 — P3 Guardian assessment: PASS / STOP
 
 - Tested `f1d53a6e290b538430032becdc82be76d99dce17`, [run36430408151](https://github.com/abo-sultann/DarbakOS/actions/runs/36430408151), job108954834490. Verification adds tests/evidence only; no proven application defect or production fix needed.

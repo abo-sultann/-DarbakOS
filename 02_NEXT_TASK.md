@@ -1,4 +1,9 @@
-# Next Task — P3 Guardian recovery-policy verification
+# Next Task — P3 Guardian recovery-policy COMPLETE / STOP
+
+## Closure — 2026-09-28
+Verified `987884c136aee594c43c63517d2f77f7465caa47`: Build/Lint PASS,57/57 API25 tests (all50 prior +7 policy),6/6 navigation returns. All6144 combination/level cases, conservative boundaries, exact targets, nonmutation and retained plans pass. Final P2 preserved; no production defect found. Evidence: `docs/test-evidence/p3-guardian-recovery-policy-20260928/` and TEST_RESULTS.md.
+
+STOP. No next task assigned. No actual recovery, watchdog, logging or Supervisor. Original scope retained below for audit.
 
 ## Start point
 Guardian assessment passed50/50 API25 tests. Main now adds GuardianRecoveryPolicy: a pure staged recommendation derived from one frozen GuardianAssessment plus an explicit escalation level. It encodes the approved recovery ladder without executing any action.

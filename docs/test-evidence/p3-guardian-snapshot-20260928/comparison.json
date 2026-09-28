@@ -1,0 +1,31 @@
+{
+  "baseline_commit": "e42f2d6d9355afabd6c4d7830c4182dadbed2685",
+  "tested_commit": "3709e356f0fdc623b86f7895b18c1ff1ef553f05",
+  "apk_bytes": {
+    "baseline": 24987,
+    "current": 25327,
+    "delta": 340
+  },
+  "pss_kb": {
+    "baseline": 8958,
+    "current": 9055,
+    "delta": 97
+  },
+  "launch_total_time_ms": {
+    "baseline": 371,
+    "current": 356,
+    "delta": -15
+  },
+  "views": 49,
+  "activities": 1,
+  "pixel_identical_to_baseline": [
+    "home-1024x600.png",
+    "apps-1024x600.png",
+    "cold-restart-home-1024x600.png"
+  ],
+  "snapshot_health_combinations": 1024,
+  "android_concurrent_captures": 20000,
+  "observed_app_crash": 0,
+  "observed_app_anr": 0,
+  "limitations": "Separate single API25 x86 emulator observations; not causal performance/CPU benchmarks or physical T3 validation. Snapshot not invoked by production UI; finite writer threads exist only in tests."
+}

@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-09-28 — Guardian snapshot verification closed / STOP
+- Reproduced an inconsistent snapshot (CORE FAILED, overall HEALTHY) under concurrent updates; fixed capture to hold the existing registry monitor through component reads/aggregation. No production thread/background behavior added.
+- Added7 snapshot tests covering null/cold, all1024 combinations, exact identities, retained values after updates/reset, repeated capture/recovery and20000 concurrent captures. All36 prior tests retained.
+- Code3709e35 passed Build/Lint,43/43 API25 tests and6/6 navigation returns/Cold Restart/no-autoplay. Home/Apps/restart images pixel-identical.
+- APK +340bytes/PSS +97KB, no app crash/ANR; resource observations are not causal benchmarks. Saved race proof and verification evidence, updated state and closed gate. No watchdog/logging.
+
 ## 2026-09-28 — Guardian aggregate-policy verification closed / STOP
 - Added7 tests covering all1024 combinations, precedence, every sole problem source, null/cold boundaries, recovery/reset and unchanged snapshot identities/revisions. All29 prior tests retained.
 - Codee42f2d6 passed Build/Lint,36/36 API25 tests and6/6 navigation returns/Cold Restart/no-autoplay. No application defect/fix.

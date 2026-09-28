@@ -2,6 +2,39 @@
 
 No Darbak OS release is Stable. See the per-stage evidence below.
 
+## 2026-09-28 — P3 Guardian snapshot: PASS / STOP
+
+- Tested `3709e356f0fdc623b86f7895b18c1ff1ef553f05`, [run36427535535](https://github.com/abo-sultann/DarbakOS/actions/runs/36427535535), job108945090176. Added7 focused tests, preserved all36 previous tests, and fixed one proven defect in the incoming snapshot increment.
+- **Proven defect/fix:** On unchanged incoming `deb45ec`, a Java17 concurrent-update probe captured CORE=FAILED/revision242 but overall=HEALTHY. Separate registry reads and later aggregation did not freeze one instant. `capture` now holds the registry's existing monitor across every read and aggregate calculation. Same probe passes20000 captures after the fix. Before/after output and reproducer are checkpointed; this is local JVM evidence, not an Android app crash.
+- Build/Lint PASS: 0 errors,17 existing warnings. API25/x86,1024x600/160dpi: **43/43 instrumentation PASS** in4.3s (all36 prior +7 snapshot). **6/6 actual-tap quick-action returns PASS**.
+
+| Added test | Verified behavior |
+|---|---|
+| nullRegistryReturnsColdValuesWithoutChangingLiveState | Null yields UNKNOWN overall/all5 cold revision0 values without changing live FAILED snapshots |
+| coldCapturePreservesExactUnknownSnapshotsAtRevisionZero | Cold capture retains exact component objects and UNKNOWN0 values |
+| all1024CombinationsCaptureExactStatesAndCorrectAggregate | Every4^5 health combination across all5 components, exact field-to-component identity, independent precedence check and no mutation/revision changes; preceding capture remains unchanged |
+| retainedSnapshotSurvivesEveryComponentUpdateAndRepeatedReset | Mixed retained snapshot survives all4 updates to each component and3 resets; fresh cold captures UNKNOWN0 while retained objects/values stay unchanged |
+| repeatedUnchangedCapturePreservesComponentIdentitiesAndRevisions | Repeated mixed DEGRADED/UNKNOWN captures retain equal values and same component identities/revisions |
+| newCaptureReflectsRecoveryWhileOldSnapshotRemainsUnchanged | Every component recovers from FAILED and DEGRADED; new capture is HEALTHY, only explicit update advances that component revision, older snapshot and other component identities retained |
+| concurrentUpdatesAndResetCannotSplitSnapshotOrAggregate | 20000 captures during test-only atomic component updates/reset; every captured component health/revision and overall describe the same state; writer stopped/joined before teardown |
+
+- The concurrency writer exists only in androidTest/local reproduction, never in the application. Production fix uses existing synchronization and verified GuardianPolicy; no new thread or scheduled work. Tests reset singleton before/after, and exact health/revision values are captured independently for retention assertions.
+- Home/Apps/Cold Restart screenshots visually reviewed and all3 pixel-identical to prior aggregate-policy checkpoint. Final P2 content/RTL/fit/navigation/Back/Home/recreation/no-autoplay unchanged; no new clipping/overlap, temporary wording or fabricated data. App service records0/MediaSessions0 after restart/settling.
+- No new production Service/Receiver/permission/dependency/native library/thread/timer/Handler/Executor/disk/network/sensor/restart/background execution, callbacks or UI caller. MainActivity/resources/manifest/build unchanged; APK contains no .so. REFERENCES.md reviewed; reused the registry monitor, aggregate policy and existing instrumentation patterns, with no external code/dependency.
+
+| Observation | Policye42f2d6 | Snapshot3709e35 | Delta |
+|---|---:|---:|---:|
+| APK bytes | 24,987 | 25,327 | +340 |
+| Process PSS KB | 8,958 | 9,055 | +97 |
+| Launch TotalTime ms | 371 | 356 | -15 |
+| Views / Activities | 49 / 1 | 49 / 1 | 0 / 0 |
+| Crash / app ANR observed | 0 / 0 | 0 / 0 | none |
+
+- Launch WaitTime361ms. Both crash buffers empty; no app ANR in either captured log. Separate single emulator observations are not causal performance/CPU benchmarks or proof of zero computation/allocation cost. Production UI does not call snapshot. Physical T3/ARMv7/Test Station and Stable acceptance remain untested.
+- Artifact10972606111: `DarbakOS-P1-TEST-3709e356f0fdc623b86f7895b18c1ff1ef553f05`, expires2026-10-12. APK SHA256 `837eadff701f289592c2b6d45a9795e92cb8f50b73e4ea8143e49c855405a96b`.
+- Durable evidence: `docs/test-evidence/p3-guardian-snapshot-20260928/` includes instrumentation, screenshots/UI trees, lint, no-autoplay, resource/crash captures, comparison.json and before/after race reproduction.
+- **Batch closed / STOP.** No watchdog, logging or other part started.
+
 ## 2026-09-28 — P3 Guardian aggregate-policy: PASS / STOP
 
 - Tested `e42f2d6d9355afabd6c4d7830c4182dadbed2685`, [run36401135032](https://github.com/abo-sultann/DarbakOS/actions/runs/36401135032), job108859015062. Incoming GuardianPolicy only derives overall health from explicit component values. This gate adds tests/evidence only; no proven application defect or production fix needed.

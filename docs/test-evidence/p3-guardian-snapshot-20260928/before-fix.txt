@@ -1,0 +1,2 @@
+Exception in thread "main" java.lang.AssertionError: Inconsistent point-in-time snapshot: capture=0 core=FAILED coreRevision=242 overall=HEALTHY
+	at GuardianSnapshotRaceProbe.main(GuardianSnapshotRaceProbe.java:40)

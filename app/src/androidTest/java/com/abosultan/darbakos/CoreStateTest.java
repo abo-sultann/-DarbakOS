@@ -12,6 +12,7 @@ import static org.junit.Assert.*;
 public final class CoreStateTest {
     private static void assertCold(DarbakState state) {
         assertNotNull(state);
+        assertEquals(0L, state.revision);
         assertEquals(DarbakState.Availability.UNAVAILABLE, state.speed);
         assertEquals(DarbakState.Availability.UNAVAILABLE, state.navigation);
         assertEquals(DarbakState.Availability.UNAVAILABLE, state.vehicle);

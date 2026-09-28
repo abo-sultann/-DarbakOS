@@ -1,28 +1,29 @@
-# Next Task — P3 cold-reset publication COMPLETE / STOP
-
-## Closure — 2026-09-28
-Verified code `cdc64b3b201e7e6f2de570a0c82b099114e186b5`: Build/Lint PASS,17/17 API25 tests and6/6 quick-action returns. Three focused reset/listener tests added; all14 prior tests retained. Home/Apps/Cold Restart unchanged; no application defect found. Evidence: `docs/test-evidence/p3-cold-reset-20260928/` and TEST_RESULTS.md.
-
-This batch is complete. STOP. No next task is assigned; do not start Guardian, logging or any other part. Original scope below is retained for audit.
+# Next Task — P3 Guardian health-state foundation verification
 
 ## Start point
-Core publish/subscription passed. Review found one lifecycle consistency gap before Guardian/logging: resetForColdBoot replaced the snapshot silently, so an already-registered in-process consumer could retain stale state. Main now routes cold reset through publish(DarbakState.coldBoot()). No UI/backend/service change.
+Core State/cold-reset gates are closed. Main now contains the first Guardian foundation primitive: GuardianState. It is deliberately pure in-process state only; it does not monitor, schedule, restart, log, persist or touch Android services.
 
 ## Goal
-Verify cold reset is an ordinary truthful state publication without changing the accepted P2 UI or adding background work.
+Verify the Guardian health-state model is deterministic, immutable and essentially zero-runtime-cost before any supervisor behavior is introduced.
 
 ## Required verification
-- Build/Lint and all existing API25/1024x600 tests.
-- Add/adjust focused Core tests proving: reset publishes exactly one coldBoot state to each unique registered listener; published reset is the same object returned by snapshot; reset state is revision0/all unavailable/media stopped; removed listener receives no reset; repeated reset is deterministic; callback remains synchronous on caller thread.
-- Preserve all prior revision/publish/listener/null semantics and existing test strength.
-- Regress Cold Restart, Home/Apps/RTL/quick actions/Back/Home/no-autoplay and truthful unavailable UI.
-- Confirm no Service/permission/dependency/native library/disk/network/sensor/thread/background execution was introduced.
+- Build/Lint and every existing API25/1024x600 test.
+- Add focused unit/instrumentation coverage proving:
+  - coldBoot = UNKNOWN revision0;
+  - HEALTHY/DEGRADED/FAILED transitions increment revision exactly once;
+  - retained previous instances remain immutable;
+  - same-state transition returns the same object and does not increment revision;
+  - null transition returns same object and does not increment revision;
+  - recovery FAILED -> HEALTHY is representable without hidden action.
+- Regress all17 existing Core/reset tests and6 quick-action navigation returns.
+- Confirm Home/Apps/Cold Restart screenshots and final P2 behavior remain unchanged.
+- Confirm GuardianState introduces no Service/Receiver/permission/dependency/native library/thread/timer/Handler/Executor/disk/network/sensor/restart/background execution.
 - Record APK/PSS delta and crash/ANR observations.
-- Fix only defects proven by this increment; update CURRENT_STATUS.md, TEST_RESULTS.md and CHANGELOG.md.
-- Commit + push, then STOP.
+- Fix only defects proven by this increment.
+- Update CURRENT_STATUS.md, TEST_RESULTS.md and CHANGELOG.md; Commit + Push; then STOP.
 
 ## Constraints
-Do not start Guardian, logging/report export, source adapters, UI binding to synthetic state, services, OsmAnd/GPS/Trip, playback, Vehicle sources, PackageManager backend, firmware/root/MCU/70mai or T3 work.
+This is not a watchdog yet. Do not add Guardian service, heartbeat polling, timers, restart/self-healing actions, logging/report export, persistence, UI, notifications, source adapters, OsmAnd/GPS/Trip, playback, Vehicle sources, firmware/root/MCU/70mai or T3 work.
 
 ## Finish definition
-Cold reset publication semantics are verified on API25/1024x600, prior Core/P2 behavior remains intact, evidence is checkpointed in GitHub, then STOP.
+Guardian health-state primitive is verified on API25/1024x600 with all prior behavior intact and no background cost; evidence is checkpointed in GitHub, then STOP.

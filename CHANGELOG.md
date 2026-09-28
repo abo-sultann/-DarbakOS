@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-09-28 — Cold-reset publication verification closed / STOP
+- Added3 focused reset/listener tests for exact-once synchronous delivery, snapshot identity, removal and repeatable cold states; all14 prior tests retained.
+- Codecdc64b3 passed Build/Lint,17/17 API25 tests and6/6 quick-action returns/Cold Restart/no-autoplay. No application defect/fix needed.
+- Home/Apps/restart images pixel-identical; APK -16 bytes/PSS -37KB; no observed crash/ANR. Resource observations are not causal benchmarks.
+- Updated state/results/evidence and closed the gate. No Guardian/logging or subsequent work.
+
 ## 2026-09-28 — Core publish/subscription verification closed / STOP
 - Added6 focused API25 tests for immutable revision/publish/listener identity, synchronous delivery, duplicate prevention, removal, null and cold-reset behavior; retained all8 prior tests.
 - Code31ce9bc passed Build/Lint,14 tests and6 quick-action returns/Cold Restart/no-autoplay. No application defect/fix needed.

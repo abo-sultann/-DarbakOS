@@ -2,6 +2,35 @@
 
 No Darbak OS release is Stable. See the per-stage evidence below.
 
+## 2026-09-28 — P3 cold-reset publication: PASS / STOP
+
+- Tested `cdc64b3b201e7e6f2de570a0c82b099114e186b5`, [run36362412922](https://github.com/abo-sultann/DarbakOS/actions/runs/36362412922), job108742075127. Incoming production change routes resetForColdBoot through publish(coldBoot()); this verification adds tests/evidence only. No application defect found or additional production fix needed.
+- Build/Lint PASS: 0 errors,17 existing warnings. API25/x86,1024x600/160dpi: **17/17 instrumentation PASS** in2.27s (9 CorePublish,3 CoreState,5 Shell). All14 previous tests retained.
+
+| Added test | Verified behavior |
+|---|---|
+| resetPublishesOnceToEachUniqueListenerInline | Two unique listeners, one duplicate registration, exactly one callback each; synchronous caller-thread delivery before reset returns; both receive the same object as snapshot; revision0/all UNAVAILABLE/media stopped; retained old state unchanged |
+| removedListenerReceivesNoColdReset | Both receive an ordinary publication; after removal only remaining listener receives cold reset; exact counts and cold state checked |
+| repeatedResetsDeterministicallyPublishFreshColdSnapshots | Three resets produce exactly three distinct cold snapshots with exact callback/snapshot identity; all retained reset values stay cold |
+
+- Existing revision increments, immutable prior snapshots, publish identity, duplicate registration, listener removal, null silence, cold boot and Activity/recreation checks retained. Test teardown removes listeners before resetting; synthetic state stays in tests only.
+- **6/6 actual-tap quick-action returns PASS**; Home/Apps/RTL/fit/navigation/Back/Home/recreation/Cold Restart/no-autoplay preserved. Immediate and settled restart show unavailable/no-route/no-track/stopped states, zero app service records and zero app MediaSessions.
+- Home and Apps screenshots visually reviewed: no clipping/overlap or fabricated live values/temporary wording. Home/Apps/cold-restart screenshots are pixel-identical to prior publish checkpoint.
+- MainActivity/resources/manifest/build configuration unchanged. Reviewed reset delegates to existing synchronous in-process publication only: no new Service, permission, dependency, native library, disk/network/sensor/thread/background execution. Downloaded APK has no .so.
+
+| Observation | Publish31ce9bc | Resetcdc64b3 | Delta |
+|---|---:|---:|---:|
+| APK bytes | 23,319 | 23,303 | -16 |
+| Process PSS KB | 9,180 | 9,143 | -37 |
+| Launch TotalTime ms | 475 | 317 | -158 |
+| Views / Activities | 49 / 1 | 49 / 1 | 0 / 0 |
+| Crash / app ANR observed | 0 / 0 | 0 / 0 | none |
+
+- Launch WaitTime323ms; crash buffers empty and no app ANR observed in captured logs. These are separate single emulator observations, not causal performance improvements or CPU benchmarks; physical T3/ARMv7 acceptance remains untested.
+- Artifact10946202227: `DarbakOS-P1-TEST-cdc64b3b201e7e6f2de570a0c82b099114e186b5`, expires2026-10-12. Internal artifact name does not describe user-facing copy. APK SHA256: `7c3e4976a7fa6626bf1a2efb3824102d7de407af7530d9c01a6d93976734f98f`.
+- Durable evidence: `docs/test-evidence/p3-cold-reset-20260928/` includes instrumentation, UI trees/screenshots, no-autoplay, resource captures, lint XML and comparison.json. Full workflow logs/artifact remain linked above.
+- **Batch closed / STOP.** No Guardian, logging or other P3 work started. No Stable or physical-device validation claimed.
+
 ## 2026-09-28 — P3 Core publish/subscription: PASS / STOP
 
 - Tested `31ce9bc83cd37760433da482c2f4cce3cd793673`, [run36361519633](https://github.com/abo-sultann/DarbakOS/actions/runs/36361519633), job108739492043. This verification gate changes tests/docs only; no application defect found or fix needed.

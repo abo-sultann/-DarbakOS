@@ -12,9 +12,15 @@ public final class CoreStateStore {
     private CoreStateStore() {}
     public static CoreStateStore get() { return INSTANCE; }
     public synchronized DarbakState snapshot() { return state; }
-    public synchronized void resetForColdBoot() { state = DarbakState.coldBoot(); }
-    public synchronized void addListener(Listener listener) { if (listener != null && !listeners.contains(listener)) listeners.add(listener); }
+
+    /** Cold boot is a state publication too, so existing in-process consumers cannot retain stale state. */
+    public void resetForColdBoot() { publish(DarbakState.coldBoot()); }
+
+    public synchronized void addListener(Listener listener) {
+        if (listener != null && !listeners.contains(listener)) listeners.add(listener);
+    }
     public synchronized void removeListener(Listener listener) { listeners.remove(listener); }
+
     public void publish(DarbakState next) {
         if (next == null) return;
         final List<Listener> copy;

@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-09-28 — Guardian component-registry verification closed / STOP
+- Added7 focused tests covering all5 components/60 distinct transitions, isolation, revisions, same/null identity, null component, retained state, repeated reset and FAILED-to-HEALTHY recovery. All22 prior tests retained.
+- Code7ef7037 passed Build/Lint,29/29 API25 tests and6/6 navigation returns/Cold Restart/no-autoplay. No application defect/fix.
+- Home/Apps/restart screenshots pixel-identical; APK +912bytes/PSS +79KB, no crash/ANR; observations are not causal benchmarks.
+- Updated evidence/results/state and closed gate; no watchdog/logging/callbacks/background work.
+
 ## 2026-09-28 — Guardian health-state verification closed / STOP
 - Added5 tests covering all4 states/all12 distinct transitions, revision increments, immutable retention, same/null identity and FAILED-to-HEALTHY recovery. Retained all17 prior tests.
 - Codee994833 passed Build/Lint,22/22 API25 tests and6/6 navigation returns/Cold Restart/no-autoplay. No application defect/fix.

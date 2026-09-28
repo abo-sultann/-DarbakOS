@@ -1,4 +1,9 @@
-# Next Task — P3 Guardian component-registry verification
+# Next Task — P3 Guardian component-registry COMPLETE / STOP
+
+## Closure — 2026-09-28
+Verified `7ef7037e05f004280059ccec6d78bd19cf9a519b`: Build/Lint PASS,29/29 API25 tests (all22 prior +7 registry),6/6 navigation returns. All components/isolation/revision/reset verified; final P2 preserved; no production defect found. Evidence: `docs/test-evidence/p3-guardian-registry-20260928/` and TEST_RESULTS.md.
+
+STOP. No next task is assigned. Do not start watchdog, logging or any other part. Original scope retained below for audit.
 
 ## Start point
 Guardian health-state primitive passed. Main now adds GuardianRegistry: a small in-process owner for explicit health of CORE, HOME, NAVIGATION, MEDIA and VEHICLE. The registry stores only health supplied by future monitors; it does not poll, infer, schedule, persist, restart or touch Android services.

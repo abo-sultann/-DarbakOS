@@ -2,6 +2,39 @@
 
 No Darbak OS release is Stable. See the per-stage evidence below.
 
+## 2026-09-28 — P3 Guardian component-registry: PASS / STOP
+
+- Tested `7ef7037e05f004280059ccec6d78bd19cf9a519b`, [run36399872441](https://github.com/abo-sultann/DarbakOS/actions/runs/36399872441), job108854932827. Incoming GuardianRegistry owns explicit per-component health; this gate adds tests/evidence only. No proven application defect or production fix needed.
+- Build/Lint PASS: 0 errors,17 existing warnings. API25/x86,1024x600/160dpi: **29/29 instrumentation PASS** in4.089s (9 CorePublish,3 CoreState,7 GuardianRegistry,5 GuardianState,5 Shell). All22 previous tests retained unchanged. **6/6 actual-tap quick-action returns PASS**.
+
+| Added test | Verified behavior |
+|---|---|
+| coldBootInitializesAllFiveComponentsAndStableSnapshots | Exactly CORE/HOME/NAVIGATION/MEDIA/VEHICLE, each UNKNOWN revision0, distinct component snapshots, repeat reads and singleton identity stable |
+| everyComponentTransitionIsIsolatedAndAdvancesExactlyOnce | All60 distinct transitions (5 components x12 health transitions); returned state equals snapshot, new identity, exactly +1 target revision, all other component identities and every retained value unchanged |
+| sameHealthPreservesIdentityRevisionAndAllOtherComponents | Same-state updates repeated across all components/all4 health values; identities/revisions and other components unchanged |
+| nullHealthPreservesIdentityRevisionAndAllOtherComponents | Null health across all components/all4 values; identities/revisions/content unchanged |
+| repeatedColdResetReplacesEverySnapshotAndRetainsOldStates | Mixed nonzero-revision states,3 resets; every component gets a fresh UNKNOWN revision0 snapshot; retained old values unchanged |
+| nullComponentLookupAndUpdatesDoNotAlterRegistryContents | Null lookup and null-component updates with all4 health values/null return UNKNOWN0 without changing any registry snapshot/content |
+| eachComponentCanRecoverFromFailedWithoutAffectingOthers | Every component FAILED -> HEALTHY exactly +1 with new snapshot; old FAILED state and all other components unchanged |
+
+- Tests reset singleton before/after each test; captured health/revision values independently verify retained objects. Synthetic test states never bind to UI. Existing Core publication/reset/listeners/null, GuardianState, Activity/recreation and navigation checks retained.
+- Home/Apps/Cold Restart screenshots visually reviewed and all3 pixel-identical to prior Guardian health checkpoint; final P2 content/RTL/fit unchanged, no new clipping/overlap or fabricated values. Home/Back/quick actions and stopped/unavailable media remain correct after cold restart and settling; app service records0/MediaSessions0.
+- Full source review: GuardianRegistry uses existing GuardianState and platform java.util EnumMap/Map with synchronized in-process methods only. No new Service/Receiver/permission/dependency/native library/thread/timer/Handler/Executor/disk/network/sensor/restart/background execution or listener callbacks. No references from production UI to registry. MainActivity/resources/manifest/build unchanged; downloaded APK contains no .so.
+- REFERENCES.md and recorded prior-project reuse reviewed; reused existing instrumentation/test conventions. No new external implementation or dependency needed for this verification. Registry performs no monitoring, inference or self-healing action.
+
+| Observation | Healthe994833 | Registry7ef7037 | Delta |
+|---|---:|---:|---:|
+| APK bytes | 23,839 | 24,751 | +912 |
+| Process PSS KB | 8,905 | 8,984 | +79 |
+| Launch TotalTime ms | 364 | 397 | +33 |
+| Views / Activities | 49 / 1 | 49 / 1 | 0 / 0 |
+| Crash / app ANR observed | 0 / 0 | 0 / 0 | none |
+
+- Launch WaitTime401ms. Both crash buffers empty; no app ANR in captured logs. Separate single emulator observations are not causal performance/CPU benchmarks or proof of zero allocation cost; production UI does not invoke registry. Physical T3/ARMv7/Test Station and Stable acceptance remain untested.
+- Artifact10959049545: `DarbakOS-P1-TEST-7ef7037e05f004280059ccec6d78bd19cf9a519b`, expires2026-10-12. APK SHA256 `a3125c6b2828f5d9046349a02a76ccbb3acc6df349de7fceaa73559e704b76ed`.
+- Durable evidence: `docs/test-evidence/p3-guardian-registry-20260928/` includes instrumentation, screenshots/UI trees, lint, no-autoplay, resource/crash captures and comparison.json.
+- **Batch closed / STOP.** No watchdog, logging or other part started.
+
 ## 2026-09-28 — P3 Guardian health-state foundation: PASS / STOP
 
 - Tested `e9948337345ee7ec0d810b48508bb0dbe388affb`, [run36395918000](https://github.com/abo-sultann/DarbakOS/actions/runs/36395918000), job108842149353. Incoming GuardianState is pure immutable state; this gate adds tests/evidence only. No proven application defect or production fix.

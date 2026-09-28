@@ -1,0 +1,29 @@
+{
+  "baseline_commit": "e9948337345ee7ec0d810b48508bb0dbe388affb",
+  "tested_commit": "7ef7037e05f004280059ccec6d78bd19cf9a519b",
+  "apk_bytes": {
+    "baseline": 23839,
+    "current": 24751,
+    "delta": 912
+  },
+  "pss_kb": {
+    "baseline": 8905,
+    "current": 8984,
+    "delta": 79
+  },
+  "launch_total_time_ms": {
+    "baseline": 364,
+    "current": 397,
+    "delta": 33
+  },
+  "views": 49,
+  "activities": 1,
+  "pixel_identical_to_baseline": [
+    "home-1024x600.png",
+    "apps-1024x600.png",
+    "cold-restart-home-1024x600.png"
+  ],
+  "observed_app_crash": 0,
+  "observed_app_anr": 0,
+  "limitations": "Single separate API25 x86 emulator observations; not causal performance/CPU benchmarks or physical T3 validation. Registry not invoked by production UI."
+}

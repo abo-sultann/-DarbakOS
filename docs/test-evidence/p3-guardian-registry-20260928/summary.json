@@ -1,0 +1,13 @@
+{
+  "result": "PASS",
+  "commit": "7ef7037e05f004280059ccec6d78bd19cf9a519b",
+  "api": 25,
+  "abi": "x86",
+  "resolution": "1024x600",
+  "density": 160,
+  "instrumented_tests": 29,
+  "quick_action_round_trips": 6,
+  "apk_bytes": 24751,
+  "apk_sha256": "a3125c6b2828f5d9046349a02a76ccbb3acc6df349de7fceaa73559e704b76ed",
+  "t3_validated": false
+}

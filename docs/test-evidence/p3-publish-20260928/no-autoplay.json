@@ -1,0 +1,8 @@
+{
+  "result": "PASS",
+  "home_stopped_unavailable_media_after_restart": true,
+  "no_track_or_fabricated_position_after_settle": true,
+  "app_service_records": 0,
+  "app_media_sessions": 0,
+  "scope": "Production-facing shell without playback code; not a future playback-engine test"
+}

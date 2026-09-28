@@ -1,6 +1,11 @@
-# Next Task — P3 Core State publish/subscription verification
+# P3 Core State publish/subscription verification — COMPLETE / STOP
 
-## Start point
+## Closure — 2026-09-28
+Code31ce9bc passed run36361519633: Build/Lint,14/14 API25 tests (all8 prior +6 focused),6/6 quick-action returns and Cold Restart/no-autoplay. Revision/publish/snapshot/listener identity, synchronous publishing-thread delivery, duplicate/remove/null/reset semantics verified. Home/Apps/restart images unchanged; resource deltas/evidence recorded in TEST_RESULTS.md. No app fix needed.
+
+STOP. No Guardian, logging/reporting, source adapters or further P3 work/batch.
+
+## Original start point
 P3 Core State foundation passed. Main now adds the smallest next Core increment: immutable state revisions plus an in-process publish/listener mechanism. It is infrastructure only; the final P2 UI is intentionally not bound to synthetic state and no source/backend is connected.
 
 ## Goal

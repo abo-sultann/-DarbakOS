@@ -2,6 +2,41 @@
 
 No Darbak OS release is Stable. See the per-stage evidence below.
 
+## 2026-09-28 — P3 Core publish/subscription: PASS / STOP
+
+- Tested `31ce9bc83cd37760433da482c2f4cce3cd793673`, [run36361519633](https://github.com/abo-sultann/DarbakOS/actions/runs/36361519633), job108739492043. This verification gate changes tests/docs only; no application defect found or fix needed.
+- Build/Lint PASS: 0 errors,17 existing warnings. API25/x86,1024x600/160dpi,1GB RAM/software GPU: **14/14 instrumentation PASS** in3.978s (all8 prior tests plus6 focused publish/subscription tests).
+
+| Focused test | Verified behavior |
+|---|---|
+| revisionsAdvanceWithoutMutatingPriorStates | cold revision0, successive immutable updates1/2; every state field checked and prior states retained |
+| publishUpdatesSnapshotAndCallsListenersInlineWithExactState | snapshot and both listener arguments are the exact published object; callbacks complete before publish returns on the publishing thread |
+| duplicateRegistrationDoesNotMultiplyCallbacks | same listener registered twice receives one callback per publication, revisions advance1/2 |
+| removalStopsOnlyTheRemovedListener | removed listener stops, remaining listener and snapshot updates continue |
+| nullPublishPreservesSnapshotRevisionAndSilence | null preserves exact existing snapshot/revision and produces no callback |
+| coldResetClearsPublishedAvailabilityPlaybackAndRevision | after published revision2/playing state, reset returns revision0/all unavailable/stopped without mutating retained state |
+
+- Existing cold-boot assertions strengthened with revision0. Tests remove listeners and reset store in teardown; synthetic values exist only in instrumentation, never bound to UI. No new thread/Handler/Executor was added; current-thread identity is inspected inside synchronous callbacks.
+- **6/6 actual-tap quick-action returns PASS**, Home/Apps/RTL/fit/Back/Home/recreation/Cold Restart/no-autoplay preserved. Restart immediately/after settling shows truthful unavailable/no-route/no-track/stopped states; app services0/media sessions0.
+- Actual Home/Apps screenshots reviewed: no clipping/overlap or fabricated UI values; Home/Apps/cold-restart images pixel-identical to prior Core foundation (and accepted P2 images).
+- MainActivity/resources/manifest/build dependency diffs against previous checkpoint are empty. Core uses java.util in-process listener copies and immutable fields only: no Service, permission, runtime dependency, native library, disk/network/sensor/background execution. No .so in downloaded APK. No source/UI binding introduced.
+
+| Observation | Foundation6bcc623 | Publish31ce9bc | Delta |
+|---|---:|---:|---:|
+| APK bytes | 22,607 | 23,319 | +712 (+3.15%) |
+| Process PSS KB | 9,007 | 9,180 | +173 (+1.92%) |
+| Launch TotalTime ms | 301 | 475 | +174 |
+| Views / Activities | 49 / 1 | 49 / 1 | 0 / 0 |
+| Crash / app ANR observed | 0 / 0 | 0 / 0 | none |
+
+Separate single emulator snapshots, not controlled benchmarks. The larger launch/PSS observations do not establish a causal regression; CPU performance is not established. Raw diagnostics retained; no T3/ARMv7 performance claim.
+
+- Downloaded APK SHA256 verified: `68fdd84556f903a64b7ac4c59cec869f4609f54a5d8ce13d4adf173f28b78060`.
+- Durable [evidence](docs/test-evidence/p3-publish-20260928/): comparison JSON, Home/Apps/restart PNG, UI XML,14-test/6-flow results, no-autoplay/services/sessions/audio, lint, APK summary and resource/crash outputs. Full artifact10946001811 expires2026-10-12.
+- Existing REFERENCES/platform/test harness reused; no component built from scratch. Local source guard, Python syntax and whitespace PASS. No Stable or physical-device acceptance.
+
+**Disposition: complete, commit/push and STOP. No Guardian, logging/reporting, source adapters or further P3 batch.**
+
 ## 2026-09-27 — P3 Core State foundation: PASS / STOP
 
 - Tested `6bcc62319d8690ee1316655de61bf15106669192`, [run36344308617](https://github.com/abo-sultann/DarbakOS/actions/runs/36344308617), job108690318096. This gate added tests only; no application defect found or application fix needed.

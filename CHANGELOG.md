@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-09-28 — Core publish/subscription verification closed / STOP
+- Added6 focused API25 tests for immutable revision/publish/listener identity, synchronous delivery, duplicate prevention, removal, null and cold-reset behavior; retained all8 prior tests.
+- Code31ce9bc passed Build/Lint,14 tests and6 quick-action returns/Cold Restart/no-autoplay. No application defect/fix needed.
+- UI images pixel-identical; recorded APK +712 bytes/PSS +173KB and single-launch observations with limitations, no crash/ANR.
+- Updated evidence/state/results/gate; no Guardian/logging or subsequent P3 work.
+
 ## 2026-09-27 — P3 Core State verification closed / STOP
 - Added3 focused API25 tests for truthful coldBoot, singleton snapshot/reset retention and fresh Activity versus recreation semantics; retained all5 UI tests.
 - Code6bcc623 passed Build/Lint,8 tests,6 quick-action returns and Cold Restart/no-autoplay. No application defect/fix needed.

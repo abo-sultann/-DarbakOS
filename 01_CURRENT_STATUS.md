@@ -1,6 +1,6 @@
 # Current Status
 
-State: P3 GUARDIAN COMPONENT-REGISTRY VERIFIED — BATCH CLOSED / STOP
+State: P3 GUARDIAN AGGREGATE-POLICY VERIFIED — BATCH CLOSED / STOP
 Updated: 2026-09-28.
 Target: t3-p3 / sun8iw11p1 / Android7.1 API25 / ARMv7 / ~1GB / 1024x600.
 
@@ -20,15 +20,16 @@ Target: t3-p3 / sun8iw11p1 / Android7.1 API25 / ARMv7 / ~1GB / 1024x600.
 - GuardianState is an immutable in-process health value: UNKNOWN coldBoot/revision0; changed health increments revision once; same/null preserves identity; FAILED -> HEALTHY is representable.
 - All4 states/all12 directed state changes verified. No monitoring, watchdog, action, persistence or background execution; not connected to UI.
 - GuardianRegistry owns CORE/HOME/NAVIGATION/MEDIA/VEHICLE health explicitly. Isolation across60 transitions, per-component revision, same/null identity, null component, recovery and repeated cold reset verified. No callbacks or automatic action.
+- GuardianPolicy derives overall health with FAILED > DEGRADED > UNKNOWN > HEALTHY precedence. All1024 combinations, null input, every sole source and recovery/reset verified; aggregation preserves every snapshot/revision.
 
 ## Verified checkpoint
-- Tested code: `7ef7037e05f004280059ccec6d78bd19cf9a519b`.
-- Successful run: https://github.com/abo-sultann/DarbakOS/actions/runs/36399872441
-- Build/Lint: 0 errors,17 existing warnings; instrumentation29/29 (all22 prior +7 registry); quick-action returns6/6.
-- API25/x86,1024x600/160dpi: final P2 UI/RTL/fit/navigation/no-autoplay preserved. Home/Apps/restart Home screenshots pixel-identical to prior Guardian checkpoint.
+- Tested code: `e42f2d6d9355afabd6c4d7830c4182dadbed2685`.
+- Successful run: https://github.com/abo-sultann/DarbakOS/actions/runs/36401135032
+- Build/Lint: 0 errors,17 existing warnings; instrumentation36/36 (all29 prior +7 policy); quick-action returns6/6.
+- API25/x86,1024x600/160dpi: final P2 UI/RTL/fit/navigation/no-autoplay preserved. Home/Apps/restart Home screenshots pixel-identical to prior registry checkpoint.
 - No new Service/Receiver/permission/dependency/native/background behavior; no observed crash/ANR. No production defect found.
-- APK24,751 bytes (+912); PSS8,984KB (+79); launch397ms versus364ms. Separate single emulator observations, not causal benchmarks.
-- Evidence: `docs/test-evidence/p3-guardian-registry-20260928/`; details/history: TEST_RESULTS.md.
+- APK24,987 bytes (+236); PSS8,958KB (-26); launch371ms versus397ms. Separate single emulator observations, not causal benchmarks.
+- Evidence: `docs/test-evidence/p3-guardian-aggregate-20260928/`; details/history: TEST_RESULTS.md.
 - Physical T3/ARMv7/Test Station and Stable acceptance remain outstanding.
 
 ## Not yet done
@@ -39,7 +40,7 @@ Target: t3-p3 / sun8iw11p1 / Android7.1 API25 / ARMv7 / ~1GB / 1024x600.
 - No firmware or MCU flash approved; all master-plan safety gates remain in force.
 
 ## Current gate
-The requested P3 Guardian component-registry verification batch is complete. STOP here.
+The requested P3 Guardian aggregate-policy verification batch is complete. STOP here.
 Do not start watchdog/Guardian services, logging/reporting, other P3 work, hardware work or another batch.
 `02_NEXT_TASK.md` records closure, not a new assignment. No Stable/T3 acceptance is claimed.
 

@@ -1,4 +1,9 @@
-# Next Task — P3 Guardian aggregate-policy verification
+# Next Task — P3 Guardian aggregate-policy COMPLETE / STOP
+
+## Closure — 2026-09-28
+Verified `e42f2d6d9355afabd6c4d7830c4182dadbed2685`: Build/Lint PASS,36/36 API25 tests (all29 prior +7 policy),6/6 navigation returns. All1024 combinations/precedence/recovery/nonmutation verified; final P2 preserved; no production defect found. Evidence: `docs/test-evidence/p3-guardian-aggregate-20260928/` and TEST_RESULTS.md.
+
+STOP. No next task is assigned. Do not start watchdog, logging or any other part. Original scope retained below for audit.
 
 ## Start point
 Guardian component registry passed29/29 API25 tests. Main now adds GuardianPolicy: a pure deterministic aggregation rule over the explicit component states already held by GuardianRegistry. It performs no monitoring, timing, callbacks, persistence, restart or Android background work.

@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-09-28 — Guardian aggregate-policy verification closed / STOP
+- Added7 tests covering all1024 combinations, precedence, every sole problem source, null/cold boundaries, recovery/reset and unchanged snapshot identities/revisions. All29 prior tests retained.
+- Codee42f2d6 passed Build/Lint,36/36 API25 tests and6/6 navigation returns/Cold Restart/no-autoplay. No application defect/fix.
+- Home/Apps/restart images pixel-identical; APK +236bytes/PSS -26KB, no crash/ANR; observations are not causal benchmarks.
+- Updated evidence/results/state and closed gate; no watchdog/logging/background work.
+
 ## 2026-09-28 — Guardian component-registry verification closed / STOP
 - Added7 focused tests covering all5 components/60 distinct transitions, isolation, revisions, same/null identity, null component, retained state, repeated reset and FAILED-to-HEALTHY recovery. All22 prior tests retained.
 - Code7ef7037 passed Build/Lint,29/29 API25 tests and6/6 navigation returns/Cold Restart/no-autoplay. No application defect/fix.

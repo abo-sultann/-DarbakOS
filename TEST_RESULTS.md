@@ -2,6 +2,39 @@
 
 No Darbak OS release is Stable. See the per-stage evidence below.
 
+## 2026-09-28 — P3 Guardian aggregate-policy: PASS / STOP
+
+- Tested `e42f2d6d9355afabd6c4d7830c4182dadbed2685`, [run36401135032](https://github.com/abo-sultann/DarbakOS/actions/runs/36401135032), job108859015062. Incoming GuardianPolicy only derives overall health from explicit component values. This gate adds tests/evidence only; no proven application defect or production fix needed.
+- Build/Lint PASS: 0 errors,17 existing warnings. API25/x86,1024x600/160dpi: **36/36 instrumentation PASS** in4.142s: all29 prior tests plus7 policy tests. **6/6 actual-tap quick-action returns PASS**.
+
+| Added test | Verified behavior |
+|---|---|
+| nullRegistryIsUnknownWithoutMutatingExistingRegistry | Null input returns UNKNOWN, even with FAILED/DEGRADED states in the existing singleton; singleton remains unchanged |
+| allUnknownColdBootRemainsUnknownAtRevisionZero | Cold registry aggregates UNKNOWN; every component remains UNKNOWN revision0 |
+| allHealthyIsHealthyWithoutRevisionChanges | All HEALTHY aggregates HEALTHY; each revision remains1 |
+| everyComponentCanBeTheSoleFailedDegradedOrUnknownSource | Each of5 components independently supplies the sole FAILED, DEGRADED or UNKNOWN state among healthy peers |
+| all1024CombinationsRespectPrecedenceWithoutMutation | Exhaustive4^5 combinations: FAILED > DEGRADED > UNKNOWN > HEALTHY; covers failed regardless of peers and degraded with unknown; independent precedence ranking, exact outcome counts1/31/211/781 |
+| eachComponentRecoversFromFailedAndDegradedToAllHealthy | Each component recovers from both problem states to all HEALTHY; only explicit update increments revision, retained problem snapshot stays unchanged |
+| mixedRecoveryAndResetFollowRemainingPriorityWithoutCachedHealth | Mixed FAILED/DEGRADED/UNKNOWN recovers through remaining priority to HEALTHY; cold reset immediately yields UNKNOWN |
+
+- Every aggregate assertion runs twice and checks all5 snapshot identities plus separately captured health/revision values before/after. All1024 combinations are checked without registry mutation; tests reset singleton before/after. All29 previous Core/Guardian/Shell tests retained unchanged.
+- Home/Apps/Cold Restart screenshots visually reviewed and all3 pixel-identical to previous registry checkpoint. Final P2 content/RTL/fit/navigation/Back/Home/recreation/no-autoplay preserved; no new clipping/overlap, temporary text or invented live data. Stopped/unavailable media persists after restart/settling; app service records0/MediaSessions0.
+- Complete policy source reviewed: synchronous reads/enum decisions only, no state writes, timers, callbacks or Android calls. No Service/Receiver/permission/dependency/native library/thread/Handler/Executor/disk/network/sensor/restart/background execution. No production UI caller. MainActivity/resources/manifest/build unchanged; downloaded APK contains no .so.
+- REFERENCES.md and prior recorded reuse remain unchanged; reused the existing instrumentation and immutable snapshot test patterns. No new external component or dependency introduced.
+
+| Observation | Registry7ef7037 | Policye42f2d6 | Delta |
+|---|---:|---:|---:|
+| APK bytes | 24,751 | 24,987 | +236 |
+| Process PSS KB | 8,984 | 8,958 | -26 |
+| Launch TotalTime ms | 397 | 371 | -26 |
+| Views / Activities | 49 / 1 | 49 / 1 | 0 / 0 |
+| Crash / app ANR observed | 0 / 0 | 0 / 0 | none |
+
+- Launch WaitTime379ms. Both crash buffers empty; no app ANR in captured logs. Separate single emulator observations are not causal performance/CPU benchmarks or evidence of zero computation/allocation cost. No background execution is introduced; the policy is not invoked by production UI. Physical T3/ARMv7/Test Station and Stable acceptance remain untested.
+- Artifact10960945564: `DarbakOS-P1-TEST-e42f2d6d9355afabd6c4d7830c4182dadbed2685`, expires2026-10-12. APK SHA256 `a6b3c6f1f820e4c9b968b9fc697ca81460b94b8cbc062d1b454d604f81c6119b`.
+- Durable evidence: `docs/test-evidence/p3-guardian-aggregate-20260928/` includes instrumentation, screenshots/UI trees, lint, no-autoplay, resource/crash captures and comparison.json.
+- **Batch closed / STOP.** No watchdog, logging or other part started.
+
 ## 2026-09-28 — P3 Guardian component-registry: PASS / STOP
 
 - Tested `7ef7037e05f004280059ccec6d78bd19cf9a519b`, [run36399872441](https://github.com/abo-sultann/DarbakOS/actions/runs/36399872441), job108854932827. Incoming GuardianRegistry owns explicit per-component health; this gate adds tests/evidence only. No proven application defect or production fix needed.

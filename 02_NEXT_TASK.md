@@ -1,34 +1,30 @@
-# Next Task — P3 Guardian health-state COMPLETE / STOP
-
-## Closure — 2026-09-28
-Verified `e9948337345ee7ec0d810b48508bb0dbe388affb`: Build/Lint PASS,22/22 API25 tests (17 previous +5 Guardian),6/6 navigation returns. Final P2 preserved; no production defect found. Evidence: `docs/test-evidence/p3-guardian-health-20260928/` and TEST_RESULTS.md.
-
-STOP. No next task is assigned. Do not start watchdog, logging or any other part. Original scope retained below for audit.
+# Next Task — P3 Guardian component-registry verification
 
 ## Start point
-Core State/cold-reset gates are closed. Main now contains the first Guardian foundation primitive: GuardianState. It is deliberately pure in-process state only; it does not monitor, schedule, restart, log, persist or touch Android services.
+Guardian health-state primitive passed. Main now adds GuardianRegistry: a small in-process owner for explicit health of CORE, HOME, NAVIGATION, MEDIA and VEHICLE. The registry stores only health supplied by future monitors; it does not poll, infer, schedule, persist, restart or touch Android services.
 
 ## Goal
-Verify the Guardian health-state model is deterministic, immutable and essentially zero-runtime-cost before any supervisor behavior is introduced.
+Verify the Guardian component registry is deterministic, isolated per component and essentially zero-background-cost before any watchdog behavior is introduced.
 
 ## Required verification
 - Build/Lint and every existing API25/1024x600 test.
-- Add focused unit/instrumentation coverage proving:
-  - coldBoot = UNKNOWN revision0;
-  - HEALTHY/DEGRADED/FAILED transitions increment revision exactly once;
-  - retained previous instances remain immutable;
-  - same-state transition returns the same object and does not increment revision;
-  - null transition returns same object and does not increment revision;
-  - recovery FAILED -> HEALTHY is representable without hidden action.
-- Regress all17 existing Core/reset tests and6 quick-action navigation returns.
+- Add focused coverage proving:
+  - cold boot creates UNKNOWN revision0 for every component;
+  - updating one component does not mutate any other component;
+  - changed health increments only that component revision exactly once;
+  - same/null health update preserves identity/revision;
+  - resetForColdBoot restores every component to a fresh UNKNOWN revision0 state;
+  - null component lookup/update is harmless and does not alter registry contents;
+  - FAILED -> HEALTHY recovery is representable per component without hidden action.
+- Preserve all22 previous Core/Guardian tests and6 quick-action navigation returns.
 - Confirm Home/Apps/Cold Restart screenshots and final P2 behavior remain unchanged.
-- Confirm GuardianState introduces no Service/Receiver/permission/dependency/native library/thread/timer/Handler/Executor/disk/network/sensor/restart/background execution.
+- Confirm no Service/Receiver/permission/dependency/native library/thread/timer/Handler/Executor/disk/network/sensor/restart/background execution was introduced.
 - Record APK/PSS delta and crash/ANR observations.
 - Fix only defects proven by this increment.
 - Update CURRENT_STATUS.md, TEST_RESULTS.md and CHANGELOG.md; Commit + Push; then STOP.
 
 ## Constraints
-This is not a watchdog yet. Do not add Guardian service, heartbeat polling, timers, restart/self-healing actions, logging/report export, persistence, UI, notifications, source adapters, OsmAnd/GPS/Trip, playback, Vehicle sources, firmware/root/MCU/70mai or T3 work.
+This is still not a watchdog. Do not add Guardian service, heartbeat polling, timers, listener callbacks, restart/self-healing actions, logging/report export, persistence, UI, notifications, source adapters, OsmAnd/GPS/Trip, playback, Vehicle sources, firmware/root/MCU/70mai or T3 work.
 
 ## Finish definition
-Guardian health-state primitive is verified on API25/1024x600 with all prior behavior intact and no background cost; evidence is checkpointed in GitHub, then STOP.
+Guardian component registry is verified on API25/1024x600 with all prior behavior intact and no background execution; evidence is checkpointed in GitHub, then STOP.

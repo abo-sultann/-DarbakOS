@@ -1,4 +1,9 @@
-# Next Task — P3 Guardian health-state foundation verification
+# Next Task — P3 Guardian health-state COMPLETE / STOP
+
+## Closure — 2026-09-28
+Verified `e9948337345ee7ec0d810b48508bb0dbe388affb`: Build/Lint PASS,22/22 API25 tests (17 previous +5 Guardian),6/6 navigation returns. Final P2 preserved; no production defect found. Evidence: `docs/test-evidence/p3-guardian-health-20260928/` and TEST_RESULTS.md.
+
+STOP. No next task is assigned. Do not start watchdog, logging or any other part. Original scope retained below for audit.
 
 ## Start point
 Core State/cold-reset gates are closed. Main now contains the first Guardian foundation primitive: GuardianState. It is deliberately pure in-process state only; it does not monitor, schedule, restart, log, persist or touch Android services.

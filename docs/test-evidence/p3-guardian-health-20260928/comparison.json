@@ -1,0 +1,38 @@
+{
+  "baseline_commit": "cdc64b3b201e7e6f2de570a0c82b099114e186b5",
+  "tested_commit": "e9948337345ee7ec0d810b48508bb0dbe388affb",
+  "apk_bytes": {
+    "baseline": 23303,
+    "current": 23839,
+    "delta": 536
+  },
+  "pss_kb": {
+    "baseline": 9143,
+    "current": 8905,
+    "delta": -238
+  },
+  "launch_total_time_ms": {
+    "baseline": 317,
+    "current": 364,
+    "delta": 47
+  },
+  "views": 49,
+  "activities": 1,
+  "pixel_identical_to_baseline": [
+    "apps-1024x600.png",
+    "cold-restart-home-1024x600.png"
+  ],
+  "home_difference": {
+    "bbox": [
+      16,
+      16,
+      115,
+      72
+    ],
+    "pixels": 5393,
+    "reason": "Settings button focused=true versus false in baseline UI tree; existing action_background.xml focus selector. All pixels outside this button identical."
+  },
+  "observed_app_crash": 0,
+  "observed_app_anr": 0,
+  "limitations": "Single separate API25 x86 emulator observations, not causal performance/CPU benchmarks or physical T3 validation."
+}

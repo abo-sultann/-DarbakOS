@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-09-28 — Guardian health-state verification closed / STOP
+- Added5 tests covering all4 states/all12 distinct transitions, revision increments, immutable retention, same/null identity and FAILED-to-HEALTHY recovery. Retained all17 prior tests.
+- Codee994833 passed Build/Lint,22/22 API25 tests and6/6 navigation returns/Cold Restart/no-autoplay. No application defect/fix.
+- Final P2 preserved; documented initial Home focus highlight and identical Apps/restart images. APK +536bytes/PSS -238KB, no crash/ANR; observations are not causal benchmarks.
+- Updated evidence/results/state and closed gate; no watchdog/logging/background work.
+
 ## 2026-09-28 — Cold-reset publication verification closed / STOP
 - Added3 focused reset/listener tests for exact-once synchronous delivery, snapshot identity, removal and repeatable cold states; all14 prior tests retained.
 - Codecdc64b3 passed Build/Lint,17/17 API25 tests and6/6 quick-action returns/Cold Restart/no-autoplay. No application defect/fix needed.

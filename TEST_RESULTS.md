@@ -2,6 +2,37 @@
 
 No Darbak OS release is Stable. See the per-stage evidence below.
 
+## 2026-09-28 — P3 Guardian health-state foundation: PASS / STOP
+
+- Tested `e9948337345ee7ec0d810b48508bb0dbe388affb`, [run36395918000](https://github.com/abo-sultann/DarbakOS/actions/runs/36395918000), job108842149353. Incoming GuardianState is pure immutable state; this gate adds tests/evidence only. No proven application defect or production fix.
+- Build/Lint PASS: 0 errors,17 existing warnings. API25/x86,1024x600/160dpi: **22/22 instrumentation PASS** in3.898s: all17 prior tests plus5 Guardian tests. **6/6 actual-tap quick-action returns PASS**.
+
+| Added test | Verified behavior |
+|---|---|
+| coldBootIsUnknownAtRevisionZero | UNKNOWN and revision0 |
+| everyDistinctTransitionAdvancesExactlyOnceAndRetainsPriorState | All12 distinct directed transitions among4 states produce a new object and exactly one revision increment; prior health/revision retained |
+| sameHealthPreservesIdentityAndRevisionInEveryState | Repeated same-state calls in each state preserve object identity and revision, including nonzero revisions |
+| nullPreservesIdentityAndRevisionInEveryState | Null in each state preserves object identity, health and revision |
+| failedRecoveryIsAnImmutableStateChangeOnly | UNKNOWN0 -> HEALTHY1 -> DEGRADED2 -> FAILED3 -> HEALTHY4; all prior instances unchanged, fresh coldBoot remains UNKNOWN0 |
+
+- Existing Core publish/listeners/reset/revision/null, Activity recreation, Home/Apps/RTL/fit/Back/Home/Cold Restart tests retained unchanged. No autoplay, no selected track/fabricated live data, zero app Service records/MediaSessions.
+- Home/Apps/Cold Restart screenshots visually inspected: no clipping/overlap and accepted final P2 content preserved. Apps and cold-restart Home are pixel-identical to prior checkpoint. Initial Home differs only in Settings button bounds[16,16][115,72] (5393pixels): UI tree confirms focused=true versus baseline false; existing focus selector explains color. All pixels outside that button are identical. This is captured focus state, not a Guardian/UI change.
+- Reviewed complete GuardianState: final immutable fields/private constructor, enum, coldBoot and withHealth only; no imports or Android calls. No Service/Receiver/permission/dependency/native library/thread/timer/Handler/Executor/disk/network/sensor/restart/background execution. No production references to GuardianState outside its own file, no UI binding or monitoring. MainActivity/resources/manifest/build unchanged. Downloaded APK contains no .so.
+- REFERENCES.md reviewed; existing local test structure/platform instrumentation reused. No new component implementation, external code or dependency imported. No watchdog/logging/recovery action introduced; recovery is only a state value transition.
+
+| Observation | Resetcdc64b3 | Guardiane994833 | Delta |
+|---|---:|---:|---:|
+| APK bytes | 23,303 | 23,839 | +536 |
+| Process PSS KB | 9,143 | 8,905 | -238 |
+| Launch TotalTime ms | 317 | 364 | +47 |
+| Views / Activities | 49 / 1 | 49 / 1 | 0 / 0 |
+| Crash / app ANR observed | 0 / 0 | 0 / 0 | none |
+
+- Launch WaitTime368ms; both crash captures empty; no app ANR in captured logs. Single separate emulator observations do not establish causal performance/CPU changes or literal zero allocation cost. Guardian has no scheduled work and is not invoked by production UI. Physical T3/ARMv7/Test Station and Stable acceptance remain untested.
+- Artifact10958620040: `DarbakOS-P1-TEST-e9948337345ee7ec0d810b48508bb0dbe388affb`, expires2026-10-12. APK SHA256 `bfb056ca837de3c39aa08349f9259399681eec913c481a9ea12f2f137a161a12`.
+- Durable evidence: `docs/test-evidence/p3-guardian-health-20260928/`: instrumentation, screenshots/UI trees, lint, no-autoplay, resources/crash captures and comparison.json.
+- **Batch closed / STOP.** No watchdog, logging or other batch started.
+
 ## 2026-09-28 — P3 cold-reset publication: PASS / STOP
 
 - Tested `cdc64b3b201e7e6f2de570a0c82b099114e186b5`, [run36362412922](https://github.com/abo-sultann/DarbakOS/actions/runs/36362412922), job108742075127. Incoming production change routes resetForColdBoot through publish(coldBoot()); this verification adds tests/evidence only. No application defect found or additional production fix needed.

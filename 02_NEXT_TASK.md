@@ -1,28 +1,23 @@
-# P3 Core State foundation verification — COMPLETE / STOP
+# Next Task — P3 Core State publish/subscription verification
 
-## Closure — 2026-09-27
-Code6bcc623 passed run36344308617: Build/Lint,8/8 API25 tests (all5 UI +3 Core),6/6 quick-action returns and Cold Restart/no-autoplay. Core coldBoot/reset/snapshot/recreation semantics verified. Home/Apps/restart images match P2 pixel-for-pixel. Resource deltas and crash observations recorded in TEST_RESULTS.md; no app fix needed.
-
-STOP. No Guardian, logging/reporting, another P3 component or additional batch.
-
-## Original start point
-P2 final-product UI is closed and verified. P3 begins with the smallest internal foundation: DarbakState + CoreStateStore. Cold boot initializes truthful unavailable/stopped state. This adds no Android Service, disk logging, sensor, network, playback, Guardian recovery or backend.
+## Start point
+P3 Core State foundation passed. Main now adds the smallest next Core increment: immutable state revisions plus an in-process publish/listener mechanism. It is infrastructure only; the final P2 UI is intentionally not bound to synthetic state and no source/backend is connected.
 
 ## Goal
-Verify the core-state owner is API25-safe, lightweight and does not regress the final P2 UI.
+Verify deterministic publish/snapshot/listener semantics on API25 without adding background execution or regressing P2.
 
 ## Required verification
 - Build/Lint and all existing API25/1024x600 tests.
-- Add focused tests for DarbakState.coldBoot and CoreStateStore reset/snapshot semantics without weakening existing UI assertions.
-- Cold Restart must still land on Home with speed/navigation/vehicle unavailable and media stopped; no fabricated live state.
-- Confirm no new Android Service/permission/runtime dependency/native library/background execution was introduced.
-- Regress Home, Apps, RTL, quick actions, Back/Home and no-autoplay.
-- Record resource/APK delta and crash/ANR observations.
-- Fix only defects proven by this P3 increment; update CURRENT_STATUS.md, TEST_RESULTS.md and CHANGELOG.md.
+- Add focused Core tests for: revision increments; publish updates snapshot; listener receives the exact published immutable state; duplicate listener registration does not duplicate callbacks; removeListener stops callbacks; null publish is ignored; cold reset returns revision 0/unavailable/stopped.
+- Check listener callback execution is synchronous on the publishing thread; do not add threads/Handler/Executor.
+- Regress Cold Restart, Home/Apps/RTL/quick actions/Back/Home/no-autoplay and truthful unavailable UI.
+- Confirm no Service/permission/dependency/native library/disk/network/sensor/background execution was introduced.
+- Record APK/PSS delta and crash/ANR observations.
+- Fix only defects proven by this increment; update CURRENT_STATUS.md, TEST_RESULTS.md and CHANGELOG.md.
 - Commit + push, then STOP.
 
 ## Constraints
-Do not add Guardian recovery, file logging/report export, services, sensors, OsmAnd/GPS/Trip, playback, Vehicle sources, PackageManager backend, new dependencies, firmware/root/MCU/70mai or T3 work in this gate.
+Do not bind UI to fake/synthetic state. Do not start Guardian, logging/report export, services, source adapters, OsmAnd/GPS/Trip, playback, Vehicle sources, PackageManager backend, firmware/root/MCU/70mai or T3 work.
 
 ## Finish definition
-P3 Core State foundation is verified on API25/1024x600 with P2 UI unchanged and truthful cold-boot semantics, checkpointed in GitHub. No Stable/T3 acceptance is implied.
+Core publish/subscription semantics are verified, lightweight and API25-safe; P2 remains visually/behaviorally unchanged; checkpoint in GitHub then STOP.

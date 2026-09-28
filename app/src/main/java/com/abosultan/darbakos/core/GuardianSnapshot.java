@@ -29,12 +29,15 @@ public final class GuardianSnapshot {
             return new GuardianSnapshot(unknown, unknown, unknown, unknown, unknown,
                     GuardianState.Health.UNKNOWN);
         }
-        GuardianState core = registry.snapshot(GuardianRegistry.Component.CORE);
-        GuardianState home = registry.snapshot(GuardianRegistry.Component.HOME);
-        GuardianState navigation = registry.snapshot(GuardianRegistry.Component.NAVIGATION);
-        GuardianState media = registry.snapshot(GuardianRegistry.Component.MEDIA);
-        GuardianState vehicle = registry.snapshot(GuardianRegistry.Component.VEHICLE);
-        return new GuardianSnapshot(core, home, navigation, media, vehicle,
-                GuardianPolicy.aggregate(registry));
+        // Use the registry's existing monitor so updates/reset cannot split this capture.
+        synchronized (registry) {
+            GuardianState core = registry.snapshot(GuardianRegistry.Component.CORE);
+            GuardianState home = registry.snapshot(GuardianRegistry.Component.HOME);
+            GuardianState navigation = registry.snapshot(GuardianRegistry.Component.NAVIGATION);
+            GuardianState media = registry.snapshot(GuardianRegistry.Component.MEDIA);
+            GuardianState vehicle = registry.snapshot(GuardianRegistry.Component.VEHICLE);
+            return new GuardianSnapshot(core, home, navigation, media, vehicle,
+                    GuardianPolicy.aggregate(registry));
+        }
     }
 }

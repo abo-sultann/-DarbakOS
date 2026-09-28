@@ -91,7 +91,7 @@ try:
     result = subprocess.check_output(ADB + ['shell', 'am', 'instrument', '-w',
         PACKAGE + '.test/androidx.test.runner.AndroidJUnitRunner'], text=True, timeout=180)
     save('instrumentation.txt', result)
-    assert 'OK (14 tests)' in result and 'FAILURES' not in result, result
+    assert 'OK (17 tests)' in result and 'FAILURES' not in result, result
     adb('shell', 'am', 'force-stop', PACKAGE)
     launch = adb('shell', 'am', 'start', '-W', '-n', ACTIVITY)
     save('launch.txt', launch)
@@ -172,7 +172,7 @@ try:
     save('summary.json', json.dumps({
         'result': 'PASS', 'commit': subprocess.check_output(['git', 'rev-parse', 'HEAD'], text=True).strip(),
         'api': 25, 'abi': adb('shell', 'getprop', 'ro.product.cpu.abi').strip(),
-        'resolution': '1024x600', 'density': 160, 'instrumented_tests': 14,
+        'resolution': '1024x600', 'density': 160, 'instrumented_tests': 17,
         'quick_action_round_trips': len(quick_results),
         'apk_bytes': apk.stat().st_size, 'apk_sha256': hashlib.sha256(apk.read_bytes()).hexdigest(),
         't3_validated': False

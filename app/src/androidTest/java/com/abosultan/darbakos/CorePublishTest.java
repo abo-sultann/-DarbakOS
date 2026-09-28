@@ -140,4 +140,83 @@ public final class CorePublishTest {
         assertEquals(2L, prior.revision);
         assertTrue(prior.mediaPlaying);
     }
+
+    private static void assertColdReset(DarbakState state) {
+        assertEquals(0L, state.revision);
+        assertEquals(Availability.UNAVAILABLE, state.speed);
+        assertEquals(Availability.UNAVAILABLE, state.navigation);
+        assertEquals(Availability.UNAVAILABLE, state.vehicle);
+        assertFalse(state.mediaPlaying);
+    }
+
+    @Test public void resetPublishesOnceToEachUniqueListenerInline() {
+        store.publish(changed());
+        DarbakState previous = store.snapshot();
+        Thread caller = Thread.currentThread();
+        boolean[] insideReset = {false};
+        int[] calls = {0, 0};
+        DarbakState[] delivered = new DarbakState[2];
+        CoreStateStore.Listener first = state -> {
+            assertTrue(insideReset[0]);
+            assertSame(caller, Thread.currentThread());
+            assertSame(store.snapshot(), state);
+            assertColdReset(state);
+            delivered[0] = state;
+            calls[0]++;
+        };
+        listen(first);
+        store.addListener(first);
+        listen(state -> {
+            assertTrue(insideReset[0]);
+            assertSame(caller, Thread.currentThread());
+            assertSame(store.snapshot(), state);
+            assertColdReset(state);
+            delivered[1] = state;
+            calls[1]++;
+        });
+        assertArrayEquals(new int[] {0, 0}, calls);
+        insideReset[0] = true;
+        store.resetForColdBoot();
+        insideReset[0] = false;
+        assertArrayEquals(new int[] {1, 1}, calls);
+        assertSame(delivered[0], delivered[1]);
+        assertSame(delivered[0], store.snapshot());
+        assertNotSame(previous, delivered[0]);
+        assertEquals(1L, previous.revision);
+        assertTrue(previous.mediaPlaying);
+    }
+
+    @Test public void removedListenerReceivesNoColdReset() {
+        int[] removedCalls = {0};
+        int[] remainingCalls = {0};
+        CoreStateStore.Listener removed = state -> removedCalls[0]++;
+        listen(removed);
+        listen(state -> remainingCalls[0]++);
+        store.publish(changed());
+        assertEquals(1, removedCalls[0]);
+        assertEquals(1, remainingCalls[0]);
+        store.removeListener(removed);
+        store.resetForColdBoot();
+        assertEquals(1, removedCalls[0]);
+        assertEquals(2, remainingCalls[0]);
+        assertColdReset(store.snapshot());
+    }
+
+    @Test public void repeatedResetsDeterministicallyPublishFreshColdSnapshots() {
+        store.publish(changed());
+        List<DarbakState> received = new ArrayList<>();
+        listen(received::add);
+        DarbakState previous = store.snapshot();
+        for (int i = 1; i <= 3; i++) {
+            store.resetForColdBoot();
+            assertEquals(i, received.size());
+            DarbakState current = received.get(i - 1);
+            assertSame(current, store.snapshot());
+            assertNotSame(previous, current);
+            assertColdReset(current);
+            previous = current;
+        }
+        for (DarbakState retained : received) assertColdReset(retained);
+    }
+
 }

@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-09-29 — Guardian Diagnostics focused verification complete / STOP
+- Build/Lint0 errors/17 unchanged warnings; GuardianDiagnosticRecordTest only2/2 PASS on API25/1024x600. Null/UNKNOWN and frozen healthy-session record assertions passed; no production defect/fix or test change needed.
+- Added explicit --diagnostics-only mode to the existing emulator runner and selected it in CI. It exits before all regression/UI work. No full/bounded regression or old1024/6144 suite was run; earlier evidence retained.
+- Saved focused evidence/source audit/artifact hashes and updated state. APK +608bytes, no observed crash/app ANR. This is a focused check only; STOP without another phase or actual Recovery.
+
 ## 2026-09-29 — Guardian Monitor Session consolidated verification closed / STOP
 - Fixed one proven Session isolation defect: reset at Long.MAX_VALUE reused the expired generation token. Exhausted sessions now reject further heartbeats while keeping the counter saturated and cold health UNKNOWN. Preserved before/after focused proof.
 - Added6 shared focused checks to4 supplied Session tests: all-component generation/order isolation, mixed diagnostic/result retention, null/empty behavior, explicit-only evaluation, saturation and200 bounded concurrent rounds. Existing81 tests and prior production primitives unchanged; no runtime dependency or worker added.

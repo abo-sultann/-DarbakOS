@@ -1,0 +1,8 @@
+
+com.abosultan.darbakos.GuardianDiagnosticRecordTest:..
+
+Time: 0.007
+
+OK (2 tests)
+
+

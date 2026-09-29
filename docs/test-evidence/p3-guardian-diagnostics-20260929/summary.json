@@ -1,0 +1,17 @@
+{
+  "result": "PASS",
+  "scope": "GuardianDiagnosticRecordTest only",
+  "commit": "a4351ec39c5df1f424a2a024e321585b7a4824f0",
+  "api": 25,
+  "abi": "x86",
+  "resolution": "1024x600",
+  "density": 160,
+  "focused_instrumented_tests": 2,
+  "focused_class": "com.abosultan.darbakos.GuardianDiagnosticRecordTest",
+  "regression_runs": 0,
+  "giant_suite_runs": 0,
+  "ui_smoke_run": false,
+  "apk_bytes": 34987,
+  "apk_sha256": "880488d9a57dfd430a458c72c041ceb2bda94511b4a962b8518214b4d5d1ad7c",
+  "t3_validated": false
+}

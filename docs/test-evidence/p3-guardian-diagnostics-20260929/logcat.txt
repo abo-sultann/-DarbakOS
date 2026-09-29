@@ -1,0 +1,40 @@
+--------- beginning of system
+09-29 16:42:53.199  1544  1570 W VoiceInteractionManagerService: no available voice recognition services found for user 0
+--------- beginning of main
+09-29 16:42:53.319  2715  2715 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+09-29 16:42:53.320  2715  2715 D AndroidRuntime: CheckJNI is OFF
+09-29 16:42:53.342  2715  2715 W art     : Unexpected CPU variant for X86 using defaults: x86
+09-29 16:42:53.344  2715  2715 D ICU     : No timezone override file found: /data/misc/zoneinfo/current/icu/icu_tzdata.dat
+09-29 16:42:53.353  2715  2715 E memtrack: Couldn't load memtrack module (No such file or directory)
+09-29 16:42:53.353  2715  2715 E android.os.Debug: failed to load memtrack module: -2
+09-29 16:42:53.353  2715  2715 I Radio-JNI: register_android_hardware_Radio DONE
+09-29 16:42:53.357  2715  2715 D AndroidRuntime: Calling main entry com.android.commands.am.Am
+09-29 16:42:53.361  1544  2029 I ActivityManager: Force stopping com.abosultan.darbakos.test appid=10063 user=0: start instr
+09-29 16:42:53.364  2725  2725 I art     : Late-enabling -Xcheck:jni
+09-29 16:42:53.364  2725  2725 W art     : Unexpected CPU variant for X86 using defaults: x86
+09-29 16:42:53.372  1544  2029 I ActivityManager: Start proc 2725:com.abosultan.darbakos.test/u0a63 for added application com.abosultan.darbakos.test
+09-29 16:42:53.381  2725  2725 W System  : ClassLoader referenced unknown path: /data/app/com.abosultan.darbakos.test.test-1/lib/x86
+09-29 16:42:53.381  2725  2725 W System  : ClassLoader referenced unknown path: /data/app/com.abosultan.darbakos.test-1/lib/x86
+09-29 16:42:53.384  2725  2725 W System  : ClassLoader referenced unknown path: 
+09-29 16:42:53.389  2725  2725 I MonitoringInstr: newApplication called!
+09-29 16:42:53.390  2725  2725 I MonitoringInstr: Instrumentation started!
+09-29 16:42:53.394  2725  2725 I AndroidJUnitRunner: onCreate Bundle[{class=com.abosultan.darbakos.GuardianDiagnosticRecordTest}]
+09-29 16:42:53.394  2725  2725 V TestEventClient: No service name argument was given (testDiscoveryService, testRunEventService or orchestratorService)
+09-29 16:42:53.395  2725  2740 D AndroidJUnitRunner: onStart is called.
+09-29 16:42:53.395  2725  2725 I MonitoringInstr: No JSBridge.
+09-29 16:42:53.399  2725  2740 D TestRequestBuilder: Skipping class path scanning and directly running [com.abosultan.darbakos.GuardianDiagnosticRecordTest]
+09-29 16:42:53.402  2725  2740 D AndroidJUnitRunner: Use the raw file system for managing file I/O.
+09-29 16:42:53.403  2725  2740 D TestExecutor: Adding listener androidx.test.internal.runner.listener.LogRunListener
+09-29 16:42:53.403  2725  2740 D TestExecutor: Adding listener androidx.test.internal.runner.listener.InstrumentationResultPrinter
+09-29 16:42:53.403  2725  2740 D TestExecutor: Adding listener androidx.test.internal.runner.listener.ActivityFinisherRunListener
+09-29 16:42:53.403  2725  2740 D TestExecutor: Adding listener androidx.test.internal.runner.listener.TraceRunListener
+09-29 16:42:53.404  2725  2740 I TestRunner: run started: 2 tests
+09-29 16:42:53.405  2725  2740 I TestRunner: started: recordSummarizesFrozenSessionSnapshot(com.abosultan.darbakos.GuardianDiagnosticRecordTest)
+09-29 16:42:53.408  2725  2740 I TestRunner: finished: recordSummarizesFrozenSessionSnapshot(com.abosultan.darbakos.GuardianDiagnosticRecordTest)
+09-29 16:42:53.409  2725  2740 I TestRunner: started: nullSnapshotIsConservative(com.abosultan.darbakos.GuardianDiagnosticRecordTest)
+09-29 16:42:53.410  2725  2740 I TestRunner: finished: nullSnapshotIsConservative(com.abosultan.darbakos.GuardianDiagnosticRecordTest)
+09-29 16:42:53.411  2725  2740 I TestRunner: run finished: 2 tests, 0 failed, 0 ignored
+09-29 16:42:53.412  1544  1709 I ActivityManager: Force stopping com.abosultan.darbakos.test appid=10063 user=0: finished inst
+09-29 16:42:53.412  1544  1709 I ActivityManager: Killing 2725:com.abosultan.darbakos.test/u0a63 (adj 0): stop com.abosultan.darbakos.test
+09-29 16:42:53.412  1544  1709 D ActivityManager: cleanUpApplicationRecord -- 2725
+09-29 16:42:53.413  2715  2715 D AndroidRuntime: Shutting down VM

@@ -2,6 +2,23 @@
 
 No Darbak OS release is Stable. See the per-stage evidence below.
 
+## 2026-09-29 — P3 Guardian Diagnostics focused check: PASS / STOP
+
+- Incoming `1ca06d1f148cb942b26d22dd434a5b2d75e276a7`; tested `a4351ec39c5df1f424a2a024e321585b7a4824f0`. [Run36599462035](https://github.com/abo-sultann/DarbakOS/actions/runs/36599462035), job109512786528, attempt1 SUCCESS.
+- Build/Lint PASS:0 errors,17 unchanged warnings. **Only GuardianDiagnosticRecordTest ran:2/2 PASS in0.007s**, API25/x86,1024x600/160dpi/1GB emulator. No focused rerun was needed.
+
+| Supplied focused test | Verified assertions |
+|---|---|
+| nullSnapshotIsConservative | UNKNOWN overall;0 healthy/degraded/failed and5 unknown;0 events; absent latest component with UNKNOWN health/time0; conservative DIAGNOSE recommendation |
+| recordSummarizesFrozenSessionSnapshot | Frozen generation; HEALTHY overall with5 healthy/other counts0;5 events; latest VEHICLE/HEALTHY/time1000; NONE recommendation; retained record health/event count survives session reset |
+
+- No proven application defect found; production code and the two supplied tests were left unchanged. Reused the existing runner with explicit --diagnostics-only and an early exit before every previous regression/UI path; CI uses that mode. No assertion was weakened.
+- **Regression invocations0; old1024/6144 suites0; UI smoke0.** Artifact contains only focused instrumentation/summary/crash/logcat evidence, with no full instrumentation, regression selection or screenshots. Previous Guardian/P2 evidence remains at `docs/test-evidence/p3-guardian-session-20260929/`; it was not regenerated. This check does not close a phase or establish a new UI/performance acceptance.
+- Reviewed the complete new value class and diff since the closed Session checkpoint. GuardianDiagnosticRecord derives immutable fields from an already frozen snapshot using existing GuardianAssessment and level-0 GuardianRecoveryPolicy. No production caller, Service/Receiver/permission/dependency/native/background/I/O/recovery execution added. All earlier production files, UI/resources/manifest/build and tests unchanged. REFERENCES.md and existing repository primitives/runner reused; no external code/dependency imported.
+- Source guard and runner syntax PASS. APK34,987 bytes (+608 versus Session34,379), SHA256 `880488d9a57dfd430a458c72c041ceb2bda94511b4a962b8518214b4d5d1ad7c`; no native .so. Both crash buffers empty and no app ANR in either captured log during this focused run. PSS/launch, new screenshots, Test Station/ARMv7/T3 were not tested.
+- Artifact11047813293 `DarbakOS-P1-TEST-a4351ec39c5df1f424a2a024e321585b7a4824f0`, expires2026-10-13. Downloaded ZIP SHA256 matches GitHub digest `1f4d96fd21f7c7ec63f2f8627170793c44eac277592d7f6f6484b79d8c714fad`; APK size/hash match summary.
+- Evidence: `docs/test-evidence/p3-guardian-diagnostics-20260929/` contains focused result/summary, lint, both logcat/crash captures, source audit and artifact provenance. **Focused check complete / STOP.** No Watchdog, Service, emitter, export/UI or actual Recovery started.
+
 ## 2026-09-29 — P3 Guardian Monitor Session consolidated gate: PASS / STOP
 
 - Incoming `16bb89d08b843189ae1de55707abfef65ef21526`; tested `018b509aaa00cdb0df7f424cea3a6c24342cf443`. [Run36596597821](https://github.com/abo-sultann/DarbakOS/actions/runs/36596597821), job109502988795, attempt1 SUCCESS. Build/Lint PASS:0 errors,17 unchanged warnings.

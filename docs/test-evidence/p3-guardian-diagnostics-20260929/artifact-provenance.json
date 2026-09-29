@@ -1,0 +1,135 @@
+{
+  "artifact": {
+    "id": 11047813293,
+    "name": "DarbakOS-P1-TEST-a4351ec39c5df1f424a2a024e321585b7a4824f0",
+    "size_in_bytes": 1199747,
+    "url": "https://api.github.com/repos/abo-sultann/DarbakOS/actions/artifacts/11047813293",
+    "archive_download_url": "https://api.github.com/repos/abo-sultann/DarbakOS/actions/artifacts/11047813293/zip",
+    "expired": false,
+    "created_at": "2026-09-29T16:42:55Z",
+    "expires_at": "2026-10-13T16:42:55Z",
+    "updated_at": "2026-09-29T16:42:55Z",
+    "digest": "sha256:1f4d96fd21f7c7ec63f2f8627170793c44eac277592d7f6f6484b79d8c714fad",
+    "workflow_run": {
+      "id": 36599462035,
+      "repository_id": 1389422570,
+      "head_repository_id": 1389422570,
+      "head_branch": "main",
+      "head_sha": "a4351ec39c5df1f424a2a024e321585b7a4824f0"
+    }
+  },
+  "run_id": 36599462035,
+  "run_attempt": 1,
+  "conclusion": "success",
+  "jobs": [
+    {
+      "id": 109512786528,
+      "name": "api25-shell",
+      "status": "completed",
+      "conclusion": "success",
+      "run_id": 36599462035,
+      "logs_url": null,
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2
+        },
+        {
+          "name": "Run actions/setup-java@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3
+        },
+        {
+          "name": "Run gradle/actions/setup-gradle@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4
+        },
+        {
+          "name": "Source checks",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5
+        },
+        {
+          "name": "Provision Android command-line tools",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6
+        },
+        {
+          "name": "Install pinned SDK build tools",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7
+        },
+        {
+          "name": "Build and lint",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8
+        },
+        {
+          "name": "Enable emulator acceleration",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9
+        },
+        {
+          "name": "API25 Guardian Diagnostics focused only",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10
+        },
+        {
+          "name": "Upload TEST APK and evidence",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11
+        },
+        {
+          "name": "Post Run gradle/actions/setup-gradle@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 20
+        },
+        {
+          "name": "Post Run actions/setup-java@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 21
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 22
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 23
+        }
+      ]
+    }
+  ],
+  "zip_sha256": "1f4d96fd21f7c7ec63f2f8627170793c44eac277592d7f6f6484b79d8c714fad",
+  "apk_sha256": "880488d9a57dfd430a458c72c041ceb2bda94511b4a962b8518214b4d5d1ad7c",
+  "verification": "Downloaded ZIP digest matched GitHub; APK hash/size matched summary; only the focused class appears in instrumentation; no full instrumentation, regression selection or screenshot produced.",
+  "focused_tests": 2,
+  "focused_seconds": 0.007,
+  "regression_runs": 0,
+  "giant_suite_runs": 0,
+  "ui_smoke_runs": 0,
+  "source_and_prior_evidence": "Production unchanged in this gate; previous bounded regression/P2 evidence retained without re-execution."
+}

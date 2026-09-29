@@ -1,6 +1,6 @@
 # Current Status
 
-State: P3 GUARDIAN MONITOR SESSION VERIFIED — BATCH CLOSED / STOP
+State: P3 GUARDIAN DIAGNOSTICS FOCUSED CHECK PASSED — STOP
 Updated: 2026-09-29.
 Target: t3-p3 / sun8iw11p1 / Android7.1 API25 / ARMv7 / ~1GB / 1024x600.
 
@@ -29,8 +29,17 @@ Target: t3-p3 / sun8iw11p1 / Android7.1 API25 / ARMv7 / ~1GB / 1024x600.
 - GuardianSupervisor provides one caller-driven Snapshot -> Assessment -> Plan evaluation. All6144 combination/level cases, boundaries, nonmutation, retained Results after update/reset and20000 concurrent evaluations verified. No production caller/UI binding, automatic monitoring or action; concurrency workers are test-only.
 - Monitoring foundation now verified as one passive bundle: immutable Heartbeat/Event, synchronized HeartbeatRegistry/EventJournal, LivenessPolicy/Snapshot, sanitized MonitorConfig and explicit MonitorStep. Caller-supplied time and in-memory health transitions only; no automatic scheduler, I/O or recovery execution. Fixed only MonitorStep's nonexistent Snapshot API calls and MonitorConfig upper-bound overflow.
 - GuardianMonitorSession now verified: owns heartbeat/journal/config state, caller-driven evaluation, cold-boot generation isolation and immutable diagnostics. All components, old/current generation input, reset, retained mixed Results/Snapshots, null/empty behavior and200 bounded concurrent rounds verified. Fixed one proven boundary defect: reset at Long.MAX_VALUE now rejects further heartbeat input instead of reusing the expired token; counter stays saturated and state resets to UNKNOWN. No automatic evaluation or actual recovery.
+- GuardianDiagnosticRecord focused API25 check passed: conservative null/UNKNOWN record and frozen healthy-session summary with event details/level-0 recommendation and retention after reset. Immutable in-memory value only. No production fix was needed; this is not a phase-closing regression gate.
 
-## Verified checkpoint
+## Current focused checkpoint
+- Tested code: `a4351ec39c5df1f424a2a024e321585b7a4824f0`; [run36599462035](https://github.com/abo-sultann/DarbakOS/actions/runs/36599462035), attempt1 SUCCESS.
+- Build/Lint PASS:0 errors,17 unchanged warnings. Only GuardianDiagnosticRecordTest ran:2/2 PASS in0.007s on API25/x86,1024x600/160dpi.
+- No full/bounded regression, old1024/6144 suites or UI smoke was run. Prior regression/UI evidence below remains the last applicable checkpoint; no new P2 runtime verification is claimed.
+- Only CI scope changed in this gate: explicit --diagnostics-only exits before all regression/UI work. Production and supplied tests unchanged; no new Service/Receiver/permission/dependency/native/background/I/O/recovery execution.
+- APK34,987 bytes (+608 versus prior checkpoint), no native .so; no crash/app ANR observed during the focused run. No new PSS/launch measurement or T3 acceptance.
+- Evidence: `docs/test-evidence/p3-guardian-diagnostics-20260929/`. STOP after this focused check.
+
+## Previous bounded regression checkpoint (reused; not rerun)
 - Tested code: `018b509aaa00cdb0df7f424cea3a6c24342cf443`.
 - Successful run: https://github.com/abo-sultann/DarbakOS/actions/runs/36596597821 (attempt1).
 - Build/Lint:0 errors,17 unchanged warnings. Focused Java6/6, then API25 Session10/10, then ONE bounded regression74/74 (58 prior +16 foundation); quick-action returns6/6. Session tests were not repeated in regression.
@@ -49,7 +58,7 @@ Target: t3-p3 / sun8iw11p1 / Android7.1 API25 / ARMv7 / ~1GB / 1024x600.
 - No firmware or MCU flash approved; all master-plan safety gates remain in force.
 
 ## Current gate
-The requested consolidated P3 Guardian Monitor Session verification gate is complete. STOP here.
+The requested P3 Guardian Diagnostics focused check is complete. STOP here. A phase-closing regression was explicitly not requested and has not been run.
 Do not start automatic watchdog/heartbeat emitters/timers/Guardian services, actual recovery, persistent logging/reporting, other P3 work, hardware work or another batch.
 `02_NEXT_TASK.md` records closure, not a new assignment. No Stable/T3 acceptance is claimed.
 

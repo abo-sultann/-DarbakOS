@@ -51,7 +51,8 @@ public final class GuardianMonitorSession {
 
     /** Immutable point-in-time view for diagnostics; does not evaluate or mutate health. */
     public synchronized Snapshot snapshot() {
-        return new Snapshot(generation, journal.snapshot());
+        GuardianSnapshot health = GuardianSnapshot.capture(guardian);
+        return new Snapshot(generation, health, journal.snapshot());
     }
 
     public synchronized long generation() {
@@ -71,10 +72,13 @@ public final class GuardianMonitorSession {
 
     public static final class Snapshot {
         public final long generation;
+        public final GuardianSnapshot health;
         public final java.util.List<GuardianEvent> events;
 
-        private Snapshot(long generation, java.util.List<GuardianEvent> events) {
+        private Snapshot(long generation, GuardianSnapshot health,
+                         java.util.List<GuardianEvent> events) {
             this.generation = generation;
+            this.health = health;
             this.events = events;
         }
     }

@@ -52,7 +52,13 @@ public final class GuardianMonitorSession {
     /** Immutable point-in-time view for diagnostics; does not evaluate or mutate health. */
     public synchronized Snapshot snapshot() {
         GuardianSnapshot health = GuardianSnapshot.capture(guardian);
-        return new Snapshot(generation, health, journal.snapshot());
+        java.util.EnumMap<GuardianRegistry.Component, GuardianHeartbeat> heartbeatCopy =
+                new java.util.EnumMap<>(GuardianRegistry.Component.class);
+        for (GuardianRegistry.Component component : GuardianRegistry.Component.values()) {
+            GuardianHeartbeat heartbeat = heartbeats.snapshot(component);
+            if (heartbeat != null) heartbeatCopy.put(component, heartbeat);
+        }
+        return new Snapshot(generation, health, heartbeatCopy, journal.snapshot());
     }
 
     public synchronized long generation() {
@@ -73,13 +79,20 @@ public final class GuardianMonitorSession {
     public static final class Snapshot {
         public final long generation;
         public final GuardianSnapshot health;
+        private final java.util.EnumMap<GuardianRegistry.Component, GuardianHeartbeat> heartbeats;
         public final java.util.List<GuardianEvent> events;
 
         private Snapshot(long generation, GuardianSnapshot health,
+                         java.util.EnumMap<GuardianRegistry.Component, GuardianHeartbeat> heartbeats,
                          java.util.List<GuardianEvent> events) {
             this.generation = generation;
             this.health = health;
+            this.heartbeats = heartbeats;
             this.events = events;
+        }
+
+        public GuardianHeartbeat heartbeat(GuardianRegistry.Component component) {
+            return component == null ? null : heartbeats.get(component);
         }
     }
 }

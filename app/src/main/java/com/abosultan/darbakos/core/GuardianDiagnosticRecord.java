@@ -15,7 +15,7 @@ public final class GuardianDiagnosticRecord {
     public final GuardianRegistry.Component lastChangedComponent;
     public final GuardianState.Health lastChangedHealth;
     public final long lastChangedMonotonicMs;
-    public final GuardianRecoveryPolicy.Action recommendedAction;
+    public final GuardianRecoveryPolicy.Step recommendedAction;
 
     private GuardianDiagnosticRecord(long generation,
                                      GuardianState.Health overall,
@@ -27,7 +27,7 @@ public final class GuardianDiagnosticRecord {
                                      GuardianRegistry.Component lastChangedComponent,
                                      GuardianState.Health lastChangedHealth,
                                      long lastChangedMonotonicMs,
-                                     GuardianRecoveryPolicy.Action recommendedAction) {
+                                     GuardianRecoveryPolicy.Step recommendedAction) {
         this.generation = generation;
         this.overall = overall == null ? GuardianState.Health.UNKNOWN : overall;
         this.healthy = healthy;
@@ -39,7 +39,7 @@ public final class GuardianDiagnosticRecord {
         this.lastChangedHealth = lastChangedHealth == null ? GuardianState.Health.UNKNOWN : lastChangedHealth;
         this.lastChangedMonotonicMs = Math.max(0L, lastChangedMonotonicMs);
         this.recommendedAction = recommendedAction == null
-                ? GuardianRecoveryPolicy.Action.DIAGNOSE : recommendedAction;
+                ? GuardianRecoveryPolicy.Step.DIAGNOSE : recommendedAction;
     }
 
     public static GuardianDiagnosticRecord from(GuardianMonitorSession.Snapshot snapshot) {
@@ -47,7 +47,7 @@ public final class GuardianDiagnosticRecord {
             return new GuardianDiagnosticRecord(0, GuardianState.Health.UNKNOWN,
                     0, 0, 0, GuardianRegistry.Component.values().length, 0,
                     null, GuardianState.Health.UNKNOWN, 0L,
-                    GuardianRecoveryPolicy.Action.DIAGNOSE);
+                    GuardianRecoveryPolicy.Step.DIAGNOSE);
         }
         GuardianAssessment assessment = GuardianAssessment.from(snapshot.health);
         GuardianEvent latest = snapshot.events == null || snapshot.events.isEmpty()
@@ -63,6 +63,6 @@ public final class GuardianDiagnosticRecord {
                 latest == null ? null : latest.component,
                 latest == null ? GuardianState.Health.UNKNOWN : latest.health,
                 latest == null ? 0L : latest.monotonicMs,
-                GuardianRecoveryPolicy.recommend(assessment, 0).action);
+                GuardianRecoveryPolicy.recommend(assessment, 0).step);
     }
 }

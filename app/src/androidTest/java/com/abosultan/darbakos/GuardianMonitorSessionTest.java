@@ -59,6 +59,26 @@ public class GuardianMonitorSessionTest {
                 com.abosultan.darbakos.core.GuardianLivenessPolicy.Liveness.UNKNOWN));
     }
 
+    @Test public void diagnosticSnapshotIsImmutableAndNonMutating() {
+        GuardianMonitorSession s = new GuardianMonitorSession(
+                guardian, GuardianMonitorConfig.conservativeDefault(), 8);
+        for (GuardianRegistry.Component c : GuardianRegistry.Component.values()) {
+            s.heartbeat(c, 1, 1000);
+        }
+        s.evaluate(1000, 0);
+        GuardianMonitorSession.Snapshot snap = s.snapshot();
+        assertEquals(s.generation(), snap.generation);
+        assertEquals(5, snap.events.size());
+        assertSame(s.config(), s.config());
+        boolean immutable = false;
+        try { snap.events.clear(); } catch (UnsupportedOperationException expected) { immutable = true; }
+        assertTrue(immutable);
+
+        s.resetForColdBoot();
+        assertTrue(s.snapshot().events.isEmpty());
+        assertEquals(5, snap.events.size());
+    }
+
     @Test public void retainedResultSurvivesSessionReset() {
         GuardianMonitorSession s = new GuardianMonitorSession(
                 guardian, GuardianMonitorConfig.conservativeDefault(), 8);

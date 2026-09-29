@@ -14,6 +14,18 @@ public final class GuardianMonitorStep {
                              GuardianRegistry guardian,
                              GuardianEventJournal journal,
                              long nowMonotonicMs,
+                             GuardianMonitorConfig config,
+                             int escalationLevel) {
+        GuardianMonitorConfig effective = config == null
+                ? GuardianMonitorConfig.conservativeDefault() : config;
+        return run(heartbeats, guardian, journal, nowMonotonicMs,
+                effective.lateAfterMs, effective.staleAfterMs, escalationLevel);
+    }
+
+    public static Result run(GuardianHeartbeatRegistry heartbeats,
+                             GuardianRegistry guardian,
+                             GuardianEventJournal journal,
+                             long nowMonotonicMs,
                              long lateAfterMs,
                              long staleAfterMs,
                              int escalationLevel) {

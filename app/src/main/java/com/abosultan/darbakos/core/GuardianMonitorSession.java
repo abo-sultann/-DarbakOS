@@ -45,6 +45,15 @@ public final class GuardianMonitorSession {
         return journal;
     }
 
+    public GuardianMonitorConfig config() {
+        return config;
+    }
+
+    /** Immutable point-in-time view for diagnostics; does not evaluate or mutate health. */
+    public synchronized Snapshot snapshot() {
+        return new Snapshot(generation, journal.snapshot());
+    }
+
     public synchronized long generation() {
         return generation;
     }
@@ -58,5 +67,15 @@ public final class GuardianMonitorSession {
         journal.clear();
         if (guardian != null) guardian.resetForColdBoot();
         if (generation != Long.MAX_VALUE) generation++;
+    }
+
+    public static final class Snapshot {
+        public final long generation;
+        public final java.util.List<GuardianEvent> events;
+
+        private Snapshot(long generation, java.util.List<GuardianEvent> events) {
+            this.generation = generation;
+            this.events = events;
+        }
     }
 }

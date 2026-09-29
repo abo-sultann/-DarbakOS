@@ -32,6 +32,7 @@ public class GuardianDiagnosticRecordTest {
         assertNull(r.lastChangedComponent);
         assertEquals(GuardianState.Health.UNKNOWN, r.lastChangedHealth);
         assertEquals(0, r.lastChangedMonotonicMs);
+        assertEquals(GuardianRecoveryPolicy.Step.DIAGNOSE, r.recommendedAction);
     }
 
     @Test public void recordSummarizesFrozenSessionSnapshot() {
@@ -54,6 +55,7 @@ public class GuardianDiagnosticRecordTest {
         assertEquals(GuardianRegistry.Component.VEHICLE, r.lastChangedComponent);
         assertEquals(GuardianState.Health.HEALTHY, r.lastChangedHealth);
         assertEquals(1000, r.lastChangedMonotonicMs);
+        assertEquals(GuardianRecoveryPolicy.Step.NONE, r.recommendedAction);
 
         s.resetForColdBoot();
         assertEquals(GuardianState.Health.HEALTHY, r.overall);

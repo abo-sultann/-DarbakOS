@@ -17,11 +17,11 @@ public final class GuardianHeartbeatRegistry {
     public synchronized boolean update(GuardianHeartbeat heartbeat) {
         if (heartbeat == null || heartbeat.component == null) return false;
         GuardianHeartbeat current = latest.get(heartbeat.component);
-        if (current != null &&
-                (heartbeat.sequence < current.sequence ||
-                 (heartbeat.sequence == current.sequence &&
-                  heartbeat.monotonicMs <= current.monotonicMs))) {
-            return false;
+        if (current != null) {
+            if (heartbeat.sequence < current.sequence) return false;
+            if (heartbeat.sequence == current.sequence &&
+                    heartbeat.monotonicMs <= current.monotonicMs) return false;
+            if (heartbeat.monotonicMs < current.monotonicMs) return false;
         }
         latest.put(heartbeat.component, heartbeat);
         return true;

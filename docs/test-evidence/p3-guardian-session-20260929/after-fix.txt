@@ -1,0 +1,7 @@
+PASS generationOrderingAndAllComponentIsolation
+PASS mixedDiagnosticsAndResultsSurviveUpdatesAndReset
+PASS nullAndEmptySessionsRemainConservative
+PASS healthChangesOnlyOnExplicitEvaluation
+PASS saturatedGenerationNeverReusesAnExpiredToken
+PASS boundedConcurrentResetAndCaptureStayCoherent
+Focused session checks: 6/6

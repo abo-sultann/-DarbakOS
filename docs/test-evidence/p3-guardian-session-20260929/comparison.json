@@ -1,0 +1,53 @@
+{
+  "baseline_commit": "0293c4e9cef7f102cacbc99c0905f9b3c95379c7",
+  "incoming_gate_commit": "16bb89d08b843189ae1de55707abfef65ef21526",
+  "tested_commit": "018b509aaa00cdb0df7f424cea3a6c24342cf443",
+  "workflow_run": 36596597821,
+  "workflow_attempt": 1,
+  "artifact_id": 11046730149,
+  "apk_bytes": {
+    "baseline": 33131,
+    "current": 34379,
+    "delta": 1248
+  },
+  "pss_kb": {
+    "baseline": 9129,
+    "current": 8998,
+    "delta": -131
+  },
+  "launch_total_time_ms": {
+    "baseline": 382,
+    "current": 387,
+    "delta": 5
+  },
+  "launch_wait_time_ms": 392,
+  "views": 49,
+  "activities": 1,
+  "pixel_identical_to_baseline": [
+    "home-1024x600.png",
+    "apps-1024x600.png",
+    "cold-restart-home-1024x600.png"
+  ],
+  "focused_local_checks": 6,
+  "focused_api25_tests": 10,
+  "focused_api25_seconds": 0.069,
+  "regression_api25_tests": 74,
+  "regression_api25_seconds": 3.798,
+  "regression_invocations": 1,
+  "foundation_tests_rerun": 16,
+  "other_prior_tests_rerun": 58,
+  "prior_giant_proofs_reused": 7,
+  "prior_tests_preserved_in_source": 81,
+  "total_tests_in_source": 91,
+  "total_distinct_api25_tests_executed": 84,
+  "reuse_source_fingerprints": 12,
+  "new_concurrency_rounds": 200,
+  "quick_action_round_trips": 6,
+  "observed_app_crash": 0,
+  "observed_app_anr": 0,
+  "lint_errors": 0,
+  "lint_existing_warnings": 17,
+  "recovery_executed": false,
+  "automatic_monitoring_added": false,
+  "limitations": "Separate single API25 x86 shell observations, not causal benchmarks or session CPU/allocation measurements. Session has no production UI caller. Physical T3/ARMv7/Test Station untested. Bounded stress is not exhaustive schedule coverage. Final generation reset fails closed to preserve isolation; no further heartbeat can be accepted by that exhausted session."
+}

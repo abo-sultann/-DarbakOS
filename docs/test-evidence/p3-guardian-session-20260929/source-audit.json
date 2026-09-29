@@ -1,0 +1,42 @@
+{
+  "incoming_commit": "16bb89d08b843189ae1de55707abfef65ef21526",
+  "tested_commit": "018b509aaa00cdb0df7f424cea3a6c24342cf443",
+  "prior_verified_commit": "0293c4e9cef7f102cacbc99c0905f9b3c95379c7",
+  "prior_checkpoint_commit": "74b7aad807d60fe431b0d71cfaec1e6953732c38",
+  "changed_since_prior_checkpoint": [
+    {
+      "path": "02_NEXT_TASK.md",
+      "status": "modified"
+    },
+    {
+      "path": "app/src/androidTest/java/com/abosultan/darbakos/GuardianMonitorSessionTest.java",
+      "status": "added"
+    },
+    {
+      "path": "app/src/androidTest/java/com/abosultan/darbakos/SessionFocusedChecks.java",
+      "status": "added"
+    },
+    {
+      "path": "app/src/main/java/com/abosultan/darbakos/core/GuardianMonitorSession.java",
+      "status": "added"
+    },
+    {
+      "path": "scripts/check_monitoring.py",
+      "status": "modified"
+    },
+    {
+      "path": "scripts/emulator_smoke.py",
+      "status": "modified"
+    }
+  ],
+  "production_change": "GuardianMonitorSession.java only; passive synchronous wrapper. Sole correction: fail closed after final generation reset.",
+  "prior_implementations_unchanged": true,
+  "main_activity_resources_manifest_build_unchanged": true,
+  "new_production_caller": false,
+  "service_receiver_permission_dependency_native_library_added": false,
+  "production_thread_timer_handler_executor_scheduler_polling_listener_added": false,
+  "disk_network_sensor_clock_read_restart_recovery_execution_added": false,
+  "source_baseline_check": "PASS",
+  "reused_source_fingerprints": 12,
+  "review_basis": "Read complete Session source and diff from verified checkpoint; source baseline guard; References and existing pure-Java checks reused. APK/native and runtime observations recorded separately."
+}

@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-09-29 — Guardian Monitor Session consolidated verification closed / STOP
+- Fixed one proven Session isolation defect: reset at Long.MAX_VALUE reused the expired generation token. Exhausted sessions now reject further heartbeats while keeping the counter saturated and cold health UNKNOWN. Preserved before/after focused proof.
+- Added6 shared focused checks to4 supplied Session tests: all-component generation/order isolation, mixed diagnostic/result retention, null/empty behavior, explicit-only evaluation, saturation and200 bounded concurrent rounds. Existing81 tests and prior production primitives unchanged; no runtime dependency or worker added.
+- Build/Lint0 errors/17 unchanged warnings; focused Java6/6 and API25 Session10/10, then ONE bounded regression74/74 (16 foundation +58 prior) and6/6 navigation returns PASS. Seven giant proofs reused with12 verified fingerprints; no1024/6144 regeneration or duplicate Session run.
+- Home/Apps/restart PNGs identical; no autoplay/crash/ANR. APK +1,248bytes/PSS -131KB/launch +5ms are separate observations, not causal benchmarks. Updated evidence/state and closed the gate. STOP without Watchdog, Service or actual Recovery.
+
 ## 2026-09-29 — Guardian Monitoring Foundation consolidated verification closed / STOP
 - Fixed proven new-bundle compile incompatibility in MonitorStep using a private Snapshot field adapter; corrected new test field references. Previous Guardian primitives remain unchanged.
 - Fixed proven MonitorConfig Long.MAX_VALUE overflow, preserving a strictly later representable stale boundary. Retained before/after proof.

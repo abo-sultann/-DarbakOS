@@ -1,0 +1,16 @@
+{
+  "result": "PASS",
+  "commit": "018b509aaa00cdb0df7f424cea3a6c24342cf443",
+  "api": 25,
+  "abi": "x86",
+  "resolution": "1024x600",
+  "density": 160,
+  "instrumented_tests": 74,
+  "focused_instrumented_tests": 10,
+  "reused_unchanged_proofs": 7,
+  "bounded_regression_runs": 1,
+  "quick_action_round_trips": 6,
+  "apk_bytes": 34379,
+  "apk_sha256": "7654bb16ae40f9c444e39cdcdd114bf57468b3ef2507befd9509cbb91ba534de",
+  "t3_validated": false
+}

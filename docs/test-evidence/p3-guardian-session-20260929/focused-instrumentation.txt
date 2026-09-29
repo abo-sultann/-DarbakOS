@@ -1,0 +1,8 @@
+
+com.abosultan.darbakos.GuardianMonitorSessionTest:..........
+
+Time: 0.069
+
+OK (10 tests)
+
+

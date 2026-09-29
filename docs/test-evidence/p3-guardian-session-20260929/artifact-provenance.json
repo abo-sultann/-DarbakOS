@@ -1,0 +1,129 @@
+{
+  "artifact": {
+    "id": 11046730149,
+    "name": "DarbakOS-P1-TEST-018b509aaa00cdb0df7f424cea3a6c24342cf443",
+    "size_in_bytes": 1516893,
+    "url": "https://api.github.com/repos/abo-sultann/DarbakOS/actions/artifacts/11046730149",
+    "archive_download_url": "https://api.github.com/repos/abo-sultann/DarbakOS/actions/artifacts/11046730149/zip",
+    "expired": false,
+    "created_at": "2026-09-29T16:19:36Z",
+    "expires_at": "2026-10-13T16:19:35Z",
+    "updated_at": "2026-09-29T16:19:36Z",
+    "digest": "sha256:7ce6ef0325c67cbc04cf3e50b1914bd73cb2869d039a7de65d958ec64b90671d",
+    "workflow_run": {
+      "id": 36596597821,
+      "repository_id": 1389422570,
+      "head_repository_id": 1389422570,
+      "head_branch": "main",
+      "head_sha": "018b509aaa00cdb0df7f424cea3a6c24342cf443"
+    }
+  },
+  "workflow_run": 36596597821,
+  "run_attempt": 1,
+  "conclusion": "success",
+  "jobs": [
+    {
+      "id": 109502988795,
+      "name": "api25-shell",
+      "status": "completed",
+      "conclusion": "success",
+      "run_id": 36596597821,
+      "logs_url": null,
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2
+        },
+        {
+          "name": "Run actions/setup-java@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3
+        },
+        {
+          "name": "Run gradle/actions/setup-gradle@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4
+        },
+        {
+          "name": "Source checks",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5
+        },
+        {
+          "name": "Provision Android command-line tools",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6
+        },
+        {
+          "name": "Install pinned SDK build tools",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7
+        },
+        {
+          "name": "Build and lint",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8
+        },
+        {
+          "name": "Enable emulator acceleration",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9
+        },
+        {
+          "name": "API25 1024x600 smoke and instrumentation",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10
+        },
+        {
+          "name": "Upload TEST APK and evidence",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11
+        },
+        {
+          "name": "Post Run gradle/actions/setup-gradle@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 20
+        },
+        {
+          "name": "Post Run actions/setup-java@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 21
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 22
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 23
+        }
+      ]
+    }
+  ],
+  "zip_sha256": "7ce6ef0325c67cbc04cf3e50b1914bd73cb2869d039a7de65d958ec64b90671d",
+  "apk_sha256": "7654bb16ae40f9c444e39cdcdd114bf57468b3ef2507befd9509cbb91ba534de",
+  "verification": "Downloaded ZIP hash matches GitHub artifact digest; APK size/hash match recorded summary. All three reviewed PNGs byte- and pixel-identical to prior Monitoring Foundation evidence."
+}

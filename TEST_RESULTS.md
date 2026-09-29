@@ -2,6 +2,40 @@
 
 No Darbak OS release is Stable. See the per-stage evidence below.
 
+## 2026-09-29 — P3 Guardian Monitor Session consolidated gate: PASS / STOP
+
+- Incoming `16bb89d08b843189ae1de55707abfef65ef21526`; tested `018b509aaa00cdb0df7f424cea3a6c24342cf443`. [Run36596597821](https://github.com/abo-sultann/DarbakOS/actions/runs/36596597821), job109502988795, attempt1 SUCCESS. Build/Lint PASS:0 errors,17 unchanged warnings.
+- Focused first: shared Java checks6/6 after the single proven fix; **10/10 API25 Session tests PASS** in0.069s (4 supplied +6 added). Only then **ONE bounded regression74/74 PASS** in3.798s:16 Monitoring Foundation +58 prior P2/Core/Guardian tests. Session tests are not repeated in regression. Actual-tap quick-action returns **6/6 PASS**.
+- All81 prior tests remain unchanged;91 total declared,84 distinct tests executed in this gate. Seven unchanged giant proofs reuse `ee62972ec8a0372f7ec682220bdc21e183b30405`, run36475157726: Policy/Assessment/Snapshot1024 cases, RecoveryPolicy/Supervisor6144 cases and old Snapshot/Supervisor concurrency. All12 pinned source fingerprints verified before reuse. Exact selection recorded; no giant suite rerun or new91-test execution claimed.
+
+| Verification | Result |
+|---|---|
+| Every component; old/future generation rejection and current acceptance; heartbeat duplicate/sequence/time rejection; three resets and exact generation increments | PASS |
+| Cold reset clears heartbeats, journal and health to UNKNOWN/revision0; null guardian/config/component and empty/extreme inputs remain conservative | PASS |
+| Diagnostics freeze exact generation, all component health/revisions/heartbeats and ordered event history; retained Results/Snapshots survive update/no-op/reset | PASS |
+| Mixed LIVE/LATE/STALE/UNKNOWN -> health -> assessment -> recommendation; exact transitions/revisions; heartbeat/read operations do not evaluate; no automatic recovery | PASS |
+| Generation MAX_VALUE-1 -> MAX_VALUE accepts the last distinct generation; reset at MAX_VALUE never wraps/reuses its token; repeated exhausted reset remains safe | PASS after narrow fix |
+|200 barrier-coordinated concurrent writer/reader rounds through Session reset/heartbeat/evaluate/snapshot, coherent health/revisions/events/generation, retained snapshots and joined test worker | PASS |
+
+**Only proven production defect fixed:** reset at the saturated Long.MAX_VALUE retained the same token and accepted delayed old-generation input. `before-fix.txt` records5/6 checks passing and this failure; `after-fix.txt` records6/6 passing. Session now marks generation exhaustion, preserves MAX_VALUE and rejects both heartbeat overloads after that final reset. Last-generation input before exhaustion still works; explicit evaluation afterward remains UNKNOWN. Boundary access uses test-only reflection, with no production test hook. Existing Guardian primitives and their proofs are unchanged.
+
+- Reuse/source review: REFERENCES.md and existing MonitoringFocusedChecks pattern used. No external code/dependency added. Session is the only new production file since the prior checkpoint; the fix is confined to it. MainActivity/resources/manifest/build and all prior production classes unchanged. Source guard PASS; APK has no native .so.
+- No new Service/Receiver/permission/dependency/production thread/timer/Handler/Executor/scheduler/polling/listener/disk/network/sensor/clock read/restart/recovery execution. Session has no production UI caller and only changes supplied in-memory state when explicitly invoked. No Watchdog, automatic emitter or subsequent phase started.
+- API25/x86,1024x600/160dpi/1GB: Home, Apps and Cold Restart visually reviewed and all3 PNGs byte- and pixel-identical to the Monitoring Foundation checkpoint. Arabic RTL/fit/navigation/Back/Home/recreation preserved with no new clipping/overlap or fabricated live values. Media remains unavailable/stopped after restart and settling; app service records0 and MediaSessions0.
+
+| Observation | Monitoring0293c4e | Session018b509 | Delta |
+|---|---:|---:|---:|
+| APK bytes |33,131|34,379|+1,248|
+| Process PSS KB |9,129|8,998|-131|
+| Launch TotalTime ms |382|387|+5|
+| Views / Activities |49 /1|49 /1|0 /0|
+| Observed crash / app ANR |0 /0|0 /0|none|
+
+- WaitTime392ms; both crash buffers empty; no app ANR in either captured log. These are separate single shell observations, not causal benchmarks or session CPU/allocation measurements. Bounded concurrency is not an exhaustive schedule proof; independent external registry/journal mutation is outside its assertions. Physical T3/ARMv7/Test Station and Stable acceptance remain untested.
+- Artifact11046730149 `DarbakOS-P1-TEST-018b509aaa00cdb0df7f424cea3a6c24342cf443`, expires2026-10-13. APK SHA256 `7654bb16ae40f9c444e39cdcdd114bf57468b3ef2507befd9509cbb91ba534de`; downloaded ZIP SHA256 matches artifact digest `7ce6ef0325c67cbc04cf3e50b1914bd73cb2869d039a7de65d958ec64b90671d`.
+- Evidence: `docs/test-evidence/p3-guardian-session-20260929/` includes focused before/after proof, focused/bounded instrumentation, exact selection/reused fingerprints, screenshots/UI trees, lint, no-autoplay, resources/crashes, source audit, artifact provenance and comparison.json.
+- **Batch closed / STOP.** No next task; no Watchdog/Service/actual Recovery.
+
 ## 2026-09-29 — P3 Guardian Monitoring Foundation consolidated gate: PASS / STOP
 
 - Incoming `f8ed0818f5597dc067421d3c1c2324a2a86c975b`; tested `0293c4e9cef7f102cacbc99c0905f9b3c95379c7`. [Run36573126651](https://github.com/abo-sultann/DarbakOS/actions/runs/36573126651), job109421810853, attempt1 SUCCESS. One consolidated gate; no subsequent phase started.

@@ -1,6 +1,6 @@
 # Current Status
 
-State: P3 GUARDIAN MONITORING FOUNDATION VERIFIED — BATCH CLOSED / STOP
+State: P3 GUARDIAN MONITOR SESSION VERIFIED — BATCH CLOSED / STOP
 Updated: 2026-09-29.
 Target: t3-p3 / sun8iw11p1 / Android7.1 API25 / ARMv7 / ~1GB / 1024x600.
 
@@ -28,16 +28,17 @@ Target: t3-p3 / sun8iw11p1 / Android7.1 API25 / ARMv7 / ~1GB / 1024x600.
 - GuardianRecoveryPolicy returns recommendations only: UNKNOWN diagnoses, DEGRADED never exceeds light repair, FAILED follows the explicit0..4 ladder, HEALTHY has no targets. All6144 combination/level cases and integer boundaries verified; no recovery execution.
 - GuardianSupervisor provides one caller-driven Snapshot -> Assessment -> Plan evaluation. All6144 combination/level cases, boundaries, nonmutation, retained Results after update/reset and20000 concurrent evaluations verified. No production caller/UI binding, automatic monitoring or action; concurrency workers are test-only.
 - Monitoring foundation now verified as one passive bundle: immutable Heartbeat/Event, synchronized HeartbeatRegistry/EventJournal, LivenessPolicy/Snapshot, sanitized MonitorConfig and explicit MonitorStep. Caller-supplied time and in-memory health transitions only; no automatic scheduler, I/O or recovery execution. Fixed only MonitorStep's nonexistent Snapshot API calls and MonitorConfig upper-bound overflow.
+- GuardianMonitorSession now verified: owns heartbeat/journal/config state, caller-driven evaluation, cold-boot generation isolation and immutable diagnostics. All components, old/current generation input, reset, retained mixed Results/Snapshots, null/empty behavior and200 bounded concurrent rounds verified. Fixed one proven boundary defect: reset at Long.MAX_VALUE now rejects further heartbeat input instead of reusing the expired token; counter stays saturated and state resets to UNKNOWN. No automatic evaluation or actual recovery.
 
 ## Verified checkpoint
-- Tested code: `0293c4e9cef7f102cacbc99c0905f9b3c95379c7`.
-- Successful run: https://github.com/abo-sultann/DarbakOS/actions/runs/36573126651 (attempt1).
-- Build/Lint:0 errors,17 existing warnings. Focused Java10/10, then API25 focused16/16, then ONE regression74/74 (58 prior +16 foundation); quick-action returns6/6.
-- Per latest owner instruction,7 unchanged giant proofs reused from prior65/65 Supervisor checkpoint, guarded by12 source fingerprints. All65 prior tests preserved in source; no repeat of old giant suites. See regression-selection.json and TEST_RESULTS.md for exact scope.
-- API25/x86,1024x600/160dpi: final P2 UI/RTL/fit/navigation/no-autoplay preserved; Home/Apps/restart images pixel-identical to previous Supervisor checkpoint.
-- Proven defects fixed and focused retest passed before the single regression. No new production Service/Receiver/permission/dependency/native/background behavior; no observed app crash/ANR. In-memory explicit monitoring only; no automatic evaluation or recovery execution.
-- APK33,131 bytes (+4,740); PSS9,129KB (+185); launch382ms versus315ms. Separate single shell observations, not causal benchmarks or monitor-cycle performance measurements.
-- Evidence: `docs/test-evidence/p3-guardian-monitoring-20260929/`; details/history: TEST_RESULTS.md.
+- Tested code: `018b509aaa00cdb0df7f424cea3a6c24342cf443`.
+- Successful run: https://github.com/abo-sultann/DarbakOS/actions/runs/36596597821 (attempt1).
+- Build/Lint:0 errors,17 unchanged warnings. Focused Java6/6, then API25 Session10/10, then ONE bounded regression74/74 (58 prior +16 foundation); quick-action returns6/6. Session tests were not repeated in regression.
+- Seven unchanged giant proofs reused from the prior65/65 Supervisor checkpoint, guarded by12 source fingerprints. All81 prior tests preserved unchanged in source;91 total declared,84 distinct executed on API25 in this gate,7 proofs reused. No new1024/6144 run is claimed. See regression-selection.json and TEST_RESULTS.md.
+- API25/x86,1024x600/160dpi: final P2 UI/RTL/fit/navigation/no-autoplay preserved; Home/Apps/restart images visually reviewed and pixel-identical to previous Monitoring Foundation checkpoint.
+- Only the proven Session saturation/isolation defect was fixed; focused retest passed before the single regression. No new production Service/Receiver/permission/dependency/native/background behavior; no observed app crash/ANR. Explicit in-memory state changes only; no automatic evaluation or recovery execution.
+- APK34,379 bytes (+1,248); PSS8,998KB (-131); launch387ms versus382ms. Separate single shell observations, not causal benchmarks or session performance measurements.
+- Evidence: `docs/test-evidence/p3-guardian-session-20260929/`; details/history: TEST_RESULTS.md.
 - Physical T3/ARMv7/Test Station and Stable acceptance remain outstanding.
 
 ## Not yet done
@@ -48,7 +49,7 @@ Target: t3-p3 / sun8iw11p1 / Android7.1 API25 / ARMv7 / ~1GB / 1024x600.
 - No firmware or MCU flash approved; all master-plan safety gates remain in force.
 
 ## Current gate
-The requested consolidated P3 Guardian Monitoring Foundation verification gate is complete. STOP here.
+The requested consolidated P3 Guardian Monitor Session verification gate is complete. STOP here.
 Do not start automatic watchdog/heartbeat emitters/timers/Guardian services, actual recovery, persistent logging/reporting, other P3 work, hardware work or another batch.
 `02_NEXT_TASK.md` records closure, not a new assignment. No Stable/T3 acceptance is claimed.
 

@@ -1,0 +1,15 @@
+PASS generationOrderingAndAllComponentIsolation
+PASS mixedDiagnosticsAndResultsSurviveUpdatesAndReset
+PASS nullAndEmptySessionsRemainConservative
+PASS healthChangesOnlyOnExplicitEvaluation
+FAIL saturatedGenerationNeverReusesAnExpiredToken: java.lang.AssertionError: saturated reset must reject delayed MAX_VALUE heartbeat
+PASS boundedConcurrentResetAndCaptureStayCoherent
+Focused session checks: 5/6
+Exception in thread "main" java.lang.AssertionError: Focused session failures: 1
+	at com.abosultan.darbakos.SessionFocusedChecks.main(SessionFocusedChecks.java:240)
+Traceback (most recent call last):
+  File "/workspace/scratch/32ac958e7eb5/DarbakOS/scripts/check_monitoring.py", line 16, in <module>
+    subprocess.run(['java', '-cp', classes, 'com.abosultan.darbakos.' + check_class], check=True)
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['java', '-cp', '/tmp/darbak-monitoring-avjw3iz5', 'com.abosultan.darbakos.SessionFocusedChecks']' returned non-zero exit status 1.

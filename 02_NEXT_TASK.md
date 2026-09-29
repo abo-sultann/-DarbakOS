@@ -1,25 +1,29 @@
-# Next Task — P3 Guardian monitoring foundation bundle IN PROGRESS
+# Next Task — P3 Guardian monitoring foundation READY FOR WORK
 
-## Work-mode policy
-Main chat/GitHub performs implementation and lightweight review. Work is reserved for one consolidated API25 verification gate after this bundle is complete.
+## Purpose
+Run ONE consolidated verification gate for the complete passive monitoring-foundation bundle. This replaces per-class Work runs to conserve Work quota.
 
-## Implemented in this bundle
-- GuardianHeartbeat: immutable caller-supplied component/sequence/monotonic sample.
-- GuardianHeartbeatRegistry: latest accepted heartbeat per component; rejects sequence/time regression.
-- GuardianLivenessPolicy: pure LIVE/LATE/STALE/UNKNOWN classification -> Guardian health.
-- GuardianLivenessSnapshot: immutable all-component classification and explicit caller-driven health bridge.
-- GuardianMonitorConfig: conservative configurable thresholds (default late5s, stale15s; to be calibrated on real T3).
-- GuardianEvent + GuardianEventJournal: fixed64-event in-memory ring; immutable retained snapshots, latest lookup, no persistence.
-- GuardianMonitorStep: one caller-driven chain from heartbeat through liveness/health/Supervisor, journaling only meaningful health transitions.
+## Start point
+Passive Supervisor was previously verified at65/65. Main now contains the complete passive foundation:
+GuardianHeartbeat, GuardianHeartbeatRegistry, GuardianLivenessPolicy, GuardianLivenessSnapshot, GuardianMonitorConfig, GuardianEvent/GuardianEventJournal and GuardianMonitorStep, plus GuardianMonitoringFoundationTest.
 
-## Safety boundary
-No production clock reads, Service/Receiver, thread, timer, Handler, Executor, scheduler, polling, automatic listener, disk/network/sensor access or recovery execution. No UI change. No automatic watchdog yet.
+## Required verification — one run
+- Build/Lint.
+- Run the new focused monitoring tests first. Fix only proven defects.
+- Then run the existing full API25/1024x600 regression ONCE, including all prior65 tests and6 quick-action navigation returns.
+- Verify exact heartbeat ordering/regression rejection, LIVE/LATE/STALE boundaries, UNKNOWN behavior, config sanitization, journal capacity/overwrite/order/retained snapshots/latest/clear, meaningful-transition-only journaling, repeated no-op monitor cycles, and complete Heartbeat -> Liveness -> Health -> Supervisor -> Recovery Recommendation composition.
+- Add only missing focused tests needed to prove those behaviors; avoid combinatorial repetition already proven by earlier Guardian policy/Supervisor gates unless a changed path requires it.
+- Check concurrency only where this bundle introduced synchronized mutable state: heartbeat registry and event journal/liveness capture. Use a bounded stress test, not repeated giant suites.
+- Confirm final P2 Home/Apps/restart behavior remains unchanged and no autoplay.
+- Confirm production adds no Service/Receiver/permission/dependency/native library/thread/timer/Handler/Executor/scheduler/polling/automatic listener/disk/network/sensor/restart/recovery execution.
+- Record APK/PSS/launch observations and crash/ANR status.
+- Update01_CURRENT_STATUS.md, TEST_RESULTS.md, CHANGELOG.md; Commit+Push; STOP.
 
-## Remaining before consolidated Work gate
-Perform source-level bundle review and add/prepare focused regression coverage for heartbeat ordering, threshold boundaries, ring overwrite/order/retention, no-op cycles, health transitions, config sanitization and complete MonitorStep composition. Then open one Work gate that runs focused tests plus the existing full API25/1024x600 regression once.
+## Efficiency rule
+Do not rerun the same full suite repeatedly when it passes. Focused test -> fix if proven -> focused retest -> ONE final full regression. Reuse prior evidence for unchanged 1024-combination/6144-policy proofs instead of regenerating them.
 
-## Do not start
-No automatic watchdog/service, recovery execution, persistence/report export, source adapters, OsmAnd/GPS/Trip, Media, Vehicle, T3/root/firmware/MCU work.
+## Constraints
+Passive foundation only. Do not start automatic watchdog/service, actual recovery, persistence/report export, source adapters, OsmAnd/GPS/Trip, Media, Vehicle, firmware/root/MCU/70mai or T3 work.
 
-## Work STOP condition
-Do not send partial increments to Work. One consolidated verification only after the bundle is marked READY FOR WORK.
+## Finish definition
+Monitoring foundation is verified side-effect-free on API25/1024x600, prior behavior remains intact, evidence is checkpointed, then STOP.

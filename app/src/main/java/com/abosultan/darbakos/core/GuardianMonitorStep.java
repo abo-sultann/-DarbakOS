@@ -39,8 +39,8 @@ public final class GuardianMonitorStep {
         int changes = 0;
         if (journal != null) {
             for (GuardianRegistry.Component component : GuardianRegistry.Component.values()) {
-                GuardianState previous = before.state(component);
-                GuardianState current = supervisor.snapshot.state(component);
+                GuardianState previous = state(before, component);
+                GuardianState current = state(supervisor.snapshot, component);
                 if (previous.health != current.health) {
                     changes++;
                     journal.append(new GuardianEvent(
@@ -50,11 +50,23 @@ public final class GuardianMonitorStep {
             }
         } else {
             for (GuardianRegistry.Component component : GuardianRegistry.Component.values()) {
-                if (before.state(component).health !=
-                        supervisor.snapshot.state(component).health) changes++;
+                if (state(before, component).health !=
+                        state(supervisor.snapshot, component).health) changes++;
             }
         }
         return new Result(liveness, supervisor, changes);
+    }
+
+    private static GuardianState state(GuardianSnapshot snapshot,
+                                       GuardianRegistry.Component component) {
+        switch (component) {
+            case CORE: return snapshot.core;
+            case HOME: return snapshot.home;
+            case NAVIGATION: return snapshot.navigation;
+            case MEDIA: return snapshot.media;
+            case VEHICLE: return snapshot.vehicle;
+            default: throw new AssertionError(component);
+        }
     }
 
     public static final class Result {

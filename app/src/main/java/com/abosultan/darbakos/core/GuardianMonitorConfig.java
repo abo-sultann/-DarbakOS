@@ -12,7 +12,8 @@ public final class GuardianMonitorConfig {
     public final long staleAfterMs;
 
     public GuardianMonitorConfig(long lateAfterMs, long staleAfterMs) {
-        long late = Math.max(1L, lateAfterMs);
+        // Reserve one representable millisecond for the strictly later stale boundary.
+        long late = Math.min(Long.MAX_VALUE - 1L, Math.max(1L, lateAfterMs));
         long stale = Math.max(late + 1L, staleAfterMs);
         this.lateAfterMs = late;
         this.staleAfterMs = stale;

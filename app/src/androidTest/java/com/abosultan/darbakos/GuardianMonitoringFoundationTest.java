@@ -13,6 +13,8 @@ import com.abosultan.darbakos.core.GuardianRegistry;
 import com.abosultan.darbakos.core.GuardianState;
 
 import org.junit.Test;
+import org.junit.Before;
+import org.junit.After;
 import org.junit.runner.RunWith;
 
 import java.util.List;
@@ -21,6 +23,18 @@ import static org.junit.Assert.*;
 
 @RunWith(AndroidJUnit4.class)
 public class GuardianMonitoringFoundationTest {
+    @Test public void heartbeatOrderingAndIsolation() { MonitoringFocusedChecks.heartbeatOrderingAndIsolation(); }
+    @Test public void exactLivenessAndUnknownMapping() { MonitoringFocusedChecks.exactLivenessAndUnknownMapping(); }
+    @Test public void configExtremeSanitization() { MonitoringFocusedChecks.configExtremeSanitization(); }
+    @Test public void journalCapacityOrderClearAndImmutableSnapshots() { MonitoringFocusedChecks.journalCapacityOrderClearAndImmutableSnapshots(); }
+    @Test public void eventValueSanitization() { MonitoringFocusedChecks.eventValueSanitization(); }
+    @Test public void livenessCaptureRetentionCountsAndApply() { MonitoringFocusedChecks.livenessCaptureRetentionCountsAndApply(); }
+    @Test public void mixedCompositionAndNoOpJournaling() { MonitoringFocusedChecks.mixedCompositionAndNoOpJournaling(); }
+    @Test public void monitorDefaultsNullsAndThresholdTransitions() { MonitoringFocusedChecks.monitorDefaultsNullsAndThresholdTransitions(); }
+    @Test public void boundedHeartbeatCaptureConcurrency() throws Exception { MonitoringFocusedChecks.boundedHeartbeatCaptureConcurrency(); }
+    @Test public void boundedJournalConcurrency() throws Exception { MonitoringFocusedChecks.boundedJournalConcurrency(); }
+    @Before public void setUp() { GuardianRegistry.get().resetForColdBoot(); }
+    @After public void tearDown() { GuardianRegistry.get().resetForColdBoot(); }
     @Test public void heartbeatRegistryRejectsRegression() {
         GuardianHeartbeatRegistry r = new GuardianHeartbeatRegistry();
         GuardianRegistry.Component c = GuardianRegistry.Component.CORE;
@@ -80,7 +94,7 @@ public class GuardianMonitoringFoundationTest {
         assertEquals(0, second.healthChanges);
         assertEquals(5, j.size());
         assertEquals(GuardianState.Health.HEALTHY,
-                second.supervisor.snapshot.aggregateHealth);
+                second.supervisor.snapshot.overall);
     }
 
     @Test public void missingHeartbeatsRemainUnknown() {
@@ -90,6 +104,6 @@ public class GuardianMonitoringFoundationTest {
                 new GuardianHeartbeatRegistry(),g,null,1000,
                 GuardianMonitorConfig.conservativeDefault(),0);
         assertEquals(0, r.healthChanges);
-        assertEquals(GuardianState.Health.UNKNOWN,r.supervisor.snapshot.aggregateHealth);
+        assertEquals(GuardianState.Health.UNKNOWN,r.supervisor.snapshot.overall);
     }
 }

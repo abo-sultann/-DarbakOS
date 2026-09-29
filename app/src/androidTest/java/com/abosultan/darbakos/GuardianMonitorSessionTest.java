@@ -69,6 +69,12 @@ public class GuardianMonitorSessionTest {
         GuardianMonitorSession.Snapshot snap = s.snapshot();
         assertEquals(s.generation(), snap.generation);
         assertEquals(GuardianState.Health.HEALTHY, snap.health.overall);
+        for (GuardianRegistry.Component component : GuardianRegistry.Component.values()) {
+            assertNotNull(snap.heartbeat(component));
+            assertEquals(1, snap.heartbeat(component).sequence);
+            assertEquals(1000, snap.heartbeat(component).monotonicMs);
+        }
+        assertNull(snap.heartbeat(null));
         assertEquals(5, snap.events.size());
         assertSame(s.config(), s.config());
         boolean immutable = false;
@@ -79,6 +85,10 @@ public class GuardianMonitorSessionTest {
         GuardianMonitorSession.Snapshot cold = s.snapshot();
         assertTrue(cold.events.isEmpty());
         assertEquals(GuardianState.Health.UNKNOWN, cold.health.overall);
+        for (GuardianRegistry.Component component : GuardianRegistry.Component.values()) {
+            assertNull(cold.heartbeat(component));
+            assertNotNull(snap.heartbeat(component));
+        }
         assertEquals(5, snap.events.size());
         assertEquals(GuardianState.Health.HEALTHY, snap.health.overall);
     }

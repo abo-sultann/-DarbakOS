@@ -11,6 +11,7 @@ public final class GuardianMonitorSession {
     private final GuardianRegistry guardian;
     private final GuardianMonitorConfig config;
     private long generation;
+    private boolean generationExhausted;
 
     public GuardianMonitorSession(GuardianRegistry guardian,
                                   GuardianMonitorConfig config,
@@ -31,7 +32,7 @@ public final class GuardianMonitorSession {
                                           GuardianRegistry.Component component,
                                           long sequence,
                                           long monotonicMs) {
-        if (expectedGeneration != generation) return false;
+        if (generationExhausted || expectedGeneration != generation) return false;
         return heartbeats.update(new GuardianHeartbeat(component, sequence, monotonicMs));
     }
 
@@ -68,12 +69,15 @@ public final class GuardianMonitorSession {
     /**
      * Starts a fresh logical monitoring generation. Old heartbeats cannot leak across a
      * cold-start boundary, while retained Result/Event snapshots held by callers stay immutable.
+     * If the last generation is exhausted, keep the counter saturated and reject further
+     * heartbeats: reusing its token would admit delayed input from before this reset.
      */
     public synchronized void resetForColdBoot() {
         heartbeats.reset();
         journal.clear();
         if (guardian != null) guardian.resetForColdBoot();
-        if (generation != Long.MAX_VALUE) generation++;
+        if (generation == Long.MAX_VALUE) generationExhausted = true;
+        else generation++;
     }
 
     public static final class Snapshot {

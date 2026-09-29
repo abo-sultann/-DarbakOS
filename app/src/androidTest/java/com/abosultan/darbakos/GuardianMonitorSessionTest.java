@@ -19,6 +19,13 @@ import static org.junit.Assert.*;
 public class GuardianMonitorSessionTest {
     private GuardianRegistry guardian;
 
+    @Test public void generationOrderingAndAllComponentIsolation() { SessionFocusedChecks.generationOrderingAndAllComponentIsolation(); }
+    @Test public void mixedDiagnosticsAndResultsSurviveUpdatesAndReset() { SessionFocusedChecks.mixedDiagnosticsAndResultsSurviveUpdatesAndReset(); }
+    @Test public void nullAndEmptySessionsRemainConservative() { SessionFocusedChecks.nullAndEmptySessionsRemainConservative(); }
+    @Test public void healthChangesOnlyOnExplicitEvaluation() { SessionFocusedChecks.healthChangesOnlyOnExplicitEvaluation(); }
+    @Test public void saturatedGenerationNeverReusesAnExpiredToken() throws Exception { SessionFocusedChecks.saturatedGenerationNeverReusesAnExpiredToken(); }
+    @Test public void boundedConcurrentResetAndCaptureStayCoherent() throws Exception { SessionFocusedChecks.boundedConcurrentResetAndCaptureStayCoherent(); }
+
     @Before public void setUp() {
         guardian = GuardianRegistry.get();
         guardian.resetForColdBoot();

@@ -88,12 +88,12 @@ try:
     adb('install', '-r', '-t', str(test_apk))
     adb('logcat', '-c')
     # Consolidated gate: focused Android checks must pass before the ONE regression.
-    focused_class = 'com.abosultan.darbakos.GuardianMonitoringFoundationTest'
+    focused_class = 'com.abosultan.darbakos.GuardianMonitorSessionTest'
     focused = subprocess.check_output(ADB + ['shell', 'am', 'instrument', '-w', '-e',
         'class', focused_class, PACKAGE + '.test/androidx.test.runner.AndroidJUnitRunner'],
         text=True, timeout=180)
     save('focused-instrumentation.txt', focused)
-    assert 'OK (16 tests)' in focused and 'FAILURES' not in focused, focused
+    assert 'OK (10 tests)' in focused and 'FAILURES' not in focused, focused
     # Owner explicitly requested reuse of unchanged giant-proof evidence.
     # Preserve those tests in source; this gate alone selects the remaining regression.
     reused = {
@@ -106,6 +106,7 @@ try:
         'GuardianSupervisorTest#concurrentCallersUpdatesAndResetCannotSplitAnyResult',
     }
     selected = []
+    focused_methods = []
     discovered = set()
     basis = json.loads((ROOT / 'scripts/guardian_reused_proofs.json').read_text())
     for source, expected_hash in basis['source_sha256'].items():
@@ -115,15 +116,18 @@ try:
         for method in re.findall(r'@Test\s+public\s+void\s+(\w+)\s*\(', source.read_text()):
             name = source.stem + '#' + method
             discovered.add(name)
-            if name not in reused:
+            if source.stem == 'GuardianMonitorSessionTest':
+                focused_methods.append('com.abosultan.darbakos.' + name)
+            elif name not in reused:
                 selected.append('com.abosultan.darbakos.' + name)
-    assert reused <= discovered and len(discovered) == 81 and len(selected) == 74
+    assert reused <= discovered and len(discovered) == 91 and len(selected) == 74 and len(focused_methods) == 10
     save('regression-selection.json', json.dumps({
         'selected': selected, 'reused_unchanged_proofs': sorted(reused),
+        'already_passed_focused_session_tests': focused_methods,
         'prior_evidence': basis['evidence'],
         'prior_tested_commit': basis['tested_commit'],
         'unchanged_source_sha256': basis['source_sha256'],
-        'scope': 'Owner-requested single full regression: 58 prior +16 monitoring tests; 7 giant proofs reused'
+        'scope': 'One bounded regression: 58 prior +16 foundation tests; 10 session tests already passed; 7 giant proofs reused'
     }, indent=2))
     # Every selected Android assertion runs on the real framework, not a mocked JVM.
     result = subprocess.check_output(ADB + ['shell', 'am', 'instrument', '-w',
@@ -212,8 +216,8 @@ try:
         'result': 'PASS', 'commit': subprocess.check_output(['git', 'rev-parse', 'HEAD'], text=True).strip(),
         'api': 25, 'abi': adb('shell', 'getprop', 'ro.product.cpu.abi').strip(),
         'resolution': '1024x600', 'density': 160, 'instrumented_tests': 74,
-        'focused_instrumented_tests': 16, 'reused_unchanged_proofs': 7,
-        'full_regression_runs': 1,
+        'focused_instrumented_tests': 10, 'reused_unchanged_proofs': 7,
+        'bounded_regression_runs': 1,
         'quick_action_round_trips': len(quick_results),
         'apk_bytes': apk.stat().st_size, 'apk_sha256': hashlib.sha256(apk.read_bytes()).hexdigest(),
         't3_validated': False

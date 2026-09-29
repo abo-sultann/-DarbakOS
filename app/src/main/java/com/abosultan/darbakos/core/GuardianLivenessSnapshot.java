@@ -20,10 +20,12 @@ public final class GuardianLivenessSnapshot {
                                                    long staleAfterMs) {
         EnumMap<GuardianRegistry.Component, GuardianLivenessPolicy.Liveness> states =
                 new EnumMap<>(GuardianRegistry.Component.class);
-        for (GuardianRegistry.Component component : GuardianRegistry.Component.values()) {
-            GuardianHeartbeat heartbeat = registry == null ? null : registry.snapshot(component);
-            states.put(component, GuardianLivenessPolicy.classify(
-                    heartbeat, nowMonotonicMs, lateAfterMs, staleAfterMs));
+        synchronized (registry == null ? GuardianLivenessSnapshot.class : registry) {
+            for (GuardianRegistry.Component component : GuardianRegistry.Component.values()) {
+                GuardianHeartbeat heartbeat = registry == null ? null : registry.snapshot(component);
+                states.put(component, GuardianLivenessPolicy.classify(
+                        heartbeat, nowMonotonicMs, lateAfterMs, staleAfterMs));
+            }
         }
         return new GuardianLivenessSnapshot(states, nowMonotonicMs);
     }
@@ -41,5 +43,13 @@ public final class GuardianLivenessSnapshot {
             if (value == liveness) count++;
         }
         return count;
+    }
+
+    /** Caller-driven bridge into Guardian health. No scheduling or automatic mutation. */
+    public void applyTo(GuardianRegistry guardianRegistry) {
+        if (guardianRegistry == null) return;
+        for (GuardianRegistry.Component component : GuardianRegistry.Component.values()) {
+            guardianRegistry.update(component, GuardianLivenessPolicy.toHealth(state(component)));
+        }
     }
 }

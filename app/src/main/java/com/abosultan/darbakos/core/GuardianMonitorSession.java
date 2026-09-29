@@ -10,6 +10,7 @@ public final class GuardianMonitorSession {
     private final GuardianEventJournal journal;
     private final GuardianRegistry guardian;
     private final GuardianMonitorConfig config;
+    private long generation;
 
     public GuardianMonitorSession(GuardianRegistry guardian,
                                   GuardianMonitorConfig config,
@@ -35,9 +36,18 @@ public final class GuardianMonitorSession {
         return journal;
     }
 
+    public synchronized long generation() {
+        return generation;
+    }
+
+    /**
+     * Starts a fresh logical monitoring generation. Old heartbeats cannot leak across a
+     * cold-start boundary, while retained Result/Event snapshots held by callers stay immutable.
+     */
     public synchronized void resetForColdBoot() {
         heartbeats.reset();
         journal.clear();
         if (guardian != null) guardian.resetForColdBoot();
+        if (generation != Long.MAX_VALUE) generation++;
     }
 }

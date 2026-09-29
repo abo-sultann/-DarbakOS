@@ -68,6 +68,7 @@ public class GuardianMonitorSessionTest {
         s.evaluate(1000, 0);
         GuardianMonitorSession.Snapshot snap = s.snapshot();
         assertEquals(s.generation(), snap.generation);
+        assertEquals(GuardianState.Health.HEALTHY, snap.health.overall);
         assertEquals(5, snap.events.size());
         assertSame(s.config(), s.config());
         boolean immutable = false;
@@ -75,8 +76,11 @@ public class GuardianMonitorSessionTest {
         assertTrue(immutable);
 
         s.resetForColdBoot();
-        assertTrue(s.snapshot().events.isEmpty());
+        GuardianMonitorSession.Snapshot cold = s.snapshot();
+        assertTrue(cold.events.isEmpty());
+        assertEquals(GuardianState.Health.UNKNOWN, cold.health.overall);
         assertEquals(5, snap.events.size());
+        assertEquals(GuardianState.Health.HEALTHY, snap.health.overall);
     }
 
     @Test public void retainedResultSurvivesSessionReset() {

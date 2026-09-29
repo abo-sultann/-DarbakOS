@@ -25,6 +25,12 @@ public final class GuardianEventJournal {
 
     public synchronized int capacity() { return entries.length; }
     public synchronized int size() { return size; }
+    public synchronized boolean isEmpty() { return size == 0; }
+
+    public synchronized GuardianEvent latest() {
+        if (size == 0) return null;
+        return entries[(start + size - 1) % entries.length];
+    }
 
     public synchronized void append(GuardianEvent event) {
         if (event == null) return;

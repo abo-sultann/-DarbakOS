@@ -23,6 +23,15 @@ public final class GuardianMonitorSession {
     public synchronized boolean heartbeat(GuardianRegistry.Component component,
                                           long sequence,
                                           long monotonicMs) {
+        return heartbeat(generation, component, sequence, monotonicMs);
+    }
+
+    /** Rejects a delayed heartbeat that belongs to an older cold-boot generation. */
+    public synchronized boolean heartbeat(long expectedGeneration,
+                                          GuardianRegistry.Component component,
+                                          long sequence,
+                                          long monotonicMs) {
+        if (expectedGeneration != generation) return false;
         return heartbeats.update(new GuardianHeartbeat(component, sequence, monotonicMs));
     }
 

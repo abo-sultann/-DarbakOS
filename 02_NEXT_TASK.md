@@ -1,20 +1,25 @@
 # Next Task — P3 Guardian monitoring foundation bundle IN PROGRESS
 
 ## Work-mode policy
-Development is performed in the main chat/GitHub. Work is reserved for a later consolidated heavy verification gate; do not spend Work quota on each small class.
+Main chat/GitHub performs implementation and lightweight review. Work is reserved for one consolidated API25 verification gate after this bundle is complete.
 
-## Current bundle
-Passive Supervisor is verified at65/65. Development now begins the monitoring foundation without starting automatic monitoring.
-
-Added:
-- GuardianHeartbeat: immutable caller-supplied component/sequence/monotonic-time sample.
-- GuardianLivenessPolicy: pure LIVE/LATE/STALE/UNKNOWN classification and mapping to Guardian health.
+## Implemented in this bundle
+- GuardianHeartbeat: immutable caller-supplied component/sequence/monotonic sample.
+- GuardianHeartbeatRegistry: latest accepted heartbeat per component; rejects sequence/time regression.
+- GuardianLivenessPolicy: pure LIVE/LATE/STALE/UNKNOWN classification -> Guardian health.
+- GuardianLivenessSnapshot: immutable all-component classification and explicit caller-driven health bridge.
+- GuardianMonitorConfig: conservative configurable thresholds (default late5s, stale15s; to be calibrated on real T3).
+- GuardianEvent + GuardianEventJournal: fixed64-event in-memory ring; immutable retained snapshots, latest lookup, no persistence.
+- GuardianMonitorStep: one caller-driven chain from heartbeat through liveness/health/Supervisor, journaling only meaningful health transitions.
 
 ## Safety boundary
-These classes do not read Android clocks, create threads, timers, handlers, executors, services, receivers or listeners. They do not poll, mutate GuardianRegistry, restart anything, persist data, use network/sensors, or execute recovery. Time is supplied explicitly by the future caller.
+No production clock reads, Service/Receiver, thread, timer, Handler, Executor, scheduler, polling, automatic listener, disk/network/sensor access or recovery execution. No UI change. No automatic watchdog yet.
 
-## Bundle direction
-Continue locally with bounded monitoring primitives and event history before one consolidated Work verification. Preserve API25/ARMv7/~1GB/1024x600 constraints and all accepted P2 behavior.
+## Remaining before consolidated Work gate
+Perform source-level bundle review and add/prepare focused regression coverage for heartbeat ordering, threshold boundaries, ring overwrite/order/retention, no-op cycles, health transitions, config sanitization and complete MonitorStep composition. Then open one Work gate that runs focused tests plus the existing full API25/1024x600 regression once.
 
-## STOP condition for Work
-Do not send this partial bundle to Work yet. Open one consolidated verification gate only after the monitoring-foundation bundle is complete enough to justify full API25 regression.
+## Do not start
+No automatic watchdog/service, recovery execution, persistence/report export, source adapters, OsmAnd/GPS/Trip, Media, Vehicle, T3/root/firmware/MCU work.
+
+## Work STOP condition
+Do not send partial increments to Work. One consolidated verification only after the bundle is marked READY FOR WORK.

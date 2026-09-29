@@ -1,32 +1,22 @@
-# Next Task — P3 Guardian Diagnostics Record FOCUSED CHECK COMPLETE / STOP
+# Next Task — P3 FINAL CLOSURE GATE
 
-## Closure — 2026-09-29
-Verified `a4351ec39c5df1f424a2a024e321585b7a4824f0`, run36599462035 attempt1: Build/Lint PASS (0 errors,17 unchanged warnings); GuardianDiagnosticRecordTest only2/2 PASS in0.007s on API25/1024x600. No proven production defect or application/test change needed. CI now explicitly uses --diagnostics-only and exits before regression/UI work.
+## Goal
+Close P3 now. Do not extend Guardian architecture further.
 
-Full/bounded regression runs0; old1024/6144 suite runs0; UI smoke runs0. Previous evidence retained without re-execution. Saved evidence: `docs/test-evidence/p3-guardian-diagnostics-20260929/`. This completes only the focused check, not a phase-closing regression gate.
+## Execute in one bounded pass
+1. Review all production changes since the last closed Monitor Session checkpoint through GuardianDiagnosticRecord.
+2. Run Build/Lint and the already-focused diagnostics test only if needed for source drift.
+3. Run exactly ONE bounded API25/1024x600 regression covering P2 UI/Core/Guardian integration. Reuse unchanged exhaustive 1024/6144/concurrency proofs by fingerprint; do not regenerate them.
+4. Fix only proven defects, with focused retest first. Do not add features.
+5. Verify final UI remains unchanged/truthful/no-autoplay and production still has no unintended Service/Receiver/permission/native/dependency/background/recovery execution.
+6. Update 01_CURRENT_STATUS.md, TEST_RESULTS.md, CHANGELOG.md to mark P3 CLOSED if PASS.
+7. Replace this file with a P3 COMPLETE / P4 READY checkpoint. Commit + Push; STOP.
 
-STOP. No next task assigned. No Watchdog/Service/automatic emitters, persistence/export, UI or actual Recovery work. Original completed scope retained below.
+## P3 closure boundary
+P3 delivers Core State + passive Guardian health/assessment/recommendation + passive monitoring/session + compact diagnostics. Automatic watchdog, actual recovery executor and persistent support export are deferred to the later integration/recovery phase; they are not blockers for P3 closure.
 
-## Purpose
-Verify the small passive GuardianDiagnosticRecord bundle added after the closed Monitor Session gate.
+## Forbidden in this gate
+No new Guardian features. No Watchdog/Service/automatic emitters. No OsmAnd/GPS/Trip, Media, Vehicle, firmware/root/MCU/70mai or T3 work.
 
-## Added scope
-- Immutable compact diagnostic record derived from a frozen GuardianMonitorSession Snapshot.
-- Overall health and per-health component counts.
-- Event count and latest component/health/monotonic transition time.
-- Conservative level-0 recovery recommendation only; no recovery execution.
-- Focused API25 tests for null/UNKNOWN and retained frozen-session behavior.
-
-## Required check
-1. Build/Lint.
-2. Run GuardianDiagnosticRecordTest only first.
-3. Fix only proven defects and rerun only the affected focused test.
-4. Confirm no Service/Receiver/permission/dependency/native/background/I/O/recovery execution was added.
-5. Do not run the old 1024/6144 giant suites and do not run a full regression yet.
-6. Commit + Push evidence if changes are needed, then STOP.
-
-## Constraints
-Do not start Watchdog, automatic emitters, persistence/export, Health Center UI, OsmAnd/Trip, Media, Vehicle, hardware or T3 work.
-
-## Finish definition
-The new diagnostic value compiles and its focused API25 behavior is proven. This is not a phase-closing regression gate.
+## Finish
+One regression gate only. If green, P3 is closed and P4 may begin.

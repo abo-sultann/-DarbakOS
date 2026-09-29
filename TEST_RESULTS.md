@@ -2,6 +2,42 @@
 
 No Darbak OS release is Stable. See the per-stage evidence below.
 
+## 2026-09-29 — P3 Guardian passive Supervisor: PASS / STOP
+
+- Tested `ee62972ec8a0372f7ec682220bdc21e183b30405`, [run36475157726](https://github.com/abo-sultann/DarbakOS/actions/runs/36475157726), job109106904888. CI captured2026-09-28; evidence reviewed and gate closed2026-09-29. Tests/evidence only in this gate; no proven application defect or production fix needed.
+- Build/Lint PASS: 0 errors,17 existing warnings. API25/x86,1024x600/160dpi: **65/65 instrumentation PASS** in4.985s (all57 prior +8 Supervisor). **6/6 actual-tap quick-action returns PASS**.
+- Supervisor remains one explicit caller-driven evaluation: Snapshot -> Assessment -> Plan. All steps are in-memory values; no recovery was executed and no automatic evaluation was added.
+
+| Added test | Verified behavior |
+|---|---|
+| nullRegistryIsUnknownAtEveryBoundaryWithoutTouchingLiveState | Null registry yields valid UNKNOWN/revision0 snapshot and assessment, DIAGNOSE/all5 targets, while live FAILED registry remains unchanged |
+| coldRegistryIsUnknownAtRevisionZeroAtEveryBoundary | Cold state remains UNKNOWN/revision0 with exactly5 unknown members/targets at all boundary levels |
+| all6144CombinationLevelsHaveExactChainAndDoNotMutateRegistry | All1024 combinations x6 levels =6144 cases; exact snapshot health/revisions, aggregate, classification/counts, recommendation/targets; live identities/revisions unchanged |
+| negativeAndHighLevelsPreserveEveryConservativePolicyBoundary | MIN_VALUE,-3,-1,0..6,100,MAX_VALUE; every uniform health and each component as sole UNKNOWN/DEGRADED/FAILED target; HEALTHY NONE, UNKNOWN DIAGNOSE, DEGRADED at most LIGHT_REPAIR, exact FAILED ladder |
+| retainedResultsSurviveEveryComponentUpdateAndRepeatedReset | Results at all6 levels retain snapshot/assessment/plan and all members/values after every component/all4 health updates, later evaluations and3 resets |
+| laterEvaluationReflectsChangesWhileOlderResultStaysFrozen | Each sole problem component changes to HEALTHY; new result NONE, exactly that revision increments and unrelated identities stay; old result unchanged |
+| repeatedUnchangedEvaluationsKeepValuesAndEveryRevision | 100 repeats x6 levels preserve exact values and component identities/revisions; old results remain valid |
+| concurrentCallersUpdatesAndResetCannotSplitAnyResult | Two test-only callers each perform10000 evaluations while a test-only writer publishes atomic uniform health changes and cold resets; all20000 results agree across snapshot/revisions/assessment/plan, retained results remain frozen and all threads are joined |
+
+- Expected priority and step table are independent of production assessment/policy calls. Checks include exact counts/membership/target count, null queries false, source identity/health/revision preservation and snapshot/assessment aggregate agreement. All57 previous tests retained unchanged, including earlier snapshot concurrency and recovery-policy coverage.
+- Concurrency test verifies only valid writer states: HEALTHY/revision1, DEGRADED/2, FAILED/3, UNKNOWN/4 or cold UNKNOWN/0. Both caller threads and the writer belong only to androidTest; no production thread is introduced. Stress coverage is not an exhaustive proof of every possible schedule.
+- Source audit: incoming production change is GuardianSupervisor.java only (one capture, assessment and recommendation, immutable Result fields). No Service/Receiver/permission/dependency/native library/thread/timer/Handler/Executor/scheduled polling/listener/disk/network/sensor/restart/recovery execution. MainActivity/resources/manifest/build unchanged; no production UI caller and APK contains no .so.
+- REFERENCES.md and existing repository test/primitive patterns reused; no external code or dependency imported. No watchdog, heartbeat, staleness clock, logging/reporting, persistence, Safe Mode entry, rollback or source integration added.
+- Home/Apps/Cold Restart screenshots visually reviewed; all3 pixel-identical to the prior recovery-policy checkpoint. Final P2 Arabic/RTL/fit/navigation/Back/Home/recreation preserved with no new clipping/overlap or fabricated values. Cold Restart and settling preserve stopped/unavailable media; app service records0/MediaSessions0.
+
+| Observation | Recovery987884c | Supervisoree62972 | Delta |
+|---|---:|---:|---:|
+| APK bytes | 27,979 | 28,391 | +412 |
+| Process PSS KB | 8,992 | 8,944 | -48 |
+| Launch TotalTime ms | 365 | 315 | -50 |
+| Views / Activities | 49 / 1 | 49 / 1 | 0 / 0 |
+| Crash / app ANR observed | 0 / 0 | 0 / 0 | none |
+
+- Launch WaitTime318ms. Both crash buffers empty; no app ANR in either captured log. Single separate emulator observations are not causal performance/CPU benchmarks or proof of zero allocation cost. Supervisor has no production UI caller. Physical T3/ARMv7/Test Station and Stable acceptance remain untested.
+- Artifact10992862503: `DarbakOS-P1-TEST-ee62972ec8a0372f7ec682220bdc21e183b30405`, expires2026-10-12. APK SHA256 `a93149371a53f1b661b85148cba5322d4cd4fa83d80fe06195c5c20693503d49`. Downloaded ZIP SHA256 matches artifact digest `cbef1cfbaeba778a6cfd7d74406be7ae0732a7a8eb498f97418c56c95bd90cdc`.
+- Evidence: `docs/test-evidence/p3-guardian-supervisor-20260928/` includes instrumentation, screenshots/UI trees, lint, no-autoplay, resource/crash captures and comparison.json.
+- **Batch closed / STOP.** No watchdog, heartbeat, timers, logging or actual recovery started.
+
 ## 2026-09-28 — P3 Guardian recovery-policy: PASS / STOP
 
 - Tested `987884c136aee594c43c63517d2f77f7465caa47`, [run36448995258](https://github.com/abo-sultann/DarbakOS/actions/runs/36448995258), job109018561155. Tests/evidence only in this gate; no proven application defect or production fix needed.

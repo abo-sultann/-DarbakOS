@@ -1,4 +1,9 @@
-# Next Task — P3 Guardian passive Supervisor verification
+# Next Task — P3 Guardian passive Supervisor COMPLETE / STOP
+
+## Closure — 2026-09-29
+Verified `ee62972ec8a0372f7ec682220bdc21e183b30405`: Build/Lint PASS,65/65 API25 tests (all57 prior +8 Supervisor),6/6 navigation returns. All6144 combination/level cases, boundary levels, immutable/nonmutating Results and20000 concurrent evaluations during update/reset pass. Final P2 preserved; no production defect found. CI captured2026-09-28. Evidence: `docs/test-evidence/p3-guardian-supervisor-20260928/` and TEST_RESULTS.md.
+
+STOP. No next task assigned. No watchdog, heartbeat, timers, logging or actual recovery. Original verification scope retained below for audit.
 
 ## Start point
 Guardian recovery-policy is closed at 57/57 API25 tests. Main now adds GuardianSupervisor: a caller-driven, passive orchestration step that performs one consistent chain: GuardianSnapshot.capture -> GuardianAssessment.from -> GuardianRecoveryPolicy.recommend.

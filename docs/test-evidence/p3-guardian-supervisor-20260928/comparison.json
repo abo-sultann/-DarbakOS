@@ -1,0 +1,32 @@
+{
+  "baseline_commit": "987884c136aee594c43c63517d2f77f7465caa47",
+  "tested_commit": "ee62972ec8a0372f7ec682220bdc21e183b30405",
+  "workflow_run": 36475157726,
+  "artifact_id": 10992862503,
+  "captured_on": "2026-09-28",
+  "reviewed_on": "2026-09-29",
+  "apk_bytes": { "baseline": 27979, "current": 28391, "delta": 412 },
+  "pss_kb": { "baseline": 8992, "current": 8944, "delta": -48 },
+  "launch_total_time_ms": { "baseline": 365, "current": 315, "delta": -50 },
+  "views": 49,
+  "activities": 1,
+  "pixel_identical_to_baseline": [
+    "home-1024x600.png",
+    "apps-1024x600.png",
+    "cold-restart-home-1024x600.png"
+  ],
+  "instrumentation_tests": 65,
+  "prior_tests_preserved": 57,
+  "health_combinations": 1024,
+  "escalation_levels": [0, 1, 2, 3, 4, 5],
+  "combination_level_cases": 6144,
+  "concurrent_evaluations": 20000,
+  "concurrent_evaluation_callers": 2,
+  "test_only_update_reset_writer": true,
+  "quick_action_round_trips": 6,
+  "recovery_executed": false,
+  "production_background_work_added": false,
+  "observed_app_crash": 0,
+  "observed_app_anr": 0,
+  "limitations": "Separate single API25 x86 emulator observations, not causal performance/CPU benchmarks or physical T3 validation. Supervisor has no production UI caller or automatic execution. Concurrent stress covers the tested interleavings, not every possible schedule."
+}

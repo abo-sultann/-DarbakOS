@@ -1,0 +1,7 @@
+Starting: Intent { cmp=com.abosultan.darbakos.test/com.abosultan.darbakos.MainActivity }
+Status: ok
+Activity: com.abosultan.darbakos.test/com.abosultan.darbakos.MainActivity
+ThisTime: 315
+TotalTime: 315
+WaitTime: 318
+Complete

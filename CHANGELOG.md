@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-09-29 — Guardian passive Supervisor verification closed / STOP
+- Added8 tests for the full Snapshot -> Assessment -> Plan chain:6144 combination/level cases, null/cold/extreme inputs, nonmutation, repeated evaluation and retained results after update/reset. All57 prior tests preserved.
+- Two test-only callers verified20000 composed evaluations during atomic health updates/reset, with exact internal state/revision/assessment/plan consistency and joined threads. No production worker added.
+- Codeee62972 passed Build/Lint,65/65 API25 tests and6/6 navigation returns/Cold Restart/no-autoplay; CI captured2026-09-28. No application defect/fix needed.
+- Home/Apps/restart images pixel-identical; APK +412bytes/PSS -48KB, no app crash/ANR; separate observations are not causal benchmarks.
+- Saved evidence and updated state/gate. Caller-driven passive evaluation only; no watchdog, heartbeat, timers, logging or actual recovery.
+
 ## 2026-09-28 — Guardian recovery-policy verification closed / STOP
 - Added7 tests covering6144 combination/level cases, conservative UNKNOWN/DEGRADED limits, exact FAILED ladder, negative/extreme levels, targets and immutable plan/input retention. All50 prior tests preserved.
 - Code987884c passed Build/Lint,57/57 API25 tests and6/6 navigation returns/Cold Restart/no-autoplay. No application defect/fix needed.

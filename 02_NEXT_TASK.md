@@ -1,4 +1,11 @@
-# Next Task — P3 Guardian monitoring foundation READY FOR WORK
+# Next Task — P3 Guardian Monitoring Foundation COMPLETE / STOP
+
+## Closure — 2026-09-29
+Verified `0293c4e9cef7f102cacbc99c0905f9b3c95379c7`, run36573126651: Build/Lint PASS; focused Java10/10 and API25 focused16/16 PASS; then exactly one API25/1024x600 regression74/74 +6/6 navigation returns PASS. Fixed only proven new-bundle Snapshot API incompatibility and config overflow. Final P2 screenshots unchanged, no autoplay/crash/ANR. Evidence: `docs/test-evidence/p3-guardian-monitoring-20260929/`.
+
+The latest owner instruction not to rerun unaffected giant tests takes precedence over the original all65 wording below:58 prior tests rerun;7 giant proofs reused from the prior65/65 checkpoint with12 checked source fingerprints. All prior tests preserved unchanged. Original scope retained for audit.
+
+STOP. No next task assigned. Do not start automatic Watchdog, Service, actual Recovery or another phase.
 
 ## Purpose
 Run ONE consolidated verification gate for the complete passive monitoring-foundation bundle. This replaces per-class Work runs to conserve Work quota.

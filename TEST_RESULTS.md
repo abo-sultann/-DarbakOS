@@ -2,6 +2,47 @@
 
 No Darbak OS release is Stable. See the per-stage evidence below.
 
+## 2026-09-29 — P3 Guardian Monitoring Foundation consolidated gate: PASS / STOP
+
+- Incoming `f8ed0818f5597dc067421d3c1c2324a2a86c975b`; tested `0293c4e9cef7f102cacbc99c0905f9b3c95379c7`. [Run36573126651](https://github.com/abo-sultann/DarbakOS/actions/runs/36573126651), job109421810853, attempt1 SUCCESS. One consolidated gate; no subsequent phase started.
+- Focused first:10 dependency-free Java checks PASS after the proven fixes; then **16/16 API25 focused tests PASS** in0.134s. Only then **one74/74 API25 regression PASS** in4.078s, followed by **6/6 actual-tap navigation returns PASS**. Build/Lint PASS:0 errors,17 existing warnings.
+- Latest owner instruction explicitly requires reusing unchanged giant proofs. Therefore this regression selects58 prior tests +16 foundation tests, while7 prior giant tests reuse the successful65/65 Supervisor checkpoint `ee62972ec8a0372f7ec682220bdc21e183b30405`, run36475157726. All65 prior tests remain unchanged in source. No claim of a new81-test run is made.
+- Reused: Policy/Assessment/Snapshot1024-combination tests, RecoveryPolicy/Supervisor6144-case tests and the two old20000-iteration Snapshot/Supervisor concurrency tests. Exact methods and12 verified source SHA256 fingerprints are saved in regression-selection.json. The runner refuses reuse if a pinned primitive or test class changes. No old exhaustive suite was run separately or regenerated.
+
+| Proven defect | Evidence and limited correction |
+|---|---|
+| New MonitorStep calls nonexistent Snapshot.state(Component) | compile-before.txt records4 compiler errors. Added a private field-to-component adapter inside MonitorStep; old Snapshot and its prior proofs remain unchanged. Corrected the new test's nonexistent aggregateHealth references to existing overall and added per-test registry reset. |
+| MonitorConfig late+1 overflows at Long.MAX_VALUE | before-fix.txt proves config(MAX_VALUE,0) yields late=MAX_VALUE/stale=0. Cap late at MAX_VALUE-1 before enforcing stale>=late+1. Normal/default/negative/equal/extreme thresholds verified by the same focused check locally and on API25. |
+
+| Focused coverage (6 supplied +10 added tests) | Result |
+|---|---|
+| Heartbeat values, nulls, all components, duplicate/regression rejection, equal-sequence/new-time and higher-sequence/equal-time, isolation/reset/retention | PASS |
+| Exact LIVE/LATE/STALE boundaries; missing/null UNKNOWN; caller time clamping/future sample age0; raw threshold behavior and all liveness-to-health mappings | PASS |
+| Default/invalid/equal/upper-limit configuration; event values/null/default normalization | PASS |
+| Journal default/minimum capacities, repeated wrap/oldest-first order, latest identity, null append, immutable retained snapshots, clear/reuse | PASS |
+| Liveness mixed snapshot/counts/null query, frozen retention after reset, explicit health apply/idempotence and missing values replacing old health | PASS |
+| Complete mixed Heartbeat -> Liveness -> Health -> Supervisor -> Recommendation; exact event component/revision/time/type/health; only real transitions journaled | PASS |
+|30 no-op cycles with varying escalation produce no events/revisions; later healthy/unknown cycles update correctly while prior Results stay frozen | PASS |
+| Default/null-config exact threshold cycles, absent heartbeat registry, null journal counts and null health-registry conservative UNKNOWN result without writes | PASS |
+| Heartbeat registry/liveness capture and journal concurrency only:200 barrier-coordinated rounds each, bounded capacity/order/uniform captures, retained values and joined test workers | PASS |
+
+- Source/reuse review: REFERENCES.md and existing platform/Guardian/test conventions used. No third-party code or runtime dependency imported. Only two new production files needed fixes: MonitorStep and MonitorConfig. Prior Guardian primitives, MainActivity/resources/manifest/build unchanged.
+- Foundation is passive and caller-driven. It intentionally updates the supplied in-memory health registry/journal; no Service/Receiver/permission/dependency/native library/production thread/timer/Handler/Executor/scheduler/polling/automatic listener/disk/network/sensor/restart/recovery execution. No watchdog, persistence/report export or source adapters. APK contains no .so.
+- API25/x86,1024x600/160dpi/1GB emulator: Home/Apps/Cold Restart visually reviewed and all3 screenshots pixel-identical to prior Supervisor checkpoint. P2 Arabic/RTL/fit/navigation/Back/Home/recreation preserved, no new clipping/overlap or fabricated values. Cold Restart/settling keeps media unavailable/stopped, service records0/MediaSessions0.
+
+| Observation | Supervisoree62972 | Monitoring0293c4e | Delta |
+|---|---:|---:|---:|
+| APK bytes |28,391|33,131|+4,740|
+| Process PSS KB |8,944|9,129|+185|
+| Launch TotalTime ms |315|382|+67|
+| Views / Activities |49 /1|49 /1|0 /0|
+| Observed crash / app ANR |0 /0|0 /0|none|
+
+- WaitTime389ms; both crash buffers empty and no app ANR in either captured log. Separate single shell observations are not causal benchmarks or monitor-cycle CPU/allocation measurements; monitoring has no production UI caller. Physical T3/ARMv7/Test Station and Stable acceptance remain untested.
+- Artifact11035277890 `DarbakOS-P1-TEST-0293c4e9cef7f102cacbc99c0905f9b3c95379c7`, expires2026-10-13. APK SHA256 `ab7e570b60f4a0b80d239f620e83cadbbdc4946aac8dbcbc62134374dc5b5948`; ZIP SHA256 verified against artifact digest `68c1dc2c98c4eb5f4da4f9afc79704d22b4b87e4a8f7709f2a43eb6e798fe8cd`.
+- Evidence: `docs/test-evidence/p3-guardian-monitoring-20260929/` includes before/after focused proof, focused/full instrumentation, reused-proof manifest, screenshots/UI trees, lint, no-autoplay, resources/crash and comparison.json.
+- **Batch closed / STOP.** No automatic Watchdog/Service or actual Recovery, no next phase.
+
 ## 2026-09-29 — P3 Guardian passive Supervisor: PASS / STOP
 
 - Tested `ee62972ec8a0372f7ec682220bdc21e183b30405`, [run36475157726](https://github.com/abo-sultann/DarbakOS/actions/runs/36475157726), job109106904888. CI captured2026-09-28; evidence reviewed and gate closed2026-09-29. Tests/evidence only in this gate; no proven application defect or production fix needed.

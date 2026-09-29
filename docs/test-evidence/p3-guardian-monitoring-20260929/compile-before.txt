@@ -1,0 +1,21 @@
+app/src/main/java/com/abosultan/darbakos/core/GuardianMonitorStep.java:42: error: cannot find symbol
+                GuardianState previous = before.state(component);
+                                               ^
+  symbol:   method state(Component)
+  location: variable before of type GuardianSnapshot
+app/src/main/java/com/abosultan/darbakos/core/GuardianMonitorStep.java:43: error: cannot find symbol
+                GuardianState current = supervisor.snapshot.state(component);
+                                                           ^
+  symbol:   method state(Component)
+  location: variable snapshot of type GuardianSnapshot
+app/src/main/java/com/abosultan/darbakos/core/GuardianMonitorStep.java:53: error: cannot find symbol
+                if (before.state(component).health !=
+                          ^
+  symbol:   method state(Component)
+  location: variable before of type GuardianSnapshot
+app/src/main/java/com/abosultan/darbakos/core/GuardianMonitorStep.java:54: error: cannot find symbol
+                        supervisor.snapshot.state(component).health) changes++;
+                                           ^
+  symbol:   method state(Component)
+  location: variable snapshot of type GuardianSnapshot
+4 errors

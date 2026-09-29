@@ -1,0 +1,11 @@
+PASS heartbeatOrderingAndIsolation
+PASS exactLivenessAndUnknownMapping
+PASS configExtremeSanitization
+PASS journalCapacityOrderClearAndImmutableSnapshots
+PASS eventValueSanitization
+PASS livenessCaptureRetentionCountsAndApply
+PASS mixedCompositionAndNoOpJournaling
+PASS monitorDefaultsNullsAndThresholdTransitions
+PASS boundedHeartbeatCaptureConcurrency
+PASS boundedJournalConcurrency
+PASS focused checks: 10

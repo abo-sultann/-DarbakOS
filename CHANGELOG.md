@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-09-29 — Guardian Monitoring Foundation consolidated verification closed / STOP
+- Fixed proven new-bundle compile incompatibility in MonitorStep using a private Snapshot field adapter; corrected new test field references. Previous Guardian primitives remain unchanged.
+- Fixed proven MonitorConfig Long.MAX_VALUE overflow, preserving a strictly later representable stale boundary. Retained before/after proof.
+- Added10 shared focused checks to the supplied6 tests: ordering, liveness/config boundaries, journal semantics, full monitor composition/no-op/retention and two bounded200-round mutable-state concurrency checks. No runtime dependency or worker added.
+- Focused Java10/10, API25 focused16/16, then exactly one regression74/74 +6/6 navigation returns PASS; Build/Lint0 errors/17 existing warnings.7 unchanged giant proofs reused with12 guarded source fingerprints per owner instruction; all65 prior tests remain in source.
+- P2 screenshots identical; no autoplay/crash/ANR. APK +4,740bytes/PSS +185KB/launch +67ms are separate observations, not causal benchmarks. Updated evidence/state; STOP without automatic watchdog/service or actual recovery.
+
 ## 2026-09-29 — Guardian passive Supervisor verification closed / STOP
 - Added8 tests for the full Snapshot -> Assessment -> Plan chain:6144 combination/level cases, null/cold/extreme inputs, nonmutation, repeated evaluation and retained results after update/reset. All57 prior tests preserved.
 - Two test-only callers verified20000 composed evaluations during atomic health updates/reset, with exact internal state/revision/assessment/plan consistency and joined threads. No production worker added.

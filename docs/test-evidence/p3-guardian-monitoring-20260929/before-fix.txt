@@ -1,0 +1,12 @@
+PASS heartbeatOrderingAndIsolation
+PASS exactLivenessAndUnknownMapping
+Exception in thread "main" java.lang.AssertionError: FAIL configExtremeSanitization
+	at com.abosultan.darbakos.MonitoringFocusedChecks.main(MonitoringFocusedChecks.java:240)
+Caused by: java.lang.AssertionError: config overflow/order: 9223372036854775807,0 -> 9223372036854775807,0
+	at com.abosultan.darbakos.MonitoringFocusedChecks.check(MonitoringFocusedChecks.java:17)
+	at com.abosultan.darbakos.MonitoringFocusedChecks.configExtremeSanitization(MonitoringFocusedChecks.java:68)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at com.abosultan.darbakos.MonitoringFocusedChecks.main(MonitoringFocusedChecks.java:239)

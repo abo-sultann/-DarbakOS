@@ -1,0 +1,8 @@
+
+com.abosultan.darbakos.GuardianMonitoringFoundationTest:................
+
+Time: 0.134
+
+OK (16 tests)
+
+

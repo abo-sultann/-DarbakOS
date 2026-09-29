@@ -5,6 +5,7 @@ import hashlib
 import json
 import re
 import subprocess
+import sys
 import time
 import xml.etree.ElementTree as ET
 
@@ -13,6 +14,8 @@ OUT = ROOT / 'test-evidence'
 OUT.mkdir(exist_ok=True)
 PACKAGE = 'com.abosultan.darbakos.test'
 ACTIVITY = PACKAGE + '/com.abosultan.darbakos.MainActivity'
+assert sys.argv[1:] in ([], ['--diagnostics-only']), 'Unknown verification scope'
+DIAGNOSTICS_ONLY = sys.argv[1:] == ['--diagnostics-only']
 devices = subprocess.check_output(['adb', 'devices'], text=True).splitlines()[1:]
 serials = [line.split()[0] for line in devices if line.endswith('\tdevice') and line.startswith('emulator-')]
 assert len(serials) == 1, 'Run with exactly one emulator; this script never targets physical devices'
@@ -87,6 +90,32 @@ try:
     adb('install', '-r', str(apk))
     adb('install', '-r', '-t', str(test_apk))
     adb('logcat', '-c')
+    if DIAGNOSTICS_ONLY:
+        # This gate explicitly authorizes only this class; exit before all regression/UI work.
+        focused_class = 'com.abosultan.darbakos.GuardianDiagnosticRecordTest'
+        focused = subprocess.check_output(ADB + ['shell', 'am', 'instrument', '-w', '-e',
+            'class', focused_class, PACKAGE + '.test/androidx.test.runner.AndroidJUnitRunner'],
+            text=True, timeout=180)
+        save('focused-instrumentation.txt', focused)
+        assert 'OK (2 tests)' in focused and 'FAILURES' not in focused, focused
+        crash = adb('logcat', '-b', 'crash', '-d')
+        logs = adb('logcat', '-d')
+        save('crash.txt', crash)
+        save('logcat.txt', logs)
+        assert 'FATAL EXCEPTION' not in crash, crash
+        assert 'ANR in ' + PACKAGE not in logs
+        save('summary.json', json.dumps({
+            'result': 'PASS', 'scope': 'GuardianDiagnosticRecordTest only',
+            'commit': subprocess.check_output(['git', 'rev-parse', 'HEAD'], text=True).strip(),
+            'api': 25, 'abi': adb('shell', 'getprop', 'ro.product.cpu.abi').strip(),
+            'resolution': '1024x600', 'density': 160, 'focused_instrumented_tests': 2,
+            'focused_class': focused_class, 'regression_runs': 0, 'giant_suite_runs': 0,
+            'ui_smoke_run': False,
+            'apk_bytes': apk.stat().st_size, 'apk_sha256': hashlib.sha256(apk.read_bytes()).hexdigest(),
+            't3_validated': False
+        }, indent=2))
+        print('PASS: GuardianDiagnosticRecordTest only; no regression or UI smoke run')
+        raise SystemExit(0)
     # Consolidated gate: focused Android checks must pass before the ONE regression.
     focused_class = 'com.abosultan.darbakos.GuardianMonitorSessionTest'
     focused = subprocess.check_output(ADB + ['shell', 'am', 'instrument', '-w', '-e',

@@ -15,7 +15,7 @@ import static org.junit.Assert.*;
 
 @RunWith(AndroidJUnit4.class)
 public final class ShellTest {
-    @Test public void launchIsArabicLandscapeWithNoLiveReading() {
+    @Test public void launchIsArabicLandscapeAndSpeedStateIsTruthful() {
         try (ActivityScenario<MainActivity> scenario = ActivityScenario.launch(MainActivity.class)) {
             InstrumentationRegistry.getInstrumentation().waitForIdleSync();
             scenario.onActivity(activity -> {
@@ -25,9 +25,16 @@ public final class ShellTest {
                 assertEquals(View.LAYOUT_DIRECTION_RTL,
                     activity.findViewById(R.id.shell_root).getLayoutDirection());
                 assertEquals(View.VISIBLE, activity.findViewById(R.id.home_panel).getVisibility());
-                assertEquals("—", ((TextView) activity.findViewById(R.id.speed_value)).getText().toString());
+                String speed = ((TextView) activity.findViewById(R.id.speed_value)).getText().toString();
+                String source = ((TextView) activity.findViewById(R.id.speed_source)).getText().toString();
+                if ("—".equals(speed)) {
+                    assertEquals("السرعة غير متاحة",
+                        activity.findViewById(R.id.speed_value).getContentDescription().toString());
+                } else {
+                    assertTrue("Live speed must be numeric", speed.matches("\\d+"));
+                    assertEquals("GPS • مباشر", source);
+                }
                 assertEquals("دربك OS", ((TextView) activity.findViewById(R.id.test_badge)).getText().toString());
-                assertEquals("السرعة غير متاحة", activity.findViewById(R.id.speed_value).getContentDescription().toString());
                 assertTrue(activity.findViewById(R.id.nav_home).isSelected());
             });
         }

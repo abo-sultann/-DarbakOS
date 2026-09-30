@@ -87,9 +87,13 @@ public final class MediaSessionBridge {
         if (current == null) return false;
         try {
             PlaybackState state = current.getPlaybackState();
-            if (state != null && state.getState() == PlaybackState.STATE_PLAYING) {
+            if (state == null) return false;
+            long actions = state.getActions();
+            if (state.getState() == PlaybackState.STATE_PLAYING) {
+                if (!supports(actions, PlaybackState.ACTION_PAUSE)) return false;
                 current.getTransportControls().pause();
             } else {
+                if (!supports(actions, PlaybackState.ACTION_PLAY)) return false;
                 current.getTransportControls().play();
             }
             return true;
@@ -98,14 +102,16 @@ public final class MediaSessionBridge {
         }
     }
 
-    public boolean next() { return transport(1); }
-    public boolean previous() { return transport(-1); }
+    public boolean next() { return transport(PlaybackState.ACTION_SKIP_TO_NEXT, true); }
+    public boolean previous() { return transport(PlaybackState.ACTION_SKIP_TO_PREVIOUS, false); }
 
-    private boolean transport(int direction) {
+    private boolean transport(long requiredAction, boolean forward) {
         MediaController current = controller;
         if (current == null) return false;
         try {
-            if (direction > 0) current.getTransportControls().skipToNext();
+            PlaybackState state = current.getPlaybackState();
+            if (state == null || !supports(state.getActions(), requiredAction)) return false;
+            if (forward) current.getTransportControls().skipToNext();
             else current.getTransportControls().skipToPrevious();
             return true;
         } catch (RuntimeException ignored) {
@@ -158,7 +164,14 @@ public final class MediaSessionBridge {
             }
             boolean playing = playback != null
                     && playback.getState() == PlaybackState.STATE_PLAYING;
-            publish(MediaSnapshot.active(title, artist, current.getPackageName(), playing));
+            long actions = playback == null ? 0L : playback.getActions();
+            boolean canPlayPause = playing
+                    ? supports(actions, PlaybackState.ACTION_PAUSE)
+                    : supports(actions, PlaybackState.ACTION_PLAY);
+            publish(MediaSnapshot.active(title, artist, current.getPackageName(), playing,
+                    canPlayPause,
+                    supports(actions, PlaybackState.ACTION_SKIP_TO_PREVIOUS),
+                    supports(actions, PlaybackState.ACTION_SKIP_TO_NEXT)));
         } catch (RuntimeException ignored) {
             publish(MediaSnapshot.idle());
         }
@@ -172,6 +185,10 @@ public final class MediaSessionBridge {
         if (metadata == null) return "";
         CharSequence value = metadata.getText(key);
         return value == null ? "" : value.toString().trim();
+    }
+
+    private static boolean supports(long actions, long action) {
+        return (actions & action) != 0L;
     }
 
     private static boolean sameSession(MediaController a, MediaController b) {

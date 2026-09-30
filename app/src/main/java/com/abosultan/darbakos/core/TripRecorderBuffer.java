@@ -4,10 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-/**
- * Small bounded in-memory staging buffer for trip points.
- * Persistence is intentionally separate so P4 can later flush chunks to external storage.
- */
+/** Small bounded in-memory staging buffer for trip points. */
 public final class TripRecorderBuffer {
     private final int capacity;
     private final ArrayList<TripPoint> points;
@@ -36,7 +33,18 @@ public final class TripRecorderBuffer {
         return Collections.unmodifiableList(new ArrayList<>(points));
     }
 
-    /** Returns the current immutable chunk and starts a fresh chunk without resetting sequence. */
+    /**
+     * Commits only the already-persisted prefix. Points appended after a snapshot are retained.
+     * This enables write-first, discard-second persistence without losing a failed chunk.
+     */
+    public synchronized boolean commitPrefix(int count) {
+        if (count < 0 || count > points.size()) return false;
+        if (count == 0) return true;
+        points.subList(0, count).clear();
+        return true;
+    }
+
+    /** Legacy convenience; persistence code must prefer snapshot + commitPrefix after success. */
     public synchronized List<TripPoint> drain() {
         List<TripPoint> drained = Collections.unmodifiableList(new ArrayList<>(points));
         points.clear();

@@ -13,6 +13,7 @@ public final class TripRecorder {
     private boolean recording;
     private boolean paused;
     private long nextSequence;
+    private long lastAcceptedMonotonicMs;
 
     public synchronized void start() {
         if (recording) return;
@@ -34,17 +35,18 @@ public final class TripRecorder {
 
     public synchronized boolean accept(PositionFix fix, long nowMonotonicMs) {
         if (!recording || paused || !PositionQualityPolicy.isUsable(fix, nowMonotonicMs)) return false;
+        if (fix.monotonicMs <= lastAcceptedMonotonicMs) return false;
         ensureSegment();
         ArrayList<TripPoint> current = segments.get(segments.size() - 1);
         if (!current.isEmpty()) {
             PositionFix previous = current.get(current.size() - 1).position;
-            if (fix.monotonicMs <= previous.monotonicMs) return false;
             if (fix.monotonicMs - previous.monotonicMs > PositionQualityPolicy.MAX_FIX_AGE_MS) {
                 ensureNewSegment();
                 current = segments.get(segments.size() - 1);
             }
         }
         current.add(new TripPoint(fix, nextSequence++));
+        lastAcceptedMonotonicMs = fix.monotonicMs;
         return true;
     }
 
@@ -58,6 +60,7 @@ public final class TripRecorder {
         recording = false;
         paused = false;
         nextSequence = 0L;
+        lastAcceptedMonotonicMs = 0L;
     }
 
     public synchronized boolean isRecording() { return recording; }

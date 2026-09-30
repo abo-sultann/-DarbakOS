@@ -53,6 +53,9 @@ public final class ShellTest {
                         assertEquals(View.GONE, activity.findViewById(R.id.section_panel).getVisibility());
                         assertTrue(((TextView) activity.findViewById(R.id.map_route_title))
                                 .getText().toString().length() > 0);
+                    } else if (index == 1) {
+                        assertEquals(View.VISIBLE, activity.findViewById(R.id.media_panel).getVisibility());
+                        assertEquals(View.GONE, activity.findViewById(R.id.section_panel).getVisibility());
                     } else {
                         assertEquals(View.VISIBLE, activity.findViewById(R.id.section_panel).getVisibility());
                         assertEquals(activity.getString(titles[index]),
@@ -73,9 +76,8 @@ public final class ShellTest {
             scenario.recreate();
             scenario.onActivity(activity -> {
                 assertTrue(activity.findViewById(R.id.nav_media).isSelected());
-                assertEquals(activity.getString(R.string.media),
-                    ((TextView) activity.findViewById(R.id.section_title)).getText().toString());
-                activity.findViewById(R.id.back_home).performClick();
+                assertEquals(View.VISIBLE, activity.findViewById(R.id.media_panel).getVisibility());
+                activity.findViewById(R.id.media_back_home).performClick();
                 assertTrue(activity.findViewById(R.id.nav_home).isSelected());
             });
         }
@@ -123,6 +125,27 @@ public final class ShellTest {
                 activity.findViewById(R.id.map_back_home).performClick();
                 assertEquals(View.VISIBLE, activity.findViewById(R.id.home_panel).getVisibility());
                 assertEquals(View.GONE, activity.findViewById(R.id.map_panel).getVisibility());
+                assertTrue(activity.findViewById(R.id.nav_home).isSelected());
+            });
+        }
+    }
+
+    @Test public void mediaSurfaceFitsAndNeverOffersAutoplayWithoutAccess() {
+        try (ActivityScenario<MainActivity> scenario = ActivityScenario.launch(MainActivity.class)) {
+            scenario.onActivity(activity -> activity.findViewById(R.id.nav_media).performClick());
+            InstrumentationRegistry.getInstrumentation().waitForIdleSync();
+            scenario.onActivity(activity -> {
+                assertEquals(View.VISIBLE, activity.findViewById(R.id.media_panel).getVisibility());
+                assertVisibleWithin(activity.findViewById(R.id.media_panel), new Rect(0, 0, 1024, 600));
+                assertEquals("وصول الوسائط غير مفعّل",
+                        ((TextView) activity.findViewById(R.id.media_now_title)).getText().toString());
+                assertEquals(View.VISIBLE, activity.findViewById(R.id.media_access_button).getVisibility());
+                assertFalse(activity.findViewById(R.id.media_play_pause_button).isEnabled());
+                assertFalse(activity.findViewById(R.id.media_previous_button).isEnabled());
+                assertFalse(activity.findViewById(R.id.media_next_button).isEnabled());
+                assertEquals("وصول الوسائط غير مفعّل",
+                        ((TextView) activity.findViewById(R.id.media_state)).getText().toString());
+                activity.findViewById(R.id.media_back_home).performClick();
                 assertTrue(activity.findViewById(R.id.nav_home).isSelected());
             });
         }

@@ -41,9 +41,18 @@ public final class ShellTest {
                 final int index = i;
                 scenario.onActivity(activity -> {
                     activity.findViewById(buttons[index]).performClick();
-                    assertEquals(View.VISIBLE, activity.findViewById(R.id.section_panel).getVisibility());
-                    assertEquals(activity.getString(titles[index]),
-                        ((TextView) activity.findViewById(R.id.section_title)).getText().toString());
+                    if (index == 0) {
+                        assertEquals(View.VISIBLE, activity.findViewById(R.id.map_panel).getVisibility());
+                        assertEquals(View.GONE, activity.findViewById(R.id.section_panel).getVisibility());
+                        assertEquals(activity.getString(R.string.map_title),
+                            ((TextView) activity.findViewById(R.id.map_route_title).getParent()
+                                .findViewById(R.id.map_route_title)).getText().toString().length() > 0
+                                ? activity.getString(R.string.map_title) : "");
+                    } else {
+                        assertEquals(View.VISIBLE, activity.findViewById(R.id.section_panel).getVisibility());
+                        assertEquals(activity.getString(titles[index]),
+                            ((TextView) activity.findViewById(R.id.section_title)).getText().toString());
+                    }
                     assertTrue(activity.findViewById(buttons[index]).isSelected());
                     assertFalse(activity.findViewById(R.id.nav_home).isSelected());
                     activity.onBackPressed();
@@ -87,6 +96,25 @@ public final class ShellTest {
                 assertEquals("RTL must keep the gap between dashboard cards",
                     activity.getResources().getDimensionPixelSize(R.dimen.space),
                     map[0] - speed[0] - speedCard.getWidth());
+            });
+        }
+    }
+
+    @Test public void mapSurfaceFitsAndAbsentEngineStaysTruthful() {
+        try (ActivityScenario<MainActivity> scenario = ActivityScenario.launch(MainActivity.class)) {
+            scenario.onActivity(activity -> activity.findViewById(R.id.nav_map).performClick());
+            InstrumentationRegistry.getInstrumentation().waitForIdleSync();
+            scenario.onActivity(activity -> {
+                View root = activity.findViewById(R.id.shell_root);
+                assertEquals(View.VISIBLE, activity.findViewById(R.id.map_panel).getVisibility());
+                assertVisibleWithin(activity.findViewById(R.id.map_panel), new Rect(0, 0, 1024, 600));
+                assertEquals("OsmAnd • غير متاح",
+                    ((TextView) activity.findViewById(R.id.map_engine_state)).getText().toString());
+                assertFalse(activity.findViewById(R.id.map_open_button).isEnabled());
+                assertFalse(activity.findViewById(R.id.map_refresh_button).isEnabled());
+                assertFalse(activity.findViewById(R.id.map_location_button).isEnabled());
+                assertTrue(activity.findViewById(R.id.nav_map).isSelected());
+                assertTrue(root.getWidth() > 0);
             });
         }
     }

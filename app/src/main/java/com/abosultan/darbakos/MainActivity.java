@@ -290,8 +290,8 @@ public final class MainActivity extends Activity {
         findViewById(R.id.map_refresh_button).setEnabled(osmandExternalApi);
         refreshMapLocationAction();
         renderNavigationState();
-        if (!osmandLaunchable) setMapFeedback(getString(R.string.map_osmand_required));
-        else setMapFeedback("");
+        // Engine/route labels already explain capability. Reserve feedback for actual user actions.
+        setMapFeedback("");
     }
 
     private void refreshMapLocationAction() {
@@ -313,6 +313,15 @@ public final class MainActivity extends Activity {
             homeState.setText(R.string.navigation_state);
             mapTitle.setText(R.string.map_route_unavailable);
             mapDetail.setText(R.string.map_osmand_required);
+            return;
+        }
+
+        if (!osmandExternalApi) {
+            homeInstruction.setText(R.string.map_route_unavailable);
+            homeDetail.setText(R.string.map_route_limited_detail);
+            homeState.setText(R.string.navigation_state);
+            mapTitle.setText(R.string.map_route_unavailable);
+            mapDetail.setText(R.string.map_route_limited_detail);
             return;
         }
 

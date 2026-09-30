@@ -12,6 +12,16 @@
             android:name=".core.TripRuntimeService"
             android:exported="false" />
 
+        <service
+            android:name=".core.DarbakMediaNotificationListener"
+            android:label="@string/media_access_service"
+            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.service.notification.NotificationListenerService" />
+            </intent-filter>
+        </service>
+
         <activity android:name=".MainActivity"
             android:exported="true"
             android:screenOrientation="landscape">

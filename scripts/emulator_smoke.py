@@ -14,8 +14,9 @@ OUT = ROOT / 'test-evidence'
 OUT.mkdir(exist_ok=True)
 PACKAGE = 'com.abosultan.darbakos.test'
 ACTIVITY = PACKAGE + '/com.abosultan.darbakos.MainActivity'
-assert sys.argv[1:] in ([], ['--diagnostics-only'], ['--p3-closure']), 'Unknown verification scope'
+assert sys.argv[1:] in ([], ['--diagnostics-only'], ['--p3-closure'], ['--position-only']), 'Unknown verification scope'
 DIAGNOSTICS_ONLY = sys.argv[1:] == ['--diagnostics-only']
+POSITION_ONLY = sys.argv[1:] == ['--position-only']
 devices = subprocess.check_output(['adb', 'devices'], text=True).splitlines()[1:]
 serials = [line.split()[0] for line in devices if line.endswith('\tdevice') and line.startswith('emulator-')]
 assert len(serials) == 1, 'Run with exactly one emulator; this script never targets physical devices'
@@ -90,9 +91,9 @@ try:
     adb('install', '-r', str(apk))
     adb('install', '-r', '-t', str(test_apk))
     adb('logcat', '-c')
-    if DIAGNOSTICS_ONLY:
+    if DIAGNOSTICS_ONLY or POSITION_ONLY:
         # This gate explicitly authorizes only this class; exit before all regression/UI work.
-        focused_class = 'com.abosultan.darbakos.GuardianDiagnosticRecordTest'
+        focused_class = 'com.abosultan.darbakos.' + ('PositionStateTest' if POSITION_ONLY else 'GuardianDiagnosticRecordTest')
         focused = subprocess.check_output(ADB + ['shell', 'am', 'instrument', '-w', '-e',
             'class', focused_class, PACKAGE + '.test/androidx.test.runner.AndroidJUnitRunner'],
             text=True, timeout=180)
@@ -105,7 +106,7 @@ try:
         assert 'FATAL EXCEPTION' not in crash, crash
         assert 'ANR in ' + PACKAGE not in logs
         save('summary.json', json.dumps({
-            'result': 'PASS', 'scope': 'GuardianDiagnosticRecordTest only',
+            'result': 'PASS', 'scope': focused_class + ' only',
             'commit': subprocess.check_output(['git', 'rev-parse', 'HEAD'], text=True).strip(),
             'api': 25, 'abi': adb('shell', 'getprop', 'ro.product.cpu.abi').strip(),
             'resolution': '1024x600', 'density': 160, 'focused_instrumented_tests': 2,
@@ -114,7 +115,7 @@ try:
             'apk_bytes': apk.stat().st_size, 'apk_sha256': hashlib.sha256(apk.read_bytes()).hexdigest(),
             't3_validated': False
         }, indent=2))
-        print('PASS: GuardianDiagnosticRecordTest only; no regression or UI smoke run')
+        print('PASS: ' + focused_class + ' only; no regression or UI smoke run')
         raise SystemExit(0)
     # Final P3 gate: one invocation; unchanged exhaustive/concurrency/diagnostic proofs reused.
     assert sys.argv[1:] == ['--p3-closure'], 'Select an explicit current verification gate'

@@ -1,8 +1,17 @@
 # Current Status
 
-State: P3 CLOSED / P4 READY — STOP
+State: P3 CLOSED / P4 POSITION FOUNDATION FOCUSED CHECK PASSED — STOP
 Updated: 2026-09-30.
 Target: t3-p3 / sun8iw11p1 / Android7.1 API25 / ARMv7 / ~1GB / 1024x600.
+
+## Current P4 focused checkpoint
+- PositionFix/PositionState/TripPoint foundation compiled. PositionStateTest only2/2 PASS in0.004s on API25/x86,1024x600/160dpi; Build/Lint0 errors/17 unchanged warnings.
+- Tested `d46c8d67abcd553bbe14143c98df2b9d10b99f75`; [run36666425924](https://github.com/abo-sultann/DarbakOS/actions/runs/36666425924), attempt1 SUCCESS. No proven production defect or application/test change needed.
+- Supplied tests cover invalid coordinates/accuracy, speed conversion/clamping, null/old/equal-time rejection, retained identity/revision and cold reset. TripPoint compiled and source-reviewed; no separate TripPoint runtime test was requested or executed.
+- No full/bounded regression, Guardian suite or UI smoke run. P3 closure evidence below remains historical acceptance; no new UI runtime claim.
+- New production values are passive/in-memory only: no Location permission/provider, Service, thread/timer, disk/network, OsmAnd dependency or background work. No live GPS integration, persistence or UI binding.
+- APK36,087 bytes (+1,100); no native .so or observed crash/app ANR in focused run. Evidence: `docs/test-evidence/p4-position-20260930/`.
+- This closes only the Position Foundation focused check, not P4. STOP before further integration.
 
 ## Current accepted UI
 - The current P2 interface is the final Darbak OS UI, not a disposable prototype, per owner instruction. Historical TEST/fake-copy records below in TEST_RESULTS are superseded for user-facing behavior.
@@ -69,9 +78,9 @@ Target: t3-p3 / sun8iw11p1 / Android7.1 API25 / ARMv7 / ~1GB / 1024x600.
 - No firmware or MCU flash approved; all master-plan safety gates remain in force.
 
 ## Current gate
-The requested final P3 closure gate passed. P3 is CLOSED within the approved passive boundary; P4 is READY but not started. STOP here.
+P3 remains CLOSED. The first P4 Position Foundation focused check passed; P4 itself remains open. STOP here before further integration.
 Do not start automatic watchdog/heartbeat emitters/timers/Guardian services, actual recovery, persistent logging/reporting, other P3 work, hardware work or another batch.
-`02_NEXT_TASK.md` records P3 COMPLETE / P4 READY. No P4 implementation or Stable/T3 acceptance is claimed.
+`02_NEXT_TASK.md` records Position Foundation focused completion. No live GPS/OsmAnd/Trip integration or Stable/T3 acceptance is claimed.
 
 ## Continuation
 Read README and its listed files in order. GitHub is the sole project-state authority.

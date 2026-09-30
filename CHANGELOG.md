@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-09-30 — P4 Position Foundation focused check complete / STOP
+- Build/Lint PASS (0 errors,17 unchanged warnings), PositionStateTest only2/2 PASS on API25/1024x600. No proven production defect or app/test correction needed.
+- Reused focused runner via --position-only and restored fresh build for changed sources. Regression/Guardian/UI smoke runs0; previous proofs retained.
+- Saved evidence/state. Passive position values/state only; no Location provider/permission, background work, GPS/OsmAnd/Trip integration or persistence. P4 remains open; STOP.
+
 ## 2026-09-30 — P3 CLOSED / P4 READY / STOP
 - Passed exactly one bounded API25/1024x600 regression81/81 and6/6 navigation returns. Reused12 unchanged exhaustive/concurrency/Diagnostics proofs with pinned source fingerprints;93 tests preserved.
 - Reused verified Diagnostics APKs/Build/Lint after52 build-input and artifact hash checks; no source drift, rebuild or focused rerun. Added closure-only CI selection and pinned artifact retrieval. Fixed only a proven extraction-directory preparation issue before any regression ran.

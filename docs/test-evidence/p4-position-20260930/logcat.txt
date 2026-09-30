@@ -1,0 +1,44 @@
+--------- beginning of main
+09-30 03:55:20.360  2440  2531 I GlobalDismissManager: no sender configured
+09-30 03:55:20.360  2440  2531 D AlertService: Beginning updateAlertNotification
+09-30 03:55:20.363  2440  2531 D AlertService: No fired or scheduled alerts
+09-30 03:55:20.365  2440  2531 D AlertService: Scheduling next alarm with AlarmScheduler. sEventReminderReceived: null
+09-30 03:55:20.367  2440  2531 D AlarmScheduler: No events found starting within 1 week.
+09-30 03:55:20.794  2723  2723 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+09-30 03:55:20.795  2723  2723 D AndroidRuntime: CheckJNI is OFF
+09-30 03:55:20.813  2723  2723 W art     : Unexpected CPU variant for X86 using defaults: x86
+09-30 03:55:20.815  2723  2723 D ICU     : No timezone override file found: /data/misc/zoneinfo/current/icu/icu_tzdata.dat
+09-30 03:55:20.824  2723  2723 E memtrack: Couldn't load memtrack module (No such file or directory)
+09-30 03:55:20.824  2723  2723 E android.os.Debug: failed to load memtrack module: -2
+09-30 03:55:20.825  2723  2723 I Radio-JNI: register_android_hardware_Radio DONE
+09-30 03:55:20.829  2723  2723 D AndroidRuntime: Calling main entry com.android.commands.am.Am
+--------- beginning of system
+09-30 03:55:20.835  1518  1802 I ActivityManager: Force stopping com.abosultan.darbakos.test appid=10063 user=0: start instr
+09-30 03:55:20.838  2733  2733 I art     : Late-enabling -Xcheck:jni
+09-30 03:55:20.838  2733  2733 W art     : Unexpected CPU variant for X86 using defaults: x86
+09-30 03:55:20.846  1518  1802 I ActivityManager: Start proc 2733:com.abosultan.darbakos.test/u0a63 for added application com.abosultan.darbakos.test
+09-30 03:55:20.849  2733  2733 W System  : ClassLoader referenced unknown path: /data/app/com.abosultan.darbakos.test.test-1/lib/x86
+09-30 03:55:20.849  2733  2733 W System  : ClassLoader referenced unknown path: /data/app/com.abosultan.darbakos.test-1/lib/x86
+09-30 03:55:20.851  2733  2733 W System  : ClassLoader referenced unknown path: 
+09-30 03:55:20.854  2733  2733 I MonitoringInstr: newApplication called!
+09-30 03:55:20.855  2733  2733 I MonitoringInstr: Instrumentation started!
+09-30 03:55:20.857  2733  2733 I AndroidJUnitRunner: onCreate Bundle[{class=com.abosultan.darbakos.PositionStateTest}]
+09-30 03:55:20.857  2733  2733 V TestEventClient: No service name argument was given (testDiscoveryService, testRunEventService or orchestratorService)
+09-30 03:55:20.857  2733  2748 D AndroidJUnitRunner: onStart is called.
+09-30 03:55:20.858  2733  2733 I MonitoringInstr: No JSBridge.
+09-30 03:55:20.859  2733  2748 D TestRequestBuilder: Skipping class path scanning and directly running [com.abosultan.darbakos.PositionStateTest]
+09-30 03:55:20.861  2733  2748 D AndroidJUnitRunner: Use the raw file system for managing file I/O.
+09-30 03:55:20.861  2733  2748 D TestExecutor: Adding listener androidx.test.internal.runner.listener.LogRunListener
+09-30 03:55:20.861  2733  2748 D TestExecutor: Adding listener androidx.test.internal.runner.listener.InstrumentationResultPrinter
+09-30 03:55:20.861  2733  2748 D TestExecutor: Adding listener androidx.test.internal.runner.listener.ActivityFinisherRunListener
+09-30 03:55:20.861  2733  2748 D TestExecutor: Adding listener androidx.test.internal.runner.listener.TraceRunListener
+09-30 03:55:20.862  2733  2748 I TestRunner: run started: 2 tests
+09-30 03:55:20.862  2733  2748 I TestRunner: started: validationAndSpeedAreConservative(com.abosultan.darbakos.PositionStateTest)
+09-30 03:55:20.863  2733  2748 I TestRunner: finished: validationAndSpeedAreConservative(com.abosultan.darbakos.PositionStateTest)
+09-30 03:55:20.864  2733  2748 I TestRunner: started: stateRejectsNullAndNonMonotonicFixesAndResets(com.abosultan.darbakos.PositionStateTest)
+09-30 03:55:20.865  2733  2748 I TestRunner: finished: stateRejectsNullAndNonMonotonicFixesAndResets(com.abosultan.darbakos.PositionStateTest)
+09-30 03:55:20.866  2733  2748 I TestRunner: run finished: 2 tests, 0 failed, 0 ignored
+09-30 03:55:20.867  1518  1532 I ActivityManager: Force stopping com.abosultan.darbakos.test appid=10063 user=0: finished inst
+09-30 03:55:20.867  1518  1532 I ActivityManager: Killing 2733:com.abosultan.darbakos.test/u0a63 (adj 0): stop com.abosultan.darbakos.test
+09-30 03:55:20.867  1518  1532 D ActivityManager: cleanUpApplicationRecord -- 2733
+09-30 03:55:20.867  2723  2723 D AndroidRuntime: Shutting down VM

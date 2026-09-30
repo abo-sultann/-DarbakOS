@@ -1,4 +1,11 @@
-# Next Task — P4 Position Foundation READY FOR FOCUSED CHECK
+# Next Task — P4 Position Foundation FOCUSED CHECK COMPLETE / STOP
+
+## Closure — 2026-09-30
+Verified `d46c8d67abcd553bbe14143c98df2b9d10b99f75`, run36666425924 attempt1: Build/Lint PASS (0 errors,17 unchanged warnings); PositionStateTest only2/2 PASS in0.004s on API25/1024x600. No proven application defect or production/test correction needed.
+
+Regression0, Guardian suites0, UI smoke0. No Location provider/permission, Service, thread/timer, disk/network, OsmAnd dependency or background work added. Evidence: `docs/test-evidence/p4-position-20260930/`.
+
+STOP. This focused foundation check is complete; P4 is not phase-closed. No next task assigned and no GPS/OsmAnd/Trip integration started. Original scope retained below.
 
 ## Purpose
 Verify the first small P4 foundation without starting GPS/OsmAnd integration yet.

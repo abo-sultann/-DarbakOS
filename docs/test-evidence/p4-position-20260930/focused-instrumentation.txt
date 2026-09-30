@@ -1,0 +1,8 @@
+
+com.abosultan.darbakos.PositionStateTest:..
+
+Time: 0.004
+
+OK (2 tests)
+
+

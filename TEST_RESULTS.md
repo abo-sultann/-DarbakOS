@@ -2,6 +2,19 @@
 
 No Darbak OS release is Stable. See the per-stage evidence below.
 
+## 2026-09-30 — P4 Position Foundation focused check: PASS / STOP
+
+- Incoming `280b85b328326185c0eacfe8db16ee31f50f8503`; tested `d46c8d67abcd553bbe14143c98df2b9d10b99f75`. [Run36666425924](https://github.com/abo-sultann/DarbakOS/actions/runs/36666425924), job109731958932, attempt1 SUCCESS.
+- Fresh Build/Lint PASS:0 errors,17 unchanged warnings. **PositionStateTest only2/2 PASS in0.004s**, API25/x86,1024x600/160dpi/1GB. No rerun needed; no full/bounded regression, Guardian suites or UI smoke executed.
+- `validationAndSpeedAreConservative`: out-of-range latitude/longitude and negative accuracy rejected; valid10m/s converts to36km/h; negative speed normalizes to0.
+- `stateRejectsNullAndNonMonotonicFixesAndResets`: starts unavailable, null rejected, first fix accepted, older/equal-time fixes rejected without replacing identity/revision1, cold reset clears latest/availability/revision0.
+- TripPoint is included in compilation/source review; these two supplied tests do not instantiate it. No broader runtime coverage is claimed. Existing P3 evidence retained without rerun; P4 is not phase-closed.
+- No proven production defect found; all incoming production code and supplied tests unchanged. Reused the existing focused runner with --position-only and restored the existing pinned build workflow because source changed. The mode exits before all Guardian/regression/UI paths. No test assertion weakened or extra feature added.
+- Reviewed all three new platform-neutral immutable/state files and REFERENCES.md reuse choices. No Android Location permission/provider, Service, thread/timer, disk/network, OsmAnd dependency, background work or UI binding. Earlier production/UI/manifest/build dependencies unchanged. No new third-party source/dependency imported; source guard and runner syntax passed.
+- APK36,087 bytes (+1,100 versus P3), SHA256 `31816e725676e677665fe75559970ba5bf41a84745b9f5d144464c35e4a18351`; no native .so. Both crash buffers empty; no app ANR in captured logs during the focused run. No new PSS/launch/UI screenshot, live GPS, ARMv7/Test Station/T3 acceptance.
+- Artifact11075604364 `DarbakOS-P1-TEST-d46c8d67abcd553bbe14143c98df2b9d10b99f75`, expires2026-10-14. ZIP digest matched `0fd3d9a73338686886e15f8b809030cbc71a482c871bfef5c7f96bb5970d6493`; APK size/hash matched summary.
+- Evidence: `docs/test-evidence/p4-position-20260930/`, including focused result, scope summary, lint, logcat/crash captures and verification/provenance. **Focused check complete / STOP.** No GPS/OsmAnd/AIDL/trip persistence/route UI or subsequent work started.
+
 ## 2026-09-30 — FINAL P3 closure: PASS / P3 CLOSED / P4 READY / STOP
 
 - Task base `3194f8a2863bb47e32338c1ac9c0f26582340efc`; regression code `2d18847e1e3a638b9093bc0c83426580728002b2`. [Run36664769233](https://github.com/abo-sultann/DarbakOS/actions/runs/36664769233), job109726977655, attempt1 SUCCESS.

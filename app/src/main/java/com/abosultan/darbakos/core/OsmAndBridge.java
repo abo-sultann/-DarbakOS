@@ -120,11 +120,7 @@ public final class OsmAndBridge {
             if (api != null && startSafely(api)) return true;
         }
 
-        Uri fallbackUri = new Uri.Builder()
-                .scheme("geo")
-                .opaquePart("0,0")
-                .appendQueryParameter("q", cleanQuery)
-                .build();
+        Uri fallbackUri = Uri.parse("geo:0,0?q=" + Uri.encode(cleanQuery));
         Intent fallback = new Intent(Intent.ACTION_VIEW, fallbackUri);
         fallback.setPackage(packageName);
         return fallback.resolveActivity(packages) != null && startSafely(fallback);

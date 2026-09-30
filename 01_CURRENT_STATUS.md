@@ -1,6 +1,6 @@
 # Current Status
 
-State: P3 CLOSED / P4 GPS + TRIP STAGING VERIFIED / OSMAND BRIDGE NEXT
+State: P3 CLOSED / P4 GPS + TRIP STAGING + OSMAND BRIDGE VERIFIED
 Updated: 2026-09-30.
 Target: t3-p3 / sun8iw11p1 / Android 7.1 API25 / ARMv7 / ~1GB / 1024x600.
 
@@ -16,36 +16,39 @@ Target: t3-p3 / sun8iw11p1 / Android 7.1 API25 / ARMv7 / ~1GB / 1024x600.
 
 ### Live GPS + Home speed + trip staging
 - `AndroidGpsSource` uses Android `LocationManager.GPS_PROVIDER`, lifecycle-owned by MainActivity. Only `ACCESS_FINE_LOCATION` is requested.
-- Real fixes are converted to validated `PositionFix`; Home speed now displays real GPS km/h when available and otherwise keeps truthful `—`/GPS status text.
+- Real fixes are converted to validated `PositionFix`; Home speed displays real GPS km/h when available and otherwise keeps truthful `—`/GPS status text.
 - `TripRecorderBuffer` provides a bounded ordered in-memory chunk buffer with immutable snapshot/drain semantics. No disk persistence yet.
-- Focused tests cover Position state, Android Location -> PositionFix conversion and trip-buffer bounds/order/reset.
-- Verified code: `ad6fa264d2d51567b2d1244c8b33b4b012bf08e9`.
-- Successful run: `36672759036` on API25/x86, 1024x600, 1GB.
-- Build/Lint PASS. Focused instrumentation 4/4 PASS. Emulator `geo fix` traveled through the real LocationManager path to the final Home speed surface; `GPS • مباشر` and a numeric speed were observed.
-- Existing navigation remains `لا يوجد مسار نشط`; media remains `متوقف`; crash buffer/ANR check clean in the focused run.
-- Artifact: `11078124989`, digest `sha256:1cb4870df55cfd62e8a8b65f619ca69aa45f8e1fdd3c3fded92a1cef807faffb`.
-- No full regression or Guardian exhaustive suites were run for this focused gate.
+- Verified code: `ad6fa264d2d51567b2d1244c8b33b4b012bf08e9`, run `36672759036`: Build/Lint PASS, focused 4/4 PASS, emulator LocationManager geo-fix reached the final Home speed surface; crash/ANR checks clean.
 
-## Proven corrections during this P4 bundle
+### Lightweight OsmAnd bridge
+- `OsmAndPackages` recognizes only current official package IDs verified upstream: `net.osmand.plus`, `net.osmand`, `net.osmand.dev`; stable/full is preferred over free/nightly when more than one is present.
+- `OsmAndBridge` uses PackageManager/standard Android intents only. It can report unavailable/launchable, launch a resolved OsmAnd package, open a validated location through an explicit `geo:` intent and fail safely when OsmAnd is absent.
+- Bridge also probes the official exported `net.osmand.aidl.OsmandAidlService` capability without binding or vendoring OsmAnd AIDL/GPL source.
+- Upstream reference pinned in `REFERENCES.md` at `osmandapp/OsmAnd@26e32fb929b18cc6f6614855f184f5627a1fc7af`; current upstream minSdk is 24, so API25 is not excluded by manifest level, but physical T3/ARMv7/performance remains unverified.
+- Verified code/test checkpoint: `cf0d35b833070a6ccfb1703fea836ed8f3f11a5d`, run `36673514468`: Build/Lint PASS, focused API25 suite 6/6 PASS, existing real GPS -> Home path still PASS, OsmAnd-absent fallback safe, no crash/ANR.
+- Artifact `11078368483`, digest `sha256:509351607a1d9088f26e44d47f0a04d831f64e35d1ef19269f74ccdbd1dd7f29`.
+- No full regression or Guardian exhaustive suite was run for these focused P4 gates.
+
+## Proven corrections during P4
 - Advanced the old P1 source guard so the approved fine-location GPS path is permitted while Service/Receiver/native/runtime dependency restrictions remain enforced.
 - Fixed one source-guard syntax error found by CI.
 - Fixed one Java compile error (`setContentDescription(int)` -> resolved String) found by CI.
-- No other production defect was observed in the successful focused gate.
+- No production defect was found in the OsmAnd bridge focused gate.
 
 ## P4 architecture boundary
 - Darbak owns Position state and Trip recording independently of OsmAnd.
-- OsmAnd remains the primary offline map/navigation engine and should be integrated through a small bridge/AIDL or compatible intent surface before considering any heavy SDK embedding.
-- Trip persistence, route state, search/favorites and OsmAnd navigation callbacks are not implemented yet.
-- No background GPS Service has been added; GPS currently follows MainActivity lifecycle. This is deliberate until the Trip/Navigation lifecycle boundary is designed and tested.
+- OsmAnd remains the primary offline map/navigation engine; Darbak starts with a lightweight capability/intent bridge and adds AIDL only where a tested integration benefit justifies it.
+- No OsmAnd SDK/library/native code has been embedded.
+- No background GPS Service has been added; GPS currently follows MainActivity lifecycle. This is deliberate until persistent Trip/Navigation lifecycle is introduced.
 
 ## Not yet done
-- OsmAnd capability detection/bridge, map launch/control, navigation state/callbacks, search/favorites integration.
 - Persistent automatic Trip Recorder/chunk files and recovery across power loss.
+- OsmAnd navigation state/control callbacks, search/favorites integration and installed-version/T3 compatibility validation.
 - P5 Media, P6 Vehicle, P7 Apps/Settings/Standby, P8 Update/Admin/Recovery, P9-P11 T3 commissioning/integration/Stable acceptance.
-- Darbak Test Station/ARMv7 and physical T3 validation for the new P4 GPS path.
+- Darbak Test Station/ARMv7 and physical T3 validation for P4.
 - Golden Backup/recovery commissioning before deep T3 system integration.
 
 ## Next
-Build the smallest API25-compatible OsmAnd bridge foundation first: installed/capability detection, safe launch/open-map fallback and an interface boundary that does not couple Position/Trip to OsmAnd. Verify focused behavior before adding navigation/search callbacks.
+Implement power-safe Trip persistence/lifecycle foundation while keeping Position/Trip independent from OsmAnd, then add the smallest navigation-control slice that can be validated without importing the full OsmAnd SDK.
 
 GitHub is the project-state authority. Historical detailed test evidence is retained in `TEST_RESULTS.md` and `docs/test-evidence/`.

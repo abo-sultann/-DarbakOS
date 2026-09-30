@@ -120,6 +120,10 @@ public final class ShellTest {
                 assertFalse(activity.findViewById(R.id.map_location_button).isEnabled());
                 assertTrue(activity.findViewById(R.id.nav_map).isSelected());
                 assertTrue(root.getWidth() > 0);
+                activity.findViewById(R.id.map_back_home).performClick();
+                assertEquals(View.VISIBLE, activity.findViewById(R.id.home_panel).getVisibility());
+                assertEquals(View.GONE, activity.findViewById(R.id.map_panel).getVisibility());
+                assertTrue(activity.findViewById(R.id.nav_home).isSelected());
             });
         }
     }

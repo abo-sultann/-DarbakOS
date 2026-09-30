@@ -13,7 +13,8 @@ import java.util.List;
 /** Strict reader for committed Darbak trip chunks; partial files are never accepted as history. */
 public final class TripChunkReader {
     private static final int MAGIC = 0x44545250;
-    private static final int VERSION = 1;
+    private static final int VERSION_1 = 1;
+    private static final int VERSION_2 = 2;
     private static final int END = 0x454E4421;
     private static final int MAX_POINTS_PER_CHUNK = 100000;
 
@@ -34,7 +35,10 @@ public final class TripChunkReader {
         DataInputStream in = new DataInputStream(new BufferedInputStream(new FileInputStream(file)));
         try {
             if (in.readInt() != MAGIC) throw new IOException("Invalid trip magic");
-            if (in.readInt() != VERSION) throw new IOException("Unsupported trip version");
+            int version = in.readInt();
+            if (version != VERSION_1 && version != VERSION_2) {
+                throw new IOException("Unsupported trip version");
+            }
             String sessionId = in.readUTF();
             long chunkIndex = in.readLong();
             int count = in.readInt();
@@ -47,11 +51,13 @@ public final class TripChunkReader {
             for (int i = 0; i < count; i++) {
                 long sequence = in.readLong();
                 long monotonicMs = in.readLong();
+                long wallTimeMs = version >= VERSION_2 ? in.readLong() : 0L;
                 double latitude = in.readDouble();
                 double longitude = in.readDouble();
                 float accuracy = in.readFloat();
                 float speed = in.readFloat();
-                PositionFix fix = PositionFix.create(latitude, longitude, accuracy, speed, monotonicMs);
+                PositionFix fix = PositionFix.createStamped(latitude, longitude, accuracy, speed,
+                        monotonicMs, wallTimeMs);
                 if (fix == null || sequence <= lastSequence || monotonicMs <= lastTime) {
                     throw new IOException("Invalid trip point order/value");
                 }

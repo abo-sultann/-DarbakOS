@@ -28,6 +28,7 @@ public class P4GpsTripTest {
         location.setAccuracy(4.5f);
         location.setSpeed(20f);
         location.setElapsedRealtimeNanos(1234000000L);
+        location.setTime(1700000000123L);
         source.onLocationChanged(location);
 
         assertNotNull(received[0]);
@@ -36,6 +37,7 @@ public class P4GpsTripTest {
         assertEquals(4.5f, received[0].accuracyMeters, 0f);
         assertEquals(20f, received[0].speedMetersPerSecond, 0f);
         assertEquals(1234L, received[0].monotonicMs);
+        assertEquals(1700000000123L, received[0].wallTimeMs);
         assertEquals(72, received[0].speedKmh());
     }
 

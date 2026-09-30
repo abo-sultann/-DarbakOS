@@ -70,15 +70,21 @@ def screen(name):
     save(name + '.png', png)
 
 
-def set_listener(value):
-    if value and value != 'null':
-        adb('shell', 'settings', 'put', 'secure', 'enabled_notification_listeners', value)
-    else:
-        adb('shell', 'settings', 'delete', 'secure', 'enabled_notification_listeners')
+def grant_listener():
+    output = adb('shell', 'cmd', 'notification', 'allow_listener', LISTENER)
+    save('media-listener-grant.txt', output)
+    time.sleep(1.0)
+
+
+def revoke_listener():
+    try:
+        output = adb('shell', 'cmd', 'notification', 'disallow_listener', LISTENER)
+        save('media-listener-revoke.txt', output)
+    except subprocess.CalledProcessError as error:
+        save('media-listener-revoke.txt', str(error))
     time.sleep(0.8)
 
 
-original_listener = 'null'
 try:
     assert adb('shell', 'getprop', 'ro.build.version.sdk').strip() == '25'
     adb('shell', 'wm', 'size', '1024x600')
@@ -89,10 +95,9 @@ try:
     adb('install', '-r', '-t', str(test_apk))
     adb('shell', 'pm', 'grant', PACKAGE, 'android.permission.ACCESS_FINE_LOCATION')
     adb('logcat', '-c')
-    original_listener = adb('shell', 'settings', 'get', 'secure', 'enabled_notification_listeners').strip()
 
     # State A: access deliberately unavailable. This proves final UI is truthful and cannot autoplay.
-    set_listener('null')
+    revoke_listener()
     instrument(['ShellTest', 'MediaSnapshotTest'], 9, 'media-no-access-instrumentation')
 
     adb('shell', 'am', 'force-stop', PACKAGE)
@@ -116,9 +121,9 @@ try:
     assert 'TripRuntimeService' in services and 'startRequested=true' in services
     screen('media-panel-no-access-1024x600')
 
-    # State B: grant the exact notification-listener component, then verify a real framework
-    # MediaSession can be observed and controlled only after an explicit user transport call.
-    set_listener(LISTENER)
+    # State B: grant the exact notification-listener component through NotificationManagerService,
+    # then verify a real framework MediaSession can be observed and controlled only after a user call.
+    grant_listener()
     instrument(['MediaSessionBridgeTest'], 2, 'media-session-instrumentation')
 
     # The test session was released. Darbak itself must own no playback session and must return
@@ -167,7 +172,7 @@ finally:
     save('final-crash.txt', crash)
     save('final-logcat.txt', logs)
     try:
-        set_listener(original_listener)
+        revoke_listener()
     except Exception:
         pass
     assert 'FATAL EXCEPTION' not in crash, crash

@@ -54,7 +54,7 @@ jobs:
           heap-size: 128M
           disable-animations: true
           emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -camera-back none -skin 1024x600 -dpi-device 160
-          script: python3 scripts/p4_runtime_smoke.py --runtime-probe
+          script: python3 scripts/p4_runtime_smoke.py --runtime-gate
       - name: Upload TEST APK and evidence
         if: always()
         uses: actions/upload-artifact@v4

@@ -116,6 +116,34 @@ public final class TripRuntimeTest {
         }
     }
 
+    @Test public void retiringWorkerCannotInvalidateReplacementPosition() throws Exception {
+        Harness old = new Harness(false);
+        Harness replacement = null;
+        CountDownLatch entered = new CountDownLatch(1);
+        CountDownLatch release = new CountDownLatch(1);
+        try {
+            old.worker.post(() -> {
+                entered.countDown();
+                try { release.await(5, TimeUnit.SECONDS); }
+                catch (InterruptedException error) { Thread.currentThread().interrupt(); }
+            });
+            assertTrue(entered.await(3, TimeUnit.SECONDS));
+            old.destroy();
+            replacement = new Harness(false);
+            PositionFix latest = fix(SystemClock.elapsedRealtime() - 1, 10f);
+            replacement.service.onFix(latest);
+            replacement.drain();
+            release.countDown();
+            old.close();
+            assertTrue(PositionStore.get().available());
+            assertSame(latest, PositionStore.get().latest());
+        } finally {
+            release.countDown();
+            old.close();
+            if (replacement != null) replacement.close();
+        }
+    }
+
     @Test public void homeStopKeepsGpsAndNewActivityKeepsCurrentPosition() throws Exception {
         File directory = TripStorageLocator.locate(context);
         assertNotNull(directory);

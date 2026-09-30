@@ -75,7 +75,7 @@ try:
     if not PROBE:
         names = ['PositionStateTest', 'P4GpsTripTest', 'TripRecorderTest',
                  'TripPersistenceTest', 'OsmAndBridgeTest'] + names
-    expected = 10 if PROBE else 25
+    expected = 11 if PROBE else 26
     classes = ','.join('com.abosultan.darbakos.' + name for name in names)
     save('selection.json', json.dumps({'classes': names, 'expected_tests': expected,
          'scope': 'defect reproduction only' if PROBE else 'one consolidated P4 runtime gate',
@@ -133,6 +133,10 @@ try:
     }, ensure_ascii=False, indent=2))
     print('PASS: focused P4 runtime gate; no historical regression or Guardian suites')
 finally:
-    save('final-crash.txt', adb('logcat', '-b', 'crash', '-d'))
-    save('final-logcat.txt', adb('logcat', '-d'))
+    crash = adb('logcat', '-b', 'crash', '-d')
+    logs = adb('logcat', '-d')
+    save('final-crash.txt', crash)
+    save('final-logcat.txt', logs)
     adb('shell', 'settings', 'put', 'secure', 'location_providers_allowed', '+gps')
+    assert 'FATAL EXCEPTION' not in crash, crash
+    assert 'ANR in ' + PACKAGE not in logs

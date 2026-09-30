@@ -89,3 +89,7 @@ P1 measured result at `72fde4a`: runtime APK 18,221 bytes with no native librari
 
 ### P4 integration decision
 The lightweight Darbak implementation remains preferable to importing either trip application. Continuous recording is moved out of MainActivity into an API25 Service with a dedicated HandlerThread: GPS callbacks and chunk persistence continue while OsmAnd is foreground and disk I/O does not block the Darbak UI. PositionStore is the process-local handoff back to Home. This is an independent implementation based on platform APIs and recorded concepts, not copied upstream code.
+
+### Continuous-runtime verification references
+- Android platform [Service lifecycle/threading](https://developer.android.com/develop/background-work/services) and [HandlerThread](https://developer.android.com/reference/android/os/HandlerThread) documentation reviewed for lifecycle callbacks, worker ownership and orderly shutdown. API25 platform behavior is exercised by instrumentation; no library or upstream implementation copied.
+- Reused the repository's P4 GPS smoke, existing ActivityScenario assertions, PositionQualityPolicy, buffer/write-first persistence and strict chunk reader. New test-only LocationManager fixtures exercise the actual worker-to-Home handoff; they introduce no production mock provider or permission. Existing owner-project/reuse decisions above remain unchanged.

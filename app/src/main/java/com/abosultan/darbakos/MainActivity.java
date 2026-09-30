@@ -43,10 +43,10 @@ public final class MainActivity extends Activity {
     @Override public void onCreate(Bundle state) {
         super.onCreate(state);
         setContentView(R.layout.activity_main);
-        // P3/P4: fresh process begins truthfully unavailable until a real source publishes.
+        // PositionStore belongs to the process/runtime, not this Activity instance.
+        // Its new-process state is already unavailable until a real source publishes.
         if (state == null) {
             CoreStateStore.get().resetForColdBoot();
-            PositionStore.get().resetForColdBoot();
         }
         for (int i = 0; i < BUTTONS.length; i++) {
             final int destination = i;

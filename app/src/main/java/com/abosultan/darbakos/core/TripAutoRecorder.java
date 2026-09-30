@@ -29,6 +29,7 @@ public final class TripAutoRecorder {
     private String sessionId;
     private long chunkIndex;
     private long stationarySince = -1L;
+    private long lastMonotonicMs = -1L;
 
     public TripAutoRecorder(File directory) {
         this(directory, DEFAULT_CHUNK_POINTS, DEFAULT_START_SPEED_MPS,
@@ -56,12 +57,24 @@ public final class TripAutoRecorder {
 
     public void accept(PositionFix fix) throws IOException {
         if (!credible(fix)) return;
+        if (fix.monotonicMs <= lastMonotonicMs) return;
+        if (lastMonotonicMs >= 0L
+                && fix.monotonicMs - lastMonotonicMs > PositionQualityPolicy.MAX_FIX_AGE_MS) {
+            // A new logical session is a durable gap boundary in the existing chunk format.
+            if (state == State.RECORDING) finishSession();
+            else pendingStart = null;
+        }
         if (state == State.IDLE) {
+            lastMonotonicMs = fix.monotonicMs;
             considerStart(fix);
             return;
         }
 
-        if (buffer.append(fix) && buffer.isFull()) flush();
+        // A failed full chunk stays in memory. Retry it before accepting another point.
+        if (buffer.isFull()) flush();
+        if (!buffer.append(fix)) return;
+        lastMonotonicMs = fix.monotonicMs;
+        if (buffer.isFull()) flush();
 
         if (fix.speedMetersPerSecond <= stopSpeed) {
             if (stationarySince < 0L) stationarySince = fix.monotonicMs;
@@ -120,7 +133,8 @@ public final class TripAutoRecorder {
     }
 
     private boolean credible(PositionFix fix) {
-        return fix != null && fix.accuracyMeters <= maxAccuracy;
+        return fix != null && PositionQualityPolicy.isUsable(fix, fix.monotonicMs)
+                && fix.accuracyMeters <= maxAccuracy;
     }
 
     private static String makeSessionId(PositionFix fix) {

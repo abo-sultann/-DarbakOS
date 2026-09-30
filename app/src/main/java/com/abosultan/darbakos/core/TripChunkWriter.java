@@ -11,6 +11,7 @@ public final class TripChunkWriter {
     private static final int MAGIC = 0x44545250; // DTRP
     private static final int VERSION = 1;
     private static final int END = 0x454E4421; // END!
+    private static final Object FILE_LOCK = new Object();
 
     private final File directory;
 
@@ -25,18 +26,29 @@ public final class TripChunkWriter {
         String safeSession = sanitize(sessionId);
         if (chunkIndex < 0L) throw new IllegalArgumentException("chunkIndex");
         validate(points);
-        ensureDirectory(directory);
+        synchronized (FILE_LOCK) {
+            ensureDirectory(directory);
+            File complete = uniqueFile(directory,
+                    "trip_" + safeSession + "_" + chunkIndex, ".dtrip");
+            File partial = uniqueFile(directory, complete.getName(), ".part");
+            writePartial(partial, safeSession, chunkIndex, points);
+            // The process-wide lock keeps another Darbak writer from claiming this final path.
+            if (complete.exists() || !partial.renameTo(complete)) {
+                throw new IOException("Could not commit trip chunk: " + partial.getName());
+            }
+            return complete;
+        }
+    }
 
-        File complete = uniqueFile(directory, "trip_" + safeSession + "_" + chunkIndex, ".dtrip");
-        File partial = uniqueFile(directory, complete.getName(), ".part");
-
+    private static void writePartial(File partial, String sessionId, long chunkIndex,
+                                     List<TripPoint> points) throws IOException {
         FileOutputStream raw = new FileOutputStream(partial, false);
         boolean closed = false;
         try {
             DataOutputStream out = new DataOutputStream(raw);
             out.writeInt(MAGIC);
             out.writeInt(VERSION);
-            out.writeUTF(safeSession);
+            out.writeUTF(sessionId);
             out.writeLong(chunkIndex);
             out.writeInt(points.size());
             for (TripPoint point : points) {
@@ -58,11 +70,6 @@ public final class TripChunkWriter {
                 try { raw.close(); } catch (IOException ignored) { }
             }
         }
-
-        if (!partial.renameTo(complete)) {
-            throw new IOException("Could not commit trip chunk: " + partial.getName());
-        }
-        return complete;
     }
 
     public static boolean isCompleteFile(File file) {

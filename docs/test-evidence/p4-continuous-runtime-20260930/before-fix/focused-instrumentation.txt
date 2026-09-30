@@ -1,0 +1,128 @@
+
+com.abosultan.darbakos.TripRuntimeTest:
+Error in queuedFixesDrainBeforeDestroyAndStopInvalidatesPosition(com.abosultan.darbakos.TripRuntimeTest):
+java.lang.AssertionError: Queued points must persist before worker termination expected:<2> but was:<0>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:647)
+	at com.abosultan.darbakos.TripRuntimeTest.queuedFixesDrainBeforeDestroyAndStopInvalidatesPosition(TripRuntimeTest.java:91)
+
+Error in storageDiscoveryAndShutdownWritesUseTheWorker(com.abosultan.darbakos.TripRuntimeTest):
+java.lang.AssertionError: Storage discovery/commit touched UI thread: [externalDirs, exists, mkdirs, exists, isDirectory, canWrite, exists, isDirectory, canWrite]
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at com.abosultan.darbakos.TripRuntimeTest.storageDiscoveryAndShutdownWritesUseTheWorker(TripRuntimeTest.java:71)
+
+Error in nullStorageAndStickyRestartAreSafeAndIdempotent(com.abosultan.darbakos.TripRuntimeTest):
+java.lang.AssertionError: Destroyed runtime cannot leave available position
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertFalse(Assert.java:65)
+	at com.abosultan.darbakos.TripRuntimeTest.nullStorageAndStickyRestartAreSafeAndIdempotent(TripRuntimeTest.java:115)
+
+Error in homeStopKeepsGpsAndNewActivityKeepsCurrentPosition(com.abosultan.darbakos.TripRuntimeTest):
+java.lang.AssertionError: New Activity is not a new GPS process expected same:<com.abosultan.darbakos.core.PositionFix@8463dd2> was not:<null>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotSame(Assert.java:829)
+	at org.junit.Assert.assertSame(Assert.java:772)
+	at com.abosultan.darbakos.TripRuntimeTest.homeStopKeepsGpsAndNewActivityKeepsCurrentPosition(TripRuntimeTest.java:147)
+
+com.abosultan.darbakos.core.TripAutoRecorderTest:
+Error in rejectedOldFixCannotAdvanceStationaryTimeout(com.abosultan.darbakos.core.TripAutoRecorderTest):
+java.lang.AssertionError: Rejected old stationary fix must not close the trip expected:<RECORDING> but was:<IDLE>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at com.abosultan.darbakos.core.TripAutoRecorderTest.rejectedOldFixCannotAdvanceStationaryTimeout(TripAutoRecorderTest.java:100)
+
+Error in pendingMovingFixDoesNotBridgeALongGap(com.abosultan.darbakos.core.TripAutoRecorderTest):
+java.lang.AssertionError: Two separated fixes are not continuous movement expected:<IDLE> but was:<RECORDING>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at com.abosultan.darbakos.core.TripAutoRecorderTest.pendingMovingFixDoesNotBridgeALongGap(TripAutoRecorderTest.java:86)
+.
+Error in longGapSplitsRecordedHistoryWithoutBridge(com.abosultan.darbakos.core.TripAutoRecorderTest):
+java.lang.AssertionError: GPS gap must separate histories expected:<2> but was:<1>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:647)
+	at com.abosultan.darbakos.core.TripAutoRecorderTest.longGapSplitsRecordedHistoryWithoutBridge(TripAutoRecorderTest.java:74)
+
+Error in failedFullChunkRetriesBeforeAcceptingNextPoint(com.abosultan.darbakos.core.TripAutoRecorderTest):
+java.lang.AssertionError: Recovered full buffer and new point both persist expected:<2> but was:<1>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:647)
+	at com.abosultan.darbakos.core.TripAutoRecorderTest.failedFullChunkRetriesBeforeAcceptingNextPoint(TripAutoRecorderTest.java:118)
+
+Error in unknownAndImplausibleFixesCannotStartATrip(com.abosultan.darbakos.core.TripAutoRecorderTest):
+java.lang.AssertionError: expected:<IDLE> but was:<RECORDING>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at com.abosultan.darbakos.core.TripAutoRecorderTest.unknownAndImplausibleFixesCannotStartATrip(TripAutoRecorderTest.java:130)
+
+
+Time: 5.127
+There were 9 failures:
+1) queuedFixesDrainBeforeDestroyAndStopInvalidatesPosition(com.abosultan.darbakos.TripRuntimeTest)
+java.lang.AssertionError: Queued points must persist before worker termination expected:<2> but was:<0>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:647)
+	at com.abosultan.darbakos.TripRuntimeTest.queuedFixesDrainBeforeDestroyAndStopInvalidatesPosition(TripRuntimeTest.java:91)
+2) storageDiscoveryAndShutdownWritesUseTheWorker(com.abosultan.darbakos.TripRuntimeTest)
+java.lang.AssertionError: Storage discovery/commit touched UI thread: [externalDirs, exists, mkdirs, exists, isDirectory, canWrite, exists, isDirectory, canWrite]
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at com.abosultan.darbakos.TripRuntimeTest.storageDiscoveryAndShutdownWritesUseTheWorker(TripRuntimeTest.java:71)
+3) nullStorageAndStickyRestartAreSafeAndIdempotent(com.abosultan.darbakos.TripRuntimeTest)
+java.lang.AssertionError: Destroyed runtime cannot leave available position
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertFalse(Assert.java:65)
+	at com.abosultan.darbakos.TripRuntimeTest.nullStorageAndStickyRestartAreSafeAndIdempotent(TripRuntimeTest.java:115)
+4) homeStopKeepsGpsAndNewActivityKeepsCurrentPosition(com.abosultan.darbakos.TripRuntimeTest)
+java.lang.AssertionError: New Activity is not a new GPS process expected same:<com.abosultan.darbakos.core.PositionFix@8463dd2> was not:<null>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotSame(Assert.java:829)
+	at org.junit.Assert.assertSame(Assert.java:772)
+	at com.abosultan.darbakos.TripRuntimeTest.homeStopKeepsGpsAndNewActivityKeepsCurrentPosition(TripRuntimeTest.java:147)
+5) rejectedOldFixCannotAdvanceStationaryTimeout(com.abosultan.darbakos.core.TripAutoRecorderTest)
+java.lang.AssertionError: Rejected old stationary fix must not close the trip expected:<RECORDING> but was:<IDLE>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at com.abosultan.darbakos.core.TripAutoRecorderTest.rejectedOldFixCannotAdvanceStationaryTimeout(TripAutoRecorderTest.java:100)
+6) pendingMovingFixDoesNotBridgeALongGap(com.abosultan.darbakos.core.TripAutoRecorderTest)
+java.lang.AssertionError: Two separated fixes are not continuous movement expected:<IDLE> but was:<RECORDING>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at com.abosultan.darbakos.core.TripAutoRecorderTest.pendingMovingFixDoesNotBridgeALongGap(TripAutoRecorderTest.java:86)
+7) longGapSplitsRecordedHistoryWithoutBridge(com.abosultan.darbakos.core.TripAutoRecorderTest)
+java.lang.AssertionError: GPS gap must separate histories expected:<2> but was:<1>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:647)
+	at com.abosultan.darbakos.core.TripAutoRecorderTest.longGapSplitsRecordedHistoryWithoutBridge(TripAutoRecorderTest.java:74)
+8) failedFullChunkRetriesBeforeAcceptingNextPoint(com.abosultan.darbakos.core.TripAutoRecorderTest)
+java.lang.AssertionError: Recovered full buffer and new point both persist expected:<2> but was:<1>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:647)
+	at com.abosultan.darbakos.core.TripAutoRecorderTest.failedFullChunkRetriesBeforeAcceptingNextPoint(TripAutoRecorderTest.java:118)
+9) unknownAndImplausibleFixesCannotStartATrip(com.abosultan.darbakos.core.TripAutoRecorderTest)
+java.lang.AssertionError: expected:<IDLE> but was:<RECORDING>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at com.abosultan.darbakos.core.TripAutoRecorderTest.unknownAndImplausibleFixesCannotStartATrip(TripAutoRecorderTest.java:130)
+
+FAILURES!!!
+Tests run: 10,  Failures: 9
+
+

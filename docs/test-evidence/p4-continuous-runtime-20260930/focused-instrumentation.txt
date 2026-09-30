@@ -1,0 +1,14 @@
+
+com.abosultan.darbakos.TripRecorderTest:......
+com.abosultan.darbakos.P4GpsTripTest:..
+com.abosultan.darbakos.PositionStateTest:..
+com.abosultan.darbakos.TripRuntimeTest:.....
+com.abosultan.darbakos.core.TripAutoRecorderTest:......
+com.abosultan.darbakos.TripPersistenceTest:...
+com.abosultan.darbakos.OsmAndBridgeTest:..
+
+Time: 5.351
+
+OK (26 tests)
+
+

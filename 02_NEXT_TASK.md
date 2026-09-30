@@ -1,4 +1,14 @@
-# Next Task — P4 Continuous GPS + Automatic Trip Runtime CONSOLIDATED GATE
+# Next Task — P4 Continuous GPS + Automatic Trip Runtime GATE COMPLETE / STOP
+
+## Closure — 2026-09-30
+- Verified `970160233d0b7d49a71c3a807965ee551ee3ac1f`, [run36715997759](https://github.com/abo-sultann/DarbakOS/actions/runs/36715997759), attempt1 SUCCESS.
+- Build/Lint PASS:0 errors,17 warnings. Initial new-test probe10 exposed9 failures; retained evidence and fixed only the proven lifecycle/recording defects. **One consolidated focused API25/1024x600 run:26/26 PASS**, plus the bounded GPS/Home/background/provider-disabled flow. Full Regression0; Guardian suites0.
+- Confirmed worker-only storage/clean close, queued-point drain, safe null storage and repeated/null-intent starts, replacement ownership, Home stop/recreation handoff, real LocationManager callback delivery to the UI, automatic movement/stop/gap policy, persistence recovery and the existing cheap OsmAnd absent boundary.
+- Home and returned screenshots were reviewed and are pixel-identical; one GPS receiver remained registered in the external foreground flow; no observed app crash/ANR. Evidence and before-fix proof: `docs/test-evidence/p4-continuous-runtime-20260930/`.
+- Limits: emulator/test-provider inputs; installed OsmAnd UI, real T3/ARMv7, long-drive and abrupt process/power-loss acceptance remain open. This gate does not guarantee uncommitted RAM points across abrupt loss.
+- **STOP. P4 remains open. Do not start the later AIDL/navigation-state or Map UX bundle in this batch.**
+
+## Original gate request (completed within the recorded test scope)
 
 ## Purpose
 Verify the first meaningful P4 integration bundle: GPS and automatic trip recording must continue when Darbak UI leaves foreground (including when OsmAnd is opened), while Home observes the same truthful PositionStore.

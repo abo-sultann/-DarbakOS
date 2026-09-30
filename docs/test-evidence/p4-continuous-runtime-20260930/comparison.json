@@ -1,0 +1,17 @@
+{
+  "apk_bytes": {
+    "prior_trip_foundation_7430a45": 50855,
+    "incoming_runtime_probe_987b142": 52415,
+    "verified_runtime_9701602": 53219,
+    "correction_delta": 804,
+    "total_delta_from_prior_foundation": 2364
+  },
+  "single_observation": {
+    "pss_kb": 9534,
+    "launch_total_ms": 363,
+    "launch_wait_ms": 365,
+    "views": 49,
+    "activities": 1
+  },
+  "note": "APK differences are measured. Runtime measurements are a single emulator observation with GPS Service active, not a causal comparison against earlier static shell workloads."
+}

@@ -1,0 +1,13 @@
+Run36715997759 / job109888939532 / attempt1 / 970160233d0b7d49a71c3a807965ee551ee3ac1f
+Selected verbatim job-log lines; full log remains at the GitHub Actions run.
+2026-09-30T12:38:06.0964257Z ##[group]Run python3 scripts/check_baseline.py
+2026-09-30T12:38:06.0964759Z [36;1mpython3 scripts/check_baseline.py[0m
+2026-09-30T12:38:06.1502655Z PASS: API25/RTL, fine-location only, one private Trip Service/worker, no extra worker/receiver/runtime dependency/native code
+2026-09-30T12:38:17.0822075Z ##[group]Run ./gradlew :app:assembleDebug :app:assembleDebugAndroidTest :app:lintDebug --no-daemon --console=plain
+2026-09-30T12:38:17.0822933Z [36;1m./gradlew :app:assembleDebug :app:assembleDebugAndroidTest :app:lintDebug --no-daemon --console=plain[0m
+2026-09-30T12:38:47.6622319Z BUILD SUCCESSFUL in 30s
+2026-09-30T12:38:47.8337238Z   script: python3 scripts/p4_runtime_smoke.py --runtime-gate
+2026-09-30T12:38:47.8887777Z python3 scripts/p4_runtime_smoke.py --runtime-gate
+2026-09-30T12:39:46.3653732Z [command]/usr/bin/sh -c python3 scripts/p4_runtime_smoke.py --runtime-gate
+2026-09-30T12:40:12.2179944Z PASS: focused P4 runtime gate; no historical regression or Guardian suites
+2026-09-30T12:40:34.7451138Z BUILD SUCCESSFUL in 13s

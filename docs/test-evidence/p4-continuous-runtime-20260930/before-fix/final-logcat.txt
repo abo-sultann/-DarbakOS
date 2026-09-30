@@ -1,0 +1,593 @@
+--------- beginning of main
+09-30 12:33:47.870  2676  2676 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+09-30 12:33:47.872  2676  2676 D AndroidRuntime: CheckJNI is OFF
+09-30 12:33:47.896  2676  2676 W art     : Unexpected CPU variant for X86 using defaults: x86
+09-30 12:33:47.898  2676  2676 D ICU     : No timezone override file found: /data/misc/zoneinfo/current/icu/icu_tzdata.dat
+09-30 12:33:47.907  2676  2676 E memtrack: Couldn't load memtrack module (No such file or directory)
+09-30 12:33:47.907  2676  2676 E android.os.Debug: failed to load memtrack module: -2
+09-30 12:33:47.907  2676  2676 I Radio-JNI: register_android_hardware_Radio DONE
+09-30 12:33:47.911  2676  2676 D AndroidRuntime: Calling main entry com.android.commands.am.Am
+--------- beginning of system
+09-30 12:33:47.914  1532  2186 I ActivityManager: Force stopping com.abosultan.darbakos.test appid=10063 user=0: start instr
+09-30 12:33:47.917  2686  2686 I art     : Late-enabling -Xcheck:jni
+09-30 12:33:47.918  2686  2686 W art     : Unexpected CPU variant for X86 using defaults: x86
+09-30 12:33:47.924  1532  2186 I ActivityManager: Start proc 2686:com.abosultan.darbakos.test/u0a63 for added application com.abosultan.darbakos.test
+09-30 12:33:47.929  2686  2686 W System  : ClassLoader referenced unknown path: /data/app/com.abosultan.darbakos.test.test-1/lib/x86
+09-30 12:33:47.929  2686  2686 W System  : ClassLoader referenced unknown path: /data/app/com.abosultan.darbakos.test-1/lib/x86
+09-30 12:33:47.932  2686  2686 W System  : ClassLoader referenced unknown path: 
+09-30 12:33:47.937  2686  2686 I MonitoringInstr: newApplication called!
+09-30 12:33:47.938  2686  2686 I MonitoringInstr: Instrumentation started!
+09-30 12:33:47.942  2686  2686 I AndroidJUnitRunner: onCreate Bundle[{class=com.abosultan.darbakos.core.TripAutoRecorderTest,com.abosultan.darbakos.TripRuntimeTest}]
+09-30 12:33:47.942  2686  2686 V TestEventClient: No service name argument was given (testDiscoveryService, testRunEventService or orchestratorService)
+09-30 12:33:47.944  2686  2701 D AndroidJUnitRunner: onStart is called.
+09-30 12:33:47.944  2686  2686 I MonitoringInstr: No JSBridge.
+09-30 12:33:47.947  2686  2701 D TestRequestBuilder: Skipping class path scanning and directly running [com.abosultan.darbakos.TripRuntimeTest, com.abosultan.darbakos.core.TripAutoRecorderTest]
+09-30 12:33:47.952  2686  2701 D AndroidJUnitRunner: Use the raw file system for managing file I/O.
+09-30 12:33:47.953  2686  2701 D TestExecutor: Adding listener androidx.test.internal.runner.listener.LogRunListener
+09-30 12:33:47.953  2686  2701 D TestExecutor: Adding listener androidx.test.internal.runner.listener.InstrumentationResultPrinter
+09-30 12:33:47.953  2686  2701 D TestExecutor: Adding listener androidx.test.internal.runner.listener.ActivityFinisherRunListener
+09-30 12:33:47.953  2686  2701 D TestExecutor: Adding listener androidx.test.internal.runner.listener.TraceRunListener
+09-30 12:33:47.954  2686  2701 I TestRunner: run started: 10 tests
+09-30 12:33:47.955  2686  2701 I TestRunner: started: queuedFixesDrainBeforeDestroyAndStopInvalidatesPosition(com.abosultan.darbakos.TripRuntimeTest)
+09-30 12:33:47.960  1532  1789 I GnssLocationProvider: WakeLock acquired by sendMessage(2, 0, null)
+09-30 12:33:47.960  1532  1532 D GpsNetInitiatedHandler: location enabled :true
+09-30 12:33:47.961  1532  1550 I GnssLocationProvider: WakeLock released by handleMessage(2, 0, null)
+09-30 12:33:47.966  1532  1793 I GnssLocationProvider: WakeLock acquired by sendMessage(2, 1, null)
+09-30 12:33:47.967  1532  1532 D GpsNetInitiatedHandler: location enabled :true
+09-30 12:33:47.967  2686  2701 E TestRunner: failed: queuedFixesDrainBeforeDestroyAndStopInvalidatesPosition(com.abosultan.darbakos.TripRuntimeTest)
+09-30 12:33:47.967  2686  2701 E TestRunner: ----- begin exception -----
+09-30 12:33:47.967  1532  1550 E GnssLocationProvider: no AGPS interface in set_agps_server
+09-30 12:33:47.967  2686  2701 E TestRunner: java.lang.AssertionError: Queued points must persist before worker termination expected:<2> but was:<0>
+09-30 12:33:47.967  2686  2701 E TestRunner: 	at org.junit.Assert.fail(Assert.java:89)
+09-30 12:33:47.967  2686  2701 E TestRunner: 	at org.junit.Assert.failNotEquals(Assert.java:835)
+09-30 12:33:47.967  2686  2701 E TestRunner: 	at org.junit.Assert.assertEquals(Assert.java:647)
+09-30 12:33:47.967  2686  2701 E TestRunner: 	at com.abosultan.darbakos.TripRuntimeTest.queuedFixesDrainBeforeDestroyAndStopInvalidatesPosition(TripRuntimeTest.java:91)
+09-30 12:33:47.967  2686  2701 E TestRunner: 	at java.lang.reflect.Method.invoke(Native Method)
+09-30 12:33:47.967  2686  2701 E TestRunner: 	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)
+09-30 12:33:47.967  2686  2701 E TestRunner: 	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+09-30 12:33:47.967  2686  2701 E TestRunner: 	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)
+09-30 12:33:47.967  2686  2701 E TestRunner: 	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+09-30 12:33:47.967  2686  2701 E TestRunner: 	at androidx.test.internal.runner.junit4.statement.RunBefores.evaluate(RunBefores.java:80)
+09-30 12:33:47.967  2686  2701 E TestRunner: 	at androidx.test.internal.runner.junit4.statement.RunAfters.evaluate(RunAfters.java:61)
+09-30 12:33:47.967  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+09-30 12:33:47.967  2686  2701 E TestRunner: 	at org.junit.runners.BlockJUnit4ClassRunner$1.evaluate(BlockJUnit4ClassRunner.java:100)
+09-30 12:33:47.967  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:366)
+09-30 12:33:47.967  2686  2701 E TestRunner: 	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:103)
+09-30 12:33:47.967  2686  2701 E TestRunner: 	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:63)
+09-30 12:33:47.967  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
+09-30 12:33:47.967  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
+09-30 12:33:47.967  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
+09-30 12:33:47.967  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
+09-30 12:33:47.967  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
+09-30 12:33:47.967  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+09-30 12:33:47.967  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
+09-30 12:33:47.967  2686  2701 E TestRunner: 	at androidx.test.ext.junit.runners.AndroidJUnit4.run(AndroidJUnit4.java:162)
+09-30 12:33:47.967  2686  2701 E TestRunner: 	at org.junit.runners.Suite.runChild(Suite.java:128)
+09-30 12:33:47.967  2686  2701 E TestRunner: 	at org.junit.runners.Suite.runChild(Suite.java:27)
+09-30 12:33:47.967  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
+09-30 12:33:47.967  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
+09-30 12:33:47.967  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
+09-30 12:33:47.967  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
+09-30 12:33:47.967  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
+09-30 12:33:47.967  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+09-30 12:33:47.967  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
+09-30 12:33:47.967  2686  2701 E TestRunner: 	at org.junit.runner.JUnitCore.run(JUnitCore.java:137)
+09-30 12:33:47.967  2686  2701 E TestRunner: 	at org.junit.runner.JUnitCore.run(JUnitCore.java:115)
+09-30 12:33:47.967  2686  2701 E TestRunner: 	at androidx.test.internal.runner.TestExecutor.execute(TestExecutor.java:67)
+09-30 12:33:47.967  2686  2701 E TestRunner: 	at androidx.test.internal.runner.TestExecutor.execute(TestExecutor.java:58)
+09-30 12:33:47.967  2686  2701 E TestRunner: 	at androidx.test.runner.AndroidJUnitRunner.onStart(AndroidJUnitRunner.java:446)
+09-30 12:33:47.967  2686  2701 E TestRunner: 	at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:1932)
+09-30 12:33:47.967  2686  2701 E TestRunner: ----- end exception -----
+09-30 12:33:47.967  1532  1550 I GnssLocationProvider: WakeLock released by handleMessage(2, 1, null)
+09-30 12:33:47.968  2686  2701 I TestRunner: finished: queuedFixesDrainBeforeDestroyAndStopInvalidatesPosition(com.abosultan.darbakos.TripRuntimeTest)
+09-30 12:33:47.969  2686  2701 I TestRunner: started: storageDiscoveryAndShutdownWritesUseTheWorker(com.abosultan.darbakos.TripRuntimeTest)
+09-30 12:33:47.971  1532  2186 I GnssLocationProvider: WakeLock acquired by sendMessage(2, 0, null)
+09-30 12:33:47.972  1532  1532 D GpsNetInitiatedHandler: location enabled :true
+09-30 12:33:47.972  1532  1550 I GnssLocationProvider: WakeLock released by handleMessage(2, 0, null)
+09-30 12:33:47.976  2686  2701 I DarbakRuntimeQA: storage/close main-thread operations=[externalDirs, exists, mkdirs, exists, isDirectory, canWrite, exists, isDirectory, canWrite]
+09-30 12:33:47.977  1532  2186 I GnssLocationProvider: WakeLock acquired by sendMessage(2, 1, null)
+09-30 12:33:47.978  1532  1550 E GnssLocationProvider: no AGPS interface in set_agps_server
+09-30 12:33:47.978  1532  1532 D GpsNetInitiatedHandler: location enabled :true
+09-30 12:33:47.978  2686  2701 E TestRunner: failed: storageDiscoveryAndShutdownWritesUseTheWorker(com.abosultan.darbakos.TripRuntimeTest)
+09-30 12:33:47.978  2686  2701 E TestRunner: ----- begin exception -----
+09-30 12:33:47.978  2686  2701 E TestRunner: java.lang.AssertionError: Storage discovery/commit touched UI thread: [externalDirs, exists, mkdirs, exists, isDirectory, canWrite, exists, isDirectory, canWrite]
+09-30 12:33:47.978  2686  2701 E TestRunner: 	at org.junit.Assert.fail(Assert.java:89)
+09-30 12:33:47.978  2686  2701 E TestRunner: 	at org.junit.Assert.assertTrue(Assert.java:42)
+09-30 12:33:47.978  2686  2701 E TestRunner: 	at com.abosultan.darbakos.TripRuntimeTest.storageDiscoveryAndShutdownWritesUseTheWorker(TripRuntimeTest.java:71)
+09-30 12:33:47.978  2686  2701 E TestRunner: 	at java.lang.reflect.Method.invoke(Native Method)
+09-30 12:33:47.978  2686  2701 E TestRunner: 	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)
+09-30 12:33:47.978  2686  2701 E TestRunner: 	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+09-30 12:33:47.978  2686  2701 E TestRunner: 	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)
+09-30 12:33:47.978  2686  2701 E TestRunner: 	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+09-30 12:33:47.978  2686  2701 E TestRunner: 	at androidx.test.internal.runner.junit4.statement.RunBefores.evaluate(RunBefores.java:80)
+09-30 12:33:47.978  2686  2701 E TestRunner: 	at androidx.test.internal.runner.junit4.statement.RunAfters.evaluate(RunAfters.java:61)
+09-30 12:33:47.978  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+09-30 12:33:47.978  2686  2701 E TestRunner: 	at org.junit.runners.BlockJUnit4ClassRunner$1.evaluate(BlockJUnit4ClassRunner.java:100)
+09-30 12:33:47.978  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:366)
+09-30 12:33:47.978  2686  2701 E TestRunner: 	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:103)
+09-30 12:33:47.978  2686  2701 E TestRunner: 	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:63)
+09-30 12:33:47.978  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
+09-30 12:33:47.978  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
+09-30 12:33:47.978  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
+09-30 12:33:47.978  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
+09-30 12:33:47.978  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
+09-30 12:33:47.978  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+09-30 12:33:47.978  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
+09-30 12:33:47.978  2686  2701 E TestRunner: 	at androidx.test.ext.junit.runners.AndroidJUnit4.run(AndroidJUnit4.java:162)
+09-30 12:33:47.978  2686  2701 E TestRunner: 	at org.junit.runners.Suite.runChild(Suite.java:128)
+09-30 12:33:47.978  2686  2701 E TestRunner: 	at org.junit.runners.Suite.runChild(Suite.java:27)
+09-30 12:33:47.978  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
+09-30 12:33:47.978  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
+09-30 12:33:47.978  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
+09-30 12:33:47.978  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
+09-30 12:33:47.978  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
+09-30 12:33:47.978  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+09-30 12:33:47.978  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
+09-30 12:33:47.978  2686  2701 E TestRunner: 	at org.junit.runner.JUnitCore.run(JUnitCore.java:137)
+09-30 12:33:47.978  2686  2701 E TestRunner: 	at org.junit.runner.JUnitCore.run(JUnitCore.java:115)
+09-30 12:33:47.978  2686  2701 E TestRunner: 	at androidx.test.internal.runner.TestExecutor.execute(TestExecutor.java:67)
+09-30 12:33:47.978  2686  2701 E TestRunner: 	at androidx.test.internal.runner.TestExecutor.execute(TestExecutor.java:58)
+09-30 12:33:47.978  2686  2701 E TestRunner: 	at androidx.test.runner.AndroidJUnitRunner.onStart(AndroidJUnitRunner.java:446)
+09-30 12:33:47.978  2686  2701 E TestRunner: 	at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:1932)
+09-30 12:33:47.978  2686  2701 E TestRunner: ----- end exception -----
+09-30 12:33:47.978  1532  1550 I GnssLocationProvider: WakeLock released by handleMessage(2, 1, null)
+09-30 12:33:47.979  2686  2701 I TestRunner: finished: storageDiscoveryAndShutdownWritesUseTheWorker(com.abosultan.darbakos.TripRuntimeTest)
+09-30 12:33:47.980  2686  2701 I TestRunner: started: nullStorageAndStickyRestartAreSafeAndIdempotent(com.abosultan.darbakos.TripRuntimeTest)
+09-30 12:33:47.981  1532  2056 I GnssLocationProvider: WakeLock acquired by sendMessage(2, 0, null)
+09-30 12:33:47.982  1532  1532 D GpsNetInitiatedHandler: location enabled :true
+09-30 12:33:47.983  1532  1550 I GnssLocationProvider: WakeLock released by handleMessage(2, 0, null)
+09-30 12:33:47.986  1532  1888 I GnssLocationProvider: WakeLock acquired by sendMessage(2, 1, null)
+09-30 12:33:47.986  1532  1550 E GnssLocationProvider: no AGPS interface in set_agps_server
+09-30 12:33:47.986  1532  1532 D GpsNetInitiatedHandler: location enabled :true
+09-30 12:33:47.986  2686  2701 E TestRunner: failed: nullStorageAndStickyRestartAreSafeAndIdempotent(com.abosultan.darbakos.TripRuntimeTest)
+09-30 12:33:47.986  2686  2701 E TestRunner: ----- begin exception -----
+09-30 12:33:47.987  2686  2701 E TestRunner: java.lang.AssertionError: Destroyed runtime cannot leave available position
+09-30 12:33:47.987  2686  2701 E TestRunner: 	at org.junit.Assert.fail(Assert.java:89)
+09-30 12:33:47.987  2686  2701 E TestRunner: 	at org.junit.Assert.assertTrue(Assert.java:42)
+09-30 12:33:47.987  2686  2701 E TestRunner: 	at org.junit.Assert.assertFalse(Assert.java:65)
+09-30 12:33:47.987  2686  2701 E TestRunner: 	at com.abosultan.darbakos.TripRuntimeTest.nullStorageAndStickyRestartAreSafeAndIdempotent(TripRuntimeTest.java:115)
+09-30 12:33:47.987  2686  2701 E TestRunner: 	at java.lang.reflect.Method.invoke(Native Method)
+09-30 12:33:47.987  2686  2701 E TestRunner: 	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)
+09-30 12:33:47.987  2686  2701 E TestRunner: 	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+09-30 12:33:47.987  2686  2701 E TestRunner: 	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)
+09-30 12:33:47.987  2686  2701 E TestRunner: 	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+09-30 12:33:47.987  2686  2701 E TestRunner: 	at androidx.test.internal.runner.junit4.statement.RunBefores.evaluate(RunBefores.java:80)
+09-30 12:33:47.987  2686  2701 E TestRunner: 	at androidx.test.internal.runner.junit4.statement.RunAfters.evaluate(RunAfters.java:61)
+09-30 12:33:47.987  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+09-30 12:33:47.987  2686  2701 E TestRunner: 	at org.junit.runners.BlockJUnit4ClassRunner$1.evaluate(BlockJUnit4ClassRunner.java:100)
+09-30 12:33:47.987  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:366)
+09-30 12:33:47.987  2686  2701 E TestRunner: 	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:103)
+09-30 12:33:47.987  2686  2701 E TestRunner: 	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:63)
+09-30 12:33:47.987  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
+09-30 12:33:47.987  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
+09-30 12:33:47.987  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
+09-30 12:33:47.987  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
+09-30 12:33:47.987  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
+09-30 12:33:47.987  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+09-30 12:33:47.987  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
+09-30 12:33:47.987  2686  2701 E TestRunner: 	at androidx.test.ext.junit.runners.AndroidJUnit4.run(AndroidJUnit4.java:162)
+09-30 12:33:47.987  2686  2701 E TestRunner: 	at org.junit.runners.Suite.runChild(Suite.java:128)
+09-30 12:33:47.987  2686  2701 E TestRunner: 	at org.junit.runners.Suite.runChild(Suite.java:27)
+09-30 12:33:47.987  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
+09-30 12:33:47.987  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
+09-30 12:33:47.987  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
+09-30 12:33:47.987  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
+09-30 12:33:47.987  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
+09-30 12:33:47.987  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+09-30 12:33:47.987  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
+09-30 12:33:47.987  2686  2701 E TestRunner: 	at org.junit.runner.JUnitCore.run(JUnitCore.java:137)
+09-30 12:33:47.987  2686  2701 E TestRunner: 	at org.junit.runner.JUnitCore.run(JUnitCore.java:115)
+09-30 12:33:47.987  2686  2701 E TestRunner: 	at androidx.test.internal.runner.TestExecutor.execute(TestExecutor.java:67)
+09-30 12:33:47.987  2686  2701 E TestRunner: 	at androidx.test.internal.runner.TestExecutor.execute(TestExecutor.java:58)
+09-30 12:33:47.987  2686  2701 E TestRunner: 	at androidx.test.runner.AndroidJUnitRunner.onStart(AndroidJUnitRunner.java:446)
+09-30 12:33:47.987  2686  2701 E TestRunner: 	at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:1932)
+09-30 12:33:47.987  2686  2701 E TestRunner: ----- end exception -----
+09-30 12:33:47.987  2686  2701 I TestRunner: finished: nullStorageAndStickyRestartAreSafeAndIdempotent(com.abosultan.darbakos.TripRuntimeTest)
+09-30 12:33:47.988  2686  2701 I TestRunner: started: homeStopKeepsGpsAndNewActivityKeepsCurrentPosition(com.abosultan.darbakos.TripRuntimeTest)
+09-30 12:33:47.989  1532  1550 I GnssLocationProvider: WakeLock released by handleMessage(2, 1, null)
+09-30 12:33:47.990  1532  2186 I GnssLocationProvider: WakeLock acquired by sendMessage(2, 0, null)
+09-30 12:33:47.990  1532  1532 D GpsNetInitiatedHandler: location enabled :true
+09-30 12:33:47.990  1532  1550 I GnssLocationProvider: WakeLock released by handleMessage(2, 0, null)
+09-30 12:33:47.994  1532  2026 D VoldConnector: SND -> {31 volume mkdirs /storage/emulated/0/Android/data/com.abosultan.darbakos.test/files/trips/}
+09-30 12:33:47.998  1532  1662 D VoldConnector: RCV <- {200 31 Command succeeded}
+09-30 12:33:48.003  2686  2701 W Settings: Setting always_finish_activities has moved from android.provider.Settings.System to android.provider.Settings.Global, returning read-only value.
+09-30 12:33:48.005  1532  2026 I ActivityManager: START u0 {act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x14008000 cmp=com.abosultan.darbakos.test/com.abosultan.darbakos.MainActivity} from uid 10063 on display 0
+09-30 12:33:48.012  2686  2686 D LifecycleMonitor: Lifecycle status change: com.abosultan.darbakos.MainActivity@dc8ccc5 in: PRE_ON_CREATE
+09-30 12:33:48.013  2686  2686 V ActivityScenario: Activity lifecycle changed event received but ignored because the reported transition was not ON_CREATE while the last known transition was PRE_ON_CREATE
+09-30 12:33:48.019  2686  2686 D LifecycleMonitor: Lifecycle status change: com.abosultan.darbakos.MainActivity@dc8ccc5 in: CREATED
+09-30 12:33:48.019  2686  2686 V ActivityScenario: Update currentActivityStage to CREATED, currentActivity=com.abosultan.darbakos.MainActivity@dc8ccc5
+09-30 12:33:48.020  2686  2686 D LifecycleMonitor: Lifecycle status change: com.abosultan.darbakos.MainActivity@dc8ccc5 in: STARTED
+09-30 12:33:48.020  2686  2686 V ActivityScenario: Update currentActivityStage to STARTED, currentActivity=com.abosultan.darbakos.MainActivity@dc8ccc5
+09-30 12:33:48.020  2686  2686 D LifecycleMonitor: Lifecycle status change: com.abosultan.darbakos.MainActivity@dc8ccc5 in: RESUMED
+09-30 12:33:48.020  2686  2686 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=com.abosultan.darbakos.MainActivity@dc8ccc5
+09-30 12:33:48.022  1301  2288 E SurfaceFlinger: ro.sf.lcd_density must be defined as a build property
+09-30 12:33:48.024  2686  2686 D         : HostConnection::get() New Host Connection established 0x9a1a3880, tid 2686
+09-30 12:33:48.039  2686  2710 D         : HostConnection::get() New Host Connection established 0x9a1fee80, tid 2710
+09-30 12:33:48.040  2686  2710 I OpenGLRenderer: Initialized EGL, version 1.4
+09-30 12:33:48.040  2686  2710 D OpenGLRenderer: Swap behavior 1
+09-30 12:33:48.041  2686  2710 D EGL_emulation: eglCreateContext: 0xa80d6aa0: maj 3 min 0 rcv 3
+09-30 12:33:48.044  2686  2710 D EGL_emulation: eglMakeCurrent: 0xa80d6aa0: ver 3 0 (tinfo 0x9a1f5070)
+09-30 12:33:48.045  1301  1963 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 2457600
+09-30 12:33:48.062  2171  2245 D EGL_emulation: eglMakeCurrent: 0xb3e05300: ver 3 0 (tinfo 0xb3e03710)
+09-30 12:33:48.067  2686  2710 D EGL_emulation: eglMakeCurrent: 0xa80d6aa0: ver 3 0 (tinfo 0x9a1f5070)
+09-30 12:33:48.368  1532  1568 I ActivityManager: Displayed com.abosultan.darbakos.test/com.abosultan.darbakos.MainActivity: +358ms
+09-30 12:33:49.930  2353  2460 I GlobalDismissManager: no sender configured
+09-30 12:33:49.931  2353  2460 D AlertService: Beginning updateAlertNotification
+09-30 12:33:49.934  2353  2460 D AlertService: No fired or scheduled alerts
+09-30 12:33:49.937  2353  2460 D AlertService: Scheduling next alarm with AlarmScheduler. sEventReminderReceived: null
+09-30 12:33:49.940  2353  2460 D AlarmScheduler: No events found starting within 1 week.
+09-30 12:33:49.940  2353  2460 D AlertService: 0 Action = android.intent.action.BOOT_COMPLETED
+09-30 12:33:49.941  2353  2460 D AlertService: Scheduling next alarm with AlarmScheduler. sEventReminderReceived: null
+09-30 12:33:49.944  2353  2460 D AlarmScheduler: No events found starting within 1 week.
+09-30 12:33:50.891  1532  2026 I ActivityManager: START u0 {act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10000000 cmp=com.abosultan.darbakos.test.test/androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity} from uid 10063 on display 0
+09-30 12:33:50.894  2686  2686 D LifecycleMonitor: Lifecycle status change: com.abosultan.darbakos.MainActivity@dc8ccc5 in: PAUSED
+09-30 12:33:50.895  2686  2686 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=com.abosultan.darbakos.MainActivity@dc8ccc5
+09-30 12:33:50.902  2723  2723 I art     : Late-enabling -Xcheck:jni
+09-30 12:33:50.902  2723  2723 W art     : Unexpected CPU variant for X86 using defaults: x86
+09-30 12:33:50.906  1532  1546 I ActivityManager: Start proc 2723:com.abosultan.darbakos.test.test/u0a64 for activity com.abosultan.darbakos.test.test/androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity
+09-30 12:33:50.909  1301  1963 D PermissionCache: checking android.permission.READ_FRAME_BUFFER for uid=1000 => granted (169 us)
+09-30 12:33:50.915  1301  1963 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 884736
+09-30 12:33:50.916  1532  1546 D         : HostConnection::get() New Host Connection established 0x9662a340, tid 1546
+09-30 12:33:50.989  2723  2723 W System  : ClassLoader referenced unknown path: /data/app/com.abosultan.darbakos.test.test-1/lib/x86
+09-30 12:33:50.994  1301  2288 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 2457600
+09-30 12:33:51.007  1301  1347 E SurfaceFlinger: ro.sf.lcd_density must be defined as a build property
+09-30 12:33:51.011  1301  1963 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 2457600
+09-30 12:33:51.012  2723  2723 D         : HostConnection::get() New Host Connection established 0xb01fb700, tid 2723
+09-30 12:33:51.015  2686  2710 D EGL_emulation: eglMakeCurrent: 0xa80d6aa0: ver 3 0 (tinfo 0x9a1f5070)
+09-30 12:33:51.033  1301  1575 D         : HostConnection::get() New Host Connection established 0xaa6c5380, tid 1575
+09-30 12:33:51.035  2723  2738 D         : HostConnection::get() New Host Connection established 0xb01fbac0, tid 2738
+09-30 12:33:51.038  2723  2738 I OpenGLRenderer: Initialized EGL, version 1.4
+09-30 12:33:51.038  2723  2738 D OpenGLRenderer: Swap behavior 1
+09-30 12:33:51.039  2723  2738 D EGL_emulation: eglCreateContext: 0xb3e05120: maj 3 min 0 rcv 3
+09-30 12:33:51.039  2723  2738 D EGL_emulation: eglMakeCurrent: 0xb3e05120: ver 3 0 (tinfo 0xb3e036a0)
+09-30 12:33:51.047  2723  2738 D EGL_emulation: eglMakeCurrent: 0xb3e05120: ver 3 0 (tinfo 0xb3e036a0)
+09-30 12:33:51.161  1532  1568 I ActivityManager: Displayed com.abosultan.darbakos.test.test/androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity: +265ms
+09-30 12:33:51.163  2686  2686 D LifecycleMonitor: Lifecycle status change: com.abosultan.darbakos.MainActivity@dc8ccc5 in: STOPPED
+09-30 12:33:51.164  2686  2686 V ActivityScenario: Update currentActivityStage to STOPPED, currentActivity=com.abosultan.darbakos.MainActivity@dc8ccc5
+09-30 12:33:52.299  1301  2288 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 847872
+09-30 12:33:52.300  1532  1789 D         : HostConnection::get() New Host Connection established 0x942a51c0, tid 1789
+09-30 12:33:52.307  2686  2686 D LifecycleMonitor: Lifecycle status change: com.abosultan.darbakos.MainActivity@dc8ccc5 in: RESTARTED
+09-30 12:33:52.307  2686  2686 V ActivityScenario: Update currentActivityStage to RESTARTED, currentActivity=com.abosultan.darbakos.MainActivity@dc8ccc5
+09-30 12:33:52.314  2686  2686 D LifecycleMonitor: Lifecycle status change: com.abosultan.darbakos.MainActivity@dc8ccc5 in: STARTED
+09-30 12:33:52.314  2686  2686 V ActivityScenario: Update currentActivityStage to STARTED, currentActivity=com.abosultan.darbakos.MainActivity@dc8ccc5
+09-30 12:33:52.314  2686  2686 D LifecycleMonitor: Lifecycle status change: com.abosultan.darbakos.MainActivity@dc8ccc5 in: RESUMED
+09-30 12:33:52.314  2686  2686 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=com.abosultan.darbakos.MainActivity@dc8ccc5
+09-30 12:33:52.330  2686  2710 D EGL_emulation: eglMakeCurrent: 0xa80d6aa0: ver 3 0 (tinfo 0x9a1f5070)
+09-30 12:33:52.330  2723  2738 D EGL_emulation: eglMakeCurrent: 0xb3e05120: ver 3 0 (tinfo 0xb3e036a0)
+09-30 12:33:52.444  1854  1854 D CarrierSvcBindHelper: No carrier app for: 0
+09-30 12:33:52.445  1532  1660 I InputReader: Reconfiguring input devices.  changes=0x00000010
+09-30 12:33:52.445  1532  1660 I InputReader: Reconfiguring input devices.  changes=0x00000010
+09-30 12:33:52.445  1532  1660 I InputReader: Reconfiguring input devices.  changes=0x00000010
+09-30 12:33:52.446  1532  1660 I InputReader: Reconfiguring input devices.  changes=0x00000010
+09-30 12:33:52.446  1532  1660 I InputReader: Reconfiguring input devices.  changes=0x00000010
+09-30 12:33:52.446  1532  1660 I InputReader: Reconfiguring input devices.  changes=0x00000010
+09-30 12:33:52.455  1854  1854 D CarrierSvcBindHelper: No carrier app for: 0
+09-30 12:33:52.460  1854  1854 D CarrierSvcBindHelper: No carrier app for: 0
+09-30 12:33:52.464  1854  1854 D CarrierSvcBindHelper: No carrier app for: 0
+09-30 12:33:52.472  1854  1854 D CarrierSvcBindHelper: No carrier app for: 0
+09-30 12:33:52.479  1854  1854 D CarrierSvcBindHelper: No carrier app for: 0
+09-30 12:33:52.484  1532  1550 W ResourceType: No known package when getting value for resource number 0x7f0200fc
+09-30 12:33:52.484  1532  1550 W ResourceType: No known package when getting value for resource number 0x7f0e03a5
+09-30 12:33:52.484  1532  1550 W ResourceType: No known package when getting value for resource number 0x7f0200fb
+09-30 12:33:52.484  1532  1550 W ResourceType: No known package when getting value for resource number 0x7f0e0927
+09-30 12:33:52.484  1532  1550 W ResourceType: No known package when getting value for resource number 0x7f0200fa
+09-30 12:33:52.484  1532  1550 W ResourceType: No known package when getting value for resource number 0x7f0e07e1
+09-30 12:33:52.648  1532  1793 I ActivityManager: START u0 {act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10000000 cmp=com.abosultan.darbakos.test.test/androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity} from uid 10063 on display 0
+09-30 12:33:52.650  2686  2686 D LifecycleMonitor: Lifecycle status change: com.abosultan.darbakos.MainActivity@dc8ccc5 in: PAUSED
+09-30 12:33:52.650  2686  2686 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=com.abosultan.darbakos.MainActivity@dc8ccc5
+09-30 12:33:52.664  1301  1347 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 884736
+09-30 12:33:52.665  1532  1545 D         : HostConnection::get() New Host Connection established 0x942a5ec0, tid 1545
+09-30 12:33:52.698  2686  2710 D EGL_emulation: eglMakeCurrent: 0xa80d6aa0: ver 3 0 (tinfo 0x9a1f5070)
+09-30 12:33:52.713  1301  1347 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 2457600
+09-30 12:33:52.726  2723  2738 D EGL_emulation: eglMakeCurrent: 0xb3e05120: ver 3 0 (tinfo 0xb3e036a0)
+09-30 12:33:52.737  2686  2686 D LifecycleMonitor: Lifecycle status change: com.abosultan.darbakos.MainActivity@dc8ccc5 in: STOPPED
+09-30 12:33:52.738  2686  2686 V ActivityScenario: Update currentActivityStage to STOPPED, currentActivity=com.abosultan.darbakos.MainActivity@dc8ccc5
+09-30 12:33:52.738  2686  2686 D LifecycleMonitor: Lifecycle status change: com.abosultan.darbakos.MainActivity@dc8ccc5 in: DESTROYED
+09-30 12:33:52.738  2686  2686 V ActivityScenario: Update currentActivityStage to DESTROYED, currentActivity=null
+09-30 12:33:52.742  2686  2701 W Settings: Setting always_finish_activities has moved from android.provider.Settings.System to android.provider.Settings.Global, returning read-only value.
+09-30 12:33:52.749  1301  1963 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 847872
+09-30 12:33:52.749  1532  2056 D         : HostConnection::get() New Host Connection established 0x952d7100, tid 2056
+09-30 12:33:52.759  1532  2056 W ActivityManager: Finishing task with all activities already finished
+09-30 12:33:52.759  1532  2056 W ActivityManager: Duplicate finish request for ActivityRecord{93abcd2 u0 com.abosultan.darbakos.test.test/androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity t7 f}
+09-30 12:33:52.762  1532  1789 I ActivityManager: START u0 {act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10008000 cmp=com.abosultan.darbakos.test/com.abosultan.darbakos.MainActivity} from uid 10063 on display 0
+09-30 12:33:52.781  2171  2245 D EGL_emulation: eglMakeCurrent: 0xb3e05300: ver 3 0 (tinfo 0xb3e03710)
+09-30 12:33:52.797  1301  1963 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 2457600
+09-30 12:33:52.804  2723  2738 D EGL_emulation: eglMakeCurrent: 0xb3e05120: ver 3 0 (tinfo 0xb3e036a0)
+09-30 12:33:52.804  2686  2686 D LifecycleMonitor: Lifecycle status change: com.abosultan.darbakos.MainActivity@9c5f97a in: PRE_ON_CREATE
+09-30 12:33:52.804  2686  2686 V ActivityScenario: Activity lifecycle changed event received but ignored because the reported transition was not ON_CREATE while the last known transition was PRE_ON_CREATE
+09-30 12:33:52.807  2686  2686 D LifecycleMonitor: Lifecycle status change: com.abosultan.darbakos.MainActivity@9c5f97a in: CREATED
+09-30 12:33:52.808  2686  2686 V ActivityScenario: Update currentActivityStage to CREATED, currentActivity=com.abosultan.darbakos.MainActivity@9c5f97a
+09-30 12:33:52.808  2686  2686 D LifecycleMonitor: Lifecycle status change: com.abosultan.darbakos.MainActivity@9c5f97a in: STARTED
+09-30 12:33:52.808  2686  2686 V ActivityScenario: Update currentActivityStage to STARTED, currentActivity=com.abosultan.darbakos.MainActivity@9c5f97a
+09-30 12:33:52.808  2686  2686 D LifecycleMonitor: Lifecycle status change: com.abosultan.darbakos.MainActivity@9c5f97a in: RESUMED
+09-30 12:33:52.808  2686  2686 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=com.abosultan.darbakos.MainActivity@9c5f97a
+09-30 12:33:52.814  2171  2245 D EGL_emulation: eglMakeCurrent: 0xb3e05300: ver 3 0 (tinfo 0xb3e03710)
+09-30 12:33:52.849  2686  2710 D EGL_emulation: eglMakeCurrent: 0xa80d6aa0: ver 3 0 (tinfo 0x9a1f5070)
+09-30 12:33:52.857  1532  1568 I ActivityManager: Displayed com.abosultan.darbakos.test/com.abosultan.darbakos.MainActivity: +61ms (total +206ms)
+09-30 12:33:52.867  1532  1545 I ActivityManager: START u0 {act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10000000 cmp=com.abosultan.darbakos.test.test/androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity} from uid 10063 on display 0
+09-30 12:33:52.872  2686  2686 D LifecycleMonitor: Lifecycle status change: com.abosultan.darbakos.MainActivity@9c5f97a in: PAUSED
+09-30 12:33:52.872  2686  2686 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=com.abosultan.darbakos.MainActivity@9c5f97a
+09-30 12:33:52.881  1301  1347 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 884736
+09-30 12:33:52.882  1532  2053 D         : HostConnection::get() New Host Connection established 0x9579c980, tid 2053
+09-30 12:33:52.895  1301  1345 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 2457600
+09-30 12:33:52.912  1301  1575 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 2457600
+09-30 12:33:52.918  2686  2710 D EGL_emulation: eglMakeCurrent: 0xa80d6aa0: ver 3 0 (tinfo 0x9a1f5070)
+09-30 12:33:52.932  2723  2738 D EGL_emulation: eglMakeCurrent: 0xb3e05120: ver 3 0 (tinfo 0xb3e036a0)
+09-30 12:33:52.942  1532  1789 I WindowManager: Failed to capture screenshot of Token{5410c32 ActivityRecord{1755c3d u0 com.abosultan.darbakos.test.test/androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity t9 f}} appWin=Window{a3339fb u0 com.abosultan.darbakos.test.test/androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity} drawState=4
+09-30 12:33:52.979  2171  2245 D EGL_emulation: eglMakeCurrent: 0xb3e05300: ver 3 0 (tinfo 0xb3e03710)
+09-30 12:33:53.000  2686  2686 D LifecycleMonitor: Lifecycle status change: com.abosultan.darbakos.MainActivity@9c5f97a in: STOPPED
+09-30 12:33:53.000  2686  2686 V ActivityScenario: Update currentActivityStage to STOPPED, currentActivity=com.abosultan.darbakos.MainActivity@9c5f97a
+09-30 12:33:53.000  2686  2686 D LifecycleMonitor: Lifecycle status change: com.abosultan.darbakos.MainActivity@9c5f97a in: DESTROYED
+09-30 12:33:53.000  2686  2686 V ActivityScenario: Update currentActivityStage to DESTROYED, currentActivity=null
+09-30 12:33:53.002  2723  2738 D EGL_emulation: eglMakeCurrent: 0xb3e05120: ver 3 0 (tinfo 0xb3e036a0)
+09-30 12:33:53.045  1532  2056 I GnssLocationProvider: WakeLock acquired by sendMessage(2, 1, null)
+09-30 12:33:53.045  2686  2701 E TestRunner: failed: homeStopKeepsGpsAndNewActivityKeepsCurrentPosition(com.abosultan.darbakos.TripRuntimeTest)
+09-30 12:33:53.045  2686  2701 E TestRunner: ----- begin exception -----
+09-30 12:33:53.046  1532  1532 D GpsNetInitiatedHandler: location enabled :true
+09-30 12:33:53.046  2686  2701 E TestRunner: java.lang.AssertionError: New Activity is not a new GPS process expected same:<com.abosultan.darbakos.core.PositionFix@8463dd2> was not:<null>
+09-30 12:33:53.046  2686  2701 E TestRunner: 	at org.junit.Assert.fail(Assert.java:89)
+09-30 12:33:53.046  2686  2701 E TestRunner: 	at org.junit.Assert.failNotSame(Assert.java:829)
+09-30 12:33:53.046  2686  2701 E TestRunner: 	at org.junit.Assert.assertSame(Assert.java:772)
+09-30 12:33:53.046  2686  2701 E TestRunner: 	at com.abosultan.darbakos.TripRuntimeTest.homeStopKeepsGpsAndNewActivityKeepsCurrentPosition(TripRuntimeTest.java:147)
+09-30 12:33:53.046  2686  2701 E TestRunner: 	at java.lang.reflect.Method.invoke(Native Method)
+09-30 12:33:53.046  2686  2701 E TestRunner: 	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)
+09-30 12:33:53.046  2686  2701 E TestRunner: 	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+09-30 12:33:53.046  2686  2701 E TestRunner: 	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)
+09-30 12:33:53.046  2686  2701 E TestRunner: 	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+09-30 12:33:53.046  2686  2701 E TestRunner: 	at androidx.test.internal.runner.junit4.statement.RunBefores.evaluate(RunBefores.java:80)
+09-30 12:33:53.046  2686  2701 E TestRunner: 	at androidx.test.internal.runner.junit4.statement.RunAfters.evaluate(RunAfters.java:61)
+09-30 12:33:53.046  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+09-30 12:33:53.046  2686  2701 E TestRunner: 	at org.junit.runners.BlockJUnit4ClassRunner$1.evaluate(BlockJUnit4ClassRunner.java:100)
+09-30 12:33:53.046  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:366)
+09-30 12:33:53.046  2686  2701 E TestRunner: 	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:103)
+09-30 12:33:53.046  2686  2701 E TestRunner: 	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:63)
+09-30 12:33:53.046  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
+09-30 12:33:53.046  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
+09-30 12:33:53.046  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
+09-30 12:33:53.046  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
+09-30 12:33:53.046  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
+09-30 12:33:53.046  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+09-30 12:33:53.046  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
+09-30 12:33:53.046  2686  2701 E TestRunner: 	at androidx.test.ext.junit.runners.AndroidJUnit4.run(AndroidJUnit4.java:162)
+09-30 12:33:53.046  2686  2701 E TestRunner: 	at org.junit.runners.Suite.runChild(Suite.java:128)
+09-30 12:33:53.046  2686  2701 E TestRunner: 	at org.junit.runners.Suite.runChild(Suite.java:27)
+09-30 12:33:53.046  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
+09-30 12:33:53.046  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
+09-30 12:33:53.046  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
+09-30 12:33:53.046  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
+09-30 12:33:53.046  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
+09-30 12:33:53.046  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+09-30 12:33:53.046  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
+09-30 12:33:53.046  2686  2701 E TestRunner: 	at org.junit.runner.JUnitCore.run(JUnitCore.java:137)
+09-30 12:33:53.046  2686  2701 E TestRunner: 	at org.junit.runner.JUnitCore.run(JUnitCore.java:115)
+09-30 12:33:53.046  2686  2701 E TestRunner: 	at androidx.test.internal.runner.TestExecutor.execute(TestExecutor.java:67)
+09-30 12:33:53.046  2686  2701 E TestRunner: 	at androidx.test.internal.runner.TestExecutor.execute(TestExecutor.java:58)
+09-30 12:33:53.046  2686  2701 E TestRunner: 	at androidx.test.runner.AndroidJUnitRunner.onStart(AndroidJUnitRunner.java:446)
+09-30 12:33:53.046  2686  2701 E TestRunner: 	at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:1932)
+09-30 12:33:53.046  2686  2701 E TestRunner: ----- end exception -----
+09-30 12:33:53.046  2686  2701 I TestRunner: finished: homeStopKeepsGpsAndNewActivityKeepsCurrentPosition(com.abosultan.darbakos.TripRuntimeTest)
+09-30 12:33:53.048  1532  1550 E GnssLocationProvider: no AGPS interface in set_agps_server
+09-30 12:33:53.048  2686  2701 I TestRunner: started: rejectedOldFixCannotAdvanceStationaryTimeout(com.abosultan.darbakos.core.TripAutoRecorderTest)
+09-30 12:33:53.052  1532  1550 I GnssLocationProvider: WakeLock released by handleMessage(2, 1, null)
+09-30 12:33:53.053  2686  2701 E TestRunner: failed: rejectedOldFixCannotAdvanceStationaryTimeout(com.abosultan.darbakos.core.TripAutoRecorderTest)
+09-30 12:33:53.053  2686  2701 E TestRunner: ----- begin exception -----
+09-30 12:33:53.053  2686  2701 E TestRunner: java.lang.AssertionError: Rejected old stationary fix must not close the trip expected:<RECORDING> but was:<IDLE>
+09-30 12:33:53.053  2686  2701 E TestRunner: 	at org.junit.Assert.fail(Assert.java:89)
+09-30 12:33:53.053  2686  2701 E TestRunner: 	at org.junit.Assert.failNotEquals(Assert.java:835)
+09-30 12:33:53.053  2686  2701 E TestRunner: 	at org.junit.Assert.assertEquals(Assert.java:120)
+09-30 12:33:53.053  2686  2701 E TestRunner: 	at com.abosultan.darbakos.core.TripAutoRecorderTest.rejectedOldFixCannotAdvanceStationaryTimeout(TripAutoRecorderTest.java:100)
+09-30 12:33:53.053  2686  2701 E TestRunner: 	at java.lang.reflect.Method.invoke(Native Method)
+09-30 12:33:53.053  2686  2701 E TestRunner: 	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)
+09-30 12:33:53.053  2686  2701 E TestRunner: 	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+09-30 12:33:53.053  2686  2701 E TestRunner: 	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)
+09-30 12:33:53.053  2686  2701 E TestRunner: 	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+09-30 12:33:53.053  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+09-30 12:33:53.053  2686  2701 E TestRunner: 	at org.junit.runners.BlockJUnit4ClassRunner$1.evaluate(BlockJUnit4ClassRunner.java:100)
+09-30 12:33:53.053  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:366)
+09-30 12:33:53.053  2686  2701 E TestRunner: 	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:103)
+09-30 12:33:53.053  2686  2701 E TestRunner: 	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:63)
+09-30 12:33:53.053  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
+09-30 12:33:53.053  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
+09-30 12:33:53.053  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
+09-30 12:33:53.053  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
+09-30 12:33:53.053  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
+09-30 12:33:53.053  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+09-30 12:33:53.053  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
+09-30 12:33:53.053  2686  2701 E TestRunner: 	at androidx.test.ext.junit.runners.AndroidJUnit4.run(AndroidJUnit4.java:162)
+09-30 12:33:53.053  2686  2701 E TestRunner: 	at org.junit.runners.Suite.runChild(Suite.java:128)
+09-30 12:33:53.053  2686  2701 E TestRunner: 	at org.junit.runners.Suite.runChild(Suite.java:27)
+09-30 12:33:53.053  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
+09-30 12:33:53.053  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
+09-30 12:33:53.053  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
+09-30 12:33:53.053  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
+09-30 12:33:53.053  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
+09-30 12:33:53.053  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+09-30 12:33:53.053  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
+09-30 12:33:53.053  2686  2701 E TestRunner: 	at org.junit.runner.JUnitCore.run(JUnitCore.java:137)
+09-30 12:33:53.053  2686  2701 E TestRunner: 	at org.junit.runner.JUnitCore.run(JUnitCore.java:115)
+09-30 12:33:53.053  2686  2701 E TestRunner: 	at androidx.test.internal.runner.TestExecutor.execute(TestExecutor.java:67)
+09-30 12:33:53.053  2686  2701 E TestRunner: 	at androidx.test.internal.runner.TestExecutor.execute(TestExecutor.java:58)
+09-30 12:33:53.053  2686  2701 E TestRunner: 	at androidx.test.runner.AndroidJUnitRunner.onStart(AndroidJUnitRunner.java:446)
+09-30 12:33:53.053  2686  2701 E TestRunner: 	at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:1932)
+09-30 12:33:53.053  2686  2701 E TestRunner: ----- end exception -----
+09-30 12:33:53.053  2686  2701 I TestRunner: finished: rejectedOldFixCannotAdvanceStationaryTimeout(com.abosultan.darbakos.core.TripAutoRecorderTest)
+09-30 12:33:53.055  2686  2701 I TestRunner: started: pendingMovingFixDoesNotBridgeALongGap(com.abosultan.darbakos.core.TripAutoRecorderTest)
+09-30 12:33:53.055  2686  2701 E TestRunner: failed: pendingMovingFixDoesNotBridgeALongGap(com.abosultan.darbakos.core.TripAutoRecorderTest)
+09-30 12:33:53.055  2686  2701 E TestRunner: ----- begin exception -----
+09-30 12:33:53.056  2686  2701 E TestRunner: java.lang.AssertionError: Two separated fixes are not continuous movement expected:<IDLE> but was:<RECORDING>
+09-30 12:33:53.056  2686  2701 E TestRunner: 	at org.junit.Assert.fail(Assert.java:89)
+09-30 12:33:53.056  2686  2701 E TestRunner: 	at org.junit.Assert.failNotEquals(Assert.java:835)
+09-30 12:33:53.056  2686  2701 E TestRunner: 	at org.junit.Assert.assertEquals(Assert.java:120)
+09-30 12:33:53.056  2686  2701 E TestRunner: 	at com.abosultan.darbakos.core.TripAutoRecorderTest.pendingMovingFixDoesNotBridgeALongGap(TripAutoRecorderTest.java:86)
+09-30 12:33:53.056  2686  2701 E TestRunner: 	at java.lang.reflect.Method.invoke(Native Method)
+09-30 12:33:53.056  2686  2701 E TestRunner: 	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)
+09-30 12:33:53.056  2686  2701 E TestRunner: 	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+09-30 12:33:53.056  2686  2701 E TestRunner: 	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)
+09-30 12:33:53.056  2686  2701 E TestRunner: 	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+09-30 12:33:53.056  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+09-30 12:33:53.056  2686  2701 E TestRunner: 	at org.junit.runners.BlockJUnit4ClassRunner$1.evaluate(BlockJUnit4ClassRunner.java:100)
+09-30 12:33:53.056  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:366)
+09-30 12:33:53.056  2686  2701 E TestRunner: 	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:103)
+09-30 12:33:53.056  2686  2701 E TestRunner: 	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:63)
+09-30 12:33:53.056  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
+09-30 12:33:53.056  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
+09-30 12:33:53.056  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
+09-30 12:33:53.056  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
+09-30 12:33:53.056  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
+09-30 12:33:53.056  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+09-30 12:33:53.056  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
+09-30 12:33:53.056  2686  2701 E TestRunner: 	at androidx.test.ext.junit.runners.AndroidJUnit4.run(AndroidJUnit4.java:162)
+09-30 12:33:53.056  2686  2701 E TestRunner: 	at org.junit.runners.Suite.runChild(Suite.java:128)
+09-30 12:33:53.056  2686  2701 E TestRunner: 	at org.junit.runners.Suite.runChild(Suite.java:27)
+09-30 12:33:53.056  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
+09-30 12:33:53.056  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
+09-30 12:33:53.056  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
+09-30 12:33:53.056  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
+09-30 12:33:53.056  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
+09-30 12:33:53.056  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+09-30 12:33:53.056  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
+09-30 12:33:53.056  2686  2701 E TestRunner: 	at org.junit.runner.JUnitCore.run(JUnitCore.java:137)
+09-30 12:33:53.056  2686  2701 E TestRunner: 	at org.junit.runner.JUnitCore.run(JUnitCore.java:115)
+09-30 12:33:53.056  2686  2701 E TestRunner: 	at androidx.test.internal.runner.TestExecutor.execute(TestExecutor.java:67)
+09-30 12:33:53.056  2686  2701 E TestRunner: 	at androidx.test.internal.runner.TestExecutor.execute(TestExecutor.java:58)
+09-30 12:33:53.056  2686  2701 E TestRunner: 	at androidx.test.runner.AndroidJUnitRunner.onStart(AndroidJUnitRunner.java:446)
+09-30 12:33:53.056  2686  2701 E TestRunner: 	at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:1932)
+09-30 12:33:53.056  2686  2701 E TestRunner: ----- end exception -----
+09-30 12:33:53.056  2686  2701 I TestRunner: finished: pendingMovingFixDoesNotBridgeALongGap(com.abosultan.darbakos.core.TripAutoRecorderTest)
+09-30 12:33:53.057  2686  2701 I TestRunner: started: movementStartsAndStationaryTimeoutClosesDurably(com.abosultan.darbakos.core.TripAutoRecorderTest)
+09-30 12:33:53.060  2686  2701 I TestRunner: finished: movementStartsAndStationaryTimeoutClosesDurably(com.abosultan.darbakos.core.TripAutoRecorderTest)
+09-30 12:33:53.061  2686  2701 I TestRunner: started: longGapSplitsRecordedHistoryWithoutBridge(com.abosultan.darbakos.core.TripAutoRecorderTest)
+09-30 12:33:53.072  2686  2701 E TestRunner: failed: longGapSplitsRecordedHistoryWithoutBridge(com.abosultan.darbakos.core.TripAutoRecorderTest)
+09-30 12:33:53.072  2686  2701 E TestRunner: ----- begin exception -----
+09-30 12:33:53.073  2686  2701 E TestRunner: java.lang.AssertionError: GPS gap must separate histories expected:<2> but was:<1>
+09-30 12:33:53.073  2686  2701 E TestRunner: 	at org.junit.Assert.fail(Assert.java:89)
+09-30 12:33:53.073  2686  2701 E TestRunner: 	at org.junit.Assert.failNotEquals(Assert.java:835)
+09-30 12:33:53.073  2686  2701 E TestRunner: 	at org.junit.Assert.assertEquals(Assert.java:647)
+09-30 12:33:53.073  2686  2701 E TestRunner: 	at com.abosultan.darbakos.core.TripAutoRecorderTest.longGapSplitsRecordedHistoryWithoutBridge(TripAutoRecorderTest.java:74)
+09-30 12:33:53.073  2686  2701 E TestRunner: 	at java.lang.reflect.Method.invoke(Native Method)
+09-30 12:33:53.073  2686  2701 E TestRunner: 	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)
+09-30 12:33:53.073  2686  2701 E TestRunner: 	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+09-30 12:33:53.073  2686  2701 E TestRunner: 	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)
+09-30 12:33:53.073  2686  2701 E TestRunner: 	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+09-30 12:33:53.073  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+09-30 12:33:53.073  2686  2701 E TestRunner: 	at org.junit.runners.BlockJUnit4ClassRunner$1.evaluate(BlockJUnit4ClassRunner.java:100)
+09-30 12:33:53.073  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:366)
+09-30 12:33:53.073  2686  2701 E TestRunner: 	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:103)
+09-30 12:33:53.073  2686  2701 E TestRunner: 	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:63)
+09-30 12:33:53.073  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
+09-30 12:33:53.073  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
+09-30 12:33:53.073  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
+09-30 12:33:53.073  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
+09-30 12:33:53.073  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
+09-30 12:33:53.073  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+09-30 12:33:53.073  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
+09-30 12:33:53.073  2686  2701 E TestRunner: 	at androidx.test.ext.junit.runners.AndroidJUnit4.run(AndroidJUnit4.java:162)
+09-30 12:33:53.073  2686  2701 E TestRunner: 	at org.junit.runners.Suite.runChild(Suite.java:128)
+09-30 12:33:53.073  2686  2701 E TestRunner: 	at org.junit.runners.Suite.runChild(Suite.java:27)
+09-30 12:33:53.073  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
+09-30 12:33:53.073  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
+09-30 12:33:53.073  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
+09-30 12:33:53.073  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
+09-30 12:33:53.073  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
+09-30 12:33:53.073  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+09-30 12:33:53.073  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
+09-30 12:33:53.073  2686  2701 E TestRunner: 	at org.junit.runner.JUnitCore.run(JUnitCore.java:137)
+09-30 12:33:53.073  2686  2701 E TestRunner: 	at org.junit.runner.JUnitCore.run(JUnitCore.java:115)
+09-30 12:33:53.073  2686  2701 E TestRunner: 	at androidx.test.internal.runner.TestExecutor.execute(TestExecutor.java:67)
+09-30 12:33:53.073  2686  2701 E TestRunner: 	at androidx.test.internal.runner.TestExecutor.execute(TestExecutor.java:58)
+09-30 12:33:53.073  2686  2701 E TestRunner: 	at androidx.test.runner.AndroidJUnitRunner.onStart(AndroidJUnitRunner.java:446)
+09-30 12:33:53.073  2686  2701 E TestRunner: 	at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:1932)
+09-30 12:33:53.073  2686  2701 E TestRunner: ----- end exception -----
+09-30 12:33:53.073  2686  2701 I TestRunner: finished: longGapSplitsRecordedHistoryWithoutBridge(com.abosultan.darbakos.core.TripAutoRecorderTest)
+09-30 12:33:53.074  2686  2701 I TestRunner: started: failedFullChunkRetriesBeforeAcceptingNextPoint(com.abosultan.darbakos.core.TripAutoRecorderTest)
+09-30 12:33:53.076  2686  2701 E TestRunner: failed: failedFullChunkRetriesBeforeAcceptingNextPoint(com.abosultan.darbakos.core.TripAutoRecorderTest)
+09-30 12:33:53.076  2686  2701 E TestRunner: ----- begin exception -----
+09-30 12:33:53.077  2686  2701 E TestRunner: java.lang.AssertionError: Recovered full buffer and new point both persist expected:<2> but was:<1>
+09-30 12:33:53.077  2686  2701 E TestRunner: 	at org.junit.Assert.fail(Assert.java:89)
+09-30 12:33:53.077  2686  2701 E TestRunner: 	at org.junit.Assert.failNotEquals(Assert.java:835)
+09-30 12:33:53.077  2686  2701 E TestRunner: 	at org.junit.Assert.assertEquals(Assert.java:647)
+09-30 12:33:53.077  2686  2701 E TestRunner: 	at com.abosultan.darbakos.core.TripAutoRecorderTest.failedFullChunkRetriesBeforeAcceptingNextPoint(TripAutoRecorderTest.java:118)
+09-30 12:33:53.077  2686  2701 E TestRunner: 	at java.lang.reflect.Method.invoke(Native Method)
+09-30 12:33:53.077  2686  2701 E TestRunner: 	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)
+09-30 12:33:53.077  2686  2701 E TestRunner: 	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+09-30 12:33:53.077  2686  2701 E TestRunner: 	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)
+09-30 12:33:53.077  2686  2701 E TestRunner: 	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+09-30 12:33:53.077  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+09-30 12:33:53.077  2686  2701 E TestRunner: 	at org.junit.runners.BlockJUnit4ClassRunner$1.evaluate(BlockJUnit4ClassRunner.java:100)
+09-30 12:33:53.077  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:366)
+09-30 12:33:53.077  2686  2701 E TestRunner: 	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:103)
+09-30 12:33:53.077  2686  2701 E TestRunner: 	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:63)
+09-30 12:33:53.077  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
+09-30 12:33:53.077  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
+09-30 12:33:53.077  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
+09-30 12:33:53.077  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
+09-30 12:33:53.077  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
+09-30 12:33:53.077  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+09-30 12:33:53.077  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
+09-30 12:33:53.077  2686  2701 E TestRunner: 	at androidx.test.ext.junit.runners.AndroidJUnit4.run(AndroidJUnit4.java:162)
+09-30 12:33:53.077  2686  2701 E TestRunner: 	at org.junit.runners.Suite.runChild(Suite.java:128)
+09-30 12:33:53.077  2686  2701 E TestRunner: 	at org.junit.runners.Suite.runChild(Suite.java:27)
+09-30 12:33:53.077  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
+09-30 12:33:53.077  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
+09-30 12:33:53.077  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
+09-30 12:33:53.077  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
+09-30 12:33:53.077  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
+09-30 12:33:53.077  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+09-30 12:33:53.077  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
+09-30 12:33:53.077  2686  2701 E TestRunner: 	at org.junit.runner.JUnitCore.run(JUnitCore.java:137)
+09-30 12:33:53.077  2686  2701 E TestRunner: 	at org.junit.runner.JUnitCore.run(JUnitCore.java:115)
+09-30 12:33:53.077  2686  2701 E TestRunner: 	at androidx.test.internal.runner.TestExecutor.execute(TestExecutor.java:67)
+09-30 12:33:53.077  2686  2701 E TestRunner: 	at androidx.test.internal.runner.TestExecutor.execute(TestExecutor.java:58)
+09-30 12:33:53.077  2686  2701 E TestRunner: 	at androidx.test.runner.AndroidJUnitRunner.onStart(AndroidJUnitRunner.java:446)
+09-30 12:33:53.077  2686  2701 E TestRunner: 	at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:1932)
+09-30 12:33:53.077  2686  2701 E TestRunner: ----- end exception -----
+09-30 12:33:53.077  2686  2701 I TestRunner: finished: failedFullChunkRetriesBeforeAcceptingNextPoint(com.abosultan.darbakos.core.TripAutoRecorderTest)
+09-30 12:33:53.078  2686  2701 I TestRunner: started: unknownAndImplausibleFixesCannotStartATrip(com.abosultan.darbakos.core.TripAutoRecorderTest)
+09-30 12:33:53.079  2686  2701 E TestRunner: failed: unknownAndImplausibleFixesCannotStartATrip(com.abosultan.darbakos.core.TripAutoRecorderTest)
+09-30 12:33:53.079  2686  2701 E TestRunner: ----- begin exception -----
+09-30 12:33:53.079  2686  2701 E TestRunner: java.lang.AssertionError: expected:<IDLE> but was:<RECORDING>
+09-30 12:33:53.079  2686  2701 E TestRunner: 	at org.junit.Assert.fail(Assert.java:89)
+09-30 12:33:53.079  2686  2701 E TestRunner: 	at org.junit.Assert.failNotEquals(Assert.java:835)
+09-30 12:33:53.079  2686  2701 E TestRunner: 	at org.junit.Assert.assertEquals(Assert.java:120)
+09-30 12:33:53.079  2686  2701 E TestRunner: 	at org.junit.Assert.assertEquals(Assert.java:146)
+09-30 12:33:53.079  2686  2701 E TestRunner: 	at com.abosultan.darbakos.core.TripAutoRecorderTest.unknownAndImplausibleFixesCannotStartATrip(TripAutoRecorderTest.java:130)
+09-30 12:33:53.079  2686  2701 E TestRunner: 	at java.lang.reflect.Method.invoke(Native Method)
+09-30 12:33:53.079  2686  2701 E TestRunner: 	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)
+09-30 12:33:53.079  2686  2701 E TestRunner: 	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+09-30 12:33:53.079  2686  2701 E TestRunner: 	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)
+09-30 12:33:53.079  2686  2701 E TestRunner: 	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+09-30 12:33:53.079  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+09-30 12:33:53.079  2686  2701 E TestRunner: 	at org.junit.runners.BlockJUnit4ClassRunner$1.evaluate(BlockJUnit4ClassRunner.java:100)
+09-30 12:33:53.079  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:366)
+09-30 12:33:53.079  2686  2701 E TestRunner: 	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:103)
+09-30 12:33:53.079  2686  2701 E TestRunner: 	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:63)
+09-30 12:33:53.079  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
+09-30 12:33:53.079  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
+09-30 12:33:53.079  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
+09-30 12:33:53.079  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
+09-30 12:33:53.079  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
+09-30 12:33:53.079  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+09-30 12:33:53.079  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
+09-30 12:33:53.079  2686  2701 E TestRunner: 	at androidx.test.ext.junit.runners.AndroidJUnit4.run(AndroidJUnit4.java:162)
+09-30 12:33:53.079  2686  2701 E TestRunner: 	at org.junit.runners.Suite.runChild(Suite.java:128)
+09-30 12:33:53.079  2686  2701 E TestRunner: 	at org.junit.runners.Suite.runChild(Suite.java:27)
+09-30 12:33:53.079  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
+09-30 12:33:53.079  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
+09-30 12:33:53.079  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
+09-30 12:33:53.079  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
+09-30 12:33:53.079  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
+09-30 12:33:53.079  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+09-30 12:33:53.079  2686  2701 E TestRunner: 	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
+09-30 12:33:53.079  2686  2701 E TestRunner: 	at org.junit.runner.JUnitCore.run(JUnitCore.java:137)
+09-30 12:33:53.079  2686  2701 E TestRunner: 	at org.junit.runner.JUnitCore.run(JUnitCore.java:115)
+09-30 12:33:53.079  2686  2701 E TestRunner: 	at androidx.test.internal.runner.TestExecutor.execute(TestExecutor.java:67)
+09-30 12:33:53.079  2686  2701 E TestRunner: 	at androidx.test.internal.runner.TestExecutor.execute(TestExecutor.java:58)
+09-30 12:33:53.079  2686  2701 E TestRunner: 	at androidx.test.runner.AndroidJUnitRunner.onStart(AndroidJUnitRunner.java:446)
+09-30 12:33:53.079  2686  2701 E TestRunner: 	at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:1932)
+09-30 12:33:53.079  2686  2701 E TestRunner: ----- end exception -----
+09-30 12:33:53.079  2686  2701 I TestRunner: finished: unknownAndImplausibleFixesCannotStartATrip(com.abosultan.darbakos.core.TripAutoRecorderTest)
+09-30 12:33:53.081  2686  2701 I TestRunner: run finished: 10 tests, 9 failed, 0 ignored
+09-30 12:33:53.086  1532  1545 I ActivityManager: Force stopping com.abosultan.darbakos.test appid=10063 user=0: finished inst
+09-30 12:33:53.086  1532  1545 I ActivityManager: Killing 2686:com.abosultan.darbakos.test/u0a63 (adj 0): stop com.abosultan.darbakos.test
+09-30 12:33:53.086  1532  1545 D ActivityManager: cleanUpApplicationRecord -- 2686
+09-30 12:33:53.087  2676  2676 D AndroidRuntime: Shutting down VM

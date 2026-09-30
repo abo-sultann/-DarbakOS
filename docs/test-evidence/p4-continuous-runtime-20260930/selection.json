@@ -1,0 +1,15 @@
+{
+  "classes": [
+    "PositionStateTest",
+    "P4GpsTripTest",
+    "TripRecorderTest",
+    "TripPersistenceTest",
+    "OsmAndBridgeTest",
+    "core.TripAutoRecorderTest",
+    "TripRuntimeTest"
+  ],
+  "expected_tests": 26,
+  "scope": "one consolidated P4 runtime gate",
+  "full_regression_runs": 0,
+  "guardian_suite_runs": 0
+}

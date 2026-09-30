@@ -1,0 +1,28 @@
+{
+  "result": "PASS",
+  "commit": "970160233d0b7d49a71c3a807965ee551ee3ac1f",
+  "api": 25,
+  "abi": "x86",
+  "resolution": "1024x600",
+  "density": 160,
+  "focused_tests": 26,
+  "classes": [
+    "PositionStateTest",
+    "P4GpsTripTest",
+    "TripRecorderTest",
+    "TripPersistenceTest",
+    "OsmAndBridgeTest",
+    "core.TripAutoRecorderTest",
+    "TripRuntimeTest"
+  ],
+  "consolidated_gate_runs": 1,
+  "full_regression_runs": 0,
+  "guardian_suite_runs": 0,
+  "gps_home_and_background_return": true,
+  "provider_disabled_truthful": true,
+  "background_app": "Android Settings; no installed OsmAnd UI claim",
+  "instrumentation_location_fixtures": "test-only mock provider; actual LocationManager callbacks",
+  "apk_bytes": 53219,
+  "apk_sha256": "5b9dac5b13532b5e1820616bb68642e59770951db78af8eba09268afd5011723",
+  "t3_validated": false
+}

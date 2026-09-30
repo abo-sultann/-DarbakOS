@@ -1,0 +1,525 @@
+--------- beginning of main
+09-30 12:39:46.827  2676  2676 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+09-30 12:39:46.828  2676  2676 D AndroidRuntime: CheckJNI is OFF
+09-30 12:39:46.847  2676  2676 W art     : Unexpected CPU variant for X86 using defaults: x86
+09-30 12:39:46.849  2676  2676 D ICU     : No timezone override file found: /data/misc/zoneinfo/current/icu/icu_tzdata.dat
+09-30 12:39:46.858  2676  2676 E memtrack: Couldn't load memtrack module (No such file or directory)
+09-30 12:39:46.858  2676  2676 E android.os.Debug: failed to load memtrack module: -2
+09-30 12:39:46.858  2676  2676 I Radio-JNI: register_android_hardware_Radio DONE
+09-30 12:39:46.861  2676  2676 D AndroidRuntime: Calling main entry com.android.commands.am.Am
+--------- beginning of system
+09-30 12:39:46.863  1561  2068 I ActivityManager: Force stopping com.abosultan.darbakos.test appid=10063 user=0: start instr
+09-30 12:39:46.866  2686  2686 I art     : Late-enabling -Xcheck:jni
+09-30 12:39:46.866  2686  2686 W art     : Unexpected CPU variant for X86 using defaults: x86
+09-30 12:39:46.874  1561  2068 I ActivityManager: Start proc 2686:com.abosultan.darbakos.test/u0a63 for added application com.abosultan.darbakos.test
+09-30 12:39:46.877  2686  2686 W System  : ClassLoader referenced unknown path: /data/app/com.abosultan.darbakos.test.test-1/lib/x86
+09-30 12:39:46.878  2686  2686 W System  : ClassLoader referenced unknown path: /data/app/com.abosultan.darbakos.test-1/lib/x86
+09-30 12:39:46.882  2686  2686 W System  : ClassLoader referenced unknown path: 
+09-30 12:39:46.885  2686  2686 I MonitoringInstr: newApplication called!
+09-30 12:39:46.885  2686  2686 I MonitoringInstr: Instrumentation started!
+09-30 12:39:46.887  2686  2686 I AndroidJUnitRunner: onCreate Bundle[{class=com.abosultan.darbakos.PositionStateTest,com.abosultan.darbakos.P4GpsTripTest,com.abosultan.darbakos.TripRecorderTest,com.abosultan.darbakos.TripPersistenceTest,com.abosultan.darbakos.OsmAndBridgeTest,com.abosultan.darbakos.core.TripAutoRecorderTest,com.abosultan.darbakos.TripRuntimeTest}]
+09-30 12:39:46.887  2686  2686 V TestEventClient: No service name argument was given (testDiscoveryService, testRunEventService or orchestratorService)
+09-30 12:39:46.888  2686  2701 D AndroidJUnitRunner: onStart is called.
+09-30 12:39:46.888  2686  2686 I MonitoringInstr: No JSBridge.
+09-30 12:39:46.890  2686  2701 D TestRequestBuilder: Skipping class path scanning and directly running [com.abosultan.darbakos.TripRecorderTest, com.abosultan.darbakos.P4GpsTripTest, com.abosultan.darbakos.PositionStateTest, com.abosultan.darbakos.TripRuntimeTest, com.abosultan.darbakos.core.TripAutoRecorderTest, com.abosultan.darbakos.TripPersistenceTest, com.abosultan.darbakos.OsmAndBridgeTest]
+09-30 12:39:46.896  2686  2701 D AndroidJUnitRunner: Use the raw file system for managing file I/O.
+09-30 12:39:46.896  2686  2701 D TestExecutor: Adding listener androidx.test.internal.runner.listener.LogRunListener
+09-30 12:39:46.896  2686  2701 D TestExecutor: Adding listener androidx.test.internal.runner.listener.InstrumentationResultPrinter
+09-30 12:39:46.896  2686  2701 D TestExecutor: Adding listener androidx.test.internal.runner.listener.ActivityFinisherRunListener
+09-30 12:39:46.896  2686  2701 D TestExecutor: Adding listener androidx.test.internal.runner.listener.TraceRunListener
+09-30 12:39:46.898  2686  2701 I TestRunner: run started: 26 tests
+09-30 12:39:46.898  2686  2701 I TestRunner: started: pauseResumeAndGpsGapCreateSegmentsWithoutFakeBridge(com.abosultan.darbakos.TripRecorderTest)
+09-30 12:39:46.899  2686  2701 I TestRunner: finished: pauseResumeAndGpsGapCreateSegmentsWithoutFakeBridge(com.abosultan.darbakos.TripRecorderTest)
+09-30 12:39:46.900  2686  2701 I TestRunner: started: snapshotsRemainImmutableAfterAcceptAndReset(com.abosultan.darbakos.TripRecorderTest)
+09-30 12:39:46.901  2686  2701 I TestRunner: finished: snapshotsRemainImmutableAfterAcceptAndReset(com.abosultan.darbakos.TripRecorderTest)
+09-30 12:39:46.902  2686  2701 I TestRunner: started: qualityAndGapBoundariesAreConservative(com.abosultan.darbakos.TripRecorderTest)
+09-30 12:39:46.902  2686  2701 I TestRunner: finished: qualityAndGapBoundariesAreConservative(com.abosultan.darbakos.TripRecorderTest)
+09-30 12:39:46.903  2686  2701 I TestRunner: started: monotonicOrderSurvivesPauseResumeAndFinishStart(com.abosultan.darbakos.TripRecorderTest)
+09-30 12:39:46.903  2686  2701 I TestRunner: finished: monotonicOrderSurvivesPauseResumeAndFinishStart(com.abosultan.darbakos.TripRecorderTest)
+09-30 12:39:46.905  2686  2701 I TestRunner: started: resetReturnsColdEmptyState(com.abosultan.darbakos.TripRecorderTest)
+09-30 12:39:46.905  2686  2701 I TestRunner: finished: resetReturnsColdEmptyState(com.abosultan.darbakos.TripRecorderTest)
+09-30 12:39:46.906  2686  2701 I TestRunner: started: qualityRejectsStaleFutureAndImplausibleFixes(com.abosultan.darbakos.TripRecorderTest)
+09-30 12:39:46.907  2686  2701 I TestRunner: finished: qualityRejectsStaleFutureAndImplausibleFixes(com.abosultan.darbakos.TripRecorderTest)
+09-30 12:39:46.907  2686  2701 I TestRunner: started: gpsCallbackPublishesRealLocationFields(com.abosultan.darbakos.P4GpsTripTest)
+09-30 12:39:46.909  2686  2701 I TestRunner: finished: gpsCallbackPublishesRealLocationFields(com.abosultan.darbakos.P4GpsTripTest)
+09-30 12:39:46.910  2686  2701 I TestRunner: started: tripBufferIsBoundedOrderedAndDrainable(com.abosultan.darbakos.P4GpsTripTest)
+09-30 12:39:46.910  2686  2701 I TestRunner: finished: tripBufferIsBoundedOrderedAndDrainable(com.abosultan.darbakos.P4GpsTripTest)
+09-30 12:39:46.911  2686  2701 I TestRunner: started: validationAndSpeedAreConservative(com.abosultan.darbakos.PositionStateTest)
+09-30 12:39:46.911  2686  2701 I TestRunner: finished: validationAndSpeedAreConservative(com.abosultan.darbakos.PositionStateTest)
+09-30 12:39:46.912  2686  2701 I TestRunner: started: stateRejectsNullAndNonMonotonicFixesAndResets(com.abosultan.darbakos.PositionStateTest)
+09-30 12:39:46.913  2686  2701 I TestRunner: finished: stateRejectsNullAndNonMonotonicFixesAndResets(com.abosultan.darbakos.PositionStateTest)
+09-30 12:39:46.913  2686  2701 I TestRunner: started: queuedFixesDrainBeforeDestroyAndStopInvalidatesPosition(com.abosultan.darbakos.TripRuntimeTest)
+09-30 12:39:46.916  1561  1575 I GnssLocationProvider: WakeLock acquired by sendMessage(2, 0, null)
+09-30 12:39:46.916  1561  1561 D GpsNetInitiatedHandler: location enabled :true
+09-30 12:39:46.922  1561  1885 I GnssLocationProvider: WakeLock acquired by sendMessage(2, 1, null)
+09-30 12:39:46.922  2686  2701 I TestRunner: finished: queuedFixesDrainBeforeDestroyAndStopInvalidatesPosition(com.abosultan.darbakos.TripRuntimeTest)
+09-30 12:39:46.922  1561  1561 D GpsNetInitiatedHandler: location enabled :true
+09-30 12:39:46.922  2686  2701 I TestRunner: started: storageDiscoveryAndShutdownWritesUseTheWorker(com.abosultan.darbakos.TripRuntimeTest)
+09-30 12:39:46.923  1561  1574 I GnssLocationProvider: WakeLock acquired by sendMessage(2, 0, null)
+09-30 12:39:46.924  1561  1561 D GpsNetInitiatedHandler: location enabled :true
+09-30 12:39:46.931  1561  1579 I GnssLocationProvider: WakeLock released by handleMessage(2, 0, null)
+09-30 12:39:46.931  1561  1579 E GnssLocationProvider: no AGPS interface in set_agps_server
+09-30 12:39:46.931  2686  2701 I DarbakRuntimeQA: storage/close main-thread operations=[]
+09-30 12:39:46.931  1561  1579 I GnssLocationProvider: WakeLock released by handleMessage(2, 1, null)
+09-30 12:39:46.932  1561  1579 I GnssLocationProvider: WakeLock released by handleMessage(2, 0, null)
+09-30 12:39:46.932  1561  2068 I GnssLocationProvider: WakeLock acquired by sendMessage(2, 1, null)
+09-30 12:39:46.932  1561  1561 D GpsNetInitiatedHandler: location enabled :true
+09-30 12:39:46.932  2686  2701 I TestRunner: finished: storageDiscoveryAndShutdownWritesUseTheWorker(com.abosultan.darbakos.TripRuntimeTest)
+09-30 12:39:46.932  1561  1579 E GnssLocationProvider: no AGPS interface in set_agps_server
+09-30 12:39:46.932  2686  2701 I TestRunner: started: retiringWorkerCannotInvalidateReplacementPosition(com.abosultan.darbakos.TripRuntimeTest)
+09-30 12:39:46.933  1561  1579 I GnssLocationProvider: WakeLock released by handleMessage(2, 1, null)
+09-30 12:39:46.933  1561  1575 I GnssLocationProvider: WakeLock acquired by sendMessage(2, 0, null)
+09-30 12:39:46.934  1561  1561 D GpsNetInitiatedHandler: location enabled :true
+09-30 12:39:46.934  1561  1579 I GnssLocationProvider: WakeLock released by handleMessage(2, 0, null)
+09-30 12:39:46.937  1561  1733 I GnssLocationProvider: WakeLock acquired by sendMessage(2, 1, null)
+09-30 12:39:46.937  2686  2701 I TestRunner: finished: retiringWorkerCannotInvalidateReplacementPosition(com.abosultan.darbakos.TripRuntimeTest)
+09-30 12:39:46.937  1561  1561 D GpsNetInitiatedHandler: location enabled :true
+09-30 12:39:46.937  1561  1579 E GnssLocationProvider: no AGPS interface in set_agps_server
+09-30 12:39:46.937  2686  2701 I TestRunner: started: nullStorageAndStickyRestartAreSafeAndIdempotent(com.abosultan.darbakos.TripRuntimeTest)
+09-30 12:39:46.937  1561  1579 I GnssLocationProvider: WakeLock released by handleMessage(2, 1, null)
+09-30 12:39:46.938  1561  2064 I GnssLocationProvider: WakeLock acquired by sendMessage(2, 0, null)
+09-30 12:39:46.939  1561  1561 D GpsNetInitiatedHandler: location enabled :true
+09-30 12:39:46.939  1561  1579 I GnssLocationProvider: WakeLock released by handleMessage(2, 0, null)
+09-30 12:39:46.942  1561  1574 I GnssLocationProvider: WakeLock acquired by sendMessage(2, 1, null)
+09-30 12:39:46.942  1561  1561 D GpsNetInitiatedHandler: location enabled :true
+09-30 12:39:46.942  2686  2701 I TestRunner: finished: nullStorageAndStickyRestartAreSafeAndIdempotent(com.abosultan.darbakos.TripRuntimeTest)
+09-30 12:39:46.942  2686  2701 I TestRunner: started: homeStopKeepsGpsAndNewActivityKeepsCurrentPosition(com.abosultan.darbakos.TripRuntimeTest)
+09-30 12:39:46.943  1561  1579 E GnssLocationProvider: no AGPS interface in set_agps_server
+09-30 12:39:46.943  1561  1579 I GnssLocationProvider: WakeLock released by handleMessage(2, 1, null)
+09-30 12:39:46.943  1561  2064 I GnssLocationProvider: WakeLock acquired by sendMessage(2, 0, null)
+09-30 12:39:46.943  1561  1561 D GpsNetInitiatedHandler: location enabled :true
+09-30 12:39:46.944  1561  1579 I GnssLocationProvider: WakeLock released by handleMessage(2, 0, null)
+09-30 12:39:46.946  1561  2067 D VoldConnector: SND -> {31 volume mkdirs /storage/emulated/0/Android/data/com.abosultan.darbakos.test/files/trips/}
+09-30 12:39:46.947  1561  1662 D VoldConnector: RCV <- {200 31 Command succeeded}
+09-30 12:39:46.950  2686  2701 W Settings: Setting always_finish_activities has moved from android.provider.Settings.System to android.provider.Settings.Global, returning read-only value.
+09-30 12:39:46.952  1561  1885 I ActivityManager: START u0 {act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x14008000 cmp=com.abosultan.darbakos.test/com.abosultan.darbakos.MainActivity} from uid 10063 on display 0
+09-30 12:39:46.955  2686  2686 D LifecycleMonitor: Lifecycle status change: com.abosultan.darbakos.MainActivity@7e57e82 in: PRE_ON_CREATE
+09-30 12:39:46.955  2686  2686 V ActivityScenario: Activity lifecycle changed event received but ignored because the reported transition was not ON_CREATE while the last known transition was PRE_ON_CREATE
+09-30 12:39:46.960  2686  2686 D LifecycleMonitor: Lifecycle status change: com.abosultan.darbakos.MainActivity@7e57e82 in: CREATED
+09-30 12:39:46.960  2686  2686 V ActivityScenario: Update currentActivityStage to CREATED, currentActivity=com.abosultan.darbakos.MainActivity@7e57e82
+09-30 12:39:46.961  2686  2686 D LifecycleMonitor: Lifecycle status change: com.abosultan.darbakos.MainActivity@7e57e82 in: STARTED
+09-30 12:39:46.962  2686  2686 V ActivityScenario: Update currentActivityStage to STARTED, currentActivity=com.abosultan.darbakos.MainActivity@7e57e82
+09-30 12:39:46.962  2686  2686 D LifecycleMonitor: Lifecycle status change: com.abosultan.darbakos.MainActivity@7e57e82 in: RESUMED
+09-30 12:39:46.962  2686  2686 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=com.abosultan.darbakos.MainActivity@7e57e82
+09-30 12:39:46.963  1300  1389 E SurfaceFlinger: ro.sf.lcd_density must be defined as a build property
+09-30 12:39:46.965  2686  2686 D         : HostConnection::get() New Host Connection established 0xa829d700, tid 2686
+09-30 12:39:46.986  1300  1660 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 2457600
+09-30 12:39:46.997  2686  2714 D         : HostConnection::get() New Host Connection established 0x92191d00, tid 2714
+09-30 12:39:46.998  2686  2714 I OpenGLRenderer: Initialized EGL, version 1.4
+09-30 12:39:46.998  2686  2714 D OpenGLRenderer: Swap behavior 1
+09-30 12:39:46.999  2686  2714 D EGL_emulation: eglCreateContext: 0xa82eee60: maj 3 min 0 rcv 3
+09-30 12:39:47.003  2167  2256 D EGL_emulation: eglMakeCurrent: 0xa82fdb60: ver 3 0 (tinfo 0x92a27610)
+09-30 12:39:47.004  2686  2714 D EGL_emulation: eglMakeCurrent: 0xa82eee60: ver 3 0 (tinfo 0xa82f80b0)
+09-30 12:39:47.020  2686  2714 D EGL_emulation: eglMakeCurrent: 0xa82eee60: ver 3 0 (tinfo 0xa82f80b0)
+09-30 12:39:47.111  2239  2445 I GlobalDismissManager: no sender configured
+09-30 12:39:47.111  2239  2445 D AlertService: Beginning updateAlertNotification
+09-30 12:39:47.114  2239  2445 D AlertService: No fired or scheduled alerts
+09-30 12:39:47.116  2239  2445 D AlertService: Scheduling next alarm with AlarmScheduler. sEventReminderReceived: null
+09-30 12:39:47.119  2239  2445 D AlarmScheduler: No events found starting within 1 week.
+09-30 12:39:47.119  2239  2445 D AlertService: 0 Action = android.intent.action.BOOT_COMPLETED
+09-30 12:39:47.120  2239  2445 D AlertService: Scheduling next alarm with AlarmScheduler. sEventReminderReceived: null
+09-30 12:39:47.122  2239  2445 D AlarmScheduler: No events found starting within 1 week.
+09-30 12:39:47.309  1561  1607 I ActivityManager: Displayed com.abosultan.darbakos.test/com.abosultan.darbakos.MainActivity: +355ms
+09-30 12:39:49.833  1561  2068 I ActivityManager: START u0 {act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10000000 cmp=com.abosultan.darbakos.test.test/androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity} from uid 10063 on display 0
+09-30 12:39:49.835  2686  2686 D LifecycleMonitor: Lifecycle status change: com.abosultan.darbakos.MainActivity@7e57e82 in: PAUSED
+09-30 12:39:49.835  2686  2686 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=com.abosultan.darbakos.MainActivity@7e57e82
+09-30 12:39:49.838  2723  2723 I art     : Late-enabling -Xcheck:jni
+09-30 12:39:49.838  2723  2723 W art     : Unexpected CPU variant for X86 using defaults: x86
+09-30 12:39:49.846  1561  2027 I ActivityManager: Start proc 2723:com.abosultan.darbakos.test.test/u0a64 for activity com.abosultan.darbakos.test.test/androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity
+09-30 12:39:49.850  1300  1660 D PermissionCache: checking android.permission.READ_FRAME_BUFFER for uid=1000 => granted (2113 us)
+09-30 12:39:49.853  1300  1660 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 884736
+09-30 12:39:49.854  1561  2027 D         : HostConnection::get() New Host Connection established 0x8f438a00, tid 2027
+09-30 12:39:49.905  2723  2723 W System  : ClassLoader referenced unknown path: /data/app/com.abosultan.darbakos.test.test-1/lib/x86
+09-30 12:39:49.913  1300  1660 E SurfaceFlinger: ro.sf.lcd_density must be defined as a build property
+09-30 12:39:49.915  2723  2723 D         : HostConnection::get() New Host Connection established 0x9ff1bf00, tid 2723
+09-30 12:39:49.916  1300  1386 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 2457600
+09-30 12:39:49.932  1300  1386 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 2457600
+09-30 12:39:49.937  2686  2714 D EGL_emulation: eglMakeCurrent: 0xa82eee60: ver 3 0 (tinfo 0xa82f80b0)
+09-30 12:39:49.938  2723  2738 D         : HostConnection::get() New Host Connection established 0xa91ab940, tid 2738
+09-30 12:39:49.941  2723  2738 I OpenGLRenderer: Initialized EGL, version 1.4
+09-30 12:39:49.941  2723  2738 D OpenGLRenderer: Swap behavior 1
+09-30 12:39:49.942  2723  2738 D EGL_emulation: eglCreateContext: 0xa47052a0: maj 3 min 0 rcv 3
+09-30 12:39:49.943  2723  2738 D EGL_emulation: eglMakeCurrent: 0xa47052a0: ver 3 0 (tinfo 0xa47036c0)
+09-30 12:39:49.951  2723  2738 D EGL_emulation: eglMakeCurrent: 0xa47052a0: ver 3 0 (tinfo 0xa47036c0)
+09-30 12:39:49.965  1300  1386 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 2457600
+09-30 12:39:50.064  1561  1607 I ActivityManager: Displayed com.abosultan.darbakos.test.test/androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity: +228ms
+09-30 12:39:50.069  2686  2686 D LifecycleMonitor: Lifecycle status change: com.abosultan.darbakos.MainActivity@7e57e82 in: STOPPED
+09-30 12:39:50.072  2686  2686 V ActivityScenario: Update currentActivityStage to STOPPED, currentActivity=com.abosultan.darbakos.MainActivity@7e57e82
+09-30 12:39:50.360  1561  1659 I InputReader: Reconfiguring input devices.  changes=0x00000010
+09-30 12:39:50.360  1561  1659 I InputReader: Reconfiguring input devices.  changes=0x00000010
+09-30 12:39:50.361  1561  1659 I InputReader: Reconfiguring input devices.  changes=0x00000010
+09-30 12:39:50.361  1561  1659 I InputReader: Reconfiguring input devices.  changes=0x00000010
+09-30 12:39:50.361  1561  1659 I InputReader: Reconfiguring input devices.  changes=0x00000010
+09-30 12:39:50.361  1561  1659 I InputReader: Reconfiguring input devices.  changes=0x00000010
+09-30 12:39:50.363  1852  1852 D CarrierSvcBindHelper: No carrier app for: 0
+09-30 12:39:50.367  1852  1852 D CarrierSvcBindHelper: No carrier app for: 0
+09-30 12:39:50.370  1852  1852 D CarrierSvcBindHelper: No carrier app for: 0
+09-30 12:39:50.373  1852  1852 D CarrierSvcBindHelper: No carrier app for: 0
+09-30 12:39:50.377  1852  1852 D CarrierSvcBindHelper: No carrier app for: 0
+09-30 12:39:50.381  1561  1579 W ResourceType: No known package when getting value for resource number 0x7f0200fc
+09-30 12:39:50.381  1561  1579 W ResourceType: No known package when getting value for resource number 0x7f0e03a5
+09-30 12:39:50.381  1561  1579 W ResourceType: No known package when getting value for resource number 0x7f0200fb
+09-30 12:39:50.381  1561  1579 W ResourceType: No known package when getting value for resource number 0x7f0e0927
+09-30 12:39:50.381  1561  1579 W ResourceType: No known package when getting value for resource number 0x7f0200fa
+09-30 12:39:50.381  1561  1579 W ResourceType: No known package when getting value for resource number 0x7f0e07e1
+09-30 12:39:50.381  1852  1852 D CarrierSvcBindHelper: No carrier app for: 0
+09-30 12:39:51.204  1300  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 847872
+09-30 12:39:51.205  1561  1884 D         : HostConnection::get() New Host Connection established 0x8fd76640, tid 1884
+09-30 12:39:51.212  2686  2686 D LifecycleMonitor: Lifecycle status change: com.abosultan.darbakos.MainActivity@7e57e82 in: RESTARTED
+09-30 12:39:51.212  2686  2686 V ActivityScenario: Update currentActivityStage to RESTARTED, currentActivity=com.abosultan.darbakos.MainActivity@7e57e82
+09-30 12:39:51.213  2686  2686 D LifecycleMonitor: Lifecycle status change: com.abosultan.darbakos.MainActivity@7e57e82 in: STARTED
+09-30 12:39:51.213  2686  2686 V ActivityScenario: Update currentActivityStage to STARTED, currentActivity=com.abosultan.darbakos.MainActivity@7e57e82
+09-30 12:39:51.213  2686  2686 D LifecycleMonitor: Lifecycle status change: com.abosultan.darbakos.MainActivity@7e57e82 in: RESUMED
+09-30 12:39:51.213  2686  2686 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=com.abosultan.darbakos.MainActivity@7e57e82
+09-30 12:39:51.215  2723  2738 D EGL_emulation: eglMakeCurrent: 0xa47052a0: ver 3 0 (tinfo 0xa47036c0)
+09-30 12:39:51.238  2686  2714 D EGL_emulation: eglMakeCurrent: 0xa82eee60: ver 3 0 (tinfo 0xa82f80b0)
+09-30 12:39:51.553  1561  1885 I ActivityManager: START u0 {act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10000000 cmp=com.abosultan.darbakos.test.test/androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity} from uid 10063 on display 0
+09-30 12:39:51.556  2686  2686 D LifecycleMonitor: Lifecycle status change: com.abosultan.darbakos.MainActivity@7e57e82 in: PAUSED
+09-30 12:39:51.556  2686  2686 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=com.abosultan.darbakos.MainActivity@7e57e82
+09-30 12:39:51.565  1300  1386 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 884736
+09-30 12:39:51.566  1561  1574 D         : HostConnection::get() New Host Connection established 0x8fd76580, tid 1574
+09-30 12:39:51.582  1300  1386 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 2457600
+09-30 12:39:51.607  1561  2068 I WindowManager: Failed to capture screenshot of Token{a535118 ActivityRecord{51facfb u0 com.abosultan.darbakos.test.test/androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity t7 f}} appWin=Window{c633a9 u0 com.abosultan.darbakos.test.test/androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity} drawState=1
+09-30 12:39:51.620  2723  2738 D EGL_emulation: eglMakeCurrent: 0xa47052a0: ver 3 0 (tinfo 0xa47036c0)
+09-30 12:39:51.653  2167  2256 D EGL_emulation: eglMakeCurrent: 0xa82fdb60: ver 3 0 (tinfo 0x92a27610)
+09-30 12:39:51.670  2686  2714 D EGL_emulation: eglMakeCurrent: 0xa82eee60: ver 3 0 (tinfo 0xa82f80b0)
+09-30 12:39:51.671  1300  2747 D         : HostConnection::get() New Host Connection established 0xad745800, tid 2747
+09-30 12:39:51.671  2723  2738 D EGL_emulation: eglMakeCurrent: 0xa47052a0: ver 3 0 (tinfo 0xa47036c0)
+09-30 12:39:51.678  2686  2686 D LifecycleMonitor: Lifecycle status change: com.abosultan.darbakos.MainActivity@7e57e82 in: STOPPED
+09-30 12:39:51.678  2686  2686 V ActivityScenario: Update currentActivityStage to STOPPED, currentActivity=com.abosultan.darbakos.MainActivity@7e57e82
+09-30 12:39:51.678  2686  2686 D LifecycleMonitor: Lifecycle status change: com.abosultan.darbakos.MainActivity@7e57e82 in: DESTROYED
+09-30 12:39:51.678  2686  2686 V ActivityScenario: Update currentActivityStage to DESTROYED, currentActivity=null
+09-30 12:39:51.679  2686  2701 W Settings: Setting always_finish_activities has moved from android.provider.Settings.System to android.provider.Settings.Global, returning read-only value.
+09-30 12:39:51.690  1561  2027 I ActivityManager: START u0 {act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10008000 cmp=com.abosultan.darbakos.test/com.abosultan.darbakos.MainActivity} from uid 10063 on display 0
+09-30 12:39:51.694  2686  2686 D LifecycleMonitor: Lifecycle status change: com.abosultan.darbakos.MainActivity@df86d73 in: PRE_ON_CREATE
+09-30 12:39:51.694  2686  2686 V ActivityScenario: Activity lifecycle changed event received but ignored because the reported transition was not ON_CREATE while the last known transition was PRE_ON_CREATE
+09-30 12:39:51.697  2686  2686 D LifecycleMonitor: Lifecycle status change: com.abosultan.darbakos.MainActivity@df86d73 in: CREATED
+09-30 12:39:51.697  2686  2686 V ActivityScenario: Update currentActivityStage to CREATED, currentActivity=com.abosultan.darbakos.MainActivity@df86d73
+09-30 12:39:51.697  2686  2686 D LifecycleMonitor: Lifecycle status change: com.abosultan.darbakos.MainActivity@df86d73 in: STARTED
+09-30 12:39:51.697  2686  2686 V ActivityScenario: Update currentActivityStage to STARTED, currentActivity=com.abosultan.darbakos.MainActivity@df86d73
+09-30 12:39:51.698  2686  2686 D LifecycleMonitor: Lifecycle status change: com.abosultan.darbakos.MainActivity@df86d73 in: RESUMED
+09-30 12:39:51.698  2686  2686 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=com.abosultan.darbakos.MainActivity@df86d73
+09-30 12:39:51.716  1300  2747 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 2457600
+09-30 12:39:51.751  2686  2714 D EGL_emulation: eglMakeCurrent: 0xa82eee60: ver 3 0 (tinfo 0xa82f80b0)
+09-30 12:39:51.752  2167  2256 D EGL_emulation: eglMakeCurrent: 0xa82fdb60: ver 3 0 (tinfo 0x92a27610)
+09-30 12:39:51.764  1561  1607 I ActivityManager: Displayed com.abosultan.darbakos.test/com.abosultan.darbakos.MainActivity: +71ms
+09-30 12:39:52.052  1561  2068 I ActivityManager: START u0 {act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10000000 cmp=com.abosultan.darbakos.test.test/androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity} from uid 10063 on display 0
+09-30 12:39:52.057  2686  2686 D LifecycleMonitor: Lifecycle status change: com.abosultan.darbakos.MainActivity@df86d73 in: PAUSED
+09-30 12:39:52.057  2686  2686 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=com.abosultan.darbakos.MainActivity@df86d73
+09-30 12:39:52.065  1300  2747 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 884736
+09-30 12:39:52.066  1561  1885 D         : HostConnection::get() New Host Connection established 0x8da223c0, tid 1885
+09-30 12:39:52.103  2723  2738 D EGL_emulation: eglMakeCurrent: 0xa47052a0: ver 3 0 (tinfo 0xa47036c0)
+09-30 12:39:52.103  2686  2714 D EGL_emulation: eglMakeCurrent: 0xa82eee60: ver 3 0 (tinfo 0xa82f80b0)
+09-30 12:39:52.116  1300  1660 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 2457600
+09-30 12:39:52.121  1561  1885 I WindowManager: Failed to capture screenshot of Token{f80190 ActivityRecord{8cf7453 u0 com.abosultan.darbakos.test.test/androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity t9 f}} appWin=Window{aaa31c1 u0 com.abosultan.darbakos.test.test/androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity} drawState=4
+09-30 12:39:52.167  2167  2256 D EGL_emulation: eglMakeCurrent: 0xa82fdb60: ver 3 0 (tinfo 0x92a27610)
+09-30 12:39:52.181  2686  2686 D LifecycleMonitor: Lifecycle status change: com.abosultan.darbakos.MainActivity@df86d73 in: STOPPED
+09-30 12:39:52.187  2723  2738 D EGL_emulation: eglMakeCurrent: 0xa47052a0: ver 3 0 (tinfo 0xa47036c0)
+09-30 12:39:52.190  2686  2686 V ActivityScenario: Update currentActivityStage to STOPPED, currentActivity=com.abosultan.darbakos.MainActivity@df86d73
+09-30 12:39:52.191  2686  2686 D LifecycleMonitor: Lifecycle status change: com.abosultan.darbakos.MainActivity@df86d73 in: DESTROYED
+09-30 12:39:52.191  2686  2686 V ActivityScenario: Update currentActivityStage to DESTROYED, currentActivity=null
+09-30 12:39:52.213  2686  2701 I DarbakRuntimeQA: background GPS -> store -> main-thread Home -> committed trip PASS
+09-30 12:39:52.214  1561  1885 I GnssLocationProvider: WakeLock acquired by sendMessage(2, 1, null)
+09-30 12:39:52.214  1561  1579 E GnssLocationProvider: no AGPS interface in set_agps_server
+09-30 12:39:52.214  1561  1561 D GpsNetInitiatedHandler: location enabled :true
+09-30 12:39:52.214  2686  2701 I TestRunner: finished: homeStopKeepsGpsAndNewActivityKeepsCurrentPosition(com.abosultan.darbakos.TripRuntimeTest)
+09-30 12:39:52.215  2686  2701 I TestRunner: started: rejectedOldFixCannotAdvanceStationaryTimeout(com.abosultan.darbakos.core.TripAutoRecorderTest)
+09-30 12:39:52.217  1561  1579 I GnssLocationProvider: WakeLock released by handleMessage(2, 1, null)
+09-30 12:39:52.223  2686  2701 I TestRunner: finished: rejectedOldFixCannotAdvanceStationaryTimeout(com.abosultan.darbakos.core.TripAutoRecorderTest)
+09-30 12:39:52.224  2686  2701 I TestRunner: started: pendingMovingFixDoesNotBridgeALongGap(com.abosultan.darbakos.core.TripAutoRecorderTest)
+09-30 12:39:52.226  2686  2701 I TestRunner: finished: pendingMovingFixDoesNotBridgeALongGap(com.abosultan.darbakos.core.TripAutoRecorderTest)
+09-30 12:39:52.227  2686  2701 I TestRunner: started: movementStartsAndStationaryTimeoutClosesDurably(com.abosultan.darbakos.core.TripAutoRecorderTest)
+09-30 12:39:52.228  2686  2701 I TestRunner: finished: movementStartsAndStationaryTimeoutClosesDurably(com.abosultan.darbakos.core.TripAutoRecorderTest)
+09-30 12:39:52.229  2686  2701 I TestRunner: started: longGapSplitsRecordedHistoryWithoutBridge(com.abosultan.darbakos.core.TripAutoRecorderTest)
+09-30 12:39:52.232  2686  2701 I TestRunner: finished: longGapSplitsRecordedHistoryWithoutBridge(com.abosultan.darbakos.core.TripAutoRecorderTest)
+09-30 12:39:52.232  2686  2701 I TestRunner: started: failedFullChunkRetriesBeforeAcceptingNextPoint(com.abosultan.darbakos.core.TripAutoRecorderTest)
+09-30 12:39:52.235  2686  2701 I TestRunner: finished: failedFullChunkRetriesBeforeAcceptingNextPoint(com.abosultan.darbakos.core.TripAutoRecorderTest)
+09-30 12:39:52.237  2686  2701 I TestRunner: started: unknownAndImplausibleFixesCannotStartATrip(com.abosultan.darbakos.core.TripAutoRecorderTest)
+09-30 12:39:52.238  2686  2701 I TestRunner: finished: unknownAndImplausibleFixesCannotStartATrip(com.abosultan.darbakos.core.TripAutoRecorderTest)
+09-30 12:39:52.239  2686  2701 I TestRunner: started: failedOrPartialStateCannotMasqueradeAsCommittedHistory(com.abosultan.darbakos.TripPersistenceTest)
+09-30 12:39:52.239  2686  2701 I TestRunner: finished: failedOrPartialStateCannotMasqueradeAsCommittedHistory(com.abosultan.darbakos.TripPersistenceTest)
+09-30 12:39:52.240  2686  2701 I TestRunner: started: writeReadAndDuplicateNamingAreSafe(com.abosultan.darbakos.TripPersistenceTest)
+09-30 12:39:52.242  2686  2701 I TestRunner: finished: writeReadAndDuplicateNamingAreSafe(com.abosultan.darbakos.TripPersistenceTest)
+09-30 12:39:52.243  2686  2701 I TestRunner: started: storagePreferenceAndRuntimeOwnershipAreExplicit(com.abosultan.darbakos.TripPersistenceTest)
+09-30 12:39:52.244  2686  2701 I TestRunner: finished: storagePreferenceAndRuntimeOwnershipAreExplicit(com.abosultan.darbakos.TripPersistenceTest)
+09-30 12:39:52.245  2686  2701 I TestRunner: started: packageSelectionIsConservativeAndStableFirst(com.abosultan.darbakos.OsmAndBridgeTest)
+09-30 12:39:52.245  2686  2701 I TestRunner: finished: packageSelectionIsConservativeAndStableFirst(com.abosultan.darbakos.OsmAndBridgeTest)
+09-30 12:39:52.246  2686  2701 I TestRunner: started: absentOsmAndIsTruthfulAndSafe(com.abosultan.darbakos.OsmAndBridgeTest)
+09-30 12:39:52.249  2686  2701 I TestRunner: finished: absentOsmAndIsTruthfulAndSafe(com.abosultan.darbakos.OsmAndBridgeTest)
+09-30 12:39:52.249  2686  2701 I TestRunner: run finished: 26 tests, 0 failed, 0 ignored
+09-30 12:39:52.250  1561  1884 I ActivityManager: Force stopping com.abosultan.darbakos.test appid=10063 user=0: finished inst
+09-30 12:39:52.251  1561  1884 I ActivityManager: Killing 2686:com.abosultan.darbakos.test/u0a63 (adj 0): stop com.abosultan.darbakos.test
+09-30 12:39:52.251  1561  1884 D ActivityManager: cleanUpApplicationRecord -- 2686
+09-30 12:39:52.251  2676  2676 D AndroidRuntime: Shutting down VM
+09-30 12:39:52.256  1561  2027 D GraphicsStats: Buffer count: 4
+09-30 12:39:52.391  2758  2758 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+09-30 12:39:52.392  2758  2758 D AndroidRuntime: CheckJNI is OFF
+09-30 12:39:52.410  2758  2758 W art     : Unexpected CPU variant for X86 using defaults: x86
+09-30 12:39:52.412  2758  2758 D ICU     : No timezone override file found: /data/misc/zoneinfo/current/icu/icu_tzdata.dat
+09-30 12:39:52.421  2758  2758 E memtrack: Couldn't load memtrack module (No such file or directory)
+09-30 12:39:52.421  2758  2758 E android.os.Debug: failed to load memtrack module: -2
+09-30 12:39:52.422  2758  2758 I Radio-JNI: register_android_hardware_Radio DONE
+09-30 12:39:52.425  2758  2758 D AndroidRuntime: Calling main entry com.android.commands.am.Am
+09-30 12:39:52.427  1561  2068 I ActivityManager: Force stopping com.abosultan.darbakos.test appid=10063 user=0: from pid 2758
+09-30 12:39:52.427  2758  2758 D AndroidRuntime: Shutting down VM
+09-30 12:39:52.428  1852  1852 D CarrierSvcBindHelper: No carrier app for: 0
+09-30 12:39:52.557  2768  2768 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+09-30 12:39:52.558  2768  2768 D AndroidRuntime: CheckJNI is OFF
+09-30 12:39:52.575  2768  2768 W art     : Unexpected CPU variant for X86 using defaults: x86
+09-30 12:39:52.577  2768  2768 D ICU     : No timezone override file found: /data/misc/zoneinfo/current/icu/icu_tzdata.dat
+09-30 12:39:52.585  2768  2768 E memtrack: Couldn't load memtrack module (No such file or directory)
+09-30 12:39:52.585  2768  2768 E android.os.Debug: failed to load memtrack module: -2
+09-30 12:39:52.586  2768  2768 I Radio-JNI: register_android_hardware_Radio DONE
+09-30 12:39:52.589  2768  2768 D AndroidRuntime: Calling main entry com.android.commands.am.Am
+09-30 12:39:52.591  1561  2064 I ActivityManager: START u0 {flg=0x10000000 cmp=com.abosultan.darbakos.test/com.abosultan.darbakos.MainActivity} from uid 2000 on display 0
+09-30 12:39:52.595  2778  2778 I art     : Late-enabling -Xcheck:jni
+09-30 12:39:52.595  2778  2778 W art     : Unexpected CPU variant for X86 using defaults: x86
+09-30 12:39:52.603  1561  1575 I ActivityManager: Start proc 2778:com.abosultan.darbakos.test/u0a63 for activity com.abosultan.darbakos.test/com.abosultan.darbakos.MainActivity
+09-30 12:39:52.623  2778  2778 W System  : ClassLoader referenced unknown path: /data/app/com.abosultan.darbakos.test-1/lib/x86
+09-30 12:39:52.632  1300  1386 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 2457600
+09-30 12:39:52.644  1300  2747 E SurfaceFlinger: ro.sf.lcd_density must be defined as a build property
+09-30 12:39:52.645  2778  2778 D         : HostConnection::get() New Host Connection established 0x9ff1bfc0, tid 2778
+09-30 12:39:52.652  1561  2068 I GnssLocationProvider: WakeLock acquired by sendMessage(3, 0, com.android.server.location.GnssLocationProvider$GpsRequest@621daab)
+09-30 12:39:52.654  1561  1579 I GnssLocationProvider: WakeLock released by handleMessage(3, 0, com.android.server.location.GnssLocationProvider$GpsRequest@621daab)
+09-30 12:39:52.659  2167  2256 D EGL_emulation: eglMakeCurrent: 0xa82fdb60: ver 3 0 (tinfo 0x92a27610)
+09-30 12:39:52.667  2778  2793 D         : HostConnection::get() New Host Connection established 0xa82f53c0, tid 2793
+09-30 12:39:52.673  2778  2793 I OpenGLRenderer: Initialized EGL, version 1.4
+09-30 12:39:52.673  2778  2793 D OpenGLRenderer: Swap behavior 1
+09-30 12:39:52.673  2778  2793 D EGL_emulation: eglCreateContext: 0xa47052a0: maj 3 min 0 rcv 3
+09-30 12:39:52.674  2778  2793 D EGL_emulation: eglMakeCurrent: 0xa47052a0: ver 3 0 (tinfo 0xa47036c0)
+09-30 12:39:52.687  2778  2793 D EGL_emulation: eglMakeCurrent: 0xa47052a0: ver 3 0 (tinfo 0xa47036c0)
+09-30 12:39:52.955  1561  1607 I ActivityManager: Displayed com.abosultan.darbakos.test/com.abosultan.darbakos.MainActivity: +363ms
+09-30 12:39:52.955  2768  2768 D AndroidRuntime: Shutting down VM
+09-30 12:39:52.968  2167  2256 W OpenGLRenderer: Incorrectly called buildLayer on View: ShortcutAndWidgetContainer, destroying layer...
+09-30 12:39:54.098  2796  2796 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+09-30 12:39:54.099  2796  2796 D AndroidRuntime: CheckJNI is OFF
+09-30 12:39:54.100  2796  2796 I art     : RelocateImage: /system/bin/patchoat --input-image-location=/system/framework/boot.art --output-image-file=/data/local/tmp/dalvik-cache/x86/system@framework@boot.art --instruction-set=x86 --base-offset-delta=3850240
+09-30 12:39:54.168  2796  2796 W art     : Unexpected CPU variant for X86 using defaults: x86
+09-30 12:39:54.170  2796  2796 D ICU     : No timezone override file found: /data/local/tmp/misc/zoneinfo/current/icu/icu_tzdata.dat
+09-30 12:39:54.180  2796  2796 E memtrack: Couldn't load memtrack module (No such file or directory)
+09-30 12:39:54.180  2796  2796 E android.os.Debug: failed to load memtrack module: -2
+09-30 12:39:54.181  2796  2796 I Radio-JNI: register_android_hardware_Radio DONE
+09-30 12:39:54.184  2796  2796 D AndroidRuntime: Calling main entry com.android.commands.uiautomator.Launcher
+09-30 12:40:00.727  1561  2027 D AlarmManagerService: Kernel timezone updated to 0 minutes west of GMT
+09-30 12:40:00.729  1561  1733 D AlarmManagerService: Setting time of day to sec=1790772001
+09-30 12:40:01.002  1561  1733 W AlarmManagerService: Unable to set rtc to 1790772001: No such device
+09-30 12:40:02.132  2796  2796 W AccessibilityNodeInfoDumper: Fetch time: 3ms
+09-30 12:40:02.133  1561  1575 W WindowManager: Attempted to remove non-existing token: android.os.Binder@7c6c9b4
+09-30 12:40:02.136  2796  2796 D AndroidRuntime: Shutting down VM
+09-30 12:40:02.176  1300  1386 E SurfaceFlinger: ro.sf.lcd_density must be defined as a build property
+09-30 12:40:02.176  1300  1389 D PermissionCache: checking android.permission.READ_FRAME_BUFFER for uid=2000 => granted (170 us)
+09-30 12:40:02.177  1300  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 2457600
+09-30 12:40:02.178  2814  2814 D         : HostConnection::get() New Host Connection established 0xb059b2c0, tid 2814
+09-30 12:40:02.361  2822  2822 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+09-30 12:40:02.362  2822  2822 D AndroidRuntime: CheckJNI is OFF
+09-30 12:40:02.381  2822  2822 W art     : Unexpected CPU variant for X86 using defaults: x86
+09-30 12:40:02.383  2822  2822 D ICU     : No timezone override file found: /data/misc/zoneinfo/current/icu/icu_tzdata.dat
+09-30 12:40:02.390  2822  2822 E memtrack: Couldn't load memtrack module (No such file or directory)
+09-30 12:40:02.390  2822  2822 E android.os.Debug: failed to load memtrack module: -2
+09-30 12:40:02.390  2822  2822 I Radio-JNI: register_android_hardware_Radio DONE
+09-30 12:40:02.393  1561  1583 I ActivityManager: Waited long enough for: ServiceRecord{9bccd3b u0 com.android.calendar/.alerts.InitAlarmsService}
+09-30 12:40:02.393  2822  2822 D AndroidRuntime: Calling main entry com.android.commands.am.Am
+09-30 12:40:02.395  1561  1575 I ActivityManager: START u0 {act=android.settings.SETTINGS flg=0x10000000 cmp=com.android.settings/.Settings} from uid 2000 on display 0
+09-30 12:40:02.409  1300  1660 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 884736
+09-30 12:40:02.421  1300  2098 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 2457600
+09-30 12:40:02.444  2778  2793 D EGL_emulation: eglMakeCurrent: 0xa47052a0: ver 3 0 (tinfo 0xa47036c0)
+09-30 12:40:02.456  1300  2747 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 2457600
+09-30 12:40:02.466  1300  2747 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 2457600
+09-30 12:40:02.467  1895  2833 W System  : ClassLoader referenced unknown path: 
+09-30 12:40:02.467  1895  2833 W System  : ClassLoader referenced unknown path: /system/priv-app/CellBroadcastReceiver/lib/x86
+09-30 12:40:02.472  1895  2833 D ApplicationLoaders: ignored Vulkan layer search path /system/priv-app/CellBroadcastReceiver/lib/x86:/system/lib:/vendor/lib for namespace 0xad390090
+09-30 12:40:02.496  1895  2833 V NFC     : this device does not have NFC support
+09-30 12:40:02.504  1895  2836 E BluetoothAdapter: Bluetooth binder is null
+09-30 12:40:02.506  1895  2833 I IndexDatabaseHelper: Bootstrapped database
+09-30 12:40:02.512  1895  2833 I IndexDatabaseHelper: Using schema version: 115
+09-30 12:40:02.512  1895  2833 I IndexDatabaseHelper: Index is fine
+09-30 12:40:02.569  1895  2836 W ProcStatsManager: No process com.android.providers.calendar/10002 for service com.android.providers.calendar.EmptyService
+09-30 12:40:02.569  1895  2836 W ProcStatsManager: No process com.android.providers.calendar/10002 for service com.android.providers.calendar.CalendarProviderIntentService
+09-30 12:40:02.569  1895  2836 W ProcStatsManager: No process android.process.media/10010 for service com.android.providers.media.MediaScannerService
+09-30 12:40:02.569  1895  2836 W ProcStatsManager: No process com.android.phone/1001 for service com.android.mms.service.MmsService
+09-30 12:40:02.569  1895  2836 W ProcStatsManager: No process com.android.messaging/10054 for service com.android.messaging.datamodel.action.BackgroundWorkerService
+09-30 12:40:02.569  1895  2836 W ProcStatsManager: No process com.android.messaging/10054 for service com.android.messaging.datamodel.action.ActionServiceImpl
+09-30 12:40:02.569  1895  2836 W ProcStatsManager: No process com.android.defcontainer/10007 for service com.android.defcontainer.DefaultContainerService
+09-30 12:40:02.569  1895  2836 W ProcStatsManager: No process com.android.carrierconfig/10003 for service com.android.carrierconfig.DefaultCarrierConfigService
+09-30 12:40:02.569  1895  2836 W ProcStatsManager: No process com.android.launcher3:wallpaper_chooser/10042 for service com.android.launcher3.dynamicui.ColorExtractionService
+09-30 12:40:02.569  1895  2836 W ProcStatsManager: No process com.android.printspooler/10051 for service com.android.printspooler.model.PrintSpoolerService
+09-30 12:40:02.569  1895  2836 W ProcStatsManager: No process com.abosultan.darbakos.test/10063 for service com.abosultan.darbakos.core.TripRuntimeService
+09-30 12:40:02.569  1895  2836 W ProcStatsManager: No process com.android.cellbroadcastreceiver/10004 for service com.android.cellbroadcastreceiver.CellBroadcastConfigService
+09-30 12:40:02.569  1895  2836 W ProcStatsManager: No process system/1000 for service com.android.server.telecom.components.TelecomService
+09-30 12:40:02.569  1895  2836 W ProcStatsManager: No process com.android.keychain/1000 for service com.android.keychain.KeyChainService
+09-30 12:40:02.569  1895  2836 W ProcStatsManager: No process com.android.dialer/10008 for service com.android.dialer.calllog.CallLogNotificationsService
+09-30 12:40:02.569  1895  2836 W ProcStatsManager: No process com.android.gallery3d/10039 for service com.android.gallery3d.app.PackagesMonitor$AsyncService
+09-30 12:40:02.569  1895  2836 W ProcStatsManager: No process com.android.email/10034 for service com.android.email.service.EmailBroadcastProcessorService
+09-30 12:40:02.569  1895  2836 W ProcStatsManager: No process system/1000 for service com.android.location.fused.FusedLocationService
+09-30 12:40:02.572  1895  2833 W ResourceType: No package identifier when getting value for resource number 0x00000000
+09-30 12:40:02.574  1895  2833 E Index   : Cannot index: com.android.settings.SecuritySettings for locale: en_US
+09-30 12:40:02.574  1895  2833 E Index   : android.content.res.Resources$NotFoundException: Resource ID #0x0
+09-30 12:40:02.574  1895  2833 E Index   : 	at android.content.res.ResourcesImpl.getValue(ResourcesImpl.java:190)
+09-30 12:40:02.574  1895  2833 E Index   : 	at android.content.res.Resources.loadXmlResourceParser(Resources.java:2101)
+09-30 12:40:02.574  1895  2833 E Index   : 	at android.content.res.Resources.getXml(Resources.java:1164)
+09-30 12:40:02.574  1895  2833 E Index   : 	at com.android.settings.search.Index.indexFromResource(Index.java:848)
+09-30 12:40:02.574  1895  2833 E Index   : 	at com.android.settings.search.Index.indexFromProvider(Index.java:1002)
+09-30 12:40:02.574  1895  2833 E Index   : 	at com.android.settings.search.Index.indexOneResource(Index.java:815)
+09-30 12:40:02.574  1895  2833 E Index   : 	at com.android.settings.search.Index.indexOneSearchIndexableData(Index.java:727)
+09-30 12:40:02.574  1895  2833 E Index   : 	at com.android.settings.search.Index.-wrap4(Index.java)
+09-30 12:40:02.574  1895  2833 E Index   : 	at com.android.settings.search.Index$UpdateIndexTask.processDataToUpdate(Index.java:1241)
+09-30 12:40:02.574  1895  2833 E Index   : 	at com.android.settings.search.Index$UpdateIndexTask.doInBackground(Index.java:1208)
+09-30 12:40:02.574  1895  2833 E Index   : 	at com.android.settings.search.Index$UpdateIndexTask.doInBackground(Index.java:1186)
+09-30 12:40:02.574  1895  2833 E Index   : 	at android.os.AsyncTask$2.call(AsyncTask.java:305)
+09-30 12:40:02.574  1895  2833 E Index   : 	at java.util.concurrent.FutureTask.run(FutureTask.java:237)
+09-30 12:40:02.574  1895  2833 E Index   : 	at android.os.AsyncTask$SerialExecutor$1.run(AsyncTask.java:243)
+09-30 12:40:02.574  1895  2833 E Index   : 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1133)
+09-30 12:40:02.574  1895  2833 E Index   : 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:607)
+09-30 12:40:02.574  1895  2833 E Index   : 	at java.lang.Thread.run(Thread.java:761)
+09-30 12:40:02.595  1895  1911 D EGL_emulation: eglMakeCurrent: 0x9ff49a40: ver 3 0 (tinfo 0x9ff47f70)
+09-30 12:40:02.602  1895  2836 W StorageManager: Could not read /sys/block/mmcblk0/size
+09-30 12:40:02.602  1895  2836 W StorageManager: java.io.FileNotFoundException: /sys/block/mmcblk0/size (No such file or directory)
+09-30 12:40:02.602  1895  2836 W StorageManager: 	at java.io.FileInputStream.open(Native Method)
+09-30 12:40:02.602  1895  2836 W StorageManager: 	at java.io.FileInputStream.<init>(FileInputStream.java:146)
+09-30 12:40:02.602  1895  2836 W StorageManager: 	at java.io.FileInputStream.<init>(FileInputStream.java:99)
+09-30 12:40:02.602  1895  2836 W StorageManager: 	at android.os.storage.StorageManager.readLong(StorageManager.java:944)
+09-30 12:40:02.602  1895  2836 W StorageManager: 	at android.os.storage.StorageManager.getPrimaryStorageSize(StorageManager.java:935)
+09-30 12:40:02.602  1895  2836 W StorageManager: 	at com.android.settings.deviceinfo.StorageSettings$SummaryProvider.updateSummary(StorageSettings.java:510)
+09-30 12:40:02.602  1895  2836 W StorageManager: 	at com.android.settings.deviceinfo.StorageSettings$SummaryProvider.setListening(StorageSettings.java:502)
+09-30 12:40:02.602  1895  2836 W StorageManager: 	at com.android.settings.dashboard.SummaryLoader.setListeningW(SummaryLoader.java:192)
+09-30 12:40:02.602  1895  2836 W StorageManager: 	at com.android.settings.dashboard.SummaryLoader.-wrap2(SummaryLoader.java)
+09-30 12:40:02.602  1895  2836 W StorageManager: 	at com.android.settings.dashboard.SummaryLoader$Worker.handleMessage(SummaryLoader.java:253)
+09-30 12:40:02.602  1895  2836 W StorageManager: 	at android.os.Handler.dispatchMessage(Handler.java:102)
+09-30 12:40:02.602  1895  2836 W StorageManager: 	at android.os.Looper.loop(Looper.java:154)
+09-30 12:40:02.602  1895  2836 W StorageManager: 	at android.os.HandlerThread.run(HandlerThread.java:61)
+09-30 12:40:02.604  1895  2836 W StorageManager: Could not read /sys/block/sda/size
+09-30 12:40:02.604  1895  2836 W StorageManager: java.io.FileNotFoundException: /sys/block/sda/size (No such file or directory)
+09-30 12:40:02.604  1895  2836 W StorageManager: 	at java.io.FileInputStream.open(Native Method)
+09-30 12:40:02.604  1895  2836 W StorageManager: 	at java.io.FileInputStream.<init>(FileInputStream.java:146)
+09-30 12:40:02.604  1895  2836 W StorageManager: 	at java.io.FileInputStream.<init>(FileInputStream.java:99)
+09-30 12:40:02.604  1895  2836 W StorageManager: 	at android.os.storage.StorageManager.readLong(StorageManager.java:944)
+09-30 12:40:02.604  1895  2836 W StorageManager: 	at android.os.storage.StorageManager.getPrimaryStorageSize(StorageManager.java:935)
+09-30 12:40:02.604  1895  2836 W StorageManager: 	at com.android.settings.deviceinfo.StorageSettings$SummaryProvider.updateSummary(StorageSettings.java:510)
+09-30 12:40:02.604  1895  2836 W StorageManager: 	at com.android.settings.deviceinfo.StorageSettings$SummaryProvider.setListening(StorageSettings.java:502)
+09-30 12:40:02.604  1895  2836 W StorageManager: 	at com.android.settings.dashboard.SummaryLoader.setListeningW(SummaryLoader.java:192)
+09-30 12:40:02.604  1895  2836 W StorageManager: 	at com.android.settings.dashboard.SummaryLoader.-wrap2(SummaryLoader.java)
+09-30 12:40:02.604  1895  2836 W StorageManager: 	at com.android.settings.dashboard.SummaryLoader$Worker.handleMessage(SummaryLoader.java:253)
+09-30 12:40:02.604  1895  2836 W StorageManager: 	at android.os.Handler.dispatchMessage(Handler.java:102)
+09-30 12:40:02.604  1895  2836 W StorageManager: 	at android.os.Looper.loop(Looper.java:154)
+09-30 12:40:02.604  1895  2836 W StorageManager: 	at android.os.HandlerThread.run(HandlerThread.java:61)
+09-30 12:40:02.608  1895  2836 E BluetoothAdapter: Bluetooth binder is null
+09-30 12:40:02.681  1895  2833 E BluetoothAdapter: Bluetooth binder is null
+09-30 12:40:02.695  1895  2833 D Index   : Indexing locale 'en_US' took 140 millis
+09-30 12:40:02.701  1895  2833 D Index   : Indexing locale 'en_US' took 2 millis
+09-30 12:40:02.706  1895  2833 D Index   : Indexing locale 'en_US' took 1 millis
+09-30 12:40:02.753  1561  1692 D WifiNative-HAL: Failing getSupportedFeatureset because HAL isn't started
+09-30 12:40:02.753  1561  1884 E BluetoothAdapter: Bluetooth binder is null
+09-30 12:40:02.753  1561  1884 E BatteryStatsService: no controller energy info supplied
+09-30 12:40:02.755  1561  1884 E KernelCpuSpeedReader: Failed to read cpu-freq: /sys/devices/system/cpu/cpu0/cpufreq/stats/time_in_state (No such file or directory)
+09-30 12:40:02.755  1561  1884 E KernelUidCpuTimeReader: Failed to read uid_cputime: /proc/uid_cputime/show_uid_stat (No such file or directory)
+09-30 12:40:02.755  1561  1884 E BatteryStatsService: modem info is invalid: ModemActivityInfo{ mTimestamp=0 mSleepTimeMs=0 mIdleTimeMs=0 mTxTimeMs[]=[0, 0, 0, 0, 0] mRxTimeMs=0 mEnergyUsed=0}
+09-30 12:40:02.847  1895  1895 D DashboardSummary: onConditionsChanged
+09-30 12:40:02.848  1561  1607 I ActivityManager: Displayed com.android.settings/.Settings: +447ms
+09-30 12:40:02.848  2822  2822 D AndroidRuntime: Shutting down VM
+09-30 12:40:03.497  1561  1692 D WifiStateMachine: CMD_AUTO_CONNECT sup state DisconnectedState my state DisconnectedState nid=0 roam=false
+09-30 12:40:03.497  1561  1692 D WifiStateMachine: CMD_AUTO_CONNECT will save config -> "AndroidWifi" nid=0
+09-30 12:40:03.502  1561  2848 D WifiNetworkHistory: saving network history: "AndroidWifi"NONE gw: null Network Selection-status: NETWORK_SELECTION_ENABLED ephemeral=false choice:null link:0 status:1 nid:0 hasEverConnected: false
+09-30 12:40:03.502  1561  2848 V WifiNetworkHistory: writeKnownNetworkHistory write config "AndroidWifi"NONE
+09-30 12:40:03.503  1561  1692 D WifiStateMachine: CMD_AUTO_CONNECT did save config ->  nid=0
+09-30 12:40:03.503  1561  2849 D WifiNetworkHistory: saving network history: "AndroidWifi"NONE gw: null Network Selection-status: NETWORK_SELECTION_ENABLED ephemeral=false choice:null link:0 status:1 nid:0 hasEverConnected: false
+09-30 12:40:03.503  1561  2849 V WifiNetworkHistory: writeKnownNetworkHistory write config "AndroidWifi"NONE
+09-30 12:40:03.503  1929  1929 I wpa_supplicant: wlan0: SME: Trying to authenticate with 02:00:00:00:01:00 (SSID='AndroidWifi' freq=2447 MHz)
+09-30 12:40:03.505  1484  1484 I hostapd : wlan1: STA 02:00:00:44:55:66 IEEE 802.11: authenticated
+09-30 12:40:03.505  1484  1484 I hostapd : wlan1: STA 02:00:00:44:55:66 IEEE 802.11: authenticated
+09-30 12:40:03.507  1929  1929 I wpa_supplicant: wlan0: Trying to associate with 02:00:00:00:01:00 (SSID='AndroidWifi' freq=2447 MHz)
+09-30 12:40:03.514  1484  1484 I hostapd : wlan1: STA 02:00:00:44:55:66 IEEE 802.11: associated (aid 1)
+09-30 12:40:03.514  1484  1484 I hostapd : wlan1: STA 02:00:00:44:55:66 IEEE 802.11: associated (aid 1)
+09-30 12:40:03.514  1484  1484 I hostapd : wlan1: AP-STA-CONNECTED 02:00:00:44:55:66
+09-30 12:40:03.517  1929  1929 I wpa_supplicant: wlan0: Associated with 02:00:00:00:01:00
+09-30 12:40:03.517  1929  1929 I wpa_supplicant: wlan0: CTRL-EVENT-CONNECTED - Connection to 02:00:00:00:01:00 completed [id=0 id_str=%7B%22creatorUid%22%3A%22-1%22%2C%22configKey%22%3A%22%5C%22AndroidWifi%5C%22NONE%22%7D]
+09-30 12:40:03.518  1929  1929 I wpa_supplicant: wlan0: CTRL-EVENT-SUBNET-STATUS-UPDATE status=0
+09-30 12:40:03.518  1561  1692 D ConnectivityService: registerNetworkAgent NetworkAgentInfo{ ni{[type: WIFI[], state: CONNECTING/CONNECTING, reason: (unspecified), extra: "AndroidWifi", failover: false, available: true, roaming: false, metered: false]}  network{101}  nethandle{433808132830}  lp{{LinkAddresses: []  Routes: [] DnsAddresses: [] Domains: null MTU: 0}}  nc{[ Transports: WIFI Capabilities: NOT_METERED&INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VPN LinkUpBandwidth>=1048576Kbps LinkDnBandwidth>=1048576Kbps]}  Score{20}  everValidated{false}  lastValidated{false}  created{false} lingering{false} explicitlySelected{false} acceptUnvalidated{false} everCaptivePortalDetected{false} lastCaptivePortalDetected{false} }
+09-30 12:40:03.518  1561  1696 D ConnectivityService: NetworkAgentInfo [WIFI () - 101] EVENT_NETWORK_INFO_CHANGED, going from null to CONNECTING
+09-30 12:40:03.519  1561  1692 D WifiStateMachine: Start Dhcp Watchdog 1
+09-30 12:40:03.520  1561  1692 D WifiNative-wlan0: configureNeighborDiscoveryOffload(true)
+09-30 12:40:03.564  1561  2853 D DhcpClient: Receive thread started
+09-30 12:40:03.565  1561  2851 D DhcpClient: Broadcasting DHCPDISCOVER
+09-30 12:40:03.565  1561  2853 D DhcpClient: Received packet: 02:00:00:44:55:66 OFFER, ip /192.168.232.2, mask /255.255.248.0, DNS servers: /10.0.2.3 , gateways [/192.168.232.1] lease time 1476526080, domain null
+09-30 12:40:03.566  1561  2851 D DhcpClient: Got pending lease: IP address 192.168.232.2/21 Gateway 192.168.232.1  DNS servers: [ 10.0.2.3 ] Domains  DHCP server /192.168.232.1 Vendor info null lease 1476526080 seconds
+09-30 12:40:03.566  1561  2851 D DhcpClient: Broadcasting DHCPREQUEST ciaddr=0.0.0.0 request=192.168.232.2 serverid=192.168.232.1
+09-30 12:40:03.566  1561  2853 D DhcpClient: Received packet: 02:00:00:44:55:66 ACK: your new IP /192.168.232.2, netmask /255.255.248.0, gateways [/192.168.232.1] DNS servers: /10.0.2.3 , lease time 1476526080
+09-30 12:40:03.566  1561  2851 D DhcpClient: Confirmed lease: IP address 192.168.232.2/21 Gateway 192.168.232.1  DNS servers: [ 10.0.2.3 ] Domains  DHCP server /192.168.232.1 Vendor info null lease 1476526080 seconds
+09-30 12:40:03.569  1313  1647 D CommandListener: Setting iface cfg
+09-30 12:40:03.571  1561  1692 E WifiNative-HAL: setBssidBlacklist cmd 0 size 0
+09-30 12:40:03.571  1561  1696 D ConnectivityService: NetworkAgentInfo [WIFI () - 101] EVENT_NETWORK_INFO_CHANGED, going from CONNECTING to CONNECTED
+09-30 12:40:03.573  1561  1692 E WifiStateMachine: Did not find remoteAddress {192.168.232.1} in /proc/net/arp
+09-30 12:40:03.573  1561  1692 E WifiStateMachine: Did not find remoteAddress {192.168.232.1} in /proc/net/arp
+09-30 12:40:03.574  1561  1696 D ConnectivityService: Adding iface wlan0 to network 101
+09-30 12:40:03.574  1561  2851 D DhcpClient: Scheduling renewal in 738263039s
+09-30 12:40:03.574  1561  2851 D DhcpClient: Scheduling rebind in 1291960319s
+09-30 12:40:03.574  1561  2851 D DhcpClient: Scheduling expiry in 1476526079s
+09-30 12:40:03.599  1561  1696 D ConnectivityService: Setting DNS servers for network 101 to [/10.0.2.3]
+09-30 12:40:03.602  1561  1692 D WifiNetworkAgent: NetworkAgent: Received signal strength thresholds: []
+09-30 12:40:03.602  1561  1692 D WifiNative-HAL: stopRssiMonitoring, cmdId 0
+09-30 12:40:03.604  1561  1712 I GnssLocationProvider: WakeLock acquired by sendMessage(6, 0, null)
+09-30 12:40:03.604  1561  1579 D GnssLocationProvider: handleDownloadXtraData() called when Xtra not supported
+09-30 12:40:03.604  1561  1579 I GnssLocationProvider: WakeLock released by handleMessage(6, 0, null)
+09-30 12:40:03.707  1561  1696 D NetworkNotificationManager: clearNotification id=101
+09-30 12:40:03.707  1561  1696 D ConnectivityService: NetworkAgentInfo [WIFI () - 101] validation passed
+09-30 12:40:03.707  1561  1696 D ConnectivityService: Switching to new default network: NetworkAgentInfo{ ni{[type: WIFI[], state: CONNECTED/CONNECTED, reason: (unspecified), extra: "AndroidWifi", failover: false, available: true, roaming: false, metered: false]}  network{101}  nethandle{433808132830}  lp{{InterfaceName: wlan0 LinkAddresses: [fe80::ff:fe44:5566/64,192.168.232.2/21,]  Routes: [fe80::/64 -> :: wlan0,192.168.232.0/21 -> 0.0.0.0 wlan0,0.0.0.0/0 -> 192.168.232.1 wlan0,] DnsAddresses: [10.0.2.3,] Domains: null MTU: 0 TcpBufferSizes: 524288,1048576,2097152,262144,524288,1048576}}  nc{[ Transports: WIFI Capabilities: NOT_METERED&INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VPN&VALIDATED&FOREGROUND LinkUpBandwidth>=1048576Kbps LinkDnBandwidth>=1048576Kbps SignalStrength: -50]}  Score{57}  everValidated{true}  lastValidated{true}  created{true} lingering{false} explicitlySelected{false} acceptUnvalidated{false} everCaptivePortalDetected{false} lastCaptivePortalDetected{false} }
+09-30 12:40:03.711  1313  1647 V IdletimerController: runCmd(/system/bin/ip6tables -w -t raw -A idletimer_raw_PREROUTING -i wlan0 -j IDLETIMER --timeout 15 --label 1 --send_nl_msg 1) res_ipv4=0, res_ipv6=0
+09-30 12:40:03.715  1313  1647 V IdletimerController: runCmd(/system/bin/ip6tables -w -t mangle -A idletimer_mangle_POSTROUTING -o wlan0 -j IDLETIMER --timeout 15 --label 1 --send_nl_msg 1) res_ipv4=0, res_ipv6=0
+09-30 12:40:03.716  1561  1696 D ConnectivityService: Lingering NetworkAgentInfo [MOBILE (LTE) - 100] for 30000ms
+09-30 12:40:03.716  1561  1696 D ConnectivityService: Sending DISCONNECTED broadcast for type 0 NetworkAgentInfo [MOBILE (LTE) - 100] isDefaultNetwork=true
+09-30 12:40:03.716  1561  1696 D ConnectivityService: Sending CONNECTED broadcast for type 1 NetworkAgentInfo [WIFI () - 101] isDefaultNetwork=true
+09-30 12:40:03.717  1561  2866 D WifiNetworkHistory: saving network history: "AndroidWifi"NONE gw: null Network Selection-status: NETWORK_SELECTION_ENABLED ephemeral=false choice:null link:0 status:0 nid:0 hasEverConnected: true
+09-30 12:40:03.717  1561  2866 V WifiNetworkHistory: writeKnownNetworkHistory write config "AndroidWifi"NONE
+09-30 12:40:04.036  2930  2930 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+09-30 12:40:04.037  2930  2930 D AndroidRuntime: CheckJNI is OFF
+09-30 12:40:04.055  2930  2930 W art     : Unexpected CPU variant for X86 using defaults: x86
+09-30 12:40:04.057  2930  2930 D ICU     : No timezone override file found: /data/misc/zoneinfo/current/icu/icu_tzdata.dat
+09-30 12:40:04.064  2930  2930 E memtrack: Couldn't load memtrack module (No such file or directory)
+09-30 12:40:04.064  2930  2930 E android.os.Debug: failed to load memtrack module: -2
+09-30 12:40:04.065  2930  2930 I Radio-JNI: register_android_hardware_Radio DONE
+09-30 12:40:04.068  2930  2930 D AndroidRuntime: Calling main entry com.android.commands.am.Am
+09-30 12:40:04.070  1561  2068 I ActivityManager: START u0 {flg=0x10000000 cmp=com.abosultan.darbakos.test/com.abosultan.darbakos.MainActivity} from uid 2000 on display 0
+09-30 12:40:04.093  1300  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 847872
+09-30 12:40:04.109  2930  2930 D AndroidRuntime: Shutting down VM
+09-30 12:40:04.112  1895  1911 D EGL_emulation: eglMakeCurrent: 0x9ff49a40: ver 3 0 (tinfo 0x9ff47f70)
+09-30 12:40:04.126  2778  2793 D EGL_emulation: eglMakeCurrent: 0xa47052a0: ver 3 0 (tinfo 0xa47036c0)
+09-30 12:40:04.148  1895  2836 E BluetoothAdapter: Bluetooth binder is null
+09-30 12:40:04.265  2940  2940 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+09-30 12:40:04.266  2940  2940 D AndroidRuntime: CheckJNI is OFF
+09-30 12:40:04.286  2940  2940 W art     : Unexpected CPU variant for X86 using defaults: x86
+09-30 12:40:04.288  2940  2940 D ICU     : No timezone override file found: /data/local/tmp/misc/zoneinfo/current/icu/icu_tzdata.dat
+09-30 12:40:04.307  2940  2940 E memtrack: Couldn't load memtrack module (No such file or directory)
+09-30 12:40:04.307  2940  2940 E android.os.Debug: failed to load memtrack module: -2
+09-30 12:40:04.308  2940  2940 I Radio-JNI: register_android_hardware_Radio DONE
+09-30 12:40:04.311  2940  2940 D AndroidRuntime: Calling main entry com.android.commands.uiautomator.Launcher
+09-30 12:40:04.525  1313  1647 E Netd    : netlink response contains error (File exists)
+09-30 12:40:10.131  2940  2940 W AccessibilityNodeInfoDumper: Fetch time: 1ms
+09-30 12:40:10.131  1561  2068 W WindowManager: Attempted to remove non-existing token: android.os.Binder@9fbb379
+09-30 12:40:10.134  2940  2940 D AndroidRuntime: Shutting down VM
+09-30 12:40:10.183  1300  1389 E SurfaceFlinger: ro.sf.lcd_density must be defined as a build property
+09-30 12:40:10.183  1300  1386 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 2457600
+09-30 12:40:10.185  2958  2958 D         : HostConnection::get() New Host Connection established 0xaa91b2c0, tid 2958
+09-30 12:40:10.245  2778  2791 I art     : Starting a blocking GC Explicit
+09-30 12:40:10.249  2778  2791 I art     : Explicit concurrent mark sweep GC freed 8970(491KB) AllocSpace objects, 0(0B) LOS objects, 40% free, 1619KB/2MB, paused 46us total 4.315ms
+09-30 12:40:10.388  2964  2964 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+09-30 12:40:10.389  2964  2964 D AndroidRuntime: CheckJNI is OFF
+09-30 12:40:10.408  2964  2964 W art     : Unexpected CPU variant for X86 using defaults: x86
+09-30 12:40:10.410  2964  2964 D ICU     : No timezone override file found: /data/misc/zoneinfo/current/icu/icu_tzdata.dat
+09-30 12:40:10.417  2964  2964 E memtrack: Couldn't load memtrack module (No such file or directory)
+09-30 12:40:10.417  2964  2964 E android.os.Debug: failed to load memtrack module: -2
+09-30 12:40:10.417  2964  2964 I Radio-JNI: register_android_hardware_Radio DONE
+09-30 12:40:10.420  2964  2964 D AndroidRuntime: Calling main entry com.android.commands.settings.SettingsCmd
+09-30 12:40:10.422  2964  2964 D AndroidRuntime: Shutting down VM
+09-30 12:40:10.422  1561  1579 I GnssLocationProvider: WakeLock acquired by sendMessage(2, 0, null)
+09-30 12:40:10.423  1561  1561 D GpsNetInitiatedHandler: location enabled :false
+09-30 12:40:10.423  1561  1579 I GnssLocationProvider: WakeLock released by handleMessage(2, 0, null)
+09-30 12:40:10.559  2974  2974 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+09-30 12:40:10.560  2974  2974 D AndroidRuntime: CheckJNI is OFF
+09-30 12:40:10.578  2974  2974 W art     : Unexpected CPU variant for X86 using defaults: x86
+09-30 12:40:10.580  2974  2974 D ICU     : No timezone override file found: /data/local/tmp/misc/zoneinfo/current/icu/icu_tzdata.dat
+09-30 12:40:10.597  2974  2974 E memtrack: Couldn't load memtrack module (No such file or directory)
+09-30 12:40:10.597  2974  2974 E android.os.Debug: failed to load memtrack module: -2
+09-30 12:40:10.597  2974  2974 I Radio-JNI: register_android_hardware_Radio DONE
+09-30 12:40:10.600  2974  2974 D AndroidRuntime: Calling main entry com.android.commands.uiautomator.Launcher
+09-30 12:40:11.611  2974  2974 W AccessibilityNodeInfoDumper: Fetch time: 2ms
+09-30 12:40:11.612  1561  1884 W WindowManager: Attempted to remove non-existing token: android.os.Binder@b3762ca
+09-30 12:40:11.613  2974  2974 D AndroidRuntime: Shutting down VM

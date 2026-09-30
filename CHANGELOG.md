@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-09-30 — P4 Continuous GPS + Automatic Trip Runtime verified / STOP
+- Proved runtime/recorder defects with a10-test API25 probe (9 failing assertions), then corrected only TripRuntimeService, TripAutoRecorder and MainActivity. Preserved before-fix evidence and original assertions.
+- Moved storage/close onto the Service worker, drained queued points before shutdown, cleared stopped availability without invalidating replacement ownership, and preserved PositionStore across fresh Home creation.
+- Automatic recording now rejects noncredible/order-breaking inputs, separates long GPS gaps and retries a failed full chunk before accepting a new point. Reused the existing persistence format/components.
+- Build/Lint PASS (0 errors,17 warnings); one consolidated focused API25/1024x600 gate26/26 PASS. Actual GPS/Home/background handoff and persisted background point PASS; provider-disabled unavailable state PASS. No Full Regression or Guardian suite.
+- Updated the source guard for the explicitly approved private Service/worker. No new permission/runtime dependency/native library or layout change. Saved reviewed Home screenshots, receiver/thread/storage proof, resource observations and durable provenance. P4 remains open; STOP without AIDL/Map UX work.
 ## 2026-09-30 — P4 Trip Recording Foundation focused check complete / STOP
 - Fixed one proven ordering defect: an empty new segment accepted older/duplicate timestamps after pause/resume or finish/start. Retained four-case before/after reproduction; reset clears the new last-accepted timestamp.
 - Preserved supplied assertions and added three focused TripRecorder tests for cross-segment order/sequence, quality/gap boundaries and immutable snapshot/reset behavior.

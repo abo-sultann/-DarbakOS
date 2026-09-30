@@ -2,6 +2,49 @@
 
 No Darbak OS release is Stable. See the per-stage evidence below.
 
+## 2026-09-30 — P4 Continuous GPS + Automatic Trip Runtime: PASS / STOP
+
+- Task base `7445bbca3a8e2fb5c3814c725e2304f1cc58a1fc`; final tested code `970160233d0b7d49a71c3a807965ee551ee3ac1f`. [Run36715997759](https://github.com/abo-sultann/DarbakOS/actions/runs/36715997759), job109888939532, attempt1 SUCCESS.
+- Build/Lint ran before Android tests, both before and after corrections:0 errors,17 warnings. Source guard now allows exactly the approved non-exported in-process TripRuntimeService, one HandlerThread/Handler per instance and the existing fine-location permission; other Service/Receiver/worker/runtime-dependency/native restrictions remain.
+- Initial defect probe at `987b142b9cc83bfd38c6e3ef966f790336ac4103`, run36715258027/job109886496791:10 new tests in5.127s,1 PASS/9 FAIL. It performed no historical tests or GPS UI smoke. Raw failures are retained in `before-fix/`; they drove the corrections, with no original assertion weakened.
+- After correction, **exactly one consolidated focused API25/x86,1024x600/160dpi/1GB invocation:26/26 PASS in5.351s**. The ten probe cases were rerun with one added replacement-ownership regression check and the fifteen requested existing P4 tests. No second consolidated invocation; no Full Regression, Guardian suite or1024/6144 rerun.
+
+| Selected class | Tests | Coverage |
+|---|---:|---|
+| PositionStateTest |2|Existing fix validation, ordering/revision and cold state |
+| P4GpsTripTest |2|Location field/wall-time conversion and bounded ordered buffer |
+| TripRecorderTest |6|Quality/order, pause/resume/gap segmentation, immutable snapshots/reset |
+| TripPersistenceTest |3|Committed round-trip/wall time, partial rejection, duplicate names, storage preference/runtime ownership policy |
+| OsmAndBridgeTest |2|Existing package selection and absent intent/AIDL-capability boundary only |
+| TripAutoRecorderTest |6|Automatic movement/stop, gap-separated history/pending start, old-input isolation, full-buffer storage recovery and credible fixes |
+| TripRuntimeTest |5|Storage/close thread, queued drain, null storage/sticky lifecycle, retiring/replacement isolation and actual Home/GPS/background persistence handoff |
+
+**Proven corrections, limited to three production files:**
+- TripRuntimeService previously probed/created storage and closed/flushed the recorder on the main thread; the test captured9 main-thread file operations. Discovery, GPS initialization, recording and clean close now run in order on the worker; the same probe records an empty main-thread operation list.
+- Queued accepted fixes were recorded after the old main-thread close, leaving0 committed points instead of2. Input submission and closing now enqueue atomically; cleanup follows accepted input, then stops the worker. The two queued points persist.
+- Destroyed GPS left PositionStore available. Cleanup now marks it unavailable, with an ownership guard so a retiring worker cannot invalidate a replacement's newer position. Null storage, two restart cycles, null/repeated start commands, no binding and thread cleanup pass.
+- A fresh MainActivity cleared the process-owned position even while its Service was running. Removed that Activity-level PositionStore reset; cold-process initialization remains unavailable, and activity stop/recreation preserves the active runtime's fix.
+- TripAutoRecorder let rejected old fixes alter stationary state, joined moving fixes/history across long GPS gaps, accepted unknown-time/implausible-speed input, and stranded a full buffer after a failed write. It now gates credible ordered inputs before transitions, closes histories/restarts pending movement across gaps and retries the full committed prefix before appending a new point. Existing chunk format, writer/reader and buffer were reused.
+
+- Lifecycle proof uses existing ActivityScenario and actual framework Service/LocationManager: a test-provider moving fix received while Home was stopped reached PositionStore on `DarbakTripRuntime`, displayed72km/h safely on the UI after return, survived a fresh Activity, and was found in a committed trip chunk. Mock-provider fixtures/app-op setup are test-only; no production fabricated-position source or permission was added.
+- Separate emulator `geo fix` reached Home through GPS_PROVIDER. While external Android Settings was foreground, the same app process and one GPS listener (`ae0cd20`) remained active and received changed coordinates. Return-to-Home succeeded. Disabling GPS changed Home to `GPS • غير متاح` and `—`.
+- Both Home screenshots were visually reviewed at1024x600: retained Arabic/RTL shell and truthful navigation/media/vehicle states; Home/live and returned PNGs are byte- and pixel-identical. Their SHA256 is `43ee14b7fb510f36cbb17f9fb6ebe1e61920e8fae6d5a11c2b6de0a9d55d2cc5`. No layout/resource change. This was a focused Home flow, not a new full Apps/P2 UI regression.
+- Existing P1-P3/P2 evidence remains checkpoint-scoped and was reused, not regenerated. All12 pinned Guardian proof source fingerprints still match. No Guardian/watchdog, AIDL/navigation implementation, network/Play Services/fused/Room/Compose/MapLibre dependency, new permission, native library or T3/system modification. REFERENCES records the prior upstream concept choices, Android lifecycle references and local test reuse.
+
+| Observation | Result |
+|---|---:|
+| Incoming runtime APK / corrected APK |52,415 /53,219 bytes |
+| Correction delta / delta from prior Trip Foundation50,855 |+804 /+2,364 bytes |
+| Process PSS |9,534KB |
+| Launch TotalTime / WaitTime |363 /365ms |
+| Views / Activities |49 /1 |
+| Observed app crash / ANR |0 /0 |
+
+- Measurements are single emulator observations with the GPS Service active, not causal comparisons against earlier static-shell workloads. Both the pre-fix and final crash buffers were empty; no app ANR in the final captured log. APK has no native .so. Final APK SHA256 `5b9dac5b13532b5e1820616bb68642e59770951db78af8eba09268afd5011723` matches the summary.
+- Final artifact11096516291 `DarbakOS-P1-TEST-970160233d0b7d49a71c3a807965ee551ee3ac1f`, expires2026-10-14; ZIP SHA256 verified `84b2c556b71992d4d17060a9e3201db51a00f8ecdd98fc3fc5631797f308f8f3`. Pre-fix artifact11096280476 ZIP digest also verified: `51f50194a27ade87ad95d97db1d95066284cd7007b925c69fea9e4b4c5ddded5`.
+- Durable evidence: `docs/test-evidence/p4-continuous-runtime-20260930/` includes before-fix failures, exact class/method selection, lint/build excerpt, screenshots/UI trees, GPS receiver/Service captures, memory/launch/crashes, source fingerprints and provenance.
+- Limits: no installed OsmAnd UI/version test, physical GPS/T3/ARMv7/Test Station acceptance, long-drive or forced process-death/sudden-power-loss test. Restart coverage is null-intent/repeated-start/replacement lifecycle and orderly queue drain. Uncommitted RAM points are not guaranteed across abrupt loss. **Gate complete / STOP; P4 remains open. No next bundle started.**
+
 ## 2026-09-30 — P4 Trip Recording Foundation focused check: PASS / STOP
 
 - Task base `559e51aa9ab9530b12c0dd40b9c4e6da31c49a1e`; tested `7430a45e9049d949a4855c7969cf0a7bc97b2042`. [Run36708898480](https://github.com/abo-sultann/DarbakOS/actions/runs/36708898480), job109865690081, attempt1 SUCCESS.

@@ -1,0 +1,39 @@
+Current Location Manager state:
+  Location Listeners:
+    Reciever[ae0cd20 listener UpdateRecord[gps com.abosultan.darbakos.test(10063) Request[ACCURACY_FINE gps requested=+1s0ms fastest=+1s0ms]]]
+    Reciever[6f746d9 listener UpdateRecord[passive android(1000) Request[POWER_NONE passive fastest=0]]]
+  Active Records by Provider:
+    gps:
+      UpdateRecord[gps com.abosultan.darbakos.test(10063) Request[ACCURACY_FINE gps requested=+1s0ms fastest=+1s0ms]]
+    passive:
+      UpdateRecord[passive android(1000) Request[POWER_NONE passive fastest=0]]
+  Historical Records by Provider:
+    com.abosultan.darbakos.test: gps: Interval 1 seconds: Duration requested 0 out of the last 0 minutes: Currently active
+    android: passive: Interval 0 seconds: Duration requested 0 out of the last 0 minutes: Currently active
+  Last Known Locations:
+    passive: Location[gps 24.713598,46.675300 acc=20 et=+26s763ms vel=0.0 bear=0.0 {Bundle[{satellites=0}]}]
+    gps: Location[gps 24.713598,46.675300 acc=20 et=+26s763ms vel=0.0 bear=0.0 {Bundle[{satellites=0}]}]
+  Last Known Locations Coarse Intervals:
+    passive: Location[gps 24.700000,46.700000 acc=5 et=+13s608ms vel=10.0 bear=0.0 mock]
+    gps: Location[gps 39.237255,-123.150032 acc=20 et=+17s762ms alt=0.0 {Bundle[{}]}]
+  Geofences:
+  Enabled Providers:
+    fused
+    passive
+  mWhitelist=[] mBlacklist=[]
+  fudger: offset: 14, -858 (meters)
+passive Internal State:
+mReportLocation=true
+fused Internal State (com.android.location.fused):
+REMOTE SERVICE name=fused pkg=com.android.location.fused version=0
+mEnabled=false null
+fused=null
+gps Location[ 0.000000,0.000000 acc=340282346638528860000000000000000000000 t=?!? et=?!?]
+     ---
+net Location[ 0.000000,0.000000 acc=340282346638528860000000000000000000000 t=?!? et=?!?]
+     ---
+gps Internal State:
+  mFixInterval=1000
+  mDisableGps (battery saver mode)=false
+  mEngineCapabilities=0x0 ( )
+null

@@ -1,6 +1,6 @@
 # Current Status
 
-State: P3 CLOSED / P4 TRIP RECORDING FOUNDATION FOCUSED-VERIFIED / STOP
+State: P3 CLOSED / P4 CONTINUOUS GPS + AUTOMATIC TRIP RUNTIME FOCUSED-VERIFIED / STOP
 Updated: 2026-09-30.
 Target: t3-p3 / sun8iw11p1 / Android 7.1 API25 / ARMv7 / ~1GB / 1024x600.
 
@@ -10,7 +10,17 @@ Target: t3-p3 / sun8iw11p1 / Android 7.1 API25 / ARMv7 / ~1GB / 1024x600.
 - Guardian remains passive. No automatic Watchdog, actual recovery executor or persistent support export has been started.
 
 ## P4 — verified so far
-### Current gate: Trip Recording Foundation — complete / STOP
+### Current gate: Continuous GPS + Automatic Trip Runtime — complete / STOP
+- Task base `7445bbca3a8e2fb5c3814c725e2304f1cc58a1fc`; verified code `970160233d0b7d49a71c3a807965ee551ee3ac1f`, [run36715997759](https://github.com/abo-sultann/DarbakOS/actions/runs/36715997759), attempt1 SUCCESS.
+- Build/Lint first and after corrections: PASS,0 errors/17 warnings. Initial new-test probe10 tests exposed9 failures; all were corrected. **One consolidated API25/x86,1024x600/160dpi/1GB gate:26/26 PASS.** No full historical regression or Guardian suite ran.
+- TripRuntimeService owns GPS and automatic trip recording independently from Home. Storage discovery, recording and clean-close writes run on its worker. Accepted queued input drains before close; repeated/null-intent starts remain safe; a retiring worker cannot clear its replacement's current position.
+- MainActivity observes PositionStore on the UI thread and preserves it across fresh Activity creation. Actual LocationManager callbacks continued while Home was stopped, returned safely to Home and produced a committed background trip point. External Settings handoff retained the same process and single GPS receiver. Disabling GPS displayed truthful unavailable/— state.
+- Automatic recording now rejects noncredible/out-of-order input before it changes session state, separates long gaps into distinct persisted sessions, expires pending movement across gaps and retries a failed full chunk before accepting the next point. Existing write-first buffer/chunk format was reused.
+- Only three production files were corrected: TripRuntimeService, TripAutoRecorder and MainActivity. No extra permission, Service, runtime dependency, network code, native library, Guardian change or layout change. The source guard permits only this approved private Service and worker.
+- APK53,219 bytes (+804 versus the incoming runtime, +2,364 versus Trip Foundation). One observation: PSS9,534KB, launch363ms, Views49/Activity1; no observed app crash/ANR. Home/live and returned screenshots were reviewed and are pixel-identical. Evidence: `docs/test-evidence/p4-continuous-runtime-20260930/`.
+- Scope limits: test fixtures/emulator GPS, not physical satellites/T3; Android Settings handoff, not an installed OsmAnd version. Null-intent/replacement/orderly shutdown were tested; forced process death, abrupt power loss and long-drive behavior were not. Uncommitted RAM points are not guaranteed across abrupt loss. P4 remains open; STOP.
+
+### Trip Recording Foundation — earlier focused gate
 - Task base `559e51aa9ab9530b12c0dd40b9c4e6da31c49a1e`; tested `7430a45e9049d949a4855c7969cf0a7bc97b2042`, run `36708898480`, attempt1 SUCCESS.
 - Fresh Build/Lint PASS (0 errors,17 warnings). Only `PositionStateTest`2/2 + `TripRecorderTest`6/6 ran on API25/x86,1024x600/160dpi/1GB: **8/8 PASS**. No regression, Guardian, GPS, OsmAnd, persistence or UI smoke invocation.
 - `PositionQualityPolicy` and explicit in-memory `TripRecorder` are focused-verified for quality/freshness boundaries, start/pause/resume/finish/reset, gap segmentation, monotonic ordering, sequence continuity and retained immutable snapshots.
@@ -24,7 +34,7 @@ Target: t3-p3 / sun8iw11p1 / Android 7.1 API25 / ARMv7 / ~1GB / 1024x600.
 - Checkpoint `d46c8d67abcd553bbe14143c98df2b9d10b99f75`, run `36666425924`, PositionStateTest 2/2 PASS.
 
 ### Live GPS + Home speed
-- `AndroidGpsSource` uses Android `LocationManager.GPS_PROVIDER`, lifecycle-owned by MainActivity. Only `ACCESS_FINE_LOCATION` is requested.
+- `AndroidGpsSource` uses Android `LocationManager.GPS_PROVIDER`; its current owner is TripRuntimeService and MainActivity observes PositionStore. Only `ACCESS_FINE_LOCATION` is requested. The earlier Activity-owned checkpoint below remains historical.
 - Real fixes are validated as `PositionFix`; Home speed displays real GPS km/h or truthful `—`/GPS status.
 - Checkpoint `ad6fa264d2d51567b2d1244c8b33b4b012bf08e9`, run `36672759036`: Build/Lint PASS, focused 4/4 PASS, emulator geo-fix reached the final Home speed surface, crash/ANR clean.
 
@@ -47,6 +57,8 @@ Target: t3-p3 / sun8iw11p1 / Android 7.1 API25 / ARMv7 / ~1GB / 1024x600.
 - No full regression or Guardian exhaustive suites were run for these focused P4 gates.
 
 ## Proven corrections during P4
+- Continuous runtime: moved lifecycle storage/close off UI, drained queued fixes before shutdown, invalidated stopped position, protected replacement ownership and preserved the process store across Activity creation.
+- Automatic recorder: rejected invalid/order-breaking inputs before state transitions, split persisted histories/pending movement across long GPS gaps, and recovered full buffers after storage failure without dropping the next accepted point.
 - Fixed the in-memory TripRecorder accepting older/equal timestamps across new segment boundaries; retained focused reproduction and API25 proof.
 - Advanced the old P1 source guard for the approved fine-location path while keeping Service/Receiver/native/runtime-dependency restrictions until explicitly introduced.
 - Fixed one source-guard syntax error and one Java content-description compile error found by CI.
@@ -55,16 +67,16 @@ Target: t3-p3 / sun8iw11p1 / Android 7.1 API25 / ARMv7 / ~1GB / 1024x600.
 ## P4 architecture boundary
 - Darbak owns Position and Trip independently from OsmAnd.
 - OsmAnd remains the offline map/navigation engine through a lightweight bridge first; no full SDK/library/native code embedded.
-- Persistent storage contract is now proven. The next bounded step may introduce the continuous GPS/Trip owner required when Darbak UI is not foreground, with explicit API25 lifecycle/resource tests.
+- Continuous GPS/Trip ownership is now focused-verified on API25 with one private Service and one worker per runtime instance, using the existing app-owned persistence contract. MainActivity does not own or stop GPS.
 
 ## Not yet done
-- Continuous automatic Trip runtime while OsmAnd/Darbak is backgrounded; automatic movement/session policy.
+- Long-drive, actual system process-kill/power-loss behavior and installed OsmAnd/T3 background coexistence validation beyond this bounded emulator gate.
 - OsmAnd navigation state/control callbacks, search/favorites integration and installed-version/T3 compatibility validation.
 - P5 Media, P6 Vehicle, P7 Apps/Settings/Standby, P8 Update/Admin/Recovery, P9-P11 T3 commissioning/integration/Stable acceptance.
 - Darbak Test Station/ARMv7 and physical T3 validation for P4.
 - Golden Backup/recovery commissioning before deep T3 system integration.
 
 ## Next
-STOP. The requested Trip Recording Foundation focused gate is complete. No next batch has been started or assigned here; use a newly approved `02_NEXT_TASK.md` for later work. P4 remains open.
+STOP. The Continuous GPS + Automatic Trip Runtime gate is complete; P4 remains open. The incoming task identifies narrow OsmAnd AIDL/navigation-state integration and final Map UX as later work. Neither has been started by this verification batch.
 
 GitHub is the project-state authority. Historical detailed test evidence is retained in `TEST_RESULTS.md` and `docs/test-evidence/`.

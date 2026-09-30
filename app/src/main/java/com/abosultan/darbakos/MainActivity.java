@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.os.SystemClock;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -45,14 +44,22 @@ public final class MainActivity extends Activity {
         @Override public void onPosition(final PositionFix fix) {
             runOnUiThread(() -> {
                 showLiveSpeed(fix);
-                if (section == 1) renderMapPanel();
+                if (section == 0) renderNavigationState();
+                else if (section == 1) {
+                    refreshMapLocationAction();
+                    renderNavigationState();
+                }
             });
         }
 
         @Override public void onUnavailable() {
             runOnUiThread(() -> {
                 showSpeedUnavailable(R.string.gps_unavailable);
-                if (section == 1) renderMapPanel();
+                if (section == 0) renderNavigationState();
+                else if (section == 1) {
+                    refreshMapLocationAction();
+                    renderNavigationState();
+                }
             });
         }
     };
@@ -61,6 +68,8 @@ public final class MainActivity extends Activity {
     private boolean permissionRequested;
     private boolean refreshRouteWhenResumed;
     private boolean infoRequestInFlight;
+    private boolean osmandLaunchable;
+    private boolean osmandExternalApi;
     private OsmAndBridge osmandBridge;
     private OsmAndNavigationSnapshot navigationSnapshot = OsmAndNavigationSnapshot.unknown(0L);
 
@@ -68,6 +77,7 @@ public final class MainActivity extends Activity {
         super.onCreate(state);
         setContentView(R.layout.activity_main);
         osmandBridge = new OsmAndBridge(this);
+        refreshOsmAndCapabilities();
 
         // PositionStore belongs to the process/runtime, not this Activity instance.
         if (state == null) CoreStateStore.get().resetForColdBoot();
@@ -117,6 +127,9 @@ public final class MainActivity extends Activity {
 
     @Override protected void onResume() {
         super.onResume();
+        refreshOsmAndCapabilities();
+        if (section == 1) renderMapPanel();
+        else if (section == 0) renderNavigationState();
         if (refreshRouteWhenResumed && !infoRequestInFlight) {
             refreshRouteWhenResumed = false;
             requestNavigationInfo();
@@ -151,7 +164,7 @@ public final class MainActivity extends Activity {
             navigationSnapshot = OsmAndNavigationSnapshot.unknown(SystemClock.elapsedRealtime());
         }
         renderNavigationState();
-        if (section == 1) renderMapPanel();
+        if (section == 1) refreshMapLocationAction();
     }
 
     private void startTripRuntime() {
@@ -207,7 +220,7 @@ public final class MainActivity extends Activity {
         if (info == null) {
             navigationSnapshot = OsmAndNavigationSnapshot.unknown(SystemClock.elapsedRealtime());
             renderNavigationState();
-            if (section == 1) renderMapPanel();
+            if (section == 1) refreshMapLocationAction();
             return;
         }
         try {
@@ -217,7 +230,7 @@ public final class MainActivity extends Activity {
             infoRequestInFlight = false;
             navigationSnapshot = OsmAndNavigationSnapshot.unknown(SystemClock.elapsedRealtime());
             renderNavigationState();
-            if (section == 1) renderMapPanel();
+            if (section == 1) refreshMapLocationAction();
         }
     }
 
@@ -249,7 +262,10 @@ public final class MainActivity extends Activity {
             ((TextView) findViewById(R.id.section_title)).setText(TITLES[section]);
             ((TextView) findViewById(R.id.section_detail)).setText(DETAILS[section]);
         }
-        if (map) renderMapPanel();
+        if (map) {
+            refreshOsmAndCapabilities();
+            renderMapPanel();
+        }
         if (home) renderNavigationState();
 
         for (int i = 0; i < BUTTONS.length; i++) {
@@ -257,22 +273,31 @@ public final class MainActivity extends Activity {
         }
     }
 
+    private void refreshOsmAndCapabilities() {
+        osmandLaunchable = osmandBridge != null
+                && osmandBridge.availability() == OsmAndBridge.Availability.LAUNCHABLE;
+        osmandExternalApi = osmandLaunchable && osmandBridge.externalApiAvailable();
+    }
+
     private void renderMapPanel() {
-        boolean launchable = osmandBridge.availability() == OsmAndBridge.Availability.LAUNCHABLE;
-        boolean api = launchable && osmandBridge.externalApiAvailable();
         ((TextView) findViewById(R.id.map_engine_state)).setText(
-                !launchable ? R.string.map_engine_missing
-                        : api ? R.string.map_engine_ready : R.string.map_engine_limited);
+                !osmandLaunchable ? R.string.map_engine_missing
+                        : osmandExternalApi ? R.string.map_engine_ready : R.string.map_engine_limited);
 
-        findViewById(R.id.map_open_button).setEnabled(launchable);
-        findViewById(R.id.map_search_button).setEnabled(launchable);
-        findViewById(R.id.map_search_input).setEnabled(launchable);
-        findViewById(R.id.map_refresh_button).setEnabled(api);
-        findViewById(R.id.map_location_button).setEnabled(
-                launchable && PositionStore.get().available() && PositionStore.get().latest() != null);
-
+        findViewById(R.id.map_open_button).setEnabled(osmandLaunchable);
+        findViewById(R.id.map_search_button).setEnabled(osmandLaunchable);
+        findViewById(R.id.map_search_input).setEnabled(osmandLaunchable);
+        findViewById(R.id.map_refresh_button).setEnabled(osmandExternalApi);
+        refreshMapLocationAction();
         renderNavigationState();
-        if (!launchable) setMapFeedback(getString(R.string.map_osmand_required));
+        if (!osmandLaunchable) setMapFeedback(getString(R.string.map_osmand_required));
+        else setMapFeedback("");
+    }
+
+    private void refreshMapLocationAction() {
+        findViewById(R.id.map_location_button).setEnabled(
+                osmandLaunchable && PositionStore.get().available()
+                        && PositionStore.get().latest() != null);
     }
 
     private void renderNavigationState() {
@@ -282,9 +307,7 @@ public final class MainActivity extends Activity {
         TextView mapTitle = (TextView) findViewById(R.id.map_route_title);
         TextView mapDetail = (TextView) findViewById(R.id.map_route_detail);
 
-        boolean osmandAvailable = osmandBridge != null
-                && osmandBridge.availability() == OsmAndBridge.Availability.LAUNCHABLE;
-        if (!osmandAvailable) {
+        if (!osmandLaunchable) {
             homeInstruction.setText(R.string.map_route_unavailable);
             homeDetail.setText(R.string.map_osmand_required);
             homeState.setText(R.string.navigation_state);

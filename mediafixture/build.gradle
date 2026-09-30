@@ -1,0 +1,19 @@
+plugins { id 'com.android.application' }
+
+android {
+    namespace 'com.abosultan.darbakos.mediafixture'
+    compileSdk 35
+
+    defaultConfig {
+        applicationId 'com.abosultan.darbakos.mediafixture'
+        minSdk 25
+        targetSdk 25
+        versionCode 1
+        versionName '1.0'
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}

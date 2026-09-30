@@ -1,26 +1,29 @@
-# Next Task — P4 Position Foundation FOCUSED CHECK COMPLETE / STOP
+# Next Task — P4 OsmAnd Bridge Foundation
 
-## Closure — 2026-09-30
-Verified `d46c8d67abcd553bbe14143c98df2b9d10b99f75`, run36666425924 attempt1: Build/Lint PASS (0 errors,17 unchanged warnings); PositionStateTest only2/2 PASS in0.004s on API25/1024x600. No proven application defect or production/test correction needed.
+## Goal
+Add the smallest safe OsmAnd integration boundary for Darbak OS without embedding the full OsmAnd SDK and without coupling Position/Trip to OsmAnd.
 
-Regression0, Guardian suites0, UI smoke0. No Location provider/permission, Service, thread/timer, disk/network, OsmAnd dependency or background work added. Evidence: `docs/test-evidence/p4-position-20260930/`.
+## Verified incoming checkpoint
+- P3 CLOSED.
+- P4 Position foundation PASS.
+- P4 live GPS + Home speed + TripRecorderBuffer focused gate PASS at `ad6fa264d2d51567b2d1244c8b33b4b012bf08e9`, run `36672759036`.
+- API25/1024x600 focused tests 4/4 PASS; emulator LocationManager geo-fix reached the final Home speed surface.
 
-STOP. This focused foundation check is complete; P4 is not phase-closed. No next task assigned and no GPS/OsmAnd/Trip integration started. Original scope retained below.
+## Implement in this batch
+1. Add a small `OsmAndBridge`/capability abstraction using Android PackageManager/Intent capabilities only first.
+2. Detect known installed OsmAnd package variants conservatively; absent/unsupported remains a truthful unavailable state.
+3. Provide safe explicit open/launch behavior only when a compatible package/activity resolves.
+4. Keep PositionState and TripRecorderBuffer independent from OsmAnd.
+5. Add focused API25 tests for absent package, supported package resolution logic and safe no-crash fallback.
+6. Record the exact upstream OsmAnd API/AIDL reference used in `REFERENCES.md`.
+7. Build/Lint + focused tests only. Fix proven defects only.
 
-## Purpose
-Verify the first small P4 foundation without starting GPS/OsmAnd integration yet.
-
-## Added
-- PositionFix: immutable validated lat/lon/accuracy/speed/monotonic-time value and km/h conversion.
-- PositionState: explicit in-memory latest fix, rejects null/non-monotonic updates, cold reset.
-- TripPoint: immutable accepted point value.
-- PositionStateTest focused API25 coverage.
-
-## Required
-Build/Lint, then PositionStateTest only. Fix only proven defects and rerun affected focused test. Confirm no Location permission/provider, Service, thread/timer, disk/network, OsmAnd dependency or background work was added. Do not run full regression or old Guardian exhaustive suites. Record focused evidence, Commit + Push, STOP.
-
-## Forbidden
-No real GPS polling, OsmAnd/AIDL, trip persistence, route UI, Media/Vehicle, hardware/T3 work in this gate.
+## Constraints
+- No full OsmAnd SDK/library dependency.
+- Do not vendor the full current AIDL surface in this first batch.
+- No route/search/favorites/navigation callbacks yet.
+- No background Service, GPS persistence, media/vehicle work or T3 changes.
+- No full regression or Guardian exhaustive suites.
 
 ## Finish
-P4 position value/state foundation compiles and passes focused API25 tests. Not a phase-closing gate.
+A lightweight tested bridge boundary exists and Darbak can truthfully distinguish OsmAnd unavailable vs launchable without destabilizing the current P4 GPS/Home path. Commit + Push and checkpoint; then proceed to the navigation/AIDL compatibility slice.

@@ -9,7 +9,7 @@ import java.util.List;
 /** Power-safe trip chunk writer: complete chunks are renamed from .part only after sync/close. */
 public final class TripChunkWriter {
     private static final int MAGIC = 0x44545250; // DTRP
-    private static final int VERSION = 1;
+    private static final int VERSION = 2;
     private static final int END = 0x454E4421; // END!
     private static final Object FILE_LOCK = new Object();
 
@@ -32,7 +32,6 @@ public final class TripChunkWriter {
                     "trip_" + safeSession + "_" + chunkIndex, ".dtrip");
             File partial = uniqueFile(directory, complete.getName(), ".part");
             writePartial(partial, safeSession, chunkIndex, points);
-            // The process-wide lock keeps another Darbak writer from claiming this final path.
             if (complete.exists() || !partial.renameTo(complete)) {
                 throw new IOException("Could not commit trip chunk: " + partial.getName());
             }
@@ -55,6 +54,7 @@ public final class TripChunkWriter {
                 PositionFix fix = point.position;
                 out.writeLong(point.sequence);
                 out.writeLong(fix.monotonicMs);
+                out.writeLong(fix.wallTimeMs);
                 out.writeDouble(fix.latitude);
                 out.writeDouble(fix.longitude);
                 out.writeFloat(fix.accuracyMeters);

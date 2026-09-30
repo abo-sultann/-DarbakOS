@@ -1,6 +1,5 @@
 package com.abosultan.darbakos;
 
-import android.net.Uri;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
 import com.abosultan.darbakos.core.OsmAndBridge;
@@ -29,6 +28,7 @@ public class OsmAndBridgeTest {
         assertTrue(OsmAndPackages.isKnown(OsmAndPackages.FULL));
         assertFalse(OsmAndPackages.isKnown("example.maps"));
         assertFalse(OsmAndPackages.isKnown(null));
+        assertEquals("net.osmand.aidl.OsmandAidlService", OsmAndBridge.AIDL_SERVICE_ACTION);
 
         String[] copy = OsmAndPackages.ordered();
         copy[0] = "changed";
@@ -40,6 +40,7 @@ public class OsmAndBridgeTest {
                 InstrumentationRegistry.getInstrumentation().getTargetContext());
         assertEquals(OsmAndBridge.Availability.UNAVAILABLE, bridge.availability());
         assertNull(bridge.resolvedPackage());
+        assertFalse(bridge.aidlServiceAvailable());
         assertFalse(bridge.open());
         PositionFix fix = PositionFix.create(24.7136, 46.6753, 5f, 0f, 1000L);
         assertNotNull(fix);

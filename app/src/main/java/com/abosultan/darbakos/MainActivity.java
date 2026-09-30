@@ -2,20 +2,32 @@ package com.abosultan.darbakos;
 
 import android.Manifest;
 import android.app.Activity;
-import android.content.pm.PackageManager;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+
 import com.abosultan.darbakos.core.CoreStateStore;
+import com.abosultan.darbakos.core.OsmAndBridge;
+import com.abosultan.darbakos.core.OsmAndNavigationSnapshot;
 import com.abosultan.darbakos.core.PositionFix;
 import com.abosultan.darbakos.core.PositionStore;
 import com.abosultan.darbakos.core.TripRuntimeService;
 
-/** Darbak OS shell observing the continuous P4 GPS/trip runtime. */
+import java.util.Locale;
+
+/** Darbak OS shell observing continuous GPS/trip runtime and the external OsmAnd engine. */
 public final class MainActivity extends Activity {
     private static final String STATE_SECTION = "section";
     private static final int REQUEST_LOCATION = 40;
+    private static final int REQUEST_OSMAND_INFO = 41;
+    private static final long NAVIGATION_SNAPSHOT_FRESH_MS = 60_000L;
+
     private static final int[] BUTTONS = {
         R.id.nav_home, R.id.nav_map, R.id.nav_media, R.id.nav_vehicle, R.id.nav_apps,
         R.id.settings_button
@@ -31,32 +43,58 @@ public final class MainActivity extends Activity {
 
     private final PositionStore.Listener positionListener = new PositionStore.Listener() {
         @Override public void onPosition(final PositionFix fix) {
-            runOnUiThread(() -> showLiveSpeed(fix));
+            runOnUiThread(() -> {
+                showLiveSpeed(fix);
+                if (section == 1) renderMapPanel();
+            });
         }
+
         @Override public void onUnavailable() {
-            runOnUiThread(() -> showSpeedUnavailable(R.string.gps_unavailable));
+            runOnUiThread(() -> {
+                showSpeedUnavailable(R.string.gps_unavailable);
+                if (section == 1) renderMapPanel();
+            });
         }
     };
+
     private int section;
     private boolean permissionRequested;
+    private boolean refreshRouteWhenResumed;
+    private boolean infoRequestInFlight;
+    private OsmAndBridge osmandBridge;
+    private OsmAndNavigationSnapshot navigationSnapshot = OsmAndNavigationSnapshot.unknown(0L);
 
     @Override public void onCreate(Bundle state) {
         super.onCreate(state);
         setContentView(R.layout.activity_main);
+        osmandBridge = new OsmAndBridge(this);
+
         // PositionStore belongs to the process/runtime, not this Activity instance.
-        // Its new-process state is already unavailable until a real source publishes.
-        if (state == null) {
-            CoreStateStore.get().resetForColdBoot();
-        }
+        if (state == null) CoreStateStore.get().resetForColdBoot();
+
         for (int i = 0; i < BUTTONS.length; i++) {
             final int destination = i;
             findViewById(BUTTONS[i]).setOnClickListener(v -> showSection(destination));
         }
         findViewById(R.id.back_home).setOnClickListener(v -> showSection(0));
+        findViewById(R.id.map_back_home).setOnClickListener(v -> showSection(0));
         findViewById(R.id.quick_map).setOnClickListener(v -> showSection(1));
         findViewById(R.id.quick_media).setOnClickListener(v -> showSection(2));
         findViewById(R.id.quick_vehicle).setOnClickListener(v -> showSection(3));
-        // Recreate restores only the visible shell; a fresh process launch starts at Home.
+
+        findViewById(R.id.map_open_button).setOnClickListener(v -> openOsmAnd());
+        findViewById(R.id.map_location_button).setOnClickListener(v -> openCurrentLocation());
+        findViewById(R.id.map_refresh_button).setOnClickListener(v -> requestNavigationInfo());
+        findViewById(R.id.map_search_button).setOnClickListener(v -> searchDestination());
+        ((EditText) findViewById(R.id.map_search_input)).setOnEditorActionListener((view, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                searchDestination();
+                return true;
+            }
+            return false;
+        });
+
+        // Recreate restores only the visible shell; route state is refreshed from OsmAnd on demand.
         showSection(state == null ? 0 : state.getInt(STATE_SECTION, 0));
         enterFullscreen();
     }
@@ -77,6 +115,14 @@ public final class MainActivity extends Activity {
         }
     }
 
+    @Override protected void onResume() {
+        super.onResume();
+        if (refreshRouteWhenResumed && !infoRequestInFlight) {
+            refreshRouteWhenResumed = false;
+            requestNavigationInfo();
+        }
+    }
+
     @Override protected void onStop() {
         PositionStore.get().removeListener(positionListener);
         super.onStop();
@@ -94,11 +140,84 @@ public final class MainActivity extends Activity {
         }
     }
 
+    @Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode != REQUEST_OSMAND_INFO) return;
+        infoRequestInFlight = false;
+        if (resultCode == RESULT_OK) {
+            navigationSnapshot = OsmAndBridge.parseNavigationInfo(
+                    data, SystemClock.elapsedRealtime());
+        } else {
+            navigationSnapshot = OsmAndNavigationSnapshot.unknown(SystemClock.elapsedRealtime());
+        }
+        renderNavigationState();
+        if (section == 1) renderMapPanel();
+    }
+
     private void startTripRuntime() {
         try {
             startService(new Intent(this, TripRuntimeService.class));
         } catch (RuntimeException ignored) {
             showSpeedUnavailable(R.string.gps_unavailable);
+        }
+    }
+
+    private void openOsmAnd() {
+        if (osmandBridge.open()) {
+            refreshRouteWhenResumed = true;
+            setMapFeedback("");
+        } else {
+            setMapFeedback(getString(R.string.map_osmand_required));
+        }
+    }
+
+    private void openCurrentLocation() {
+        PositionFix fix = PositionStore.get().available() ? PositionStore.get().latest() : null;
+        if (fix == null) {
+            setMapFeedback(getString(R.string.map_location_unavailable));
+            return;
+        }
+        if (osmandBridge.openLocation(fix)) {
+            refreshRouteWhenResumed = true;
+            setMapFeedback("");
+        } else {
+            setMapFeedback(getString(R.string.map_osmand_required));
+        }
+    }
+
+    private void searchDestination() {
+        EditText search = (EditText) findViewById(R.id.map_search_input);
+        String query = search.getText() == null ? "" : search.getText().toString().trim();
+        if (query.length() == 0) {
+            setMapFeedback(getString(R.string.map_search_empty));
+            return;
+        }
+        PositionFix around = PositionStore.get().available() ? PositionStore.get().latest() : null;
+        if (osmandBridge.openSearch(query, around)) {
+            refreshRouteWhenResumed = true;
+            setMapFeedback("");
+        } else {
+            setMapFeedback(getString(R.string.map_osmand_required));
+        }
+    }
+
+    private void requestNavigationInfo() {
+        if (infoRequestInFlight) return;
+        Intent info = osmandBridge.navigationInfoIntent();
+        if (info == null) {
+            navigationSnapshot = OsmAndNavigationSnapshot.unknown(SystemClock.elapsedRealtime());
+            renderNavigationState();
+            if (section == 1) renderMapPanel();
+            return;
+        }
+        try {
+            infoRequestInFlight = true;
+            startActivityForResult(info, REQUEST_OSMAND_INFO);
+        } catch (RuntimeException ignored) {
+            infoRequestInFlight = false;
+            navigationSnapshot = OsmAndNavigationSnapshot.unknown(SystemClock.elapsedRealtime());
+            renderNavigationState();
+            if (section == 1) renderMapPanel();
         }
     }
 
@@ -120,14 +239,121 @@ public final class MainActivity extends Activity {
     private void showSection(int destination) {
         section = destination >= 0 && destination < TITLES.length ? destination : 0;
         boolean home = section == 0;
+        boolean map = section == 1;
         findViewById(R.id.home_panel).setVisibility(home ? View.VISIBLE : View.GONE);
-        findViewById(R.id.section_panel).setVisibility(home ? View.GONE : View.VISIBLE);
+        findViewById(R.id.map_panel).setVisibility(map ? View.VISIBLE : View.GONE);
+        findViewById(R.id.section_panel).setVisibility(!home && !map ? View.VISIBLE : View.GONE);
         findViewById(R.id.apps_preview).setVisibility(section == 4 ? View.VISIBLE : View.GONE);
-        ((TextView) findViewById(R.id.section_title)).setText(TITLES[section]);
-        ((TextView) findViewById(R.id.section_detail)).setText(DETAILS[section]);
+
+        if (!home && !map) {
+            ((TextView) findViewById(R.id.section_title)).setText(TITLES[section]);
+            ((TextView) findViewById(R.id.section_detail)).setText(DETAILS[section]);
+        }
+        if (map) renderMapPanel();
+        if (home) renderNavigationState();
+
         for (int i = 0; i < BUTTONS.length; i++) {
             findViewById(BUTTONS[i]).setSelected(i == section);
         }
+    }
+
+    private void renderMapPanel() {
+        boolean launchable = osmandBridge.availability() == OsmAndBridge.Availability.LAUNCHABLE;
+        boolean api = launchable && osmandBridge.externalApiAvailable();
+        ((TextView) findViewById(R.id.map_engine_state)).setText(
+                !launchable ? R.string.map_engine_missing
+                        : api ? R.string.map_engine_ready : R.string.map_engine_limited);
+
+        findViewById(R.id.map_open_button).setEnabled(launchable);
+        findViewById(R.id.map_search_button).setEnabled(launchable);
+        findViewById(R.id.map_search_input).setEnabled(launchable);
+        findViewById(R.id.map_refresh_button).setEnabled(api);
+        findViewById(R.id.map_location_button).setEnabled(
+                launchable && PositionStore.get().available() && PositionStore.get().latest() != null);
+
+        renderNavigationState();
+        if (!launchable) setMapFeedback(getString(R.string.map_osmand_required));
+    }
+
+    private void renderNavigationState() {
+        TextView homeInstruction = (TextView) findViewById(R.id.navigation_instruction);
+        TextView homeDetail = (TextView) findViewById(R.id.navigation_eta);
+        TextView homeState = (TextView) findViewById(R.id.navigation_state);
+        TextView mapTitle = (TextView) findViewById(R.id.map_route_title);
+        TextView mapDetail = (TextView) findViewById(R.id.map_route_detail);
+
+        boolean osmandAvailable = osmandBridge != null
+                && osmandBridge.availability() == OsmAndBridge.Availability.LAUNCHABLE;
+        if (!osmandAvailable) {
+            homeInstruction.setText(R.string.map_route_unavailable);
+            homeDetail.setText(R.string.map_osmand_required);
+            homeState.setText(R.string.navigation_state);
+            mapTitle.setText(R.string.map_route_unavailable);
+            mapDetail.setText(R.string.map_osmand_required);
+            return;
+        }
+
+        long now = SystemClock.elapsedRealtime();
+        if (navigationSnapshot.state == OsmAndNavigationSnapshot.State.UNKNOWN
+                || navigationSnapshot.stale(now, NAVIGATION_SNAPSHOT_FRESH_MS)) {
+            homeInstruction.setText(R.string.map_route_unknown);
+            homeDetail.setText(R.string.map_route_unknown_detail);
+            homeState.setText(R.string.navigation_state_unknown);
+            mapTitle.setText(R.string.map_route_unknown);
+            mapDetail.setText(R.string.map_route_unknown_detail);
+            return;
+        }
+
+        if (navigationSnapshot.state == OsmAndNavigationSnapshot.State.IDLE) {
+            homeInstruction.setText(R.string.map_route_idle);
+            homeDetail.setText(R.string.map_route_idle_detail);
+            homeState.setText(R.string.navigation_state_ready);
+            mapTitle.setText(R.string.map_route_idle);
+            mapDetail.setText(R.string.map_route_idle_detail);
+            return;
+        }
+
+        String title = navigationSnapshot.turnName.length() > 0
+                ? navigationSnapshot.turnName : getString(R.string.map_route_active);
+        String detail = formatRouteDetail(navigationSnapshot);
+        homeInstruction.setText(title);
+        homeDetail.setText(detail);
+        homeState.setText(R.string.navigation_state_active);
+        mapTitle.setText(title);
+        mapDetail.setText(detail);
+    }
+
+    private String formatRouteDetail(OsmAndNavigationSnapshot snapshot) {
+        StringBuilder value = new StringBuilder();
+        if (snapshot.nextTurnDistanceMeters >= 0) {
+            value.append("بعد ").append(formatDistance(snapshot.nextTurnDistanceMeters));
+        }
+        if (snapshot.distanceLeftMeters >= 0) {
+            if (value.length() > 0) value.append(" • ");
+            value.append("متبقي ").append(formatDistance(snapshot.distanceLeftMeters));
+        }
+        if (snapshot.timeLeftSeconds >= 0) {
+            if (value.length() > 0) value.append(" • ");
+            value.append(formatDuration(snapshot.timeLeftSeconds));
+        }
+        return value.length() == 0 ? getString(R.string.map_route_active) : value.toString();
+    }
+
+    private String formatDistance(int meters) {
+        if (meters >= 1000) return String.format(Locale.US, "%.1f كم", meters / 1000f);
+        return Math.max(0, meters) + " م";
+    }
+
+    private String formatDuration(int seconds) {
+        int minutes = Math.max(1, (seconds + 59) / 60);
+        if (minutes < 60) return minutes + " د";
+        int hours = minutes / 60;
+        int remainingMinutes = minutes % 60;
+        return remainingMinutes == 0 ? hours + " س" : hours + " س " + remainingMinutes + " د";
+    }
+
+    private void setMapFeedback(String message) {
+        ((TextView) findViewById(R.id.map_feedback)).setText(message == null ? "" : message);
     }
 
     @Override protected void onSaveInstanceState(Bundle state) {

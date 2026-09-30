@@ -385,7 +385,10 @@ public final class MainActivity extends Activity {
     }
 
     private void setMapFeedback(String message) {
-        ((TextView) findViewById(R.id.map_feedback)).setText(message == null ? "" : message);
+        TextView feedback = (TextView) findViewById(R.id.map_feedback);
+        String value = message == null ? "" : message.trim();
+        feedback.setText(value);
+        feedback.setVisibility(value.length() == 0 ? View.GONE : View.VISIBLE);
     }
 
     @Override protected void onSaveInstanceState(Bundle state) {

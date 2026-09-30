@@ -27,7 +27,8 @@ public class TripPersistenceTest {
     }
 
     private PositionFix fix(long time, double lat) {
-        PositionFix fix = PositionFix.create(lat, 46.6753, 4f, 10f, time);
+        PositionFix fix = PositionFix.createStamped(lat, 46.6753, 4f, 10f, time,
+                1700000000000L + time);
         assertNotNull(fix);
         return fix;
     }
@@ -52,6 +53,7 @@ public class TripPersistenceTest {
         assertEquals(0L, read.points.get(0).sequence);
         assertEquals(1L, read.points.get(1).sequence);
         assertEquals(100L, read.points.get(0).position.monotonicMs);
+        assertEquals(1700000000100L, read.points.get(0).position.wallTimeMs);
 
         assertTrue(buffer.append(fix(300, 24.72)));
         File duplicateIndex = store.flush(buffer, "drive/one", 0);

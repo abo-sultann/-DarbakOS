@@ -126,6 +126,39 @@
                 android:layout_marginTop="10dp" android:textColor="@color/gold" />
         </LinearLayout>
 
+        <LinearLayout android:id="@+id/media_panel" style="@style/Card"
+            android:layout_width="match_parent" android:layout_height="match_parent"
+            android:visibility="gone" android:gravity="center_vertical">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="64dp"
+                android:orientation="horizontal" android:gravity="center_vertical">
+                <TextView style="@style/Title" android:layout_width="0dp" android:layout_weight="1"
+                    android:text="@string/media_title" />
+                <Button android:id="@+id/media_back_home" style="@style/Action"
+                    android:layout_width="wrap_content" android:text="@string/back_home" />
+            </LinearLayout>
+            <TextView android:id="@+id/media_now_title" style="@style/Title"
+                android:text="@string/media_no_session" android:textSize="30sp" />
+            <TextView android:id="@+id/media_now_artist" style="@style/Body"
+                android:layout_marginTop="8dp" android:text="@string/media_no_session_detail" />
+            <TextView android:id="@+id/media_now_status" style="@style/Body"
+                android:layout_marginTop="10dp" android:text="@string/media_position_test"
+                android:textColor="@color/gold" />
+            <LinearLayout android:layout_width="match_parent" android:layout_height="@dimen/touch_height"
+                android:orientation="horizontal" android:layout_marginTop="18dp">
+                <Button android:id="@+id/media_previous_button" style="@style/Action"
+                    android:layout_width="0dp" android:layout_weight="1" android:text="@string/media_previous" />
+                <Button android:id="@+id/media_play_pause_button" style="@style/Action"
+                    android:layout_width="0dp" android:layout_weight="1"
+                    android:layout_marginStart="@dimen/space_small" android:text="@string/media_play" />
+                <Button android:id="@+id/media_next_button" style="@style/Action"
+                    android:layout_width="0dp" android:layout_weight="1"
+                    android:layout_marginStart="@dimen/space_small" android:text="@string/media_next" />
+            </LinearLayout>
+            <Button android:id="@+id/media_access_button" style="@style/Action"
+                android:layout_width="match_parent" android:layout_marginTop="12dp"
+                android:text="@string/media_access_action" />
+        </LinearLayout>
+
         <LinearLayout android:id="@+id/section_panel" style="@style/Card"
             android:layout_width="match_parent" android:layout_height="match_parent"
             android:visibility="gone" android:gravity="center">

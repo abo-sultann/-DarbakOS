@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Focused API25 gate for P4 GPS, trip staging and lightweight OsmAnd bridge."""
+"""Focused API25 gate for P4 GPS, trip persistence and lightweight OsmAnd bridge."""
 from pathlib import Path
 import json
 import re
@@ -52,12 +52,13 @@ adb('logcat', '-c')
 classes = ','.join([
     'com.abosultan.darbakos.PositionStateTest',
     'com.abosultan.darbakos.P4GpsTripTest',
-    'com.abosultan.darbakos.OsmAndBridgeTest'
+    'com.abosultan.darbakos.OsmAndBridgeTest',
+    'com.abosultan.darbakos.TripPersistenceTest'
 ])
 focused = subprocess.check_output(ADB + ['shell', 'am', 'instrument', '-w', '-e', 'class', classes,
     PACKAGE + '.test/androidx.test.runner.AndroidJUnitRunner'], text=True, timeout=180)
 save('p4-focused-instrumentation.txt', focused)
-assert 'OK (6 tests)' in focused and 'FAILURES' not in focused, focused
+assert 'OK (9 tests)' in focused and 'FAILURES' not in focused, focused
 
 # Verify the real Android LocationManager path reaches the final Home speed surface.
 adb('shell', 'pm', 'grant', PACKAGE, 'android.permission.ACCESS_FINE_LOCATION')
@@ -91,9 +92,14 @@ assert 'FATAL EXCEPTION' not in crash
 assert 'ANR in ' + PACKAGE not in logs
 save('p4-focused-summary.json', json.dumps({
     'result': 'PASS', 'api': 25, 'resolution': '1024x600',
-    'focused_tests': 6, 'gps_permission_granted_by_test': True,
+    'focused_tests': 9, 'gps_permission_granted_by_test': True,
     'emulator_geo_fix_reached_home': True, 'speed_text': speed_text,
     'osmand_bridge_absent_fallback_tested': True,
+    'trip_persistence_round_trip_tested': True,
+    'trip_partial_file_rejected': True,
+    'trip_duplicate_name_safe': True,
+    'storage_preference_tested': True,
+    'runtime_ownership_policy_tested': True,
     'full_regression_runs': 0, 'guardian_suite_runs': 0, 't3_validated': False
 }, ensure_ascii=False, indent=2))
-print('PASS: P4 GPS/Trip/OsmAnd bridge focused tests and live LocationManager -> Home speed UI')
+print('PASS: P4 GPS/Trip persistence/OsmAnd bridge focused tests and live LocationManager -> Home speed UI')

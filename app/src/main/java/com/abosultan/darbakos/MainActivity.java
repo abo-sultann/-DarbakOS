@@ -6,12 +6,15 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.provider.Settings;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.abosultan.darbakos.core.CoreStateStore;
+import com.abosultan.darbakos.core.MediaSessionBridge;
+import com.abosultan.darbakos.core.MediaSnapshot;
 import com.abosultan.darbakos.core.OsmAndBridge;
 import com.abosultan.darbakos.core.OsmAndNavigationSnapshot;
 import com.abosultan.darbakos.core.PositionFix;
@@ -20,7 +23,7 @@ import com.abosultan.darbakos.core.TripRuntimeService;
 
 import java.util.Locale;
 
-/** Darbak OS shell observing continuous GPS/trip runtime and the external OsmAnd engine. */
+/** Darbak OS shell for continuous position/trip, OsmAnd and user-triggered external media control. */
 public final class MainActivity extends Activity {
     private static final String STATE_SECTION = "section";
     private static final int REQUEST_LOCATION = 40;
@@ -72,12 +75,18 @@ public final class MainActivity extends Activity {
     private boolean osmandExternalApi;
     private OsmAndBridge osmandBridge;
     private OsmAndNavigationSnapshot navigationSnapshot = OsmAndNavigationSnapshot.unknown(0L);
+    private MediaSessionBridge mediaBridge;
+    private MediaSnapshot mediaSnapshot = MediaSnapshot.accessUnavailable();
 
     @Override public void onCreate(Bundle state) {
         super.onCreate(state);
         setContentView(R.layout.activity_main);
         osmandBridge = new OsmAndBridge(this);
         refreshOsmAndCapabilities();
+        mediaBridge = new MediaSessionBridge(this, snapshot -> runOnUiThread(() -> {
+            mediaSnapshot = snapshot == null ? MediaSnapshot.idle() : snapshot;
+            renderMediaState();
+        }));
 
         // PositionStore belongs to the process/runtime, not this Activity instance.
         if (state == null) CoreStateStore.get().resetForColdBoot();
@@ -88,6 +97,7 @@ public final class MainActivity extends Activity {
         }
         findViewById(R.id.back_home).setOnClickListener(v -> showSection(0));
         findViewById(R.id.map_back_home).setOnClickListener(v -> showSection(0));
+        findViewById(R.id.media_back_home).setOnClickListener(v -> showSection(0));
         findViewById(R.id.quick_map).setOnClickListener(v -> showSection(1));
         findViewById(R.id.quick_media).setOnClickListener(v -> showSection(2));
         findViewById(R.id.quick_vehicle).setOnClickListener(v -> showSection(3));
@@ -104,14 +114,20 @@ public final class MainActivity extends Activity {
             return false;
         });
 
-        // Recreate restores only the visible shell; route state is refreshed from OsmAnd on demand.
+        findViewById(R.id.media_access_button).setOnClickListener(v -> openMediaAccessSettings());
+        findViewById(R.id.media_play_pause_button).setOnClickListener(v -> mediaBridge.playPause());
+        findViewById(R.id.media_previous_button).setOnClickListener(v -> mediaBridge.previous());
+        findViewById(R.id.media_next_button).setOnClickListener(v -> mediaBridge.next());
+
         showSection(state == null ? 0 : state.getInt(STATE_SECTION, 0));
+        renderMediaState();
         enterFullscreen();
     }
 
     @Override protected void onStart() {
         super.onStart();
         PositionStore.get().addListener(positionListener);
+        if (mediaBridge != null) mediaBridge.start();
         if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
             startTripRuntime();
@@ -130,6 +146,7 @@ public final class MainActivity extends Activity {
         refreshOsmAndCapabilities();
         if (section == 1) renderMapPanel();
         else if (section == 0) renderNavigationState();
+        else if (section == 2) renderMediaState();
         if (refreshRouteWhenResumed && !infoRequestInFlight) {
             refreshRouteWhenResumed = false;
             requestNavigationInfo();
@@ -138,6 +155,7 @@ public final class MainActivity extends Activity {
 
     @Override protected void onStop() {
         PositionStore.get().removeListener(positionListener);
+        if (mediaBridge != null) mediaBridge.stop();
         super.onStop();
     }
 
@@ -234,6 +252,12 @@ public final class MainActivity extends Activity {
         }
     }
 
+    private void openMediaAccessSettings() {
+        try {
+            startActivity(new Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS));
+        } catch (RuntimeException ignored) { }
+    }
+
     private void showLiveSpeed(PositionFix fix) {
         TextView speed = (TextView) findViewById(R.id.speed_value);
         speed.setText(String.valueOf(fix.speedKmh()));
@@ -253,12 +277,14 @@ public final class MainActivity extends Activity {
         section = destination >= 0 && destination < TITLES.length ? destination : 0;
         boolean home = section == 0;
         boolean map = section == 1;
+        boolean media = section == 2;
         findViewById(R.id.home_panel).setVisibility(home ? View.VISIBLE : View.GONE);
         findViewById(R.id.map_panel).setVisibility(map ? View.VISIBLE : View.GONE);
-        findViewById(R.id.section_panel).setVisibility(!home && !map ? View.VISIBLE : View.GONE);
+        findViewById(R.id.media_panel).setVisibility(media ? View.VISIBLE : View.GONE);
+        findViewById(R.id.section_panel).setVisibility(!home && !map && !media ? View.VISIBLE : View.GONE);
         findViewById(R.id.apps_preview).setVisibility(section == 4 ? View.VISIBLE : View.GONE);
 
-        if (!home && !map) {
+        if (!home && !map && !media) {
             ((TextView) findViewById(R.id.section_title)).setText(TITLES[section]);
             ((TextView) findViewById(R.id.section_detail)).setText(DETAILS[section]);
         }
@@ -266,11 +292,68 @@ public final class MainActivity extends Activity {
             refreshOsmAndCapabilities();
             renderMapPanel();
         }
+        if (media) renderMediaState();
         if (home) renderNavigationState();
 
         for (int i = 0; i < BUTTONS.length; i++) {
             findViewById(BUTTONS[i]).setSelected(i == section);
         }
+    }
+
+    private void renderMediaState() {
+        MediaSnapshot snapshot = mediaSnapshot == null ? MediaSnapshot.idle() : mediaSnapshot;
+        TextView homeTrack = (TextView) findViewById(R.id.media_track);
+        TextView homeState = (TextView) findViewById(R.id.media_state);
+        TextView title = (TextView) findViewById(R.id.media_now_title);
+        TextView artist = (TextView) findViewById(R.id.media_now_artist);
+        TextView status = (TextView) findViewById(R.id.media_now_status);
+        TextView playPause = (TextView) findViewById(R.id.media_play_pause_button);
+        View previous = findViewById(R.id.media_previous_button);
+        View next = findViewById(R.id.media_next_button);
+        View access = findViewById(R.id.media_access_button);
+
+        if (snapshot.state == MediaSnapshot.State.ACCESS_UNAVAILABLE) {
+            homeTrack.setText(R.string.media_no_session);
+            homeState.setText(R.string.media_access_needed);
+            title.setText(R.string.media_access_needed);
+            artist.setText(R.string.media_access_detail);
+            status.setText(R.string.media_position_test);
+            playPause.setText(R.string.media_play);
+            playPause.setEnabled(false);
+            previous.setEnabled(false);
+            next.setEnabled(false);
+            access.setVisibility(View.VISIBLE);
+            return;
+        }
+
+        access.setVisibility(View.GONE);
+        if (snapshot.state == MediaSnapshot.State.IDLE) {
+            homeTrack.setText(R.string.media_no_session);
+            homeState.setText(R.string.media_position_test);
+            title.setText(R.string.media_no_session);
+            artist.setText(R.string.media_no_session_detail);
+            status.setText(R.string.media_position_test);
+            playPause.setText(R.string.media_play);
+            playPause.setEnabled(false);
+            previous.setEnabled(false);
+            next.setEnabled(false);
+            return;
+        }
+
+        String track = snapshot.title.length() == 0
+                ? getString(R.string.media_unknown_track) : snapshot.title;
+        String by = snapshot.artist.length() == 0
+                ? getString(R.string.media_unknown_artist) : snapshot.artist;
+        int stateText = snapshot.playing ? R.string.media_playing : R.string.media_paused;
+        homeTrack.setText(track);
+        homeState.setText(stateText);
+        title.setText(track);
+        artist.setText(by);
+        status.setText(stateText);
+        playPause.setText(snapshot.playing ? R.string.media_pause : R.string.media_play);
+        playPause.setEnabled(snapshot.canPlayPause);
+        previous.setEnabled(snapshot.canPrevious);
+        next.setEnabled(snapshot.canNext);
     }
 
     private void refreshOsmAndCapabilities() {
@@ -290,7 +373,6 @@ public final class MainActivity extends Activity {
         findViewById(R.id.map_refresh_button).setEnabled(osmandExternalApi);
         refreshMapLocationAction();
         renderNavigationState();
-        // Engine/route labels already explain capability. Reserve feedback for actual user actions.
         setMapFeedback("");
     }
 

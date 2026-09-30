@@ -31,6 +31,6 @@ assert all(not re.search(r'TEST|experimental|preview|prototype|تجريب|معا
 java = '\n'.join(p.read_text() for p in main.rglob('*.java'))
 assert 'MediaPlayer' not in java and 'BluetoothAdapter' not in java
 assert 'LocationManager' in java, 'P4 GPS source must remain explicit and reviewable'
-assert not any(token in java for token in ('Thread(', 'Timer(', 'Handler(', 'ExecutorService'))), \
+assert not any(token in java for token in ('Thread(', 'Timer(', 'Handler(', 'ExecutorService')), \
     'No production worker/scheduler approved in this checkpoint'
 print('PASS: XML, minSdk25, RTL, landscape, fine-location-only P4 GPS, no services/runtime dependencies/native code')

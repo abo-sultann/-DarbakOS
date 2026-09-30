@@ -1,0 +1,6 @@
+FAIL: pause/resume rejects 9999 after accepted 10000
+FAIL: pause/resume rejects 10000 after accepted 10000
+FAIL: finish/start rejects 9999 after accepted 10000
+FAIL: finish/start rejects 10000 after accepted 10000
+Exception in thread "main" java.lang.AssertionError: 4 monotonic-order violations
+	at TripMonotonicRepro.main(TripMonotonicRepro.java:22)

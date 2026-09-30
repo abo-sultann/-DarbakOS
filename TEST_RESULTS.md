@@ -2,6 +2,30 @@
 
 No Darbak OS release is Stable. See the per-stage evidence below.
 
+## 2026-09-30 — P4 Trip Recording Foundation focused check: PASS / STOP
+
+- Task base `559e51aa9ab9530b12c0dd40b9c4e6da31c49a1e`; tested `7430a45e9049d949a4855c7969cf0a7bc97b2042`. [Run36708898480](https://github.com/abo-sultann/DarbakOS/actions/runs/36708898480), job109865690081, attempt1 SUCCESS.
+- Fresh Build/Lint PASS:0 errors,17 warnings; no lint issue in PositionQualityPolicy or TripRecorder. **Exactly one focused invocation: PositionStateTest2/2 + TripRecorderTest6/6 =8/8 PASS in0.016s**, API25/x86,1024x600/160dpi/1GB.
+- Only the two requested classes were selected using `--trip-only`. Regression0, Guardian suites0, GPS smoke0, OsmAnd suites0, persistence suites0, UI smoke0. Artifact evidence contains only the focused result/summary/logs; prior heavy/P2/Guardian evidence was retained without rerun.
+
+| Focused coverage | Result |
+|---|---|
+| Existing PositionFix validation/speed conversion; PositionState null/order/revision/reset assertions |2/2 original tests PASS |
+| Stale/future/null/poor-accuracy/implausible-speed rejection |PASS |
+| Pause/resume and long GPS gaps form separate segments; finished recording rejects input |PASS |
+| Older/equal times rejected within and across pause/resume and finish/start; rejected inputs consume no sequence; repeated start preserves pause |PASS after the narrow fix |
+| Exact age15s/accuracy100m/speed70m/s boundaries, time0/negative caller time/extreme long values; gap15s stays contiguous and15s+1ms splits |PASS |
+| Outer and inner snapshots reject mutation; retained point/sequence survives later acceptance/segmentation/reset; reset permits a fresh earlier-time sequence0 |PASS |
+| Cold reset is empty, not recording and not paused |PASS |
+
+**Only proven production defect:** the original TripRecorder checked monotonic time against the current segment only. After pause/resume or finish/start, that segment was empty, so an older or duplicate fix was accepted. The local Java reproduction failed in all four cases before the fix and passed all four afterward. TripRecorder now stores the last accepted timestamp across retained segments and clears it on reset. No other production file changed. Added three focused TripRecorderTest methods to the three supplied ones; all original PositionState/Trip assertions are preserved.
+
+- Source/reuse review: read README order and REFERENCES.md, reused existing PositionFix/PositionState/TripPoint, snapshot conventions and focused emulator runner. The incoming bundle adds only PositionQualityPolicy, TripRecorder and its tests. No third-party implementation, runtime dependency, native code, permission/provider/Service/thread/timer/Handler/Executor/disk/network/background work introduced; TripRecorder has no production caller outside this bundle.
+- **Baseline reconciliation:** main already contained ACCESS_FINE_LOCATION, AndroidGpsSource/MainActivity GPS, intent-only OsmAnd bridge and Trip persistence before the bundle (`e91e05c60ed4ff146f7e30f5b3b6fc4ceff0a149`). The task's global absence wording was therefore stale. This gate preserves those paths, does not exercise them and makes no repository-wide absence claim. Earlier checkpoint results in current status remain historical; timestamp/TripAutoRecorder/PositionStore additions are compiled but not newly runtime-verified by these eight tests. UI/resources/manifest/build dependencies and all earlier production files are unchanged by this verification commit.
+- APK50,855 bytes, SHA256 `6ed09fb3bdd93edc3b09b76c56c72555a5ca2d2aaa38d64cc08dbc9adfb051`; no native .so. Both captured crash buffers are empty; no app ANR in either logcat. No PSS/startup benchmark, screenshot, live GPS, physical ARMv7/Test Station/T3 or UI acceptance is claimed.
+- Artifact11092679743 `DarbakOS-P1-TEST-7430a45e9049d949a4855c7969cf0a7bc97b2042`, expires2026-10-14. Downloaded ZIP SHA256 matched GitHub digest `c8ae767c089e15f66ffced161c65ada6e63a1ab0b9c943419c828d90bc309ff3`; APK hash/size matched the focused summary.
+- Durable evidence: `docs/test-evidence/p4-trip-recording-20260930/` contains before/after reproduction and source, instrumentation, exact selection summary, lint, crash/logcat captures, CI excerpt, source audit and provenance. **Focused check complete / STOP. P4 remains open; no next batch started.**
+
 ## 2026-09-30 — P4 Position Foundation focused check: PASS / STOP
 
 - Incoming `280b85b328326185c0eacfe8db16ee31f50f8503`; tested `d46c8d67abcd553bbe14143c98df2b9d10b99f75`. [Run36666425924](https://github.com/abo-sultann/DarbakOS/actions/runs/36666425924), job109731958932, attempt1 SUCCESS.

@@ -1,0 +1,9 @@
+
+com.abosultan.darbakos.TripRecorderTest:......
+com.abosultan.darbakos.PositionStateTest:..
+
+Time: 0.016
+
+OK (8 tests)
+
+

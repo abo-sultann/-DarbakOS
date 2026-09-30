@@ -1,0 +1,25 @@
+{
+  "result": "PASS",
+  "scope": "com.abosultan.darbakos.PositionStateTest,com.abosultan.darbakos.TripRecorderTest only",
+  "commit": "7430a45e9049d949a4855c7969cf0a7bc97b2042",
+  "api": 25,
+  "abi": "x86",
+  "resolution": "1024x600",
+  "density": 160,
+  "focused_instrumented_tests": 8,
+  "focused_class": "com.abosultan.darbakos.PositionStateTest,com.abosultan.darbakos.TripRecorderTest",
+  "regression_runs": 0,
+  "giant_suite_runs": 0,
+  "focused_classes": [
+    "PositionStateTest",
+    "TripRecorderTest"
+  ],
+  "guardian_suite_runs": 0,
+  "gps_smoke_run": false,
+  "osmand_suite_runs": 0,
+  "persistence_suite_runs": 0,
+  "ui_smoke_run": false,
+  "apk_bytes": 50855,
+  "apk_sha256": "6ed09fb3bdd93edc3b09b76c56c72555a5ca2d2aaa38d64cdcc08dbc9adfb051",
+  "t3_validated": false
+}

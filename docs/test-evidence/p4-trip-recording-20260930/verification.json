@@ -1,0 +1,135 @@
+{
+  "result": "PASS",
+  "scope": "P4 Trip Recording Foundation focused gate only",
+  "task_base": "559e51aa9ab9530b12c0dd40b9c4e6da31c49a1e",
+  "tested_commit": "7430a45e9049d949a4855c7969cf0a7bc97b2042",
+  "ci": {
+    "run_id": 36708898480,
+    "job_id": 109865690081,
+    "attempt": 1,
+    "url": "https://github.com/abo-sultann/DarbakOS/actions/runs/36708898480",
+    "conclusion": "success",
+    "steps": [
+      {
+        "name": "Set up job",
+        "conclusion": "success"
+      },
+      {
+        "name": "Run actions/checkout@v4",
+        "conclusion": "success"
+      },
+      {
+        "name": "Run actions/setup-java@v4",
+        "conclusion": "success"
+      },
+      {
+        "name": "Run gradle/actions/setup-gradle@v4",
+        "conclusion": "success"
+      },
+      {
+        "name": "Source checks",
+        "conclusion": "success"
+      },
+      {
+        "name": "Provision Android command-line tools",
+        "conclusion": "success"
+      },
+      {
+        "name": "Install pinned SDK build tools",
+        "conclusion": "success"
+      },
+      {
+        "name": "Build and lint",
+        "conclusion": "success"
+      },
+      {
+        "name": "Enable emulator acceleration",
+        "conclusion": "success"
+      },
+      {
+        "name": "API25 P4 Trip Recording Foundation only",
+        "conclusion": "success"
+      },
+      {
+        "name": "Upload TEST APK and evidence",
+        "conclusion": "success"
+      },
+      {
+        "name": "Post Run gradle/actions/setup-gradle@v4",
+        "conclusion": "success"
+      },
+      {
+        "name": "Post Run actions/setup-java@v4",
+        "conclusion": "success"
+      },
+      {
+        "name": "Post Run actions/checkout@v4",
+        "conclusion": "success"
+      },
+      {
+        "name": "Complete job",
+        "conclusion": "success"
+      }
+    ]
+  },
+  "build_lint": {
+    "fresh_build": true,
+    "result": "PASS",
+    "errors": 0,
+    "warnings": 17,
+    "production_trip_quality_file_warnings": 0
+  },
+  "focused": {
+    "command": "python3 scripts/emulator_smoke.py --trip-only",
+    "api": 25,
+    "abi": "x86",
+    "resolution": "1024x600",
+    "density": 160,
+    "ram": "1024M",
+    "invocations": 1,
+    "tests": 8,
+    "position_state_tests": 2,
+    "trip_recorder_tests": 6,
+    "seconds": 0.016,
+    "original_assertions_preserved": true,
+    "full_regression_runs": 0,
+    "guardian_suite_runs": 0,
+    "osmand_suite_runs": 0,
+    "persistence_suite_runs": 0,
+    "ui_smoke_runs": 0,
+    "gps_smoke_runs": 0
+  },
+  "defect": {
+    "description": "Older/equal timestamps accepted in empty segment after pause/resume or finish/start",
+    "local_before": "4/4 reproduced violations; exit1",
+    "local_after": "4/4 rejected correctly; exit0",
+    "production_files_changed": [
+      "app/src/main/java/com/abosultan/darbakos/core/TripRecorder.java"
+    ]
+  },
+  "artifact": {
+    "id": 11092679743,
+    "name": "DarbakOS-P1-TEST-7430a45e9049d949a4855c7969cf0a7bc97b2042",
+    "expires_at": "2026-10-14T11:31:36Z",
+    "zip_bytes": 1222426,
+    "zip_sha256": "c8ae767c089e15f66ffced161c65ada6e63a1ab0b9c943419c828d90bc309ff3",
+    "digest_verified": true,
+    "apk_bytes": 50855,
+    "apk_sha256": "6ed09fb3bdd93edc3b09b76c56c72555a5ca2d2aaa38d64cc08dbc9adfb051",
+    "summary_hash_and_size_match": true,
+    "no_native_libraries": true
+  },
+  "runtime_observations": {
+    "empty_crash_buffers": 2,
+    "app_anr_in_captured_logs": 0,
+    "pss_measured": false,
+    "launch_measured": false,
+    "screenshots_taken": false
+  },
+  "limitations": [
+    "No live GPS/OsmAnd/persistence/runtime-service verification in this gate; their earlier evidence stays checkpoint-scoped.",
+    "The task base already includes fine-location permission, GPS, storage and an intent-only bridge; no global absence claim is made.",
+    "No physical ARMv7/T3/Test Station acceptance; P4 remains open."
+  ],
+  "stop": true
+}

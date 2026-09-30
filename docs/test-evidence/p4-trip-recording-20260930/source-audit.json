@@ -1,0 +1,47 @@
+{
+  "task_base": "559e51aa9ab9530b12c0dd40b9c4e6da31c49a1e",
+  "pre_bundle": "e91e05c60ed4ff146f7e30f5b3b6fc4ceff0a149",
+  "tested_commit": "7430a45e9049d949a4855c7969cf0a7bc97b2042",
+  "bundle_files": [
+    "02_NEXT_TASK.md",
+    "app/src/androidTest/java/com/abosultan/darbakos/TripRecorderTest.java",
+    "app/src/main/java/com/abosultan/darbakos/core/PositionQualityPolicy.java",
+    "app/src/main/java/com/abosultan/darbakos/core/TripRecorder.java"
+  ],
+  "verification_code_changes": [
+    ".github/workflows/p1-android.yml",
+    "app/src/androidTest/java/com/abosultan/darbakos/TripRecorderTest.java",
+    "app/src/main/java/com/abosultan/darbakos/core/TripRecorder.java",
+    "scripts/emulator_smoke.py"
+  ],
+  "production_fix": "TripRecorder retains lastAcceptedMonotonicMs across all retained segments; reset clears it. No other production file changed.",
+  "scope": "PositionStateTest + TripRecorderTest only. No Activity launch, GPS grant/poll/geo-fix, OsmAnd, persistence, Guardian or regression invocation.",
+  "constraints": {
+    "api25": true,
+    "new_runtime_dependencies": 0,
+    "new_permissions": 0,
+    "new_services": 0,
+    "new_receivers": 0,
+    "new_production_threads_timers_handlers_executors": 0,
+    "new_disk_network_or_background_work": false,
+    "new_osmand_code_or_dependency": false,
+    "trip_recorder_has_external_production_caller": false,
+    "no_native_library_added": true
+  },
+  "baseline_reconciliation": "The literal repository-wide no GPS/permission/disk/OsmAnd wording in 02_NEXT_TASK.md was already inconsistent with task base 559e51a. ACCESS_FINE_LOCATION, AndroidGpsSource/MainActivity GPS, intent-only OsmAnd bridge and Trip persistence were present before this bundle. They were not removed, modified, exercised or revalidated by this gate. No global absence claim is made.",
+  "earlier_changes_not_newly_validated": "PositionFix wallTimeMs, AndroidGpsSource timestamp propagation, TripChunk v2, TripAutoRecorder and PositionStore predate this bundle; they compile but their runtime behavior is outside the selected tests.",
+  "reuse_review": "README order, REFERENCES.md and existing owner-project reference records reviewed. Reused PositionFix/PositionState/TripPoint, synchronized in-memory conventions, snapshot collections and existing focused emulator runner. No third-party implementation or dependency imported.",
+  "source_sha256": {
+    "app/src/main/java/com/abosultan/darbakos/core/PositionFix.java": "71828f2b257fb6a8b7370a8e130620972d457319117099588aebb2bcaa875bce",
+    "app/src/main/java/com/abosultan/darbakos/core/PositionState.java": "4768919fc3e89605a6ed2cec702c86e0c91a6f5fac918406382bf1e0ef4e7ad0",
+    "app/src/main/java/com/abosultan/darbakos/core/TripPoint.java": "52b9ef8a0b80cfe0e153cd0012288ccc854fc130da3739e6cd0db6114e6446e7",
+    "app/src/main/java/com/abosultan/darbakos/core/PositionQualityPolicy.java": "6f074e3332b9165c71882535e7146916e0a69144a3b3f4208a669b2472a7144a",
+    "app/src/main/java/com/abosultan/darbakos/core/TripRecorder.java": "e88b5e060f3c9346f95e8868e4a04913f2e77e1b09cf91756ecf692bc5d55878",
+    "app/src/androidTest/java/com/abosultan/darbakos/PositionStateTest.java": "c71068081130be6594724dd9f83baf3e66a162baca2d84e8773791e0c8df6d2c",
+    "app/src/androidTest/java/com/abosultan/darbakos/TripRecorderTest.java": "a5f8f4a55ab553cbf3cbf59b4f1c24304f81a39cba99ec6ecdb789d03ae72717",
+    "app/src/main/AndroidManifest.xml": "c669cbc348aab590073150953b078ed73d88c841f1453142d60b3449777f5c8b",
+    "app/build.gradle": "db50c01f5b29261a8912e19932eb2cb5b85cae64f692869fffd28c4b4cbf3eec",
+    ".github/workflows/p1-android.yml": "ed343c8e81ee39c51ffd5e795ac1918a013cde194f11a05542d9f9b6f26a5d1c",
+    "scripts/emulator_smoke.py": "0dc77384fcd32ffc45cdd3256d1fde2d2fb88782c6074413463335b6e34d2a62"
+  }
+}

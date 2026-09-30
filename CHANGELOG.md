@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-09-30 — P4 Trip Recording Foundation focused check complete / STOP
+- Fixed one proven ordering defect: an empty new segment accepted older/duplicate timestamps after pause/resume or finish/start. Retained four-case before/after reproduction; reset clears the new last-accepted timestamp.
+- Preserved supplied assertions and added three focused TripRecorder tests for cross-segment order/sequence, quality/gap boundaries and immutable snapshot/reset behavior.
+- Build/Lint PASS (0 errors,17 warnings); exactly one API25/1024x600 focused run: PositionStateTest2/2 + TripRecorderTest6/6 =8/8 PASS. No regression, Guardian, GPS/OsmAnd/persistence or UI smoke run.
+- Reused the existing focused CI runner, saved raw evidence/provenance and updated status. Existing GPS permission/provider, persistence and intent bridge predate this bundle; no new background/I/O/dependency path was introduced. APK50,855 bytes, no observed crash/app ANR. P4 remains open; STOP.
+
 ## 2026-09-30 — P4 Position Foundation focused check complete / STOP
 - Build/Lint PASS (0 errors,17 unchanged warnings), PositionStateTest only2/2 PASS on API25/1024x600. No proven production defect or app/test correction needed.
 - Reused focused runner via --position-only and restored fresh build for changed sources. Regression/Guardian/UI smoke runs0; previous proofs retained.

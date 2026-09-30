@@ -1,6 +1,6 @@
 # Current Status
 
-State: P3 CLOSED / P4 GPS + TRIP PERSISTENCE + OSMAND BRIDGE VERIFIED
+State: P3 CLOSED / P4 TRIP RECORDING FOUNDATION FOCUSED-VERIFIED / STOP
 Updated: 2026-09-30.
 Target: t3-p3 / sun8iw11p1 / Android 7.1 API25 / ARMv7 / ~1GB / 1024x600.
 
@@ -10,6 +10,15 @@ Target: t3-p3 / sun8iw11p1 / Android 7.1 API25 / ARMv7 / ~1GB / 1024x600.
 - Guardian remains passive. No automatic Watchdog, actual recovery executor or persistent support export has been started.
 
 ## P4 — verified so far
+### Current gate: Trip Recording Foundation — complete / STOP
+- Task base `559e51aa9ab9530b12c0dd40b9c4e6da31c49a1e`; tested `7430a45e9049d949a4855c7969cf0a7bc97b2042`, run `36708898480`, attempt1 SUCCESS.
+- Fresh Build/Lint PASS (0 errors,17 warnings). Only `PositionStateTest`2/2 + `TripRecorderTest`6/6 ran on API25/x86,1024x600/160dpi/1GB: **8/8 PASS**. No regression, Guardian, GPS, OsmAnd, persistence or UI smoke invocation.
+- `PositionQualityPolicy` and explicit in-memory `TripRecorder` are focused-verified for quality/freshness boundaries, start/pause/resume/finish/reset, gap segmentation, monotonic ordering, sequence continuity and retained immutable snapshots.
+- One proven defect fixed: older/equal timestamps were accepted after pause/resume or finish/start because the new segment was empty. TripRecorder now retains the last accepted time across segments and clears it on reset. Four before/after reproduction cases and three additional focused test methods are retained; all supplied assertions remain.
+- APK50,855 bytes; both crash buffers empty; no app ANR observed. No new resource benchmark, screenshot or physical T3/ARMv7 acceptance. Evidence: `docs/test-evidence/p4-trip-recording-20260930/`.
+- Scope reconciliation: the task's repository-wide no-GPS/permission/disk/OsmAnd wording was already outdated at its base. Existing fine-location permission, GPS path, persistence and intent-only bridge were preserved and not exercised. This bundle adds no permission/provider/Service/thread/timer/Handler/Executor/disk/network/OsmAnd dependency/background work and has no TripRecorder caller outside the bundle/tests.
+- Earlier P4 results below remain tied to their named checkpoints. Timestamp changes, `TripAutoRecorder` and `PositionStore` already present before this bundle were compiled, but their runtime behavior is not newly verified here. P4 remains open; no subsequent implementation task is authorized by this closure.
+
 ### Position foundation
 - `PositionFix`, `PositionState` and `TripPoint` verified on API25/1024x600.
 - Checkpoint `d46c8d67abcd553bbe14143c98df2b9d10b99f75`, run `36666425924`, PositionStateTest 2/2 PASS.
@@ -38,6 +47,7 @@ Target: t3-p3 / sun8iw11p1 / Android 7.1 API25 / ARMv7 / ~1GB / 1024x600.
 - No full regression or Guardian exhaustive suites were run for these focused P4 gates.
 
 ## Proven corrections during P4
+- Fixed the in-memory TripRecorder accepting older/equal timestamps across new segment boundaries; retained focused reproduction and API25 proof.
 - Advanced the old P1 source guard for the approved fine-location path while keeping Service/Receiver/native/runtime-dependency restrictions until explicitly introduced.
 - Fixed one source-guard syntax error and one Java content-description compile error found by CI.
 - Strengthened trip final-name commit serialization before accepting persistence.
@@ -55,6 +65,6 @@ Target: t3-p3 / sun8iw11p1 / Android 7.1 API25 / ARMv7 / ~1GB / 1024x600.
 - Golden Backup/recovery commissioning before deep T3 system integration.
 
 ## Next
-Introduce one lightweight continuous Position/Trip runtime for active trip/navigation use, reuse the proven persistence contract, and prove lifecycle handoff on API25 before adding further OsmAnd navigation control.
+STOP. The requested Trip Recording Foundation focused gate is complete. No next batch has been started or assigned here; use a newly approved `02_NEXT_TASK.md` for later work. P4 remains open.
 
 GitHub is the project-state authority. Historical detailed test evidence is retained in `TEST_RESULTS.md` and `docs/test-evidence/`.

@@ -1,0 +1,13 @@
+Run 36708898480, job 109865690081, attempt 1, 7430a45e9049d949a4855c7969cf0a7bc97b2042
+Selected verbatim job-log lines; complete log remains at the linked GitHub Actions run.
+2026-09-30T11:30:03.4311171Z ##[group]Run python3 scripts/check_baseline.py
+2026-09-30T11:30:03.4311645Z [36;1mpython3 scripts/check_baseline.py[0m
+2026-09-30T11:30:03.5097458Z PASS: XML, minSdk25, RTL, landscape, fine-location-only P4 GPS, no services/runtime dependencies/native code
+2026-09-30T11:30:13.9063378Z ##[group]Run ./gradlew :app:assembleDebug :app:assembleDebugAndroidTest :app:lintDebug --no-daemon --console=plain
+2026-09-30T11:30:13.9064281Z [36;1m./gradlew :app:assembleDebug :app:assembleDebugAndroidTest :app:lintDebug --no-daemon --console=plain[0m
+2026-09-30T11:30:43.0394932Z BUILD SUCCESSFUL in 28s
+2026-09-30T11:30:43.2481015Z   script: python3 scripts/emulator_smoke.py --trip-only
+2026-09-30T11:30:43.3091073Z python3 scripts/emulator_smoke.py --trip-only
+2026-09-30T11:31:32.0855401Z [command]/usr/bin/sh -c python3 scripts/emulator_smoke.py --trip-only
+2026-09-30T11:31:34.9301773Z PASS: com.abosultan.darbakos.PositionStateTest,com.abosultan.darbakos.TripRecorderTest only; no regression or UI smoke run
+2026-09-30T11:31:49.2409284Z BUILD SUCCESSFUL in 8s

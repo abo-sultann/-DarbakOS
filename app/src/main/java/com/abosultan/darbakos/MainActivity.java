@@ -107,7 +107,7 @@ public final class MainActivity extends Activity {
     private void showSpeedUnavailable(int statusText) {
         TextView speed = (TextView) findViewById(R.id.speed_value);
         speed.setText(R.string.speed_empty);
-        speed.setContentDescription(R.string.speed_accessibility);
+        speed.setContentDescription(getString(R.string.speed_accessibility));
         ((TextView) findViewById(R.id.speed_source)).setText(statusText);
     }
 

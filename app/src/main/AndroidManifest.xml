@@ -8,6 +8,10 @@
         android:icon="@drawable/ic_darbak"
         android:supportsRtl="true"
         android:theme="@style/Theme.Darbak">
+        <service
+            android:name=".core.TripRuntimeService"
+            android:exported="false" />
+
         <activity android:name=".MainActivity"
             android:exported="true"
             android:screenOrientation="landscape">

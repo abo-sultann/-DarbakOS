@@ -3,15 +3,16 @@ package com.abosultan.darbakos;
 import android.Manifest;
 import android.app.Activity;
 import android.content.pm.PackageManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-import com.abosultan.darbakos.core.AndroidGpsSource;
 import com.abosultan.darbakos.core.CoreStateStore;
 import com.abosultan.darbakos.core.PositionFix;
-import com.abosultan.darbakos.core.PositionState;
+import com.abosultan.darbakos.core.PositionStore;
+import com.abosultan.darbakos.core.TripRuntimeService;
 
-/** Darbak OS shell with lifecycle-owned P4 GPS speed; no background Service yet. */
+/** Darbak OS shell observing the continuous P4 GPS/trip runtime. */
 public final class MainActivity extends Activity {
     private static final String STATE_SECTION = "section";
     private static final int REQUEST_LOCATION = 40;
@@ -28,8 +29,14 @@ public final class MainActivity extends Activity {
         R.string.vehicle_detail, R.string.apps_detail, R.string.settings_detail
     };
 
-    private final PositionState positionState = new PositionState();
-    private AndroidGpsSource gpsSource;
+    private final PositionStore.Listener positionListener = new PositionStore.Listener() {
+        @Override public void onPosition(final PositionFix fix) {
+            runOnUiThread(() -> showLiveSpeed(fix));
+        }
+        @Override public void onUnavailable() {
+            runOnUiThread(() -> showSpeedUnavailable(R.string.gps_unavailable));
+        }
+    };
     private int section;
     private boolean permissionRequested;
 
@@ -39,18 +46,8 @@ public final class MainActivity extends Activity {
         // P3/P4: fresh process begins truthfully unavailable until a real source publishes.
         if (state == null) {
             CoreStateStore.get().resetForColdBoot();
-            positionState.resetForColdBoot();
+            PositionStore.get().resetForColdBoot();
         }
-        gpsSource = new AndroidGpsSource(this, new AndroidGpsSource.Callback() {
-            @Override public void onFix(PositionFix fix) {
-                if (positionState.publish(fix)) showLiveSpeed(fix);
-            }
-
-            @Override public void onUnavailable() {
-                showSpeedUnavailable(R.string.gps_unavailable);
-            }
-        });
-
         for (int i = 0; i < BUTTONS.length; i++) {
             final int destination = i;
             findViewById(BUTTONS[i]).setOnClickListener(v -> showSection(destination));
@@ -66,9 +63,10 @@ public final class MainActivity extends Activity {
 
     @Override protected void onStart() {
         super.onStart();
-        if (gpsSource.hasPermission()) {
-            showSpeedUnavailable(R.string.gps_waiting);
-            gpsSource.start();
+        PositionStore.get().addListener(positionListener);
+        if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            startTripRuntime();
         } else {
             showSpeedUnavailable(R.string.gps_permission_needed);
             if (!permissionRequested) {
@@ -80,7 +78,7 @@ public final class MainActivity extends Activity {
     }
 
     @Override protected void onStop() {
-        if (gpsSource != null) gpsSource.stop();
+        PositionStore.get().removeListener(positionListener);
         super.onStop();
     }
 
@@ -90,9 +88,17 @@ public final class MainActivity extends Activity {
         if (requestCode != REQUEST_LOCATION) return;
         if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             showSpeedUnavailable(R.string.gps_waiting);
-            gpsSource.start();
+            startTripRuntime();
         } else {
             showSpeedUnavailable(R.string.gps_permission_needed);
+        }
+    }
+
+    private void startTripRuntime() {
+        try {
+            startService(new Intent(this, TripRuntimeService.class));
+        } catch (RuntimeException ignored) {
+            showSpeedUnavailable(R.string.gps_unavailable);
         }
     }
 

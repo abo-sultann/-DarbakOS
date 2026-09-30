@@ -29,7 +29,7 @@
                     android:contentDescription="@string/speed_accessibility"
                     android:gravity="center" android:textSize="80sp" android:textColor="@color/accent" />
                 <TextView style="@style/Body" android:text="@string/kmh" android:gravity="center" />
-                <TextView style="@style/Body" android:layout_marginTop="24dp" android:gravity="center"
+                <TextView android:id="@+id/speed_source" style="@style/Body" android:layout_marginTop="24dp" android:gravity="center"
                     android:text="@string/test_source" android:textSize="16sp" />
                 <Button android:id="@+id/quick_map" style="@style/Action" android:layout_width="match_parent"
                     android:layout_marginTop="16dp" android:text="@string/home_quick_map" />

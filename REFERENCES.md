@@ -70,3 +70,10 @@ P1 measured result at `72fde4a`: runtime APK 18,221 bytes with no native librari
 ## P3 closure CI reuse — 2026-09-30
 - Official `actions/download-artifact` v4, pinned commit `d3f86a106a0bac45b974a628896c90dbdf5c8093`, MIT; README/LICENSE inspected. Used only in `.github/workflows/p1-android.yml` to retrieve the already verified diagnostics APKs/lint instead of rebuilding unchanged source. No source code copied or app dependency introduced; GitHub-hosted CI only, no API25/ABI/RAM impact.
 - Existing emulator smoke and Guardian proof conventions reused.52 build-input SHA256 checks and artifact hashes gate reuse; earlier exhaustive/concurrency evidence remains pinned. Android results recorded in TEST_RESULTS.md.
+
+## P4 OsmAnd bridge reference — 2026-09-30
+- Upstream inspected at `osmandapp/OsmAnd@26e32fb929b18cc6f6614855f184f5627a1fc7af`.
+- `OsmAnd/build.gradle` confirms official application IDs used by current flavors: `net.osmand.plus` (full/androidFull), `net.osmand` (gplayFree), and `net.osmand.dev` (nightlyFree). Darbak uses only these identifiers for conservative capability detection.
+- `OsmAnd-api/src/net/osmand/aidlapi/IOsmAndAidlInterface.aidl` confirms the maintained API surface includes map location, GPX, route calculation, navigation/search/customization and callbacks. This first bridge does **not** copy/vendor that interface; it uses Android PackageManager/Intent only and reserves AIDL for the next compatibility slice.
+- Upstream repository code license is GPLv3; artwork is CC-BY-NC-ND 4.0 with noted exceptions. No OsmAnd GPL source or artwork was copied into Darbak in this bridge batch.
+- Darbak destination: `OsmAndPackages` + `OsmAndBridge`. Implementation is independent Android framework code, no runtime dependency, no native library and no minSdk increase. Physical API25/ARMv7/T3 compatibility of an installed OsmAnd APK still requires a later device/version test.

@@ -14,6 +14,8 @@ OUT.mkdir(exist_ok=True)
 PACKAGE = 'com.abosultan.darbakos.test'
 ACTIVITY = PACKAGE + '/com.abosultan.darbakos.MainActivity'
 LISTENER = PACKAGE + '/com.abosultan.darbakos.core.DarbakMediaNotificationListener'
+FIXTURE_PACKAGE = 'com.abosultan.darbakos.mediafixture'
+FIXTURE_ACTIVITY = FIXTURE_PACKAGE + '/.FixtureActivity'
 serials = [line.split()[0] for line in subprocess.check_output(['adb', 'devices'], text=True).splitlines()[1:]
            if line.endswith('\tdevice') and line.startswith('emulator-')]
 assert len(serials) == 1
@@ -89,7 +91,6 @@ def grant_listener_via_settings():
         if ('دربك' in text or 'دربك' in desc or 'Darbak' in text or 'Darbak' in desc):
             candidates.append(item)
     assert candidates, 'Darbak media access row not found in Notification access Settings'
-    # Prefer a visible label with useful bounds; tapping the row label toggles the API25 switch.
     candidates.sort(key=lambda item: (item.get('text', '') == '', -len(item.get('text', ''))))
     tap_node(candidates[0])
 
@@ -124,14 +125,17 @@ try:
     adb('shell', 'wm', 'density', '160')
     apk = ROOT / 'app/build/outputs/apk/debug/app-debug.apk'
     test_apk = ROOT / 'app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk'
+    fixture_apks = list((ROOT / 'mediafixture/build/outputs/apk/debug').glob('*.apk'))
+    assert len(fixture_apks) == 1, fixture_apks
+    fixture_apk = fixture_apks[0]
     adb('install', '-r', str(apk))
     adb('install', '-r', '-t', str(test_apk))
+    adb('install', '-r', str(fixture_apk))
     adb('shell', 'pm', 'grant', PACKAGE, 'android.permission.ACCESS_FINE_LOCATION')
-    # Fresh CI emulator has no enabled notification listeners. Make that invariant explicit.
     adb('shell', 'settings', 'delete', 'secure', 'enabled_notification_listeners')
     adb('logcat', '-c')
 
-    # State A: access unavailable. Final UI must stay truthful and all media transport disabled.
+    # State A: access unavailable. Final UI stays truthful; no transport can be triggered.
     instrument(['ShellTest', 'MediaSnapshotTest'], 9, 'media-no-access-instrumentation')
     launch = adb('shell', 'am', 'start', '-W', '-n', ACTIVITY)
     save('media-launch-no-access.txt', launch)
@@ -143,17 +147,33 @@ try:
     assert 'TripRuntimeService' in services and 'startRequested=true' in services
     screen('media-home-no-access-1024x600')
 
-    # State B: grant exactly as a user does on Android 7.1 Settings. This avoids relying on shell
-    # commands that do not exist on API25 and proves the declared listener is discoverable.
+    # State B: grant access through the real Android 7.1 Settings UI.
     adb('shell', 'am', 'force-stop', PACKAGE)
     grant_listener_via_settings()
-    instrument(['MediaSessionBridgeTest', 'MediaAccessShellTest'], 3,
-               'media-session-access-instrumentation')
 
-    # Both test MediaSessions are released. Darbak must not own a lingering playback session.
+    # Launch a genuinely separate APK/UID that owns a paused framework MediaSession. Darbak must
+    # observe it without autoplay, then explicit Darbak buttons must control that external session.
+    fixture_launch = adb('shell', 'am', 'start', '-W', '-n', FIXTURE_ACTIVITY)
+    save('media-fixture-launch.txt', fixture_launch)
+    assert 'Status: ok' in fixture_launch
+    time.sleep(0.8)
+    before = adb('shell', 'dumpsys', 'media_session')
+    save('media-session-before-darbak.txt', before)
+    assert 'DarbakP5Fixture' in before and 'state=2' in before, \
+        'External fixture must begin PAUSED before Darbak attaches'
+    instrument(['ExternalMediaIntegrationTest'], 1, 'external-media-integration')
+    after = adb('shell', 'dumpsys', 'media_session')
+    save('media-session-after-control.txt', after)
+    assert 'DarbakP5Fixture' in after and 'state=3' in after, \
+        'Explicit Darbak play control must move the external session to PLAYING'
+
+    # Remove the external player and prove granted access returns to a quiet IDLE state.
+    adb('shell', 'am', 'force-stop', FIXTURE_PACKAGE)
+    time.sleep(0.8)
+    instrument(['MediaAccessShellTest'], 1, 'media-access-idle-instrumentation')
     sessions = adb('shell', 'dumpsys', 'media_session')
-    save('media-session-after-tests.txt', sessions)
-    assert 'DarbakP5Observe' not in sessions and 'DarbakP5Transport' not in sessions
+    save('media-session-after-fixture-stop.txt', sessions)
+    assert 'DarbakP5Fixture' not in sessions
     adb('shell', 'am', 'start', '-W', '-n', ACTIVITY)
     time.sleep(0.8)
     screen('media-home-access-idle-1024x600')
@@ -164,27 +184,32 @@ try:
         'api': 25,
         'abi': adb('shell', 'getprop', 'ro.product.cpu.abi').strip(),
         'resolution': '1024x600', 'density': 160,
-        'instrumentation_invocations': 2,
-        'focused_tests': 12,
+        'instrumentation_invocations': 3,
+        'focused_tests': 11,
         'shell_and_snapshot_without_access': 9,
-        'real_media_session_and_idle_ui_with_access': 3,
+        'external_process_media_session': 1,
+        'granted_access_idle_ui': 1,
         'notification_listener_component': LISTENER,
         'permission_grant_path': 'Android Settings notification access UI',
+        'external_fixture_package': FIXTURE_PACKAGE,
         'no_autoplay_proven': True,
+        'explicit_transport_proven': True,
         'trip_runtime_alive': True,
         'full_regression_runs': 0,
         'guardian_suite_runs': 0,
         'apk_bytes': apk.stat().st_size,
         'apk_sha256': hashlib.sha256(apk.read_bytes()).hexdigest(),
+        'fixture_apk_sha256': hashlib.sha256(fixture_apk.read_bytes()).hexdigest(),
         't3_validated': False
     }, ensure_ascii=False, indent=2))
-    print('PASS: P5 external MediaSession gate; no autoplay, no historical regression')
+    print('PASS: P5 external MediaSession gate; external UID, no autoplay, explicit controls')
 finally:
     crash = adb('logcat', '-b', 'crash', '-d')
     logs = adb('logcat', '-d')
     save('final-crash.txt', crash)
     save('final-logcat.txt', logs)
     try:
+        adb('shell', 'am', 'force-stop', FIXTURE_PACKAGE)
         adb('shell', 'settings', 'delete', 'secure', 'enabled_notification_listeners')
     except Exception:
         pass

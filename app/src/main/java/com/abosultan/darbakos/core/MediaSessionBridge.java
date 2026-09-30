@@ -57,7 +57,7 @@ public final class MediaSessionBridge {
             started = true;
             bind(pick(manager.getActiveSessions(listenerComponent)));
             return true;
-        } catch (SecurityException | RuntimeException error) {
+        } catch (RuntimeException error) {
             started = false;
             bind(null);
             publish(MediaSnapshot.accessUnavailable());

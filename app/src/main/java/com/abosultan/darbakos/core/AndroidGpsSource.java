@@ -7,6 +7,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Looper;
 
 /**
  * Thin API25-compatible GPS adapter. Lifecycle is owned by the caller; no Service/thread/timer.
@@ -35,6 +36,11 @@ public final class AndroidGpsSource implements LocationListener {
     }
 
     public boolean start() {
+        return start(null);
+    }
+
+    /** Optional callback looper lets the continuous runtime keep GPS and persistence off the UI. */
+    public boolean start(Looper callbackLooper) {
         if (started) return true;
         if (manager == null || !hasPermission()) {
             unavailable();
@@ -45,7 +51,12 @@ public final class AndroidGpsSource implements LocationListener {
                 unavailable();
                 return false;
             }
-            manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000L, 0f, this);
+            if (callbackLooper == null) {
+                manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000L, 0f, this);
+            } else {
+                manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000L, 0f, this,
+                        callbackLooper);
+            }
             started = true;
             return true;
         } catch (SecurityException | IllegalArgumentException error) {

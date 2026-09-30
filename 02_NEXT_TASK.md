@@ -1,46 +1,37 @@
-# Next Task — P4 Continuous GPS + Automatic Trip Runtime GATE COMPLETE / STOP
-
-## Closure — 2026-09-30
-- Verified `970160233d0b7d49a71c3a807965ee551ee3ac1f`, [run36715997759](https://github.com/abo-sultann/DarbakOS/actions/runs/36715997759), attempt1 SUCCESS.
-- Build/Lint PASS:0 errors,17 warnings. Initial new-test probe10 exposed9 failures; retained evidence and fixed only the proven lifecycle/recording defects. **One consolidated focused API25/1024x600 run:26/26 PASS**, plus the bounded GPS/Home/background/provider-disabled flow. Full Regression0; Guardian suites0.
-- Confirmed worker-only storage/clean close, queued-point drain, safe null storage and repeated/null-intent starts, replacement ownership, Home stop/recreation handoff, real LocationManager callback delivery to the UI, automatic movement/stop/gap policy, persistence recovery and the existing cheap OsmAnd absent boundary.
-- Home and returned screenshots were reviewed and are pixel-identical; one GPS receiver remained registered in the external foreground flow; no observed app crash/ANR. Evidence and before-fix proof: `docs/test-evidence/p4-continuous-runtime-20260930/`.
-- Limits: emulator/test-provider inputs; installed OsmAnd UI, real T3/ARMv7, long-drive and abrupt process/power-loss acceptance remain open. This gate does not guarantee uncommitted RAM points across abrupt loss.
-- **STOP. P4 remains open. Do not start the later AIDL/navigation-state or Map UX bundle in this batch.**
-
-## Original gate request (completed within the recorded test scope)
+# Next Task — P4 Final Map + OsmAnd External API CONSOLIDATED GATE
 
 ## Purpose
-Verify the first meaningful P4 integration bundle: GPS and automatic trip recording must continue when Darbak UI leaves foreground (including when OsmAnd is opened), while Home observes the same truthful PositionStore.
+Close the current P4 Map/navigation bundle without widening scope. Verify the final Darbak Map control surface built on OsmAnd's documented external API while preserving the already verified continuous GPS + automatic trip runtime.
 
-## Incoming implementation
-- TripRuntimeService: API25 started Service, one HandlerThread worker, owns AndroidGpsSource + TripAutoRecorder.
-- AndroidGpsSource can deliver Location callbacks on an explicit worker Looper.
-- MainActivity no longer owns/stops GPS in onStop; it observes PositionStore and starts the runtime only after fine-location permission.
-- Trip storage remains app-owned and external/removable-preferred through existing TripStorageLocator.
-- Manifest registers only the non-exported runtime Service; no new permission.
-- REFERENCES pins OsmAnd, OSMTracker and Breadcrumb review. No upstream code was copied.
+## Incoming code boundary
+Base after the continuous-runtime closure: `4f08c429d61fcaec4c0a1d0e3135eaa8c1c5fb5c`.
+Current candidate: `40a73edba292ad11296291e198c8c02309b7e169`.
 
-## Required verification
-Build/Lint first. Inspect for lifecycle/threading/API25 defects, duplicate GPS ownership, UI-thread violations, unsafe null storage, service restart behavior and trip persistence errors. Fix only proven defects.
+Implemented since base:
+- truthful `OsmAndNavigationSnapshot` with UNKNOWN/IDLE/ACTIVE + freshness;
+- OsmAnd external `osmand.api` intents for get_info/show_location/navigate_search with safe geo fallback;
+- final Arabic/RTL Map surface: search, current location, open OsmAnd, route refresh and route summary;
+- Home navigation card consumes only fresh returned OsmAnd route data;
+- missing/limited OsmAnd remains explicit and truthful;
+- capability caching/refresh avoids repeated PackageManager work;
+- dedicated Map back action and focused physical smoke support;
+- no OsmAnd source vendored and no new runtime dependency.
 
-Run one consolidated focused API25 gate covering:
-1. existing PositionState + GPS/Home speed path;
-2. TripRecorder + TripAutoRecorder + persistence/storage tests already present;
-3. new runtime lifecycle/handoff tests needed to prove Home stop does not stop the Service-owned GPS and PositionStore callbacks reach UI safely;
-4. OsmAnd intent bridge only as a non-regression boundary if its existing focused test is already cheap.
+## Verification
+Run Build/Lint, then one bounded API25/x86 1024x600/160dpi/~1GB gate for this bundle. Reuse prior P1-P3 and continuous-runtime evidence; do not run Full Regression or Guardian suites.
 
-Do not run P3 Guardian exhaustive suites or full historical regression. Reuse prior evidence for unchanged P1-P3/P2 UI.
+Must cover:
+1. OsmAnd package preference and absent/limited/full external-API boundaries.
+2. `get_info` parsing: no destination => IDLE; valid destination => ACTIVE; invalid/non-finite/out-of-range destination => UNKNOWN; freshness expiry.
+3. Search/current-location/open intents are package-scoped and fail safely when OsmAnd/API is absent.
+4. Final Map RTL/fit/touch at 1024x600; search action and dedicated back-to-Home.
+5. Home navigation remains truthful for missing/limited/unknown/idle/active states; no fabricated ETA/distance/turn.
+6. Continuous TripRuntimeService remains alive while Darbak hands foreground to an external activity; no duplicate GPS owner and no trip-runtime regression.
+7. No media autoplay, new permission, network dependency, native library, OsmAnd source copy or heavy map framework.
 
-## Product invariants
-- Real GPS only; never fabricate speed/location.
-- Automatic trip recording independent of OsmAnd UI/navigation.
-- Leaving Darbak/Home for OsmAnd must not stop trip recording.
-- Disk writes must not run on Darbak UI thread.
-- GPS gaps remain segmented/no fake bridge.
-- No network dependency, fused location, Play Services, Room/Compose/MapLibre, or imported trip app.
-- API25/ARMv7/~1GB/1024x600 remains the target.
-- No T3/firmware/MCU work.
+Inspect and fix only proven defects. Do not add AIDL binding merely because the service exists: the external API is the chosen lightweight boundary for this P4 bundle unless a verified missing requirement forces AIDL.
 
 ## Finish
-Record durable evidence, update status/results, Commit + Push, STOP. P4 remains open; next bundle after this gate is the narrow OsmAnd AIDL/navigation-state integration and final Map UX.
+Write durable evidence under `docs/test-evidence/p4-map-osmand-20260930/`, update `TEST_RESULTS.md`, `01_CURRENT_STATUS.md` and this file, Commit + Push, then STOP.
+
+If all requested behavior passes, mark **P4 CLOSED within emulator/API25 scope**. Explicitly leave installed real OsmAnd version, physical T3/ARMv7 GPS, long-drive and sudden-power-loss acceptance for the later hardware commissioning/integration gates; do not block P4 emulator closure on hardware that is intentionally unavailable here.

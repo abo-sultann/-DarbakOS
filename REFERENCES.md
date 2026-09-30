@@ -78,7 +78,6 @@ P1 measured result at `72fde4a`: runtime APK 18,221 bytes with no native librari
 - Upstream repository code license is GPLv3; artwork is CC-BY-NC-ND 4.0 with noted exceptions. No OsmAnd GPL source or artwork was copied into Darbak in this bridge batch.
 - Darbak destination: `OsmAndPackages` + `OsmAndBridge`. Implementation is independent Android framework code, no runtime dependency, no native library and no minSdk increase. Physical API25/ARMv7/T3 compatibility of an installed OsmAnd APK still requires a later device/version test.
 
-
 ## P4 reuse review — 2026-09-30
 
 | Source/version | Inspected capability | Decision for Darbak | Compatibility / license |
@@ -93,3 +92,11 @@ The lightweight Darbak implementation remains preferable to importing either tri
 ### Continuous-runtime verification references
 - Android platform [Service lifecycle/threading](https://developer.android.com/develop/background-work/services) and [HandlerThread](https://developer.android.com/reference/android/os/HandlerThread) documentation reviewed for lifecycle callbacks, worker ownership and orderly shutdown. API25 platform behavior is exercised by instrumentation; no library or upstream implementation copied.
 - Reused the repository's P4 GPS smoke, existing ActivityScenario assertions, PositionQualityPolicy, buffer/write-first persistence and strict chunk reader. New test-only LocationManager fixtures exercise the actual worker-to-Home handoff; they introduce no production mock provider or permission. Existing owner-project/reuse decisions above remain unchanged.
+
+## P4 OsmAnd External API + final Map decision — 2026-09-30
+- Re-inspected current OsmAnd external integration at upstream `osmandapp/OsmAnd@b9d4b9959f1a2121e2c5deee63587e79ad460d2c` before adding another dependency.
+- `OsmAnd/src/net/osmand/plus/helpers/ExternalApiHelper.java` exposes the documented `osmand.api` commands needed by this slice: `navigate_search`, `show_location`, and `get_info`. `get_info` returns destination, ETA, remaining time/distance and current/next turn fields when a route is calculated. The OsmAnd manifest exports the `osmand.api` VIEW intent filter.
+- This makes a copied/generated AIDL client unnecessary for the first final Map integration. Darbak now prefers the official external URI API for search/location and one-shot route snapshots; AIDL remains a capability probe and can be added later only if physical T3/OsmAnd validation proves live callbacks are required.
+- Reason: upstream is GPLv3. By using Android intents and documented field names only, Darbak copies no OsmAnd source/AIDL/artwork, adds no runtime library/native ABI/minSdk cost, and keeps the OsmAnd app as the independent offline navigation engine.
+- Darbak implementation: `OsmAndBridge` + `OsmAndNavigationSnapshot` + final Map controls in `MainActivity/activity_main.xml`. Darbak remains owner of GPS/trip recording; OsmAnd owns map/search/routing. Route state is never fabricated: absent API = unavailable, no returned route = idle, returned route = active, and old snapshots become stale.
+- Current emulator can prove fallback/absent behavior and parser/UI correctness only. Installed OsmAnd command execution and ARMv7/T3 performance remain a physical/version compatibility gate.

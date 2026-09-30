@@ -7,18 +7,29 @@ public final class PositionFix {
     public final float accuracyMeters;
     public final float speedMetersPerSecond;
     public final long monotonicMs;
+    /** UTC epoch milliseconds when known; 0 means unavailable. */
+    public final long wallTimeMs;
 
     private PositionFix(double latitude, double longitude, float accuracyMeters,
-                        float speedMetersPerSecond, long monotonicMs) {
+                        float speedMetersPerSecond, long monotonicMs, long wallTimeMs) {
         this.latitude = latitude;
         this.longitude = longitude;
         this.accuracyMeters = accuracyMeters;
         this.speedMetersPerSecond = speedMetersPerSecond;
         this.monotonicMs = monotonicMs;
+        this.wallTimeMs = wallTimeMs;
     }
 
+    /** Compatibility factory for sources/tests that do not provide wall time. */
     public static PositionFix create(double latitude, double longitude, float accuracyMeters,
                                      float speedMetersPerSecond, long monotonicMs) {
+        return createStamped(latitude, longitude, accuracyMeters, speedMetersPerSecond,
+                monotonicMs, 0L);
+    }
+
+    public static PositionFix createStamped(double latitude, double longitude, float accuracyMeters,
+                                            float speedMetersPerSecond, long monotonicMs,
+                                            long wallTimeMs) {
         if (Double.isNaN(latitude) || Double.isInfinite(latitude)
                 || latitude < -90d || latitude > 90d) return null;
         if (Double.isNaN(longitude) || Double.isInfinite(longitude)
@@ -27,9 +38,9 @@ public final class PositionFix {
                 || accuracyMeters < 0f) return null;
         if (Float.isNaN(speedMetersPerSecond) || Float.isInfinite(speedMetersPerSecond)
                 || speedMetersPerSecond < 0f) speedMetersPerSecond = 0f;
-        if (monotonicMs < 0L) return null;
+        if (monotonicMs < 0L || wallTimeMs < 0L) return null;
         return new PositionFix(latitude, longitude, accuracyMeters,
-                speedMetersPerSecond, monotonicMs);
+                speedMetersPerSecond, monotonicMs, wallTimeMs);
     }
 
     public int speedKmh() {

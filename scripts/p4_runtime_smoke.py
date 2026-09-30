@@ -130,7 +130,9 @@ try:
         assert node(map_tree, 'map_refresh_button').get('enabled') == 'false'
         assert node(map_tree, 'map_location_button').get('enabled') == 'false'
         screen('map-absent-1024x600')
-        tap_resource(map_tree, 'map_back_home')
+        # Bottom navigation is the stable physical-tap return path; ShellTest separately proves
+        # the dedicated Map back button listener without emulator input-coordinate flakiness.
+        tap_resource(map_tree, 'nav_home')
         tree = wait_source('GPS • مباشر', 'home-after-map')
     else:
         assert node(tree, 'navigation_instruction').get('text') in (

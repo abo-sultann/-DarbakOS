@@ -3,9 +3,11 @@ package com.abosultan.darbakos.core;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.net.Uri;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
@@ -14,6 +16,8 @@ import java.util.Set;
  * standard Android intents. No OsmAnd SDK/AIDL classes, background work or Position ownership.
  */
 public final class OsmAndBridge {
+    public static final String AIDL_SERVICE_ACTION = "net.osmand.aidl.OsmandAidlService";
+
     public enum Availability { UNAVAILABLE, LAUNCHABLE }
 
     private final Context context;
@@ -31,6 +35,21 @@ public final class OsmAndBridge {
 
     public String resolvedPackage() {
         return resolvePackage();
+    }
+
+    /** Detects the official exported OsmAnd AIDL service without binding or copying its API. */
+    public boolean aidlServiceAvailable() {
+        String packageName = resolvePackage();
+        if (packageName == null) return false;
+        Intent intent = new Intent(AIDL_SERVICE_ACTION);
+        intent.setPackage(packageName);
+        try {
+            List<ResolveInfo> services = packages.queryIntentServices(
+                    intent, PackageManager.MATCH_DEFAULT_ONLY);
+            return services != null && !services.isEmpty();
+        } catch (RuntimeException ignored) {
+            return false;
+        }
     }
 
     /** Opens OsmAnd's normal launcher Activity only when one of the known variants resolves. */

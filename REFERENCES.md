@@ -77,3 +77,15 @@ P1 measured result at `72fde4a`: runtime APK 18,221 bytes with no native librari
 - `OsmAnd-api/src/net/osmand/aidlapi/IOsmAndAidlInterface.aidl` confirms the maintained API surface includes map location, GPX, route calculation, navigation/search/customization and callbacks. This first bridge does **not** copy/vendor that interface; it uses Android PackageManager/Intent only and reserves AIDL for the next compatibility slice.
 - Upstream repository code license is GPLv3; artwork is CC-BY-NC-ND 4.0 with noted exceptions. No OsmAnd GPL source or artwork was copied into Darbak in this bridge batch.
 - Darbak destination: `OsmAndPackages` + `OsmAndBridge`. Implementation is independent Android framework code, no runtime dependency, no native library and no minSdk increase. Physical API25/ARMv7/T3 compatibility of an installed OsmAnd APK still requires a later device/version test.
+
+
+## P4 reuse review — 2026-09-30
+
+| Source/version | Inspected capability | Decision for Darbak | Compatibility / license |
+|---|---|---|---|
+| OsmAnd `7042e1764309841897b94c578011393af536e04f` | Official Android AIDL API and intent boundary; map markers/location/navigation callbacks are exposed through the separate OsmAnd app | Keep OsmAnd as the navigation engine. Darbak owns GPS/trip history; use intents now and add only the narrow AIDL surface needed for navigation state instead of embedding/forking OsmAnd | Official upstream; GPL project. No OsmAnd source copied in this batch, so no new runtime dependency/ABI/RAM cost |
+| OSMTracker Android `0c32781db83ea7642093793d00580b2953b6ea13` | GPS track/GPX recording and waypoint model | Concept/reference only. Its current fork targets minSdk25, but importing the GPL application/storage stack is unnecessary because Darbak already has a smaller API25 recorder | GPL-3.0; no code copied |
+| Breadcrumb `4d022a5b54a76bef956ebb867e0769de79bfc61d` | Automatic movement-based trip lifecycle, GPS-only measured fixes, local history, gap/continuation ideas | Reuse concepts only: movement starts/stops recording, keep GPS independent of map UI, preserve gaps rather than inventing a path. Reject its full modern stack for T3 | Modern Kotlin/Compose/Room + Play Services Activity Recognition + MapLibre; unsuitable as a dependency for Android7.1/~1GB. No code copied |
+
+### P4 integration decision
+The lightweight Darbak implementation remains preferable to importing either trip application. Continuous recording is moved out of MainActivity into an API25 Service with a dedicated HandlerThread: GPS callbacks and chunk persistence continue while OsmAnd is foreground and disk I/O does not block the Darbak UI. PositionStore is the process-local handoff back to Home. This is an independent implementation based on platform APIs and recorded concepts, not copied upstream code.

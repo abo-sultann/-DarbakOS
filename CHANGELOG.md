@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-09-30 — P3 CLOSED / P4 READY / STOP
+- Passed exactly one bounded API25/1024x600 regression81/81 and6/6 navigation returns. Reused12 unchanged exhaustive/concurrency/Diagnostics proofs with pinned source fingerprints;93 tests preserved.
+- Reused verified Diagnostics APKs/Build/Lint after52 build-input and artifact hash checks; no source drift, rebuild or focused rerun. Added closure-only CI selection and pinned artifact retrieval. Fixed only a proven extraction-directory preparation issue before any regression ran.
+- Production unchanged. Home/Apps/restart screenshots identical; truthful final P2/no-autoplay preserved, no observed crash/ANR. Updated complete evidence and state.
+- Closed approved P3 passive scope. Automatic watchdog, actual recovery execution and persistent support export deferred to later integration/recovery. P4 is ready but was not started; STOP.
+
 ## 2026-09-29 — Guardian Diagnostics focused verification complete / STOP
 - Build/Lint0 errors/17 unchanged warnings; GuardianDiagnosticRecordTest only2/2 PASS on API25/1024x600. Null/UNKNOWN and frozen healthy-session record assertions passed; no production defect/fix or test change needed.
 - Added explicit --diagnostics-only mode to the existing emulator runner and selected it in CI. It exits before all regression/UI work. No full/bounded regression or old1024/6144 suite was run; earlier evidence retained.

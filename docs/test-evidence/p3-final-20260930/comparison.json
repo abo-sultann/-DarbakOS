@@ -1,0 +1,54 @@
+{
+  "regression_commit": "2d18847e1e3a638b9093bc0c83426580728002b2",
+  "apk_build_commit": "a4351ec39c5df1f424a2a024e321585b7a4824f0",
+  "workflow_run": 36664769233,
+  "attempt": 1,
+  "artifact_id": 11075827418,
+  "regression_invocations": 1,
+  "selected_tests": 81,
+  "reused_tests": 12,
+  "declared_tests": 93,
+  "regression_seconds": 3.615,
+  "quick_action_returns": 6,
+  "source_fingerprints": 52,
+  "original_proof_fingerprint_checks": 12,
+  "build_lint_reused": true,
+  "diagnostics_reused": true,
+  "apk_bytes": 34987,
+  "apk_delta_vs_diagnostics": 0,
+  "baseline_session": {
+    "apk_bytes": 34379,
+    "pss_kb": 8998,
+    "launch_ms": 387
+  },
+  "current": {
+    "apk_bytes": 34987,
+    "pss_kb": 9056,
+    "launch_ms": 364,
+    "wait_ms": 369,
+    "views": 49,
+    "activities": 1
+  },
+  "delta_vs_session": {
+    "apk_bytes": 608,
+    "pss_kb": 58,
+    "launch_ms": -23
+  },
+  "pixel_identical_to_session": [
+    "home-1024x600.png",
+    "apps-1024x600.png",
+    "cold-restart-home-1024x600.png"
+  ],
+  "observed_crash": 0,
+  "observed_app_anr": 0,
+  "app_service_records": 0,
+  "app_media_sessions": 0,
+  "production_fix_needed": false,
+  "preparation_failure": {
+    "run": 36664666948,
+    "emulator_skipped": true,
+    "regressions": 0,
+    "fix": "merge-multiple:true to extract downloaded artifact directly into staging root"
+  },
+  "limitations": "Single API25/x86 shell observations, not causal performance benchmarks or ARMv7/T3 acceptance. No Watchdog or recovery execution; P3 closure uses the approved passive scope. P4 not started."
+}

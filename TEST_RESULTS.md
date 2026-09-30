@@ -2,6 +2,29 @@
 
 No Darbak OS release is Stable. See the per-stage evidence below.
 
+## 2026-09-30 — FINAL P3 closure: PASS / P3 CLOSED / P4 READY / STOP
+
+- Task base `3194f8a2863bb47e32338c1ac9c0f26582340efc`; regression code `2d18847e1e3a638b9093bc0c83426580728002b2`. [Run36664769233](https://github.com/abo-sultann/DarbakOS/actions/runs/36664769233), job109726977655, attempt1 SUCCESS.
+- **Exactly ONE bounded regression:81/81 PASS in3.615s**, API25/x86,1024x600/160dpi/1GB; **6/6 actual-tap quick-action returns PASS**. Existing P2/Core/Guardian assertions preserved. No production or test-method changes during closure.
+- Selected58 earlier P2/Core/Guardian tests +14 Monitoring Foundation +9 Session. Reused12 unchanged methods:7 prior exhaustive/old concurrency proofs,2 Monitoring concurrency,1 Session concurrency and2 Diagnostics. All93 tests remain in source; no claim of93 new executions. No1024/6144 or concurrency suite was regenerated. Exact methods, proof commits and evidence paths in regression-selection.json/scripts/p3_closure_reuse.json.
+- No production/test/build input drift since verified Diagnostics `a4351ec39c5df1f424a2a024e321585b7a4824f0`. Per the task, reused Build/Lint PASS (0 errors,17 existing warnings), both APKs and focused Diagnostics2/2 from run36599462035.52 full build-input SHA256 fingerprints,12 original proof fingerprints and all4 artifact file hashes match. No rebuild or separate focused invocation was needed. The new regression exercised those exact verified APKs.
+- Preparation run36664666948 at471b688 failed before emulator/instrumentation: download-artifact with artifact-ids created an extra name directory. Proven CI-only fix: merge-multiple:true. No app defect or production fix; zero regressions in that preparation run. The following successful run performed the gate's sole regression invocation.
+- Reviewed all production additions since closed Monitor Session: only GuardianDiagnosticRecord (and its focused tests). Final immutable value using existing assessment and level-0 recommendation; no new production caller, Service/Receiver/Android permission/dependency/native/background/I/O/recovery execution. Earlier app code/UI/manifest/build unchanged. CI-only Actions read permission permits artifact retrieval; pinned official MIT download action recorded in REFERENCES.md.
+- Home/Apps/Cold Restart visually reviewed; all3 PNGs pixel-identical to Session checkpoint. Final Arabic/RTL layout, truthful unavailable values, Back/Home/recreation/navigation and Cold Restart preserved with no new clipping/overlap. No visible temporary TEST/preview wording or fabricated live data. Media remains stopped/unavailable after settling; app Service records0 and MediaSessions0.
+
+| Observation | Session018b509 | Final closure | Delta |
+|---|---:|---:|---:|
+| APK bytes |34,379|34,987|+608|
+| PSS KB |8,998|9,056|+58|
+| Launch TotalTime ms |387|364|-23|
+| Views / Activities |49 /1|49 /1|0 /0|
+| Observed crash / app ANR |0 /0|0 /0|none|
+
+- APK size/hash unchanged from Diagnostics build. WaitTime369ms; both crash buffers empty; no app ANR in either captured log; no native .so. Single separate shell observations are not causal performance benchmarks. Physical T3/ARMv7/Test Station and Stable acceptance remain open.
+- Artifact11075827418 `DarbakOS-P1-TEST-2d18847e1e3a638b9093bc0c83426580728002b2`, expires2026-10-14. Downloaded ZIP digest verified: `01eba110c3f1a91f1dfe81d61863cc845b7b8f769b1e8d3ec1310dade05f4ffd`. APK SHA256 `880488d9a57dfd430a458c72c041ceb2bda94511b4a962b8518214b4d5d1ad7c` matches original build and closure summary.
+- Evidence: `docs/test-evidence/p3-final-20260930/` includes exact selection/reuse ledger, source/artifact hashes, instrumentation, screenshots/UI trees, no-autoplay, lint, resources/crashes, preparation-failure evidence and comparison/provenance.
+- **P3 CLOSED:** Core State, passive Guardian health/assessment/recommendation, monitoring/session and compact diagnostics. Automatic watchdog, actual recovery executor and persistent support export are explicitly deferred to later integration/recovery by the approved task. **P4 READY, not started. STOP.**
+
 ## 2026-09-29 — P3 Guardian Diagnostics focused check: PASS / STOP
 
 - Incoming `1ca06d1f148cb942b26d22dd434a5b2d75e276a7`; tested `a4351ec39c5df1f424a2a024e321585b7a4824f0`. [Run36599462035](https://github.com/abo-sultann/DarbakOS/actions/runs/36599462035), job109512786528, attempt1 SUCCESS.

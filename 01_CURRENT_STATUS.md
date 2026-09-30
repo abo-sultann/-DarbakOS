@@ -1,7 +1,7 @@
 # Current Status
 
-State: P3 GUARDIAN DIAGNOSTICS FOCUSED CHECK PASSED — STOP
-Updated: 2026-09-29.
+State: P3 CLOSED / P4 READY — STOP
+Updated: 2026-09-30.
 Target: t3-p3 / sun8iw11p1 / Android7.1 API25 / ARMv7 / ~1GB / 1024x600.
 
 ## Current accepted UI
@@ -29,9 +29,20 @@ Target: t3-p3 / sun8iw11p1 / Android7.1 API25 / ARMv7 / ~1GB / 1024x600.
 - GuardianSupervisor provides one caller-driven Snapshot -> Assessment -> Plan evaluation. All6144 combination/level cases, boundaries, nonmutation, retained Results after update/reset and20000 concurrent evaluations verified. No production caller/UI binding, automatic monitoring or action; concurrency workers are test-only.
 - Monitoring foundation now verified as one passive bundle: immutable Heartbeat/Event, synchronized HeartbeatRegistry/EventJournal, LivenessPolicy/Snapshot, sanitized MonitorConfig and explicit MonitorStep. Caller-supplied time and in-memory health transitions only; no automatic scheduler, I/O or recovery execution. Fixed only MonitorStep's nonexistent Snapshot API calls and MonitorConfig upper-bound overflow.
 - GuardianMonitorSession now verified: owns heartbeat/journal/config state, caller-driven evaluation, cold-boot generation isolation and immutable diagnostics. All components, old/current generation input, reset, retained mixed Results/Snapshots, null/empty behavior and200 bounded concurrent rounds verified. Fixed one proven boundary defect: reset at Long.MAX_VALUE now rejects further heartbeat input instead of reusing the expired token; counter stays saturated and state resets to UNKNOWN. No automatic evaluation or actual recovery.
-- GuardianDiagnosticRecord focused API25 check passed: conservative null/UNKNOWN record and frozen healthy-session summary with event details/level-0 recommendation and retention after reset. Immutable in-memory value only. No production fix was needed; this is not a phase-closing regression gate.
+- GuardianDiagnosticRecord focused API25 check passed: conservative null/UNKNOWN record and frozen healthy-session summary with event details/level-0 recommendation and retention after reset. Immutable in-memory value only. Its unchanged proof is included in the final P3 closure ledger below.
 
-## Current focused checkpoint
+## P3 final closure — PASS
+- Regression code `2d18847e1e3a638b9093bc0c83426580728002b2`; [run36664769233](https://github.com/abo-sultann/DarbakOS/actions/runs/36664769233), attempt1 SUCCESS. Exactly one bounded API25/x86,1024x600 regression:81/81 PASS in3.615s;6/6 quick-action returns PASS.
+- Twelve unchanged proofs reused:7 giant/exhaustive/old concurrency,3 monitoring/session concurrency and2 Diagnostics.93 tests remain in source;81 executed here and12 reused, not93 newly executed. Exact methods/commits/evidence are in regression-selection.json.
+- Build/Lint and APKs reused from verified `a4351ec39c5df1f424a2a024e321585b7a4824f0`, run36599462035 (0 errors,17 existing warnings).52 build-input SHA256 checks,12 original proof checks and both APK/lint hashes passed. No source drift, rebuild or separate focused rerun.
+- Home/Apps/Cold Restart screenshots visually reviewed and pixel-identical to the prior Session checkpoint. Final P2 RTL/fit/truthful unavailable states/navigation/no-autoplay preserved; no observed crash/app ANR, app Service/MediaSession0.
+- Production unchanged during closure. One CI preparation failure occurred before emulator/testing; corrected artifact extraction root with merge-multiple:true. That preparation run executed zero regressions.
+- APK34,987 bytes, unchanged from Diagnostics; PSS9,056KB, launch364ms/Wait369ms,49 Views/1 Activity. Versus Session: APK+608bytes/PSS+58KB/launch-23ms; separate observations, not causal benchmarks or T3 acceptance.
+- Evidence: `docs/test-evidence/p3-final-20260930/`.
+- Approved P3 delivery: Core State + passive Guardian health/assessment/recommendation + passive monitoring/session + compact diagnostics. Automatic watchdog, actual recovery executor and persistent support export are deferred to the later integration/recovery phase and do not block this closure.
+- P4 READY; not started. STOP at this checkpoint.
+
+## Previous diagnostics checkpoint (reused)
 - Tested code: `a4351ec39c5df1f424a2a024e321585b7a4824f0`; [run36599462035](https://github.com/abo-sultann/DarbakOS/actions/runs/36599462035), attempt1 SUCCESS.
 - Build/Lint PASS:0 errors,17 unchanged warnings. Only GuardianDiagnosticRecordTest ran:2/2 PASS in0.007s on API25/x86,1024x600/160dpi.
 - No full/bounded regression, old1024/6144 suites or UI smoke was run. Prior regression/UI evidence below remains the last applicable checkpoint; no new P2 runtime verification is claimed.
@@ -39,7 +50,7 @@ Target: t3-p3 / sun8iw11p1 / Android7.1 API25 / ARMv7 / ~1GB / 1024x600.
 - APK34,987 bytes (+608 versus prior checkpoint), no native .so; no crash/app ANR observed during the focused run. No new PSS/launch measurement or T3 acceptance.
 - Evidence: `docs/test-evidence/p3-guardian-diagnostics-20260929/`. STOP after this focused check.
 
-## Previous bounded regression checkpoint (reused; not rerun)
+## Previous Monitor Session checkpoint (historical)
 - Tested code: `018b509aaa00cdb0df7f424cea3a6c24342cf443`.
 - Successful run: https://github.com/abo-sultann/DarbakOS/actions/runs/36596597821 (attempt1).
 - Build/Lint:0 errors,17 unchanged warnings. Focused Java6/6, then API25 Session10/10, then ONE bounded regression74/74 (58 prior +16 foundation); quick-action returns6/6. Session tests were not repeated in regression.
@@ -58,9 +69,9 @@ Target: t3-p3 / sun8iw11p1 / Android7.1 API25 / ARMv7 / ~1GB / 1024x600.
 - No firmware or MCU flash approved; all master-plan safety gates remain in force.
 
 ## Current gate
-The requested P3 Guardian Diagnostics focused check is complete. STOP here. A phase-closing regression was explicitly not requested and has not been run.
+The requested final P3 closure gate passed. P3 is CLOSED within the approved passive boundary; P4 is READY but not started. STOP here.
 Do not start automatic watchdog/heartbeat emitters/timers/Guardian services, actual recovery, persistent logging/reporting, other P3 work, hardware work or another batch.
-`02_NEXT_TASK.md` records closure, not a new assignment. No Stable/T3 acceptance is claimed.
+`02_NEXT_TASK.md` records P3 COMPLETE / P4 READY. No P4 implementation or Stable/T3 acceptance is claimed.
 
 ## Continuation
 Read README and its listed files in order. GitHub is the sole project-state authority.

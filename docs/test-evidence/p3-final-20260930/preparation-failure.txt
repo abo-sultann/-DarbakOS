@@ -1,0 +1,11 @@
+Run36664666948 / job109726682595 / commit471b688d92c1a4560ef8fa5058a26f41af339e8d.
+Preparation failed before emulator/instrumentation; zero regression invocations.
+Artifact-ids extraction added the artifact-name directory. Corrected download-artifact merge-multiple:true; no production change.
+2026-09-30T03:30:16.2376259Z ##[group]Run python3 scripts/check_p3_closure.py
+2026-09-30T03:30:16.2376712Z [36;1mpython3 scripts/check_p3_closure.py[0m
+2026-09-30T03:30:16.8755008Z Starting download of artifact to: /home/runner/work/DarbakOS/DarbakOS/verified-input/DarbakOS-P1-TEST-a4351ec39c5df1f424a2a024e321585b7a4824f0
+2026-09-30T03:30:17.1952550Z ##[group]Run python3 scripts/check_p3_closure.py verified-input
+2026-09-30T03:30:17.1953049Z [36;1mpython3 scripts/check_p3_closure.py verified-input[0m
+2026-09-30T03:30:17.3377905Z   File "/home/runner/work/DarbakOS/DarbakOS/scripts/check_p3_closure.py", line 23, in <module>
+2026-09-30T03:30:17.3386298Z FileNotFoundError: [Errno 2] No such file or directory: 'verified-input/app/build/outputs/apk/debug/app-debug.apk'
+test-evidence/. No artifacts will be uploaded.

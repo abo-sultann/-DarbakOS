@@ -1,0 +1,18 @@
+{
+  "closure_base": "3194f8a2863bb47e32338c1ac9c0f26582340efc",
+  "regression_code": "2d18847e1e3a638b9093bc0c83426580728002b2",
+  "apk_build_commit": "a4351ec39c5df1f424a2a024e321585b7a4824f0",
+  "source_review": "Compared all app changes from closed Monitor Session checkpoint da51f4e to closure: only GuardianDiagnosticRecord and its two focused tests added. Reviewed immutable value implementation; it delegates existing assessment and level-0 recommendation, with no production caller.",
+  "production_changes_in_closure": 0,
+  "prior_production_and_ui_unchanged": true,
+  "build_inputs_fingerprinted": 52,
+  "original_giant_proof_fingerprints": 12,
+  "build_lint_and_diagnostics_reused": true,
+  "reused_test_methods": 12,
+  "selected_test_methods": 81,
+  "declared_test_methods": 93,
+  "service_receiver_permission_native_dependency_background_io_recovery_execution_added": false,
+  "ci_only_changes": "Explicit closure selection, SHA256 guarded artifact/proof reuse, GitHub Actions read permission and pinned download action. No Android permission/dependency change.",
+  "closure_boundary": "Core State; passive Guardian health/assessment/recommendation; passive monitoring/session; compact diagnostics. Automatic watchdog, actual recovery executor and persistent support export deferred by approved task to later integration/recovery.",
+  "next_phase": "P4 ready after pass; not started"
+}

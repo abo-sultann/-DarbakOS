@@ -66,3 +66,7 @@ No API33-only Femto stack, firmware references, or external launcher modules are
 P1 CI correction: use [android-actions/setup-android v3](https://github.com/android-actions/setup-android/tree/v3) (MIT, build-time action only) to provision command-line tools after the first runner proved sdkmanager was absent. No app dependency added.
 
 P1 measured result at `72fde4a`: runtime APK 18,221 bytes with no native libraries; 8,636KB PSS in API25/x86 emulator; build, 4 tests, RTL fit and navigation passed. CPU unavailable; ARMv7/T3/TestStation remain untested. See TEST_RESULTS for limitations. No Dashline code was copied.
+
+## P3 closure CI reuse — 2026-09-30
+- Official `actions/download-artifact` v4, pinned commit `d3f86a106a0bac45b974a628896c90dbdf5c8093`, MIT; README/LICENSE inspected. Used only in `.github/workflows/p1-android.yml` to retrieve the already verified diagnostics APKs/lint instead of rebuilding unchanged source. No source code copied or app dependency introduced; GitHub-hosted CI only, no API25/ABI/RAM impact.
+- Existing emulator smoke and Guardian proof conventions reused.52 build-input SHA256 checks and artifact hashes gate reuse; earlier exhaustive/concurrency evidence remains pinned. Android results recorded in TEST_RESULTS.md.

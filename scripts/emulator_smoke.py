@@ -14,7 +14,7 @@ OUT = ROOT / 'test-evidence'
 OUT.mkdir(exist_ok=True)
 PACKAGE = 'com.abosultan.darbakos.test'
 ACTIVITY = PACKAGE + '/com.abosultan.darbakos.MainActivity'
-assert sys.argv[1:] in ([], ['--diagnostics-only']), 'Unknown verification scope'
+assert sys.argv[1:] in ([], ['--diagnostics-only'], ['--p3-closure']), 'Unknown verification scope'
 DIAGNOSTICS_ONLY = sys.argv[1:] == ['--diagnostics-only']
 devices = subprocess.check_output(['adb', 'devices'], text=True).splitlines()[1:]
 serials = [line.split()[0] for line in devices if line.endswith('\tdevice') and line.startswith('emulator-')]
@@ -116,54 +116,31 @@ try:
         }, indent=2))
         print('PASS: GuardianDiagnosticRecordTest only; no regression or UI smoke run')
         raise SystemExit(0)
-    # Consolidated gate: focused Android checks must pass before the ONE regression.
-    focused_class = 'com.abosultan.darbakos.GuardianMonitorSessionTest'
-    focused = subprocess.check_output(ADB + ['shell', 'am', 'instrument', '-w', '-e',
-        'class', focused_class, PACKAGE + '.test/androidx.test.runner.AndroidJUnitRunner'],
-        text=True, timeout=180)
-    save('focused-instrumentation.txt', focused)
-    assert 'OK (10 tests)' in focused and 'FAILURES' not in focused, focused
-    # Owner explicitly requested reuse of unchanged giant-proof evidence.
-    # Preserve those tests in source; this gate alone selects the remaining regression.
-    reused = {
-        'GuardianPolicyTest#all1024CombinationsRespectPrecedenceWithoutMutation',
-        'GuardianAssessmentTest#all1024CombinationsHaveExactExclusiveMembershipCountsAndOverall',
-        'GuardianRecoveryPolicyTest#all6144CombinationLevelsAreDeterministicAndNonMutating',
-        'GuardianSnapshotTest#all1024CombinationsCaptureExactStatesAndCorrectAggregate',
-        'GuardianSnapshotTest#concurrentUpdatesAndResetCannotSplitSnapshotOrAggregate',
-        'GuardianSupervisorTest#all6144CombinationLevelsHaveExactChainAndDoNotMutateRegistry',
-        'GuardianSupervisorTest#concurrentCallersUpdatesAndResetCannotSplitAnyResult',
-    }
+    # Final P3 gate: one invocation; unchanged exhaustive/concurrency/diagnostic proofs reused.
+    assert sys.argv[1:] == ['--p3-closure'], 'Select an explicit current verification gate'
+    subprocess.run([sys.executable, str(ROOT / 'scripts/check_p3_closure.py')], check=True)
+    basis = json.loads((ROOT / 'scripts/p3_closure_reuse.json').read_text())
+    reused = {method for group in basis['proof_groups'] for method in group['methods']}
     selected = []
-    focused_methods = []
     discovered = set()
-    basis = json.loads((ROOT / 'scripts/guardian_reused_proofs.json').read_text())
-    for source, expected_hash in basis['source_sha256'].items():
-        assert hashlib.sha256((ROOT / source).read_bytes()).hexdigest() == expected_hash, \
-            'Prior proof invalidated by source change: ' + source
     for source in sorted((ROOT / 'app/src/androidTest/java/com/abosultan/darbakos').glob('*Test.java')):
         for method in re.findall(r'@Test\s+public\s+void\s+(\w+)\s*\(', source.read_text()):
             name = source.stem + '#' + method
             discovered.add(name)
-            if source.stem == 'GuardianMonitorSessionTest':
-                focused_methods.append('com.abosultan.darbakos.' + name)
-            elif name not in reused:
+            if name not in reused:
                 selected.append('com.abosultan.darbakos.' + name)
-    assert reused <= discovered and len(discovered) == 91 and len(selected) == 74 and len(focused_methods) == 10
+    assert reused <= discovered and len(discovered) == 93 and len(reused) == 12 and len(selected) == 81
     save('regression-selection.json', json.dumps({
-        'selected': selected, 'reused_unchanged_proofs': sorted(reused),
-        'already_passed_focused_session_tests': focused_methods,
-        'prior_evidence': basis['evidence'],
-        'prior_tested_commit': basis['tested_commit'],
+        'selected': selected, 'reused_proofs': basis['proof_groups'],
         'unchanged_source_sha256': basis['source_sha256'],
-        'scope': 'One bounded regression: 58 prior +16 foundation tests; 10 session tests already passed; 7 giant proofs reused'
+        'scope': 'One P3 closure regression:81 selected;7 giant,3 bounded concurrency and2 diagnostics proofs reused'
     }, indent=2))
     # Every selected Android assertion runs on the real framework, not a mocked JVM.
     result = subprocess.check_output(ADB + ['shell', 'am', 'instrument', '-w',
         '-e', 'class', ','.join(selected),
         PACKAGE + '.test/androidx.test.runner.AndroidJUnitRunner'], text=True, timeout=180)
     save('instrumentation.txt', result)
-    assert 'OK (74 tests)' in result and 'FAILURES' not in result, result
+    assert 'OK (81 tests)' in result and 'FAILURES' not in result, result
     adb('shell', 'am', 'force-stop', PACKAGE)
     launch = adb('shell', 'am', 'start', '-W', '-n', ACTIVITY)
     save('launch.txt', launch)
@@ -244,8 +221,9 @@ try:
     save('summary.json', json.dumps({
         'result': 'PASS', 'commit': subprocess.check_output(['git', 'rev-parse', 'HEAD'], text=True).strip(),
         'api': 25, 'abi': adb('shell', 'getprop', 'ro.product.cpu.abi').strip(),
-        'resolution': '1024x600', 'density': 160, 'instrumented_tests': 74,
-        'focused_instrumented_tests': 10, 'reused_unchanged_proofs': 7,
+        'resolution': '1024x600', 'density': 160, 'instrumented_tests': 81,
+        'focused_instrumented_tests': 0, 'reused_unchanged_proofs': 12,
+        'apk_build_commit': basis['build_commit'], 'build_lint_reused': True,
         'bounded_regression_runs': 1,
         'quick_action_round_trips': len(quick_results),
         'apk_bytes': apk.stat().st_size, 'apk_sha256': hashlib.sha256(apk.read_bytes()).hexdigest(),

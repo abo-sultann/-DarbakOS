@@ -1,14 +1,20 @@
 package com.abosultan.darbakos;
 
+import android.Manifest;
 import android.app.Activity;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import com.abosultan.darbakos.core.AndroidGpsSource;
 import com.abosultan.darbakos.core.CoreStateStore;
+import com.abosultan.darbakos.core.PositionFix;
+import com.abosultan.darbakos.core.PositionState;
 
-/** P1 shell only. No services, sensors, media playback or external app launches. */
+/** Darbak OS shell with lifecycle-owned P4 GPS speed; no background Service yet. */
 public final class MainActivity extends Activity {
     private static final String STATE_SECTION = "section";
+    private static final int REQUEST_LOCATION = 40;
     private static final int[] BUTTONS = {
         R.id.nav_home, R.id.nav_map, R.id.nav_media, R.id.nav_vehicle, R.id.nav_apps,
         R.id.settings_button
@@ -21,13 +27,30 @@ public final class MainActivity extends Activity {
         R.string.placeholder_note, R.string.map_detail, R.string.media_detail,
         R.string.vehicle_detail, R.string.apps_detail, R.string.settings_detail
     };
+
+    private final PositionState positionState = new PositionState();
+    private AndroidGpsSource gpsSource;
     private int section;
+    private boolean permissionRequested;
 
     @Override public void onCreate(Bundle state) {
         super.onCreate(state);
         setContentView(R.layout.activity_main);
-        // P3: establish truthful cold-boot state before any source/backend is connected.
-        if (state == null) CoreStateStore.get().resetForColdBoot();
+        // P3/P4: fresh process begins truthfully unavailable until a real source publishes.
+        if (state == null) {
+            CoreStateStore.get().resetForColdBoot();
+            positionState.resetForColdBoot();
+        }
+        gpsSource = new AndroidGpsSource(this, new AndroidGpsSource.Callback() {
+            @Override public void onFix(PositionFix fix) {
+                if (positionState.publish(fix)) showLiveSpeed(fix);
+            }
+
+            @Override public void onUnavailable() {
+                showSpeedUnavailable(R.string.gps_unavailable);
+            }
+        });
+
         for (int i = 0; i < BUTTONS.length; i++) {
             final int destination = i;
             findViewById(BUTTONS[i]).setOnClickListener(v -> showSection(destination));
@@ -39,6 +62,53 @@ public final class MainActivity extends Activity {
         // Recreate restores only the visible shell; a fresh process launch starts at Home.
         showSection(state == null ? 0 : state.getInt(STATE_SECTION, 0));
         enterFullscreen();
+    }
+
+    @Override protected void onStart() {
+        super.onStart();
+        if (gpsSource.hasPermission()) {
+            showSpeedUnavailable(R.string.gps_waiting);
+            gpsSource.start();
+        } else {
+            showSpeedUnavailable(R.string.gps_permission_needed);
+            if (!permissionRequested) {
+                permissionRequested = true;
+                requestPermissions(new String[] { Manifest.permission.ACCESS_FINE_LOCATION },
+                        REQUEST_LOCATION);
+            }
+        }
+    }
+
+    @Override protected void onStop() {
+        if (gpsSource != null) gpsSource.stop();
+        super.onStop();
+    }
+
+    @Override public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                                                      int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode != REQUEST_LOCATION) return;
+        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            showSpeedUnavailable(R.string.gps_waiting);
+            gpsSource.start();
+        } else {
+            showSpeedUnavailable(R.string.gps_permission_needed);
+        }
+    }
+
+    private void showLiveSpeed(PositionFix fix) {
+        TextView speed = (TextView) findViewById(R.id.speed_value);
+        speed.setText(String.valueOf(fix.speedKmh()));
+        speed.setContentDescription(getString(R.string.speed) + " " + fix.speedKmh()
+                + " " + getString(R.string.kmh));
+        ((TextView) findViewById(R.id.speed_source)).setText(R.string.gps_live);
+    }
+
+    private void showSpeedUnavailable(int statusText) {
+        TextView speed = (TextView) findViewById(R.id.speed_value);
+        speed.setText(R.string.speed_empty);
+        speed.setContentDescription(R.string.speed_accessibility);
+        ((TextView) findViewById(R.id.speed_source)).setText(statusText);
     }
 
     private void showSection(int destination) {
@@ -61,7 +131,7 @@ public final class MainActivity extends Activity {
 
     @Override public void onBackPressed() {
         if (section != 0) showSection(0);
-        else super.onBackPressed(); // P1 is a regular test app, not a device lock.
+        else super.onBackPressed();
     }
 
     @Override public void onWindowFocusChanged(boolean hasFocus) {

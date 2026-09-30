@@ -44,6 +44,7 @@
     <string name="map_route_idle_detail">ابحث عن وجهة لبدء الملاحة.</string>
     <string name="map_route_active">مسار نشط</string>
     <string name="map_route_unavailable">حالة الملاحة غير متاحة</string>
+    <string name="map_route_limited_detail">فتح الخريطة متاح، لكن حالة المسار غير مدعومة بهذا الإصدار.</string>
     <string name="map_osmand_required">ثبّت OsmAnd المتوافق لاستخدام الخريطة والملاحة.</string>
     <string name="map_location_unavailable">GPS غير متاح حاليًا</string>
     <string name="map_search_empty">اكتب وجهة للبحث</string>

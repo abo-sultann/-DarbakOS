@@ -15,8 +15,11 @@ assert app.get(A + 'supportsRtl') == 'true'
 permissions = {item.get(A + 'name') for item in manifest.findall('uses-permission')}
 assert permissions == {'android.permission.ACCESS_FINE_LOCATION'}, \
     'P4 may request only fine location at this checkpoint'
-assert not app.findall('service') and not app.findall('receiver'), \
-    'No background Service/Receiver approved yet'
+services = app.findall('service')
+assert len(services) == 1 and services[0].get(A + 'name') == '.core.TripRuntimeService'
+assert services[0].get(A + 'exported') == 'false' and not services[0].findall('intent-filter')
+assert services[0].get(A + 'process') is None and not app.findall('receiver'), \
+    'Only the approved private in-process Trip runtime Service is allowed'
 activity = app.find('activity')
 assert activity.get(A + 'screenOrientation') == 'landscape'
 assert all(c.get(A + 'name') != 'android.intent.category.HOME'
@@ -31,6 +34,12 @@ assert all(not re.search(r'TEST|experimental|preview|prototype|تجريب|معا
 java = '\n'.join(p.read_text() for p in main.rglob('*.java'))
 assert 'MediaPlayer' not in java and 'BluetoothAdapter' not in java
 assert 'LocationManager' in java, 'P4 GPS source must remain explicit and reviewable'
-assert not any(token in java for token in ('Thread(', 'Timer(', 'Handler(', 'ExecutorService')), \
-    'No production worker/scheduler approved in this checkpoint'
-print('PASS: XML, minSdk25, RTL, landscape, fine-location-only P4 GPS, no services/runtime dependencies/native code')
+runtime = main / 'java/com/abosultan/darbakos/core/TripRuntimeService.java'
+assert runtime.read_text().count('new HandlerThread(') == 1
+assert runtime.read_text().count('new Handler(') == 1
+for path in main.rglob('*.java'):
+    source = path.read_text()
+    assert not re.search(r'new\s+(?:Thread|Timer)\s*\(|ExecutorService|Executors\.', source), path
+    if path != runtime:
+        assert not re.search(r'new\s+(?:HandlerThread|Handler)\s*\(', source), path
+print('PASS: API25/RTL, fine-location only, one private Trip Service/worker, no extra worker/receiver/runtime dependency/native code')

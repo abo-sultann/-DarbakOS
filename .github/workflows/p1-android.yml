@@ -44,7 +44,7 @@ jobs:
           echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
           sudo udevadm control --reload-rules
           sudo udevadm trigger --name-match=kvm
-      - name: API25 P4 Trip Recording Foundation only
+      - name: API25 P4 Continuous Runtime focused verification
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 25
@@ -54,7 +54,7 @@ jobs:
           heap-size: 128M
           disable-animations: true
           emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -camera-back none -skin 1024x600 -dpi-device 160
-          script: python3 scripts/emulator_smoke.py --trip-only
+          script: python3 scripts/p4_runtime_smoke.py --runtime-probe
       - name: Upload TEST APK and evidence
         if: always()
         uses: actions/upload-artifact@v4

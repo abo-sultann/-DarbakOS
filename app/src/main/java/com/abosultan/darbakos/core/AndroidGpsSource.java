@@ -72,8 +72,9 @@ public final class AndroidGpsSource implements LocationListener {
         long monotonicMs = location.getElapsedRealtimeNanos() / 1000000L;
         float accuracy = location.hasAccuracy() ? location.getAccuracy() : 0f;
         float speed = location.hasSpeed() ? location.getSpeed() : 0f;
-        PositionFix fix = PositionFix.create(location.getLatitude(), location.getLongitude(),
-                accuracy, speed, monotonicMs);
+        long wallTimeMs = Math.max(0L, location.getTime());
+        PositionFix fix = PositionFix.createStamped(location.getLatitude(), location.getLongitude(),
+                accuracy, speed, monotonicMs, wallTimeMs);
         if (fix != null && callback != null) callback.onFix(fix);
     }
 

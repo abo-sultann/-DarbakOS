@@ -5,7 +5,6 @@ import hashlib
 import json
 import re
 import subprocess
-import sys
 import time
 import xml.etree.ElementTree as ET
 
@@ -45,8 +44,12 @@ def dump(name):
     return ET.fromstring(xml)
 
 
+def matches(tree, resource):
+    return [n for n in tree.iter('node') if n.get('resource-id', '').endswith(':id/' + resource)]
+
+
 def node(tree, resource):
-    found = [n for n in tree.iter('node') if n.get('resource-id', '').endswith(':id/' + resource)]
+    found = matches(tree, resource)
     assert len(found) == 1, resource
     return found[0]
 
@@ -132,7 +135,7 @@ try:
     assert node(media_access, 'media_play_pause_button').get('enabled') == 'false'
     assert node(media_access, 'media_previous_button').get('enabled') == 'false'
     assert node(media_access, 'media_next_button').get('enabled') == 'false'
-    assert node(media_access, 'media_access_button').get('visible-to-user') != 'true'
+    assert not matches(media_access, 'media_access_button'), 'Access action must hide after grant'
     screen('media-panel-access-idle-1024x600')
     sessions = adb('shell', 'dumpsys', 'media_session')
     save('media-session-after-tests.txt', sessions)

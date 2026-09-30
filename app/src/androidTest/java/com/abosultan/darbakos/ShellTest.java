@@ -44,10 +44,8 @@ public final class ShellTest {
                     if (index == 0) {
                         assertEquals(View.VISIBLE, activity.findViewById(R.id.map_panel).getVisibility());
                         assertEquals(View.GONE, activity.findViewById(R.id.section_panel).getVisibility());
-                        assertEquals(activity.getString(R.string.map_title),
-                            ((TextView) activity.findViewById(R.id.map_route_title).getParent()
-                                .findViewById(R.id.map_route_title)).getText().toString().length() > 0
-                                ? activity.getString(R.string.map_title) : "");
+                        assertTrue(((TextView) activity.findViewById(R.id.map_route_title))
+                                .getText().toString().length() > 0);
                     } else {
                         assertEquals(View.VISIBLE, activity.findViewById(R.id.section_panel).getVisibility());
                         assertEquals(activity.getString(titles[index]),

@@ -161,10 +161,11 @@ try:
     time.sleep(0.8)
     before = adb('shell', 'dumpsys', 'media_session')
     save('media-session-before-darbak.txt', before)
-    assert 'DarbakP5Fixture' in before, 'External fixture MediaSession must be visible before Darbak attaches'\n    instrument(['ExternalMediaIntegrationTest'], 1, 'external-media-integration')
+    assert 'DarbakP5Fixture' in before, 'External fixture MediaSession must be visible before Darbak attaches'
+    instrument(['ExternalMediaIntegrationTest'], 1, 'external-media-integration')
     after = adb('shell', 'dumpsys', 'media_session')
     save('media-session-after-control.txt', after)
-    assert 'DarbakP5Fixture' in after, 'External fixture MediaSession must remain visible after Darbak control'\n
+    assert 'DarbakP5Fixture' in after, 'External fixture MediaSession must remain visible after Darbak control'
     # Remove the external player and prove granted access returns to a quiet IDLE state.
     adb('shell', 'am', 'force-stop', FIXTURE_PACKAGE)
     time.sleep(0.8)

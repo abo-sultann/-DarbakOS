@@ -11,19 +11,28 @@ public final class LocalMediaLibrary {
     public interface Callback { void onScanned(List<LocalMediaTrack> tracks); }
     private final HandlerThread worker = new HandlerThread("DarbakLocalMedia");
     private Handler handler;
+    private int generation;
+    private boolean closed;
 
     public void start() {
-        if (handler != null) return;
+        if (closed || handler != null) return;
         worker.start();
         handler = new Handler(worker.getLooper());
     }
 
     public void scan(List<File> roots, Callback callback) {
         start();
-        handler.post(() -> callback.onScanned(new LocalMediaScanner().scan(roots)));
+        if (handler == null || callback == null) return;
+        final int request = ++generation;
+        handler.post(() -> {
+            List<LocalMediaTrack> tracks = new LocalMediaScanner().scan(roots);
+            if (!closed && request == generation) callback.onScanned(tracks);
+        });
     }
 
     public void close() {
+        closed = true;
+        generation++;
         if (handler == null) return;
         handler.removeCallbacksAndMessages(null);
         worker.quitSafely();

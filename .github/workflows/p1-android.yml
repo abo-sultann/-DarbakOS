@@ -55,7 +55,7 @@ jobs:
           heap-size: 128M
           disable-animations: true
           emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -camera-back none -skin 1024x600 -dpi-device 160
-          script: mkdir -p test-evidence && set -o pipefail && python3 scripts/p5_media_smoke.py 2>&1 | tee test-evidence/p5-runner.log
+          script: mkdir -p test-evidence && python3 scripts/p5_media_smoke.py > test-evidence/p5-runner.log 2>&1
       - name: Upload TEST APK and evidence
         if: always()
         uses: actions/upload-artifact@v4

@@ -38,6 +38,7 @@ public final class MainActivity extends Activity {
     private static final String STATE_SECTION = "section";
     private static final int REQUEST_LOCATION = 40;
     private static final int REQUEST_OSMAND_INFO = 41;
+    private static final int REQUEST_MEDIA_STORAGE = 42;
     private static final long NAVIGATION_SNAPSHOT_FRESH_MS = 60_000L;
 
     private static final int[] BUTTONS = {
@@ -192,6 +193,12 @@ public final class MainActivity extends Activity {
         }
     }
 
+    @Override protected void onDestroy() {
+        localLibrary.close();
+        if (localPlayer != null) localPlayer.release();
+        super.onDestroy();
+    }
+
     @Override protected void onStop() {
         PositionStore.get().removeListener(positionListener);
         if (mediaBridge != null) mediaBridge.stop();
@@ -201,6 +208,10 @@ public final class MainActivity extends Activity {
     @Override public void onRequestPermissionsResult(int requestCode, String[] permissions,
                                                       int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_MEDIA_STORAGE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) scanLocalMedia();
+            return;
+        }
         if (requestCode != REQUEST_LOCATION) return;
         if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             showSpeedUnavailable(R.string.gps_waiting);
@@ -400,6 +411,10 @@ public final class MainActivity extends Activity {
     }
 
     private void scanLocalMedia() {
+        if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[] { Manifest.permission.READ_EXTERNAL_STORAGE }, REQUEST_MEDIA_STORAGE);
+            return;
+        }
         ((TextView) findViewById(R.id.media_local_summary)).setText(R.string.media_local_scanning);
         findViewById(R.id.media_local_scan_button).setEnabled(false);
         List<File> roots = new ArrayList<>();

@@ -8,9 +8,7 @@
         android:gravity="center_vertical" android:orientation="horizontal">
         <TextView style="@style/Title" android:layout_width="wrap_content"
             android:text="@string/brand" android:textColor="@color/gold" />
-        <TextView android:id="@+id/test_badge" style="@style/Body"
-            android:layout_width="0dp" android:layout_weight="1" android:gravity="center"
-            android:text="@string/test_badge" android:textSize="16sp" />
+        <View android:layout_width="0dp" android:layout_height="1dp" android:layout_weight="1" />
         <Button android:id="@+id/settings_button" style="@style/Action"
             android:layout_width="wrap_content" android:text="@string/settings" />
     </LinearLayout>
@@ -30,7 +28,7 @@
                     android:gravity="center" android:textSize="80sp" android:textColor="@color/accent" />
                 <TextView style="@style/Body" android:text="@string/kmh" android:gravity="center" />
                 <TextView android:id="@+id/speed_source" style="@style/Body" android:layout_marginTop="24dp" android:gravity="center"
-                    android:text="@string/test_source" android:textSize="16sp" />
+                    android:text="@string/gps_unavailable" android:textSize="16sp" />
                 <Button android:id="@+id/quick_map" style="@style/Action" android:layout_width="match_parent"
                     android:layout_marginTop="16dp" android:text="@string/home_quick_map" />
             </LinearLayout>
@@ -42,9 +40,9 @@
                     <TextView style="@style/Body" android:text="@string/map" android:textColor="@color/accent" />
                     <TextView style="@style/Title" android:layout_marginTop="8dp" android:text="@string/navigation_title" />
                     <TextView android:id="@+id/navigation_instruction" style="@style/Title" android:layout_marginTop="8dp"
-                        android:text="@string/navigation_next_turn_test" android:textSize="24sp" />
+                        android:text="@string/navigation_unavailable" android:textSize="24sp" />
                     <TextView android:id="@+id/navigation_eta" style="@style/Body" android:layout_marginTop="6dp"
-                        android:text="@string/navigation_eta_test" />
+                        android:text="@string/navigation_eta_unavailable" />
                     <TextView android:id="@+id/navigation_state" style="@style/Body" android:layout_marginTop="8dp"
                         android:text="@string/navigation_state" android:textColor="@color/gold" />
                 </LinearLayout>
@@ -56,9 +54,9 @@
                         android:layout_marginEnd="@dimen/space_small" android:gravity="center_vertical">
                         <TextView style="@style/Title" android:text="@string/media" android:textSize="24sp" />
                         <TextView android:id="@+id/media_track" style="@style/Body" android:layout_marginTop="6dp"
-                            android:text="@string/media_track_test" android:textColor="@color/text_primary" />
+                            android:text="@string/media_track_unavailable" android:textColor="@color/text_primary" />
                         <TextView android:id="@+id/media_state" style="@style/Body" android:layout_marginTop="6dp"
-                            android:text="@string/media_position_test" />
+                            android:text="@string/media_stopped" />
                         <Button android:id="@+id/quick_media" style="@style/Action" android:layout_width="match_parent"
                             android:layout_marginTop="8dp" android:text="@string/home_quick_media" />
                     </LinearLayout>

@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-10-01 — P5 External MediaSession focused gate repaired / PASS / STOP
+- Diagnosed requested run36817089400: two literal backslash-n sequences prevented the Python runner from starting. After repairing syntax, run36817725413 exposed a second runner-only defect: singular JUnit success was rejected despite passing9 +1 tests.
+- Corrected only `scripts/p5_media_smoke.py`; test selection/counts/assertions, fixture, app, workflow and P4/OsmAnd are unchanged.
+- Final run36818005050 at7c4bf543: Build/Lint0 errors/17 warnings; same API25/1024x600 focused gate11/11 PASS. External paused-session observation/no autoplay, explicit Play/Next, Home updates and granted-access idle state passed.
+- Saved both failure stages and final raw evidence, reviewed Home screenshots, verified empty crash buffer/no app ANR and89 unchanged input fingerprints. APK size unchanged at71,475 bytes; ZIP-entry payloads identical to incoming.
+- Updated current status and replaced stale P4 task with completed P5 gate/STOP. No Full Regression, Guardian suite, separate P4/OsmAnd suite or next phase. P5 remains open beyond this foundation.
+
 ## 2026-09-30 — P4 Continuous GPS + Automatic Trip Runtime verified / STOP
 - Proved runtime/recorder defects with a10-test API25 probe (9 failing assertions), then corrected only TripRuntimeService, TripAutoRecorder and MainActivity. Preserved before-fix evidence and original assertions.
 - Moved storage/close onto the Service worker, drained queued points before shutdown, cleared stopped availability without invalidating replacement ownership, and preserved PositionStore across fresh Home creation.

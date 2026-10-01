@@ -1,7 +1,7 @@
 # Current Status
 
-State: P3 CLOSED / P4 CLOSED (API25 emulator scope) / P5 READY
-Updated: 2026-09-30.
+State: P3 CLOSED / P4 CLOSED (API25 emulator scope) / P5 OPEN — External MediaSession foundation PASS / STOP
+Updated: 2026-10-01.
 Target: t3-p3 / sun8iw11p1 / Android 7.1 API25 / ARMv7 / ~1GB / 1024x600.
 
 ## Accepted product state
@@ -37,8 +37,19 @@ Target: t3-p3 / sun8iw11p1 / Android 7.1 API25 / ARMv7 / ~1GB / 1024x600.
 - OsmAnd is the offline map/navigation engine; Darbak uses a lightweight external API boundary first rather than forking/embedding the engine.
 - Installed real OsmAnd version compatibility, physical T3/ARMv7 GPS, long-drive behavior, forced process death and sudden power loss are hardware/integration acceptance items, not blockers to the completed emulator/API25 software phase.
 
+## P5 External MediaSession foundation — focused gate PASS / STOP
+- Incoming main `d61cfc2a0385018e4e53a6d72c018cdcdd7be7e1`; verified code `7c4bf543eb11a3742dfde7ed2c75d4e1ca69faa2`.
+- [Run36818005050](https://github.com/abo-sultann/DarbakOS/actions/runs/36818005050), job110227196579, attempt1 SUCCESS. Build/Lint PASS:0 errors,17 warnings.
+- Same P5 focused gate: **11/11 PASS** on API25/x86,1024x600/160dpi/1GB, in three configured invocations (9 +1 +1). Full Regression0; Guardian suites0; separate P4/OsmAnd suites0.
+- Original run36817089400 stopped before any tests because two literal backslash-n separators broke Python syntax. After that correction, run36817725413 passed9 +1 tests but its parser rejected JUnit's singular `OK (1 test)`. Both proven runner defects are fixed; no production or instrumentation assertion changed.
+- Real Android Settings granted notification-listener access. A separate fixture APK/UID exposed a paused framework MediaSession; Darbak observed it without autoplay, then explicit Play and Next updated the external session and Home metadata. Removing the fixture returned Media/Home to stopped idle with disabled transport.
+- Existing shell navigation/recreation/RTL/fit checks passed. Both captured Home screenshots reviewed; truthful unavailable/idle media text, no observed overlap. No app crash/ANR in the captured run.
+- APK71,475 bytes, delta0 versus incoming; all10 ZIP-entry payloads identical.89 production/test/fixture/build/workflow input fingerprints unchanged. P4/OsmAnd and their accepted evidence remain untouched.
+- Durable evidence: `docs/test-evidence/p5-external-media-20261001/`, including both pre-fix failures, final raw results/logs/Settings UI trees, screenshots, hashes and source comparison.
+- This closes only the current verification gate. P5 remains open outside this foundation; real player/version/audio output, full device boot/wake and ARMv7/Test Station/T3 acceptance are not established.
+
 ## Not yet done
-- P5 Media.
+- P5 remaining media/device integration beyond the verified external-session foundation.
 - P6 Vehicle.
 - P7 Apps/Settings/Standby/alerts.
 - P8 Update/Admin/Recovery.
@@ -48,6 +59,6 @@ Target: t3-p3 / sun8iw11p1 / Android 7.1 API25 / ARMv7 / ~1GB / 1024x600.
 - Darbak Test Station/ARMv7 and physical T3 acceptance for P4/P5+.
 
 ## Next
-P5 Media is ready. Apply the reuse-first rule before implementation: inspect Android API25 MediaSession/MediaBrowser capabilities, compatible lightweight open-source car/media projects and the owner's prior repos; adapt only what materially shortens the work. Preserve the existing no-autoplay cold-boot rule and the T3 resource budget.
+STOP after the current P5 evidence/status commit. No next P5 bundle or later phase is started by this gate. The owner's explicit P5 failure-diagnosis request superseded the stale P4 task text; P4 remains closed and unchanged.
 
 GitHub is the project-state authority.

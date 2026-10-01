@@ -1,0 +1,8 @@
+
+com.abosultan.darbakos.ExternalMediaIntegrationTest:.
+
+Time: 0.639
+
+OK (1 test)
+
+

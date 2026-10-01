@@ -1,0 +1,7 @@
+Starting: Intent { cmp=com.abosultan.darbakos.mediafixture/.FixtureActivity }
+Status: ok
+Activity: com.abosultan.darbakos.mediafixture/.FixtureActivity
+ThisTime: 322
+TotalTime: 322
+WaitTime: 329
+Complete

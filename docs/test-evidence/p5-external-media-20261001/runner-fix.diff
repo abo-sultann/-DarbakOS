@@ -1,0 +1,28 @@
+diff --git a/scripts/p5_media_smoke.py b/scripts/p5_media_smoke.py
+index fa4a6d8..7f1b64e 100644
+--- a/scripts/p5_media_smoke.py
++++ b/scripts/p5_media_smoke.py
+@@ -36,7 +36,8 @@ def instrument(classes, expected, name):
+     output = subprocess.check_output(ADB + ['shell', 'am', 'instrument', '-w', '-e', 'class', selected,
+         PACKAGE + '.test/androidx.test.runner.AndroidJUnitRunner'], text=True, timeout=180)
+     save(name + '.txt', output)
+-    assert 'OK (' + str(expected) + ' tests)' in output and 'FAILURES' not in output, output
++    success = 'OK (' + str(expected) + (' test)' if expected == 1 else ' tests)')
++    assert success in output and 'FAILURES' not in output, output
+ 
+ 
+ def dump_retry(name, attempts=6):
+@@ -161,10 +162,11 @@ try:
+     time.sleep(0.8)
+     before = adb('shell', 'dumpsys', 'media_session')
+     save('media-session-before-darbak.txt', before)
+-    assert 'DarbakP5Fixture' in before, 'External fixture MediaSession must be visible before Darbak attaches'\n    instrument(['ExternalMediaIntegrationTest'], 1, 'external-media-integration')
++    assert 'DarbakP5Fixture' in before, 'External fixture MediaSession must be visible before Darbak attaches'
++    instrument(['ExternalMediaIntegrationTest'], 1, 'external-media-integration')
+     after = adb('shell', 'dumpsys', 'media_session')
+     save('media-session-after-control.txt', after)
+-    assert 'DarbakP5Fixture' in after, 'External fixture MediaSession must remain visible after Darbak control'\n
++    assert 'DarbakP5Fixture' in after, 'External fixture MediaSession must remain visible after Darbak control'
+     # Remove the external player and prove granted access returns to a quiet IDLE state.
+     adb('shell', 'am', 'force-stop', FIXTURE_PACKAGE)
+     time.sleep(0.8)

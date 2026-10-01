@@ -1,0 +1,4 @@
+  File "/home/runner/work/DarbakOS/DarbakOS/scripts/p5_media_smoke.py", line 164
+    assert 'DarbakP5Fixture' in before, 'External fixture MediaSession must be visible before Darbak attaches'\n    instrument(['ExternalMediaIntegrationTest'], 1, 'external-media-integration')
+                                                                                                               ^
+SyntaxError: unexpected character after line continuation character

@@ -1,0 +1,9 @@
+
+com.abosultan.darbakos.MediaSnapshotTest:..
+com.abosultan.darbakos.ShellTest:.......
+
+Time: 4.668
+
+OK (9 tests)
+
+

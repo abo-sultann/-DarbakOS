@@ -1,0 +1,17 @@
+2026-10-01T05:03:57.1657124Z PASS: API25/RTL, P4 Trip runtime preserved, one system-bound media access service, no extra process/receiver/runtime dependency/native code
+2026-10-01T05:04:05.6812614Z ##[group]Run ./gradlew :app:assembleDebug :app:assembleDebugAndroidTest :mediafixture:assembleDebug :app:lintDebug --no-daemon --console=plain
+2026-10-01T05:04:05.6813982Z [36;1m./gradlew :app:assembleDebug :app:assembleDebugAndroidTest :mediafixture:assembleDebug :app:lintDebug --no-daemon --console=plain[0m
+2026-10-01T05:04:43.2732700Z BUILD SUCCESSFUL in 37s
+2026-10-01T05:04:43.4980454Z   api-level: 25
+2026-10-01T05:04:43.4980920Z   arch: x86
+2026-10-01T05:04:43.4981130Z   ram-size: 1024M
+2026-10-01T05:04:43.4981363Z   heap-size: 128M
+2026-10-01T05:04:43.4982262Z   emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -camera-back none -skin 1024x600 -dpi-device 160
+2026-10-01T05:04:43.4983164Z   script: mkdir -p test-evidence && python3 scripts/p5_media_smoke.py > test-evidence/p5-runner.log 2>&1
+2026-10-01T05:04:43.5598311Z mkdir -p test-evidence && python3 scripts/p5_media_smoke.py > test-evidence/p5-runner.log 2>&1
+2026-10-01T05:05:32.7635343Z [command]/usr/bin/sh -c mkdir -p test-evidence && python3 scripts/p5_media_smoke.py > test-evidence/p5-runner.log 2>&1
+2026-10-01T05:05:57.5730377Z Artifact name is valid!
+2026-10-01T05:05:58.0968114Z SHA256 digest of uploaded artifact zip is b3f9e2218987abea3bd3cb5011bf3299706e83a0b6957d72484ebf21aaad1d5d
+2026-10-01T05:05:58.3723885Z Artifact DarbakOS-P1-TEST-7c4bf543eb11a3742dfde7ed2c75d4e1ca69faa2.zip successfully finalized. Artifact ID 11142152466
+2026-10-01T05:05:58.3726418Z Artifact DarbakOS-P1-TEST-7c4bf543eb11a3742dfde7ed2c75d4e1ca69faa2 has been successfully uploaded! Final size is 1407879 bytes. Artifact ID is 11142152466
+2026-10-01T05:06:12.5388460Z BUILD SUCCESSFUL in 9s

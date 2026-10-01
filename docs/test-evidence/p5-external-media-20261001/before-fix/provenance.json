@@ -1,0 +1,31 @@
+{
+  "base": "d61cfc2a0385018e4e53a6d72c018cdcdd7be7e1",
+  "base_tree": "09bc87af5c2abf762e6ff7296fb8bf797d0bc6df",
+  "run_id": 36817089400,
+  "run_attempt": 1,
+  "job_id": 110224409479,
+  "conclusion": "failure",
+  "build_lint": "PASS (0 errors, 17 warnings)",
+  "focused_tests_started": 0,
+  "cause": "Python SyntaxError before bootstrap: literal backslash-n after both fixture-presence assertions; first error at line 164",
+  "artifact": {
+    "id": 11142330321,
+    "name": "DarbakOS-P1-TEST-d61cfc2a0385018e4e53a6d72c018cdcdd7be7e1",
+    "size_in_bytes": 1257153,
+    "url": "https://api.github.com/repos/abo-sultann/DarbakOS/actions/artifacts/11142330321",
+    "archive_download_url": "https://api.github.com/repos/abo-sultann/DarbakOS/actions/artifacts/11142330321/zip",
+    "expired": false,
+    "created_at": "2026-10-01T04:53:44Z",
+    "expires_at": "2026-10-15T04:53:43Z",
+    "updated_at": "2026-10-01T04:53:44Z",
+    "digest": "sha256:bbb01cf306c6207ade96ff004e6487bd12ab336a1b405e6a0ebf1f2d33fe8b52",
+    "workflow_run": {
+      "id": 36817089400,
+      "repository_id": 1389422570,
+      "head_repository_id": 1389422570,
+      "head_branch": "main",
+      "head_sha": "d61cfc2a0385018e4e53a6d72c018cdcdd7be7e1"
+    }
+  },
+  "fix_commit": "0550259aa474405ff92be7cf66a28c2942b0f2e9"
+}

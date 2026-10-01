@@ -1,0 +1,5 @@
+captured nine-test result: accepted (expected)
+captured single-test result: accepted (expected)
+wrong expected count: rejected (expected)
+explicit failure: rejected (expected)
+missing completion: rejected (expected)

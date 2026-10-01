@@ -1,0 +1,73 @@
+MEDIA SESSION SERVICE (dumpsys media_session)
+
+1 sessions listeners.
+2 Sessions:
+HeadsetMediaButton com.android.server.telecom/HeadsetMediaButton (uid=0)
+  ownerPid=1531, ownerUid=1000, userId=0
+  package=com.android.server.telecom
+  launchIntent=null
+  mediaButtonReceiver=null
+  active=false
+  flags=65537
+  rating type=0
+  controllers: 0
+  state=null
+  audioAttrs=AudioAttributes: usage=2 content=1 flags=0x0 tags= bundle=null
+  volumeType=1, controlType=2, max=0, current=0
+  metadata:size=0, description=null
+  queueTitle=null, size=0
+
+DarbakP5Fixture com.abosultan.darbakos.mediafixture/DarbakP5Fixture (uid=0)
+  ownerPid=2936, ownerUid=10065, userId=0
+  package=com.abosultan.darbakos.mediafixture
+  launchIntent=null
+  mediaButtonReceiver=null
+  active=true
+  flags=0
+  rating type=0
+  controllers: 1
+  state=PlaybackState {state=3, position=0, buffered position=0, speed=1.0, updated=28827, actions=54, custom actions=[], active item id=-1, error=null}
+  audioAttrs=AudioAttributes: usage=1 content=0 flags=0x0 tags= bundle=null
+  volumeType=1, controlType=2, max=0, current=0
+  metadata:size=2, description=Darbak Fixture Next, Darbak CI Fixture, null
+  queueTitle=null, size=0
+
+Global priority session is null
+Sessions Stack - have 2 sessions:
+  DarbakP5Fixture com.abosultan.darbakos.mediafixture/DarbakP5Fixture (uid=0)
+    ownerPid=2936, ownerUid=10065, userId=0
+    package=com.abosultan.darbakos.mediafixture
+    launchIntent=null
+    mediaButtonReceiver=null
+    active=true
+    flags=0
+    rating type=0
+    controllers: 1
+    state=PlaybackState {state=3, position=0, buffered position=0, speed=1.0, updated=28827, actions=54, custom actions=[], active item id=-1, error=null}
+    audioAttrs=AudioAttributes: usage=1 content=0 flags=0x0 tags= bundle=null
+    volumeType=1, controlType=2, max=0, current=0
+    metadata:size=2, description=Darbak Fixture Next, Darbak CI Fixture, null
+    queueTitle=null, size=0
+
+  HeadsetMediaButton com.android.server.telecom/HeadsetMediaButton (uid=0)
+    ownerPid=1531, ownerUid=1000, userId=0
+    package=com.android.server.telecom
+    launchIntent=null
+    mediaButtonReceiver=null
+    active=false
+    flags=65537
+    rating type=0
+    controllers: 0
+    state=null
+    audioAttrs=AudioAttributes: usage=2 content=1 flags=0x0 tags= bundle=null
+    volumeType=1, controlType=2, max=0, current=0
+    metadata:size=0, description=null
+    queueTitle=null, size=0
+
+User Records:
+Record for user 0
+  MediaButtonReceiver:null
+  Restored ButtonReceiver:null
+  2 Sessions:
+  com.android.server.telecom/HeadsetMediaButton (uid=0)
+  com.abosultan.darbakos.mediafixture/DarbakP5Fixture (uid=0)

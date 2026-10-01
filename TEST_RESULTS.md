@@ -2,6 +2,26 @@
 
 No Darbak OS release is Stable. See the per-stage evidence below.
 
+## 2026-10-01 — P5 External MediaSession runner correction: PASS / STOP
+
+- Started from main `d61cfc2a0385018e4e53a6d72c018cdcdd7be7e1`; the owner's explicit P5 request superseded the stale, already closed P4 task. P4/OsmAnd source and accepted evidence are unchanged.
+- Requested [run36817089400](https://github.com/abo-sultann/DarbakOS/actions/runs/36817089400), job110224409479: Build/Lint PASS but Python SyntaxError at line164 before any test ran. Two literal backslash-n sequences broke the fixture-presence assertions. Corrected in `0550259aa474405ff92be7cf66a28c2942b0f2e9`.
+- [Run36817725413](https://github.com/abo-sultann/DarbakOS/actions/runs/36817725413), job110226342089:9/9 passed in4.668s and external integration1/1 passed in0.627s. The runner nevertheless expected `OK (1 tests)`, rejected JUnit's correct `OK (1 test)`, and never reached the final idle test. Fixed only this singular/plural parsing in `7c4bf543eb11a3742dfde7ed2c75d4e1ca69faa2`.
+- Final [run36818005050](https://github.com/abo-sultann/DarbakOS/actions/runs/36818005050), job110227196579, attempt1 **SUCCESS**. Build/app+test+fixture APKs/Lint PASS:0 errors,17 warnings. Same API25/x86,1024x600/160dpi/1GB focused gate completed; **11/11 PASS**, three configured invocations. No successful gate was rerun.
+
+| Unchanged focused selection | Result |
+|---|---|
+| ShellTest7 + MediaSnapshotTest2, access unavailable |9/9,4.064s; navigation/recreation/RTL/fit and truthful disabled media controls |
+| ExternalMediaIntegrationTest |1/1,0.639s; separate real framework MediaSession starts paused, observing does not autoplay, explicit Play/Next updates external state and Home |
+| MediaAccessShellTest, fixture stopped |1/1,0.518s; access stays granted, no selected track, stopped idle, hidden grant button, disabled transport |
+
+- Access was granted through the actual Android Settings notification-access UI using UI-tree-derived taps. Captured external session ownerUid10065 differs from Darbak appid10063; session state changes from PAUSED2 to PLAYING3 with title `Darbak Fixture Next`. After force-stopping the fixture, its session disappears. The existing P5 runner's TripRuntimeService/startRequested check also passed; no separate P4 runtime suite ran.
+- Both Home PNGs reviewed at1024x600: Arabic RTL and legible unavailable/idle media states, no observed overlap. Empty final crash buffer; no app ANR in captured logcat. No separate Media-panel PNG was captured by this unchanged gate; its fit assertions are in ShellTest.
+- Only the P5 runner changed: expected test counts, failure rejection, selection and Android assertions preserved. Local parser checks accept the actual9-test and1-test logs and reject wrong count, explicit failure and missing completion.89 application/test/fixture/build/workflow files match incoming fingerprints. REFERENCES and existing test infrastructure were reviewed; no new component, copied upstream source, permission, Service, dependency or P4/OsmAnd change.
+- APK71,475 bytes, delta0 versus incoming. All10 ZIP-entry payloads are identical despite differing archive hashes. Final SHA256 `f9c3e15d5511901a3a650769a72380efbb692212ef053acd1bce2108950d0ffd`; no native .so. Existing launch capture: TotalTime406ms/WaitTime444ms, one observation; no PSS/CPU benchmark added.
+- Final artifact11142152466, expires2026-10-15; downloaded ZIP SHA256 `b3f9e2218987abea3bd3cb5011bf3299706e83a0b6957d72484ebf21aaad1d5d` verified. Original/intermediate ZIP hashes and failures retained in evidence provenance. Durable directory: [p5-external-media-20261001](docs/test-evidence/p5-external-media-20261001/).
+- Scope: Full Regression0, Guardian suites0, separate P4/OsmAnd suites0. Prior heavy evidence reused, not regenerated. The external fixture produces framework session state, not audio; Play/Next executed, Pause/Previous only checked enabled. Actual third-party player/version/audio output, device reboot/wake, ARMv7/Test Station/T3 remain untested. **This focused gate is complete / STOP; P5 is not fully phase-closed.**
+
 ## 2026-09-30 — P4 Continuous GPS + Automatic Trip Runtime: PASS / STOP
 
 - Task base `7445bbca3a8e2fb5c3814c725e2304f1cc58a1fc`; final tested code `970160233d0b7d49a71c3a807965ee551ee3ac1f`. [Run36715997759](https://github.com/abo-sultann/DarbakOS/actions/runs/36715997759), job109888939532, attempt1 SUCCESS.

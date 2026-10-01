@@ -1,0 +1,12 @@
+ACTIVITY MANAGER SERVICES (dumpsys activity services)
+  User 0 active services:
+  * ServiceRecord{408cf01 u0 com.abosultan.darbakos.test/com.abosultan.darbakos.core.TripRuntimeService}
+    intent={cmp=com.abosultan.darbakos.test/com.abosultan.darbakos.core.TripRuntimeService}
+    packageName=com.abosultan.darbakos.test
+    processName=com.abosultan.darbakos.test
+    baseDir=/data/app/com.abosultan.darbakos.test-1/base.apk
+    dataDir=/data/user/0/com.abosultan.darbakos.test
+    app=ProcessRecord{80bed2c 2775:com.abosultan.darbakos.test/u0a63}
+    createTime=-1s190ms startingBgTimeout=--
+    lastActivity=-1s190ms restartTime=-1s190ms createdFromFg=true
+    startRequested=true delayedStop=false stopIfKilled=false callStart=true lastStartId=1

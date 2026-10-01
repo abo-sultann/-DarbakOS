@@ -1,0 +1,16 @@
+OK
+Traceback (most recent call last):
+  File "/home/runner/work/DarbakOS/DarbakOS/scripts/p5_media_smoke.py", line 165, in <module>
+    instrument(['ExternalMediaIntegrationTest'], 1, 'external-media-integration')
+  File "/home/runner/work/DarbakOS/DarbakOS/scripts/p5_media_smoke.py", line 39, in instrument
+    assert 'OK (' + str(expected) + ' tests)' in output and 'FAILURES' not in output, output
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 
+com.abosultan.darbakos.ExternalMediaIntegrationTest:.
+
+Time: 0.627
+
+OK (1 test)
+
+
+

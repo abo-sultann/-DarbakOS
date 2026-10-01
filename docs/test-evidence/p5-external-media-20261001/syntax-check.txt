@@ -1,0 +1,3 @@
+incoming main: SyntaxError: unexpected character after line continuation character; line 164
+only first literal newline repaired: SyntaxError: unexpected character after line continuation character; line 168
+corrected script: Python parse PASS

@@ -1,0 +1,64 @@
+{
+  "result": "PASS",
+  "instrumentation": [
+    {
+      "file": "media-no-access-instrumentation.txt",
+      "passed": 9,
+      "seconds": 4.064
+    },
+    {
+      "file": "external-media-integration.txt",
+      "passed": 1,
+      "seconds": 0.639
+    },
+    {
+      "file": "media-access-idle-instrumentation.txt",
+      "passed": 1,
+      "seconds": 0.518
+    }
+  ],
+  "methods_started_in_logcat": [
+    "unavailableAndIdleAreConservative(com.abosultan.darbakos.MediaSnapshotTest)",
+    "activeSnapshotTrimsMetadataAndKeepsCapabilities(com.abosultan.darbakos.MediaSnapshotTest)",
+    "everyDestinationAndBackWorks(com.abosultan.darbakos.ShellTest)",
+    "mediaSurfaceFitsAndNeverOffersAutoplayWithoutAccess(com.abosultan.darbakos.ShellTest)",
+    "recreatePreservesSectionAndHomeButtonWorks(com.abosultan.darbakos.ShellTest)",
+    "mapSurfaceFitsAndAbsentEngineStaysTruthful(com.abosultan.darbakos.ShellTest)",
+    "appsFitRtlAndUnavailableActionsStayInApps(com.abosultan.darbakos.ShellTest)",
+    "launchIsArabicLandscapeAndSpeedStateIsTruthful(com.abosultan.darbakos.ShellTest)",
+    "homeFits1024x600AndRtlNavigation(com.abosultan.darbakos.ShellTest)",
+    "observesPausedExternalSessionWithoutAutoplayThenControlsIt(com.abosultan.darbakos.ExternalMediaIntegrationTest)",
+    "grantedAccessWithNoSessionStaysIdleAndNeverAutoplays(com.abosultan.darbakos.MediaAccessShellTest)"
+  ],
+  "lint": {
+    "errors": 0,
+    "warnings": 17
+  },
+  "apk": {
+    "bytes": 71475,
+    "before_bytes": 71475,
+    "delta_bytes": 0,
+    "sha256": "f9c3e15d5511901a3a650769a72380efbb692212ef053acd1bce2108950d0ffd",
+    "before_sha256": "e7470f75db6f26bf72f28d63b598c1d1769a5d6265c4b0e4bcd4047716e7822a",
+    "zip_entries_compared": 10,
+    "all_zip_entry_payloads_identical_to_incoming": true,
+    "native_libraries": 0
+  },
+  "crash_buffer_bytes": 0,
+  "app_anr_found": false,
+  "visual_review": {
+    "screenshots": [
+      "media-home-no-access-1024x600.png",
+      "media-home-access-idle-1024x600.png"
+    ],
+    "result": "Home retains Arabic RTL and legible unavailable/idle media states with no observed overlap; no app UI changes in this correction",
+    "separate_media_panel_screenshot": false
+  },
+  "resource_note": "Existing focused runner captured one launch (TotalTime406ms/WaitTime444ms); no PSS/CPU benchmark added",
+  "limits": [
+    "Test-only separate APK/UID uses real framework MediaSession but generates no audio",
+    "Explicit transport exercised: Play and Next; Pause/Previous enabled-state only, not executed",
+    "No real player version, device reboot/wake, audio output, ARMv7, Test Station or T3 acceptance",
+    "No Full Regression, Guardian suites or separate P4/OsmAnd suite"
+  ]
+}

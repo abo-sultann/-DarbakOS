@@ -1,0 +1,114 @@
+/home/runner/work/DarbakOS/DarbakOS/app/build.gradle:29: Warning: A newer version of androidx.test:core than 1.5.0 is available: 1.7.0 [GradleDependency]
+    androidTestImplementation 'androidx.test:core:1.5.0'
+                              ~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/runner/work/DarbakOS/DarbakOS/app/build.gradle:30: Warning: A newer version of androidx.test:runner than 1.5.2 is available: 1.7.0 [GradleDependency]
+    androidTestImplementation 'androidx.test:runner:1.5.2'
+                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/runner/work/DarbakOS/DarbakOS/app/build.gradle:31: Warning: A newer version of androidx.test:rules than 1.5.0 is available: 1.7.0 [GradleDependency]
+    androidTestImplementation 'androidx.test:rules:1.5.0'
+                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/runner/work/DarbakOS/DarbakOS/app/build.gradle:32: Warning: A newer version of androidx.test.ext:junit than 1.1.5 is available: 1.3.0 [GradleDependency]
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   Explanation for issues of type "GradleDependency":
+   This detector looks for usages of libraries where the version you are using
+   is not the current stable release. Using older versions is fine, and there
+   are cases where you deliberately want to stick with an older version.
+   However, you may simply not be aware that a more recent version is
+   available, and that is what this lint check helps find.
+
+/home/runner/work/DarbakOS/DarbakOS/app/src/main/AndroidManifest.xml:27: Warning: Should not restrict activity to fixed orientation. This may not be suitable for different form factors, causing the app to be letterboxed. [DiscouragedApi]
+            android:screenOrientation="landscape">
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   Explanation for issues of type "DiscouragedApi":
+   Discouraged APIs are allowed and are not deprecated, but they may be unfit
+   for common use (e.g. due to slow performance or subtle behavior).
+
+/home/runner/work/DarbakOS/DarbakOS/app/src/main/res/layout/activity_main.xml:22: Warning: Set android:baselineAligned="false" on this element for better performance [DisableBaselineAlignment]
+        <LinearLayout android:id="@+id/home_panel" android:layout_width="match_parent"
+         ~~~~~~~~~~~~
+/home/runner/work/DarbakOS/DarbakOS/app/src/main/res/layout/activity_main.xml:51: Warning: Set android:baselineAligned="false" on this element for better performance [DisableBaselineAlignment]
+                <LinearLayout android:layout_width="match_parent" android:layout_height="0dp"
+                 ~~~~~~~~~~~~
+
+   Explanation for issues of type "DisableBaselineAlignment":
+   When a LinearLayout is used to distribute the space proportionally between
+   nested layouts, the baseline alignment property should be turned off to
+   make the layout computation faster.
+
+/home/runner/work/DarbakOS/DarbakOS/app/src/main/res/layout/activity_main.xml:41: Warning: Nested weights are bad for performance [NestedWeights]
+                    android:layout_weight="0.58" android:gravity="center_vertical">
+                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   Explanation for issues of type "NestedWeights":
+   Layout weights require a widget to be measured twice. When a LinearLayout
+   with non-zero weights is nested inside another LinearLayout with non-zero
+   weights, then the number of measurements increase exponentially.
+
+/home/runner/work/DarbakOS/DarbakOS/app/src/main/res/layout/activity_main.xml:5: Warning: Possible overdraw: Root element paints background @color/background with a theme that also paints a background (inferred theme is @style/Theme.Darbak) [Overdraw]
+    android:background="@color/background">
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   Explanation for issues of type "Overdraw":
+   If you set a background drawable on a root view, then you should use a
+   custom theme where the theme background is null. Otherwise, the theme
+   background will be painted first, only to have your custom background
+   completely cover it; this is called "overdraw".
+
+   NOTE: This detector relies on figuring out which layouts are associated
+   with which activities based on scanning the Java code, and it's currently
+   doing that using an inexact pattern matching algorithm. Therefore, it can
+   incorrectly conclude which activity the layout is associated with and then
+   wrongly complain that a background-theme is hidden.
+
+   If you want your custom background on multiple pages, then you should
+   consider making a custom theme with your custom background and just using
+   that theme instead of a root element background.
+
+   Of course it's possible that your custom drawable is translucent and you
+   want it to be mixed with the background. However, you will get better
+   performance if you pre-mix the background with your drawable and use that
+   resulting image or color as a custom theme background instead.
+
+/home/runner/work/DarbakOS/DarbakOS/app/src/main/res/values/colors.xml:12: Warning: The resource R.color.text_muted appears to be unused [UnusedResources]
+    <color name="text_muted">#8299AA</color>
+           ~~~~~~~~~~~~~~~~~
+/home/runner/work/DarbakOS/DarbakOS/app/src/main/res/values/colors.xml:13: Warning: The resource R.color.transparent appears to be unused [UnusedResources]
+    <color name="transparent">#00000000</color>
+           ~~~~~~~~~~~~~~~~~~
+/home/runner/work/DarbakOS/DarbakOS/app/src/main/res/values/strings.xml:15: Warning: The resource R.string.state_unavailable appears to be unused [UnusedResources]
+    <string name="state_unavailable">غير متاح</string>
+            ~~~~~~~~~~~~~~~~~~~~~~~~
+/home/runner/work/DarbakOS/DarbakOS/app/src/main/res/values/strings.xml:16: Warning: The resource R.string.state_idle appears to be unused [UnusedResources]
+    <string name="state_idle">خامل</string>
+            ~~~~~~~~~~~~~~~~~
+/home/runner/work/DarbakOS/DarbakOS/app/src/main/res/values/strings.xml:17: Warning: The resource R.string.state_stale appears to be unused [UnusedResources]
+    <string name="state_stale">بيانات قديمة</string>
+            ~~~~~~~~~~~~~~~~~~
+/home/runner/work/DarbakOS/DarbakOS/app/src/main/res/values/strings.xml:24: Warning: The resource R.string.navigation_detail appears to be unused [UnusedResources]
+    <string name="navigation_detail">الخريطة والملاحة</string>
+            ~~~~~~~~~~~~~~~~~~~~~~~~
+/home/runner/work/DarbakOS/DarbakOS/app/src/main/res/values/strings.xml:29: Warning: The resource R.string.media_idle appears to be unused [UnusedResources]
+    <string name="media_idle">لا يوجد تشغيل • خامل</string>
+            ~~~~~~~~~~~~~~~~~
+/home/runner/work/DarbakOS/DarbakOS/app/src/main/res/values/strings.xml:76: Warning: The resource R.string.home_no_alerts appears to be unused [UnusedResources]
+    <string name="home_no_alerts">لا توجد تنبيهات مهمة</string>
+            ~~~~~~~~~~~~~~~~~~~~~
+
+   Explanation for issues of type "UnusedResources":
+   Unused resources make applications larger and slow down builds.
+
+
+   The unused resource check can ignore tests. If you want to include
+   resources that are only referenced from tests, consider packaging them in a
+   test source set instead.
+
+   You can include test sources in the unused resource check by setting the
+   system property lint.unused-resources.include-tests =true, and to exclude
+   them (usually for performance reasons), use
+   lint.unused-resources.exclude-tests =true.
+   ,
+
+0 errors, 17 warnings

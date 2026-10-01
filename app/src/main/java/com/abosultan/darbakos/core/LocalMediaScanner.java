@@ -58,7 +58,7 @@ public final class LocalMediaScanner {
         } catch (RuntimeException ignored) {
             // Filename remains truthful fallback for damaged/unsupported metadata.
         } finally {
-            try { r.release(); } catch (RuntimeException ignored) {}
+            try { r.release(); } catch (Exception ignored) {}
         }
         return new LocalMediaTrack(file, title, artist, file.length(), file.lastModified());
     }

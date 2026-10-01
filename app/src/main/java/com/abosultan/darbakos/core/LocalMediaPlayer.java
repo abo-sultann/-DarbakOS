@@ -12,6 +12,7 @@ public final class LocalMediaPlayer {
     private MediaPlayer player;
     private LocalMediaTrack current;
     private final Listener listener;
+    private boolean preparing;
 
     public LocalMediaPlayer(Listener listener) { this.listener = listener; }
 
@@ -23,14 +24,32 @@ public final class LocalMediaPlayer {
         MediaPlayer next = new MediaPlayer();
         player = next;
         current = track;
+        preparing = true;
         try {
             next.setAudioStreamType(AudioManager.STREAM_MUSIC);
             next.setDataSource(track.file.getAbsolutePath());
-            next.setOnCompletionListener(mp -> publish(current, false, false));
-            next.setOnErrorListener((mp, what, extra) -> { publish(current, false, true); return true; });
-            next.prepare();
-            next.start();
-            publish(current, true, false);
+            next.setOnPreparedListener(mp -> {
+                if (player != mp) return;
+                preparing = false;
+                try {
+                    mp.start();
+                    publish(current, true, false);
+                } catch (IllegalStateException e) {
+                    releasePlayer();
+                    publish(track, false, true);
+                }
+            });
+            next.setOnCompletionListener(mp -> {
+                preparing = false;
+                publish(current, false, false);
+            });
+            next.setOnErrorListener((mp, what, extra) -> {
+                preparing = false;
+                publish(current, false, true);
+                return true;
+            });
+            next.prepareAsync();
+            publish(current, false, false);
         } catch (IOException | RuntimeException e) {
             releasePlayer();
             publish(track, false, true);
@@ -38,7 +57,7 @@ public final class LocalMediaPlayer {
     }
 
     public void playPause() {
-        if (player == null) return;
+        if (player == null || preparing) return;
         try {
             if (player.isPlaying()) player.pause(); else player.start();
             publish(current, player.isPlaying(), false);
@@ -54,7 +73,7 @@ public final class LocalMediaPlayer {
     public void release() { releasePlayer(); current = null; }
 
     private void releasePlayer() {
-        MediaPlayer old = player; player = null;
+        MediaPlayer old = player; player = null; preparing = false;
         if (old != null) try { old.release(); } catch (RuntimeException ignored) {}
     }
 

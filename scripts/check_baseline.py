@@ -13,8 +13,8 @@ manifest = ET.parse(main / 'AndroidManifest.xml').getroot()
 app = manifest.find('application')
 assert app.get(A + 'supportsRtl') == 'true'
 permissions = {item.get(A + 'name') for item in manifest.findall('uses-permission')}
-assert permissions == {'android.permission.ACCESS_FINE_LOCATION'}, \
-    'Only fine-location may be a normal runtime permission at this checkpoint'
+assert permissions == {'android.permission.ACCESS_FINE_LOCATION', 'android.permission.READ_EXTERNAL_STORAGE'}, \
+    'Only fine-location and on-demand external-media read may be runtime permissions at this checkpoint'
 
 services = {item.get(A + 'name'): item for item in app.findall('service')}
 assert set(services) == {'.core.TripRuntimeService', '.core.DarbakMediaNotificationListener'}, \

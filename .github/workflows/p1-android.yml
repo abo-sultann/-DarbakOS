@@ -35,6 +35,12 @@ jobs:
         with:
           cmdline-tools-version: '12266719'
           packages: 'platform-tools'
+      - name: Stabilize ADB before emulator
+        run: |
+          adb kill-server || true
+          rm -f ~/.android/adb*.lock || true
+          adb start-server
+          adb version
           log-accepted-android-sdk-licenses: 'false'
       - name: Install pinned SDK build tools
         run: sdkmanager 'platforms;android-35' 'build-tools;34.0.0'

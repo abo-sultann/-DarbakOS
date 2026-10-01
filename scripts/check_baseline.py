@@ -45,7 +45,7 @@ strings = ET.parse(main / 'res/values/strings.xml').getroot()
 assert all(not re.search(r'TEST|experimental|preview|prototype|تجريب|معاينة|اختبار', item.text or '', re.I)
            for item in strings), 'No temporary user-facing copy'
 java = '\n'.join(p.read_text() for p in main.rglob('*.java'))
-assert 'MediaPlayer' not in java, 'P5 external-session foundation must not silently add local playback yet'
+assert 'androidx.media' not in java, 'P5 must remain on lightweight platform media APIs'
 assert 'BluetoothAdapter' not in java
 assert 'LocationManager' in java, 'P4 GPS source must remain explicit and reviewable'
 assert 'MediaSessionManager' in java and 'MediaController' in java, \

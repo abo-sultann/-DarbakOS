@@ -81,4 +81,9 @@
     <string name="apps_recent_test">الأخيرة</string>
     <string name="apps_favorite_test">المفضلة</string>
     <string name="apps_manage_test">إدارة التطبيقات</string>
+    <string name="media_local_not_scanned">مكتبة USB / SD جاهزة للفحص</string>
+    <string name="media_local_scan">تحديث مكتبة USB / SD</string>
+    <string name="media_local_scanning">جاري فحص ملفات الصوت…</string>
+    <string name="media_local_empty">لا توجد ملفات صوت متاحة</string>
+    <string name="media_local_count">%1$d ملف صوت</string>
 </resources>

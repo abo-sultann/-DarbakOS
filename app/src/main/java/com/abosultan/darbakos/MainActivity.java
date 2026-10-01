@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import com.abosultan.darbakos.core.LocalMediaLibrary;
 import com.abosultan.darbakos.core.LocalMediaPlayer;
 import com.abosultan.darbakos.core.LocalMediaQueue;
 import com.abosultan.darbakos.core.LocalMediaScanner;
@@ -87,6 +88,7 @@ public final class MainActivity extends Activity {
     private MediaSessionBridge mediaBridge;
     private MediaSnapshot mediaSnapshot = MediaSnapshot.accessUnavailable();
     private final LocalMediaQueue localQueue = new LocalMediaQueue();
+    private final LocalMediaLibrary localLibrary = new LocalMediaLibrary();
     private LocalMediaPlayer localPlayer;
     private LocalMediaState localState;
     private boolean localPlaying;
@@ -400,17 +402,15 @@ public final class MainActivity extends Activity {
     private void scanLocalMedia() {
         ((TextView) findViewById(R.id.media_local_summary)).setText(R.string.media_local_scanning);
         findViewById(R.id.media_local_scan_button).setEnabled(false);
-        new Thread(() -> {
-            List<File> roots = new ArrayList<>();
-            File[] external = getExternalFilesDirs(null);
-            if (external != null) for (File dir : external) {
-                if (dir == null) continue;
-                File root = dir;
-                for (int i = 0; i < 4 && root.getParentFile() != null; i++) root = root.getParentFile();
-                if (root.canRead()) roots.add(root);
-            }
-            List<LocalMediaTrack> tracks = new LocalMediaScanner().scan(roots);
-            runOnUiThread(() -> {
+        List<File> roots = new ArrayList<>();
+        File[] external = getExternalFilesDirs(null);
+        if (external != null) for (File dir : external) {
+            if (dir == null) continue;
+            File root = dir;
+            for (int i = 0; i < 4 && root.getParentFile() != null; i++) root = root.getParentFile();
+            if (root.canRead()) roots.add(root);
+        }
+        localLibrary.scan(roots, tracks -> runOnUiThread(() -> {
                 localQueue.replace(tracks);
                 localState.restoreSelection(localQueue);
                 TextView summary = (TextView) findViewById(R.id.media_local_summary);
@@ -418,8 +418,7 @@ public final class MainActivity extends Activity {
                         : getString(R.string.media_local_count, tracks.size()));
                 findViewById(R.id.media_local_scan_button).setEnabled(true);
                 renderLocalMediaState(localQueue.current(), false);
-            });
-        }, "DarbakLocalMediaScan").start();
+            }));
     }
 
     private void renderLocalMediaState(LocalMediaTrack track, boolean error) {

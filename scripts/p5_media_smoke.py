@@ -139,7 +139,7 @@ try:
     adb('logcat', '-c')
 
     # State A: access unavailable. Final UI stays truthful; no transport can be triggered.
-    instrument(['ShellTest', 'MediaSnapshotTest'], 9, 'media-no-access-instrumentation')
+    instrument(['ShellTest', 'MediaSnapshotTest', 'LocalMediaIntegrationTest'], 10, 'media-no-access-instrumentation')
     launch = adb('shell', 'am', 'start', '-W', '-n', ACTIVITY)
     save('media-launch-no-access.txt', launch)
     assert 'Status: ok' in launch
@@ -185,14 +185,15 @@ try:
         'abi': adb('shell', 'getprop', 'ro.product.cpu.abi').strip(),
         'resolution': '1024x600', 'density': 160,
         'instrumentation_invocations': 3,
-        'focused_tests': 11,
-        'shell_and_snapshot_without_access': 9,
+        'focused_tests': 12,
+        'shell_snapshot_and_local_manifest_without_access': 10,
         'external_process_media_session': 1,
         'granted_access_idle_ui': 1,
         'notification_listener_component': LISTENER,
         'permission_grant_path': 'Android Settings notification access UI',
         'external_fixture_package': FIXTURE_PACKAGE,
         'no_autoplay_proven': True,
+        'local_manifest_restore_proven': True,
         'explicit_transport_proven': True,
         'trip_runtime_alive': True,
         'full_regression_runs': 0,
@@ -202,7 +203,7 @@ try:
         'fixture_apk_sha256': hashlib.sha256(fixture_apk.read_bytes()).hexdigest(),
         't3_validated': False
     }, ensure_ascii=False, indent=2))
-    print('PASS: P5 external MediaSession gate; external UID, no autoplay, explicit controls')
+    print('PASS: P5 media gate; external session + local manifest, no autoplay, explicit controls')
 except Exception as error:
     failure = repr(error)
     save('failure.txt', failure + '\n')

@@ -414,8 +414,8 @@ public final class MainActivity extends Activity {
                 localQueue.replace(tracks);
                 localState.restoreSelection(localQueue);
                 TextView summary = (TextView) findViewById(R.id.media_local_summary);
-                summary.setText(tracks.isEmpty() ? R.string.media_local_empty
-                        : getString(R.string.media_local_count, tracks.size()));
+                if (tracks.isEmpty()) summary.setText(R.string.media_local_empty);
+                else summary.setText(getString(R.string.media_local_count, tracks.size()));
                 findViewById(R.id.media_local_scan_button).setEnabled(true);
                 renderLocalMediaState(localQueue.current(), false);
             }));

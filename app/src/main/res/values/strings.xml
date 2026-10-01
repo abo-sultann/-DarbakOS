@@ -93,4 +93,6 @@
     <string name="apps_recent">الأخيرة</string>
     <string name="apps_favorite">المفضلة</string>
     <string name="apps_manage">إدارة التطبيقات</string>
+    <string name="media_local_source">USB / SD</string>
+    <string name="media_local_error">تعذر تشغيل الملف</string>
 </resources>

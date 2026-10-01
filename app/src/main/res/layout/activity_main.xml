@@ -139,7 +139,7 @@
             <TextView android:id="@+id/media_now_artist" style="@style/Body"
                 android:layout_marginTop="8dp" android:text="@string/media_no_session_detail" />
             <TextView android:id="@+id/media_now_status" style="@style/Body"
-                android:layout_marginTop="10dp" android:text="@string/media_position_test"
+                android:layout_marginTop="10dp" android:text="@string/media_stopped"
                 android:textColor="@color/gold" />
             <LinearLayout android:layout_width="match_parent" android:layout_height="@dimen/touch_height"
                 android:orientation="horizontal" android:layout_marginTop="18dp">
@@ -152,7 +152,7 @@
                     android:layout_width="0dp" android:layout_weight="1"
                     android:layout_marginStart="@dimen/space_small" android:text="@string/media_next" />
             </LinearLayout>
-            <Button android:id="@+id/media_access_button" style="@style/Action"
+            <TextView android:id="@+id/media_local_summary" style="@style/Body"\n                android:layout_marginTop="12dp" android:text="@string/media_local_not_scanned" />\n            <Button android:id="@+id/media_local_scan_button" style="@style/Action"\n                android:layout_width="match_parent" android:layout_marginTop="8dp"\n                android:text="@string/media_local_scan" />\n            <Button android:id="@+id/media_access_button" style="@style/Action"
                 android:layout_width="match_parent" android:layout_marginTop="12dp"
                 android:text="@string/media_access_action" />
         </LinearLayout>

@@ -51,11 +51,14 @@ assert 'LocationManager' in java, 'P4 GPS source must remain explicit and review
 assert 'MediaSessionManager' in java and 'MediaController' in java, \
     'P5 media integration must remain explicit and platform-based'
 runtime = main / 'java/com/abosultan/darbakos/core/TripRuntimeService.java'
+media_library = main / 'java/com/abosultan/darbakos/core/LocalMediaLibrary.java'
 assert runtime.read_text().count('new HandlerThread(') == 1
 assert runtime.read_text().count('new Handler(') == 1
+assert media_library.read_text().count('new HandlerThread(') == 1
+assert media_library.read_text().count('new Handler(') == 1
 for path in main.rglob('*.java'):
     source = path.read_text()
     assert not re.search(r'new\s+(?:Thread|Timer)\s*\(|ExecutorService|Executors\.', source), path
-    if path != runtime:
+    if path not in (runtime, media_library):
         assert not re.search(r'new\s+(?:HandlerThread|Handler)\s*\(', source), path
 print('PASS: API25/RTL, P4 Trip runtime preserved, one system-bound media access service, no extra process/receiver/runtime dependency/native code')

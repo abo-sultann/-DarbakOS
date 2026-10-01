@@ -41,7 +41,6 @@ jobs:
           rm -f ~/.android/adb*.lock || true
           adb start-server
           adb version
-          log-accepted-android-sdk-licenses: 'false'
       - name: Install pinned SDK build tools
         run: sdkmanager 'platforms;android-35' 'build-tools;34.0.0'
       - name: Build and lint

@@ -119,7 +119,9 @@ def screen(name):
     save(name + '.png', png)
 
 
+failure = None
 try:
+    save('bootstrap.txt', 'serial=' + serials[0] + '\n')
     assert adb('shell', 'getprop', 'ro.build.version.sdk').strip() == '25'
     adb('shell', 'wm', 'size', '1024x600')
     adb('shell', 'wm', 'density', '160')
@@ -199,6 +201,10 @@ try:
         't3_validated': False
     }, ensure_ascii=False, indent=2))
     print('PASS: P5 external MediaSession gate; external UID, no autoplay, explicit controls')
+except Exception as error:
+    failure = repr(error)
+    save('failure.txt', failure + '\n')
+    raise
 finally:
     crash = adb('logcat', '-b', 'crash', '-d')
     logs = adb('logcat', '-d')

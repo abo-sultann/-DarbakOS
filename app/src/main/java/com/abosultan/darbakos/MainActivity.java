@@ -99,7 +99,7 @@ public final class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         osmandBridge = new OsmAndBridge(this);
         localState = new LocalMediaState(this);
-        localPlayer = new LocalMediaPlayer((track, playing, error) -> runOnUiThread(() -> {
+        localPlayer = new LocalMediaPlayer(this, (track, playing, error) -> runOnUiThread(() -> {
             localPlaying = playing;
             if (track != null) localState.remember(track);
             renderLocalMediaState(track, error);
@@ -107,6 +107,7 @@ public final class MainActivity extends Activity {
         refreshOsmAndCapabilities();
         mediaBridge = new MediaSessionBridge(this, snapshot -> runOnUiThread(() -> {
             mediaSnapshot = snapshot == null ? MediaSnapshot.idle() : snapshot;
+            if (mediaSnapshot.playing && localPlaying) localPlayer.pauseForExternalPlayback();
             renderMediaState();
         }));
 
@@ -407,8 +408,11 @@ public final class MainActivity extends Activity {
     }
 
     private boolean externalMediaActive() {
-        return mediaSnapshot != null && mediaSnapshot.state == MediaSnapshot.State.ACTIVE;
+        return mediaSnapshot != null && mediaSnapshot.state == MediaSnapshot.State.ACTIVE
+                && (mediaSnapshot.playing || !hasLocalTrack());
     }
+
+    private boolean hasLocalTrack() { return localQueue.current() != null; }
 
     private void scanLocalMedia() {
         if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
@@ -438,6 +442,9 @@ public final class MainActivity extends Activity {
 
     private void renderLocalMediaState(LocalMediaTrack track, boolean error) {
         if (track == null || externalMediaActive()) { renderLocalControls(); return; }
+        ((TextView) findViewById(R.id.media_track)).setText(track.title);
+        ((TextView) findViewById(R.id.media_state)).setText(error
+                ? R.string.media_local_error : localPlaying ? R.string.media_playing : R.string.media_stopped);
         ((TextView) findViewById(R.id.media_now_title)).setText(track.title);
         ((TextView) findViewById(R.id.media_now_artist)).setText(track.artist.length() == 0
                 ? getString(R.string.media_local_source) : track.artist);

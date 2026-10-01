@@ -134,9 +134,26 @@ public final class MainActivity extends Activity {
         });
 
         findViewById(R.id.media_access_button).setOnClickListener(v -> openMediaAccessSettings());
-        findViewById(R.id.media_play_pause_button).setOnClickListener(v -> mediaBridge.playPause());
-        findViewById(R.id.media_previous_button).setOnClickListener(v -> mediaBridge.previous());
-        findViewById(R.id.media_next_button).setOnClickListener(v -> mediaBridge.next());
+        findViewById(R.id.media_play_pause_button).setOnClickListener(v -> {
+            if (externalMediaActive()) mediaBridge.playPause();
+            else if (localQueue.current() != null) {
+                if (localPlaying) localPlayer.playPause(); else localPlayer.play(localQueue.current());
+            }
+        });
+        findViewById(R.id.media_previous_button).setOnClickListener(v -> {
+            if (externalMediaActive()) mediaBridge.previous();
+            else {
+                LocalMediaTrack track = localQueue.previous();
+                if (track != null) localPlayer.play(track);
+            }
+        });
+        findViewById(R.id.media_next_button).setOnClickListener(v -> {
+            if (externalMediaActive()) mediaBridge.next();
+            else {
+                LocalMediaTrack track = localQueue.next();
+                if (track != null) localPlayer.play(track);
+            }
+        });
         findViewById(R.id.media_local_scan_button).setOnClickListener(v -> scanLocalMedia());
 
         showSection(state == null ? 0 : state.getInt(STATE_SECTION, 0));
@@ -376,6 +393,10 @@ public final class MainActivity extends Activity {
         next.setEnabled(snapshot.canNext);
     }
 
+    private boolean externalMediaActive() {
+        return mediaSnapshot != null && mediaSnapshot.state == MediaSnapshot.State.ACTIVE;
+    }
+
     private void scanLocalMedia() {
         ((TextView) findViewById(R.id.media_local_summary)).setText(R.string.media_local_scanning);
         findViewById(R.id.media_local_scan_button).setEnabled(false);
@@ -402,12 +423,23 @@ public final class MainActivity extends Activity {
     }
 
     private void renderLocalMediaState(LocalMediaTrack track, boolean error) {
-        if (track == null || mediaSnapshot.state != MediaSnapshot.State.IDLE) return;
+        if (track == null || externalMediaActive()) { renderLocalControls(); return; }
         ((TextView) findViewById(R.id.media_now_title)).setText(track.title);
         ((TextView) findViewById(R.id.media_now_artist)).setText(track.artist.length() == 0
                 ? getString(R.string.media_local_source) : track.artist);
         ((TextView) findViewById(R.id.media_now_status)).setText(error
                 ? R.string.media_local_error : localPlaying ? R.string.media_playing : R.string.media_stopped);
+        renderLocalControls();
+    }
+
+    private void renderLocalControls() {
+        if (externalMediaActive()) return;
+        boolean hasTrack = localQueue.current() != null;
+        TextView playPause = (TextView) findViewById(R.id.media_play_pause_button);
+        playPause.setText(localPlaying ? R.string.media_pause : R.string.media_play);
+        playPause.setEnabled(hasTrack);
+        findViewById(R.id.media_previous_button).setEnabled(localQueue.size() > 1);
+        findViewById(R.id.media_next_button).setEnabled(localQueue.size() > 1);
     }
 
     private void refreshOsmAndCapabilities() {

@@ -2,6 +2,7 @@ package com.abosultan.darbakos.core;
 
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.content.Context;
 
 import java.io.IOException;
 
@@ -12,15 +13,34 @@ public final class LocalMediaPlayer {
     private MediaPlayer player;
     private LocalMediaTrack current;
     private final Listener listener;
+    private final AudioManager audioManager;
     private boolean preparing;
+    private boolean resumeAfterTransientLoss;
+    private final AudioManager.OnAudioFocusChangeListener focusListener = change -> {
+        if (change == AudioManager.AUDIOFOCUS_LOSS) {
+            resumeAfterTransientLoss = false;
+            pauseForFocusLoss();
+            abandonFocus();
+        } else if (change == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT) {
+            resumeAfterTransientLoss = isPlaying();
+            pauseForFocusLoss();
+        } else if (change == AudioManager.AUDIOFOCUS_GAIN && resumeAfterTransientLoss) {
+            resumeAfterTransientLoss = false;
+            resumeAfterFocusGain();
+        }
+    };
 
-    public LocalMediaPlayer(Listener listener) { this.listener = listener; }
+    public LocalMediaPlayer(Context context, Listener listener) {
+        this.listener = listener;
+        this.audioManager = (AudioManager) context.getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
+    }
 
     public void play(LocalMediaTrack track) {
         if (track == null || track.file == null || !track.file.isFile()) {
             publish(track, false, true); return;
         }
         releasePlayer();
+        if (!requestFocus()) { publish(track, false, true); return; }
         MediaPlayer next = new MediaPlayer();
         player = next;
         current = track;
@@ -59,18 +79,58 @@ public final class LocalMediaPlayer {
     public void playPause() {
         if (player == null || preparing) return;
         try {
-            if (player.isPlaying()) player.pause(); else player.start();
+            if (player.isPlaying()) { player.pause(); abandonFocus(); }
+            else { if (!requestFocus()) return; player.start(); }
             publish(current, player.isPlaying(), false);
         } catch (IllegalStateException e) { publish(current, false, true); }
     }
 
     public void stop() {
+        abandonFocus();
         releasePlayer();
         current = null;
         publish(null, false, false);
     }
 
-    public void release() { releasePlayer(); current = null; }
+    public void release() { abandonFocus(); releasePlayer(); current = null; }
+
+    public boolean isPlaying() {
+        try { return player != null && !preparing && player.isPlaying(); }
+        catch (IllegalStateException e) { return false; }
+    }
+
+    public void pauseForExternalPlayback() {
+        resumeAfterTransientLoss = false;
+        pauseForFocusLoss();
+        abandonFocus();
+    }
+
+    private boolean requestFocus() {
+        return audioManager != null && audioManager.requestAudioFocus(focusListener,
+                AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN) == AudioManager.AUDIOFOCUS_REQUEST_GRANTED;
+    }
+
+    private void abandonFocus() {
+        if (audioManager != null) audioManager.abandonAudioFocus(focusListener);
+    }
+
+    private void pauseForFocusLoss() {
+        try {
+            if (player != null && !preparing && player.isPlaying()) {
+                player.pause();
+                publish(current, false, false);
+            }
+        } catch (IllegalStateException ignored) {}
+    }
+
+    private void resumeAfterFocusGain() {
+        try {
+            if (player != null && !preparing) {
+                player.start();
+                publish(current, true, false);
+            }
+        } catch (IllegalStateException e) { publish(current, false, true); }
+    }
 
     private void releasePlayer() {
         MediaPlayer old = player; player = null; preparing = false;

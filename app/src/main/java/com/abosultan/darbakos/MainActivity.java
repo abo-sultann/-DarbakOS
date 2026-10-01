@@ -21,7 +21,16 @@ import com.abosultan.darbakos.core.PositionFix;
 import com.abosultan.darbakos.core.PositionStore;
 import com.abosultan.darbakos.core.TripRuntimeService;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
+
+import com.abosultan.darbakos.core.LocalMediaPlayer;
+import com.abosultan.darbakos.core.LocalMediaQueue;
+import com.abosultan.darbakos.core.LocalMediaScanner;
+import com.abosultan.darbakos.core.LocalMediaState;
+import com.abosultan.darbakos.core.LocalMediaTrack;
 
 /** Darbak OS shell for continuous position/trip, OsmAnd and user-triggered external media control. */
 public final class MainActivity extends Activity {
@@ -77,11 +86,21 @@ public final class MainActivity extends Activity {
     private OsmAndNavigationSnapshot navigationSnapshot = OsmAndNavigationSnapshot.unknown(0L);
     private MediaSessionBridge mediaBridge;
     private MediaSnapshot mediaSnapshot = MediaSnapshot.accessUnavailable();
+    private final LocalMediaQueue localQueue = new LocalMediaQueue();
+    private LocalMediaPlayer localPlayer;
+    private LocalMediaState localState;
+    private boolean localPlaying;
 
     @Override public void onCreate(Bundle state) {
         super.onCreate(state);
         setContentView(R.layout.activity_main);
         osmandBridge = new OsmAndBridge(this);
+        localState = new LocalMediaState(this);
+        localPlayer = new LocalMediaPlayer((track, playing, error) -> runOnUiThread(() -> {
+            localPlaying = playing;
+            if (track != null) localState.remember(track);
+            renderLocalMediaState(track, error);
+        }));
         refreshOsmAndCapabilities();
         mediaBridge = new MediaSessionBridge(this, snapshot -> runOnUiThread(() -> {
             mediaSnapshot = snapshot == null ? MediaSnapshot.idle() : snapshot;
@@ -118,6 +137,7 @@ public final class MainActivity extends Activity {
         findViewById(R.id.media_play_pause_button).setOnClickListener(v -> mediaBridge.playPause());
         findViewById(R.id.media_previous_button).setOnClickListener(v -> mediaBridge.previous());
         findViewById(R.id.media_next_button).setOnClickListener(v -> mediaBridge.next());
+        findViewById(R.id.media_local_scan_button).setOnClickListener(v -> scanLocalMedia());
 
         showSection(state == null ? 0 : state.getInt(STATE_SECTION, 0));
         renderMediaState();
@@ -354,6 +374,40 @@ public final class MainActivity extends Activity {
         playPause.setEnabled(snapshot.canPlayPause);
         previous.setEnabled(snapshot.canPrevious);
         next.setEnabled(snapshot.canNext);
+    }
+
+    private void scanLocalMedia() {
+        ((TextView) findViewById(R.id.media_local_summary)).setText(R.string.media_local_scanning);
+        findViewById(R.id.media_local_scan_button).setEnabled(false);
+        new Thread(() -> {
+            List<File> roots = new ArrayList<>();
+            File[] external = getExternalFilesDirs(null);
+            if (external != null) for (File dir : external) {
+                if (dir == null) continue;
+                File root = dir;
+                for (int i = 0; i < 4 && root.getParentFile() != null; i++) root = root.getParentFile();
+                if (root.canRead()) roots.add(root);
+            }
+            List<LocalMediaTrack> tracks = new LocalMediaScanner().scan(roots);
+            runOnUiThread(() -> {
+                localQueue.replace(tracks);
+                localState.restoreSelection(localQueue);
+                TextView summary = (TextView) findViewById(R.id.media_local_summary);
+                summary.setText(tracks.isEmpty() ? R.string.media_local_empty
+                        : getString(R.string.media_local_count, tracks.size()));
+                findViewById(R.id.media_local_scan_button).setEnabled(true);
+                renderLocalMediaState(localQueue.current(), false);
+            });
+        }, "DarbakLocalMediaScan").start();
+    }
+
+    private void renderLocalMediaState(LocalMediaTrack track, boolean error) {
+        if (track == null || mediaSnapshot.state != MediaSnapshot.State.IDLE) return;
+        ((TextView) findViewById(R.id.media_now_title)).setText(track.title);
+        ((TextView) findViewById(R.id.media_now_artist)).setText(track.artist.length() == 0
+                ? getString(R.string.media_local_source) : track.artist);
+        ((TextView) findViewById(R.id.media_now_status)).setText(error
+                ? R.string.media_local_error : localPlaying ? R.string.media_playing : R.string.media_stopped);
     }
 
     private void refreshOsmAndCapabilities() {

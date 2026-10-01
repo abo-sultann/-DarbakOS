@@ -36,7 +36,8 @@ def instrument(classes, expected, name):
     output = subprocess.check_output(ADB + ['shell', 'am', 'instrument', '-w', '-e', 'class', selected,
         PACKAGE + '.test/androidx.test.runner.AndroidJUnitRunner'], text=True, timeout=180)
     save(name + '.txt', output)
-    assert 'OK (' + str(expected) + ' tests)' in output and 'FAILURES' not in output, output
+    success = 'OK (' + str(expected) + (' test)' if expected == 1 else ' tests)')
+    assert success in output and 'FAILURES' not in output, output
 
 
 def dump_retry(name, attempts=6):

@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import com.abosultan.darbakos.core.LocalMediaIndex;
 import com.abosultan.darbakos.core.LocalMediaLibrary;
 import com.abosultan.darbakos.core.LocalMediaPlayer;
 import com.abosultan.darbakos.core.LocalMediaQueue;
@@ -92,6 +93,7 @@ public final class MainActivity extends Activity {
     private final LocalMediaLibrary localLibrary = new LocalMediaLibrary();
     private LocalMediaPlayer localPlayer;
     private LocalMediaState localState;
+    private LocalMediaIndex localIndex;
     private boolean localPlaying;
 
     @Override public void onCreate(Bundle state) {
@@ -99,6 +101,10 @@ public final class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         osmandBridge = new OsmAndBridge(this);
         localState = new LocalMediaState(this);
+        localIndex = new LocalMediaIndex(this);
+        List<LocalMediaTrack> cachedTracks = localIndex.restoreValid();
+        localQueue.replace(cachedTracks);
+        localState.restoreSelection(localQueue);
         localPlayer = new LocalMediaPlayer(this, (track, playing, error) -> runOnUiThread(() -> {
             localPlaying = playing;
             if (track != null) localState.remember(track);
@@ -431,6 +437,7 @@ public final class MainActivity extends Activity {
         }
         localLibrary.scan(roots, tracks -> runOnUiThread(() -> {
                 localQueue.replace(tracks);
+                localIndex.save(tracks);
                 localState.restoreSelection(localQueue);
                 TextView summary = (TextView) findViewById(R.id.media_local_summary);
                 if (tracks.isEmpty()) summary.setText(R.string.media_local_empty);

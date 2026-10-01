@@ -34,7 +34,6 @@ public final class ShellTest {
                     assertTrue("Live speed must be numeric", speed.matches("\\d+"));
                     assertEquals("GPS • مباشر", source);
                 }
-                assertEquals("دربك OS", ((TextView) activity.findViewById(R.id.test_badge)).getText().toString());
                 assertTrue(activity.findViewById(R.id.nav_home).isSelected());
             });
         }

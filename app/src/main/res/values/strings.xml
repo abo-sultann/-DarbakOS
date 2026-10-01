@@ -86,4 +86,11 @@
     <string name="media_local_scanning">جاري فحص ملفات الصوت…</string>
     <string name="media_local_empty">لا توجد ملفات صوت متاحة</string>
     <string name="media_local_count">%1$d ملف صوت</string>
+    <string name="navigation_unavailable">لا يوجد مسار نشط</string>
+    <string name="navigation_eta_unavailable">اختر وجهة لبدء الملاحة</string>
+    <string name="media_track_unavailable">لا يوجد مقطع محدد</string>
+    <string name="media_stopped">متوقف</string>
+    <string name="apps_recent">الأخيرة</string>
+    <string name="apps_favorite">المفضلة</string>
+    <string name="apps_manage">إدارة التطبيقات</string>
 </resources>

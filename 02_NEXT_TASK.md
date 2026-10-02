@@ -1,19 +1,20 @@
-# Next Task — P8 Update/Admin/Recovery Foundation
+# Next Task — P8 Safe Update Package Inspection
 
 Updated: 2026-10-02.
 
 ## Objective
-Start the smallest safe software-only P8 foundation after accepted P7 closure.
+Add a read-only local update-package inspection boundary without installing, flashing or modifying the system.
 
 ## Scope
-- Define a hidden/technical Admin boundary separate from user Settings.
-- Add truthful read-only app/build/device diagnostics needed for later update and recovery work.
-- Define update/recovery states and contracts without performing firmware, MCU, kernel, root or destructive actions.
-- Keep recovery guidance explicit about what is unavailable until P9 hardware commissioning and Golden Backup verification.
-- Add focused API25 tests only for the new Admin/diagnostic boundary.
+- Define a lightweight update package metadata/result contract.
+- Inspect only a user-selected/local Darbak APK candidate: file presence, size, SHA-256 and package/version metadata where Android can read it.
+- Report compatible / incompatible / unreadable truthfully; never infer safety from filename.
+- Keep install/update execution disabled in this slice.
+- Surface the inspection result only inside hidden Admin.
+- Add focused API25 tests using deterministic fixtures/contracts.
 
 ## Constraints
-Preserve P4 Trip/OsmAnd, P5 Media, P6 Vehicle and all accepted P7 behavior. No Full Regression or Guardian suites. No firmware/MCU flashing, kernel changes, destructive root, OEM hiding, boot integration or real T3 recovery operations.
+No firmware/MCU/kernel/root, PackageInstaller execution, silent install, OEM hiding, boot changes or recovery actions. Preserve P4-P7 and accepted P8 Admin diagnostics. No Full Regression or Guardian suites.
 
 ## Exit
-Pass the focused API25 P8 Admin/diagnostic gate, record evidence, then choose the next bounded P8 update/recovery slice. Real T3 Golden Backup/recovery verification remains P9.
+Pass focused API25 inspection tests and record evidence. Then choose the smallest remaining P8 recovery-state slice. Real Golden Backup/recovery verification stays P9.

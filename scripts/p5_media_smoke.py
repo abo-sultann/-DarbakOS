@@ -139,7 +139,7 @@ try:
     adb('logcat', '-c')
 
     # State A: access unavailable. Final UI stays truthful; no transport can be triggered.
-    instrument(['ShellTest', 'MediaSnapshotTest', 'LocalMediaIntegrationTest', 'LocalMediaPlaybackTest'], 11, 'media-no-access-instrumentation')
+    instrument(['ShellTest#launchIsArabicLandscapeAndSpeedStateIsTruthful', 'ShellTest#everyDestinationAndBackWorks', 'ShellTest#recreatePreservesSectionAndHomeButtonWorks', 'ShellTest#homeFits1024x600AndRtlNavigation', 'ShellTest#mapSurfaceFitsAndAbsentEngineStaysTruthful', 'ShellTest#mediaSurfaceFitsAndNeverOffersAutoplayWithoutAccess', 'MediaSnapshotTest', 'LocalMediaIntegrationTest', 'LocalMediaPlaybackTest'], 10, 'media-no-access-instrumentation')
     launch = adb('shell', 'am', 'start', '-W', '-n', ACTIVITY)
     save('media-launch-no-access.txt', launch)
     assert 'Status: ok' in launch

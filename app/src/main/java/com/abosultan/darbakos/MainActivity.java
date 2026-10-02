@@ -20,6 +20,9 @@ import com.abosultan.darbakos.core.OsmAndNavigationSnapshot;
 import com.abosultan.darbakos.core.PositionFix;
 import com.abosultan.darbakos.core.PositionStore;
 import com.abosultan.darbakos.core.TripRuntimeService;
+import com.abosultan.darbakos.core.VehicleDataStore;
+import com.abosultan.darbakos.core.VehicleSnapshot;
+import com.abosultan.darbakos.core.VehicleValue;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -41,6 +44,8 @@ public final class MainActivity extends Activity {
     private static final int REQUEST_OSMAND_INFO = 41;
     private static final int REQUEST_MEDIA_STORAGE = 42;
     private static final long NAVIGATION_SNAPSHOT_FRESH_MS = 60_000L;
+    private static final long VEHICLE_FRESH_MS = 30_000L;
+    private final VehicleDataStore vehicleData = new VehicleDataStore();
 
     private static final int[] BUTTONS = {
         R.id.nav_home, R.id.nav_map, R.id.nav_media, R.id.nav_vehicle, R.id.nav_apps,
@@ -127,6 +132,7 @@ public final class MainActivity extends Activity {
         findViewById(R.id.back_home).setOnClickListener(v -> showSection(0));
         findViewById(R.id.map_back_home).setOnClickListener(v -> showSection(0));
         findViewById(R.id.media_back_home).setOnClickListener(v -> showSection(0));
+        findViewById(R.id.vehicle_back_home).setOnClickListener(v -> showSection(0));
         findViewById(R.id.quick_map).setOnClickListener(v -> showSection(1));
         findViewById(R.id.quick_media).setOnClickListener(v -> showSection(2));
         findViewById(R.id.quick_vehicle).setOnClickListener(v -> showSection(3));
@@ -335,13 +341,15 @@ public final class MainActivity extends Activity {
         boolean home = section == 0;
         boolean map = section == 1;
         boolean media = section == 2;
+        boolean vehicle = section == 3;
         findViewById(R.id.home_panel).setVisibility(home ? View.VISIBLE : View.GONE);
         findViewById(R.id.map_panel).setVisibility(map ? View.VISIBLE : View.GONE);
         findViewById(R.id.media_panel).setVisibility(media ? View.VISIBLE : View.GONE);
-        findViewById(R.id.section_panel).setVisibility(!home && !map && !media ? View.VISIBLE : View.GONE);
+        findViewById(R.id.vehicle_panel).setVisibility(vehicle ? View.VISIBLE : View.GONE);
+        findViewById(R.id.section_panel).setVisibility(!home && !map && !media && !vehicle ? View.VISIBLE : View.GONE);
         findViewById(R.id.apps_preview).setVisibility(section == 4 ? View.VISIBLE : View.GONE);
 
-        if (!home && !map && !media) {
+        if (!home && !map && !media && !vehicle) {
             ((TextView) findViewById(R.id.section_title)).setText(TITLES[section]);
             ((TextView) findViewById(R.id.section_detail)).setText(DETAILS[section]);
         }
@@ -350,11 +358,26 @@ public final class MainActivity extends Activity {
             renderMapPanel();
         }
         if (media) renderMediaState();
+        if (vehicle) renderVehicleState();
         if (home) renderNavigationState();
 
         for (int i = 0; i < BUTTONS.length; i++) {
             findViewById(BUTTONS[i]).setSelected(i == section);
         }
+    }
+
+
+    private void renderVehicleState() {
+        VehicleSnapshot s = vehicleData.snapshot(System.currentTimeMillis(), VEHICLE_FRESH_MS);
+        ((TextView) findViewById(R.id.vehicle_pressure)).setText(getString(R.string.vehicle_pressure_label, vehicleText(s.tirePressure)));
+        ((TextView) findViewById(R.id.vehicle_tire_temperature)).setText(getString(R.string.vehicle_tire_temp_label, vehicleText(s.tireTemperature)));
+        ((TextView) findViewById(R.id.vehicle_fridge_temperature)).setText(getString(R.string.vehicle_fridge_temp_label, vehicleText(s.fridgeTemperature)));
+        ((TextView) findViewById(R.id.vehicle_source)).setText(R.string.vehicle_no_source);
+    }
+
+    private String vehicleText(VehicleValue v) {
+        if (v == null || !v.available()) return getString(R.string.vehicle_unavailable);
+        return String.format(Locale.US, "%.1f %s", v.value, v.unit);
     }
 
     private void renderMediaState() {

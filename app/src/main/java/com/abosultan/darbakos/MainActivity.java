@@ -97,6 +97,7 @@ public final class MainActivity extends Activity {
     };
 
     private int section;
+    private boolean standby;
     private boolean permissionRequested;
     private boolean refreshRouteWhenResumed;
     private boolean infoRequestInFlight;
@@ -146,6 +147,8 @@ public final class MainActivity extends Activity {
         findViewById(R.id.apps_manage).setOnClickListener(v -> openAppsSettings());
         findViewById(R.id.settings_back_home).setOnClickListener(v -> showSection(0));
         findViewById(R.id.settings_speed_button).setOnClickListener(v -> toggleSpeedCard());
+        findViewById(R.id.settings_standby_button).setOnClickListener(v -> enterStandby());
+        findViewById(R.id.standby_exit).setOnLongClickListener(v -> { exitStandby(); return true; });
         findViewById(R.id.map_back_home).setOnClickListener(v -> showSection(0));
         findViewById(R.id.media_back_home).setOnClickListener(v -> showSection(0));
         findViewById(R.id.vehicle_back_home).setOnClickListener(v -> showSection(0));
@@ -385,6 +388,29 @@ public final class MainActivity extends Activity {
         for (int i = 0; i < BUTTONS.length; i++) {
             findViewById(BUTTONS[i]).setSelected(i == section);
         }
+    }
+
+
+    private void enterStandby() {
+        standby = true;
+        findViewById(R.id.top_bar).setVisibility(View.GONE);
+        findViewById(R.id.navigation).setVisibility(View.GONE);
+        findViewById(R.id.home_panel).setVisibility(View.GONE);
+        findViewById(R.id.map_panel).setVisibility(View.GONE);
+        findViewById(R.id.media_panel).setVisibility(View.GONE);
+        findViewById(R.id.vehicle_panel).setVisibility(View.GONE);
+        findViewById(R.id.settings_panel).setVisibility(View.GONE);
+        findViewById(R.id.section_panel).setVisibility(View.GONE);
+        findViewById(R.id.standby_panel).setVisibility(View.VISIBLE);
+    }
+
+    private void exitStandby() {
+        if (!standby) return;
+        standby = false;
+        findViewById(R.id.standby_panel).setVisibility(View.GONE);
+        findViewById(R.id.top_bar).setVisibility(View.VISIBLE);
+        findViewById(R.id.navigation).setVisibility(View.VISIBLE);
+        showSection(0);
     }
 
 
@@ -707,6 +733,7 @@ public final class MainActivity extends Activity {
     }
 
     @Override public void onBackPressed() {
+        if (standby) return;
         if (section != 0) showSection(0);
         else super.onBackPressed();
     }

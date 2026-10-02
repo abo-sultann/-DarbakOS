@@ -2,6 +2,14 @@
 
 No Darbak OS release is Stable. See the per-stage evidence below.
 
+## 2026-10-02 — P7 User Settings first slice: PASS / CHECKPOINT
+
+- Verified code `eb0af063d6beb7ff4bfe471cca96c8b50d38fae2`; run [36988422227](https://github.com/abo-sultann/DarbakOS/actions/runs/36988422227): focused API25 gate **PASS**.
+- Dedicated Settings surface persists the implemented Home speed-card visibility preference across Activity recreation. The preference is presentation-only; continuous GPS/TripRuntime ownership is unchanged.
+- Source checks + Build + Lint PASS; isolated P5, P6, P7 Apps and P7 Settings gates PASS. Full Regression0; Guardian suites0. Artifact `11218641454`.
+- First attempt exposed a stale navigation assertion for the old generic Settings placeholder. Second attempt proved all 12 aggregated tests passed but the historical P5 runner still expected 11; P5 now explicitly selects its own historical Shell tests, preventing future phase tests from changing its count.
+- **Settings first slice accepted; P7 remains OPEN for Standby and alerts.**
+
 ## 2026-10-02 — P7 Apps first slice: PASS / CHECKPOINT
 
 - Verified code `8ed626e7988997e6d253f7df0ef856fcc5e6c03e`; run [36986279699](https://github.com/abo-sultann/DarbakOS/actions/runs/36986279699) **SUCCESS**.

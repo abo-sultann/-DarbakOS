@@ -185,6 +185,37 @@ public final class ShellTest {
         }
     }
 
+
+    @Test public void userSettingsPersistSpeedCardVisibilityAcrossRecreate() {
+        InstrumentationRegistry.getInstrumentation().getTargetContext()
+                .getSharedPreferences("user_settings", android.content.Context.MODE_PRIVATE)
+                .edit().clear().commit();
+        try (ActivityScenario<MainActivity> scenario = ActivityScenario.launch(MainActivity.class)) {
+            scenario.onActivity(activity -> {
+                assertEquals(View.VISIBLE, activity.findViewById(R.id.speed_card).getVisibility());
+                activity.findViewById(R.id.settings_button).performClick();
+                assertEquals(View.VISIBLE, activity.findViewById(R.id.settings_panel).getVisibility());
+                assertEquals(View.GONE, activity.findViewById(R.id.section_panel).getVisibility());
+                TextView toggle = activity.findViewById(R.id.settings_speed_button);
+                assertEquals("عرض السرعة في الرئيسية: مفعّل", toggle.getText().toString());
+                toggle.performClick();
+                assertEquals(View.GONE, activity.findViewById(R.id.speed_card).getVisibility());
+                assertEquals("عرض السرعة في الرئيسية: مخفي", toggle.getText().toString());
+            });
+            scenario.recreate();
+            scenario.onActivity(activity -> {
+                assertEquals(View.VISIBLE, activity.findViewById(R.id.settings_panel).getVisibility());
+                assertEquals(View.GONE, activity.findViewById(R.id.speed_card).getVisibility());
+                assertEquals("عرض السرعة في الرئيسية: مخفي",
+                        ((TextView) activity.findViewById(R.id.settings_speed_button)).getText().toString());
+                activity.findViewById(R.id.settings_speed_button).performClick();
+                assertEquals(View.VISIBLE, activity.findViewById(R.id.speed_card).getVisibility());
+                activity.findViewById(R.id.settings_back_home).performClick();
+                assertTrue(activity.findViewById(R.id.nav_home).isSelected());
+            });
+        }
+    }
+
     private static void assertVisibleWithin(View view, Rect screen) {
         if (view.getVisibility() != View.VISIBLE) return;
         int[] xy = new int[2];

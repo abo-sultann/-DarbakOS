@@ -55,6 +55,12 @@ public final class ShellTest {
                     } else if (index == 1) {
                         assertEquals(View.VISIBLE, activity.findViewById(R.id.media_panel).getVisibility());
                         assertEquals(View.GONE, activity.findViewById(R.id.section_panel).getVisibility());
+                    } else if (index == 2) {
+                        assertEquals(View.VISIBLE, activity.findViewById(R.id.vehicle_panel).getVisibility());
+                        assertEquals(View.GONE, activity.findViewById(R.id.section_panel).getVisibility());
+                        assertEquals("غير متاح",
+                            ((TextView) activity.findViewById(R.id.vehicle_pressure)).getText().toString()
+                                .replace("ضغط الإطار: ", ""));
                     } else {
                         assertEquals(View.VISIBLE, activity.findViewById(R.id.section_panel).getVisibility());
                         assertEquals(activity.getString(titles[index]),

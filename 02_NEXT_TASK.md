@@ -1,20 +1,19 @@
-# Next Task — P8 Safe Update Package Inspection
+# Next Task — P8 Recovery Readiness State
 
 Updated: 2026-10-02.
 
 ## Objective
-Add a read-only local update-package inspection boundary without installing, flashing or modifying the system.
+Finish the software-only P8 foundation with a truthful recovery-readiness contract before P9 hardware commissioning.
 
 ## Scope
-- Define a lightweight update package metadata/result contract.
-- Inspect only a user-selected/local Darbak APK candidate: file presence, size, SHA-256 and package/version metadata where Android can read it.
-- Report compatible / incompatible / unreadable truthfully; never infer safety from filename.
-- Keep install/update execution disabled in this slice.
-- Surface the inspection result only inside hidden Admin.
-- Add focused API25 tests using deterministic fixtures/contracts.
+- Represent recovery readiness as explicit locked/not-verified states.
+- Require recorded Golden Backup identity/hash and verified recovery path before any future recovery action can become eligible.
+- Surface readiness read-only inside hidden Admin.
+- No backup creation, restore, flash or root action in P8.
+- Add focused API25 contract/UI tests.
 
 ## Constraints
-No firmware/MCU/kernel/root, PackageInstaller execution, silent install, OEM hiding, boot changes or recovery actions. Preserve P4-P7 and accepted P8 Admin diagnostics. No Full Regression or Guardian suites.
+Preserve P4-P7 and accepted P8 Admin/update-inspection behavior. No firmware/MCU/kernel/root, flashing, OEM hiding, boot changes, PackageInstaller execution, Full Regression or Guardian suites.
 
 ## Exit
-Pass focused API25 inspection tests and record evidence. Then choose the smallest remaining P8 recovery-state slice. Real Golden Backup/recovery verification stays P9.
+Pass the focused API25 recovery-readiness gate, document P8 closure, then advance to P9 real-device commissioning/Golden Backup verification.

@@ -824,3 +824,12 @@ For every test record: date, commit, environment, API/ABI/resolution, scenario, 
 - P8 provides no backup/restore/flash/root execution path.
 - Full Regression0; Guardian suites0. Artifact `11229945515`.
 - P8 CLOSED in API25 emulator software scope; P9 exact-device baseline + Golden Backup gate is next.
+
+
+## 2026-10-02 — P9 pre-device safety gate PASS
+- Verified code: `7d91c4d00bdc335a1accfe7cb05204be20bc5c32`.
+- GitHub Actions run `37015374187`: Source checks including P9 read-only gate PASS; Build + Lint PASS; preserved P5-P8 focused API25 verification PASS.
+- Added read-only exact-device baseline collector and locked Golden Backup manifest.
+- No root/remount/flash/uninstall/destructive command exists in the collector.
+- Test APK/evidence artifact `11229962299`.
+- Next evidence must come from the physical T3; software CI cannot satisfy exact-device identity or Golden Backup/recovery verification.

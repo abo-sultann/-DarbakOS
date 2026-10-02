@@ -349,11 +349,9 @@ public final class MainActivity extends Activity {
         boolean map = section == 1;
         boolean media = section == 2;
         boolean vehicle = section == 3;
-        boolean vehicle = section == 3;
         findViewById(R.id.home_panel).setVisibility(home ? View.VISIBLE : View.GONE);
         findViewById(R.id.map_panel).setVisibility(map ? View.VISIBLE : View.GONE);
         findViewById(R.id.media_panel).setVisibility(media ? View.VISIBLE : View.GONE);
-        findViewById(R.id.vehicle_panel).setVisibility(vehicle ? View.VISIBLE : View.GONE);
         findViewById(R.id.vehicle_panel).setVisibility(vehicle ? View.VISIBLE : View.GONE);
         findViewById(R.id.section_panel).setVisibility(!home && !map && !media && !vehicle ? View.VISIBLE : View.GONE);
         findViewById(R.id.apps_preview).setVisibility(section == 4 ? View.VISIBLE : View.GONE);
@@ -367,7 +365,6 @@ public final class MainActivity extends Activity {
             renderMapPanel();
         }
         if (media) renderMediaState();
-        if (vehicle) renderVehicleState();
         if (vehicle) renderVehicleState();
         if (home) renderNavigationState();
 

@@ -139,7 +139,7 @@ try:
     adb('logcat', '-c')
 
     # State A: access unavailable. Final UI stays truthful; no transport can be triggered.
-    instrument(['ShellTest', 'MediaSnapshotTest', 'LocalMediaIntegrationTest'], 10, 'media-no-access-instrumentation')
+    instrument(['ShellTest', 'MediaSnapshotTest', 'LocalMediaIntegrationTest', 'LocalMediaPlaybackTest'], 11, 'media-no-access-instrumentation')
     launch = adb('shell', 'am', 'start', '-W', '-n', ACTIVITY)
     save('media-launch-no-access.txt', launch)
     assert 'Status: ok' in launch
@@ -185,8 +185,8 @@ try:
         'abi': adb('shell', 'getprop', 'ro.product.cpu.abi').strip(),
         'resolution': '1024x600', 'density': 160,
         'instrumentation_invocations': 3,
-        'focused_tests': 12,
-        'shell_snapshot_and_local_manifest_without_access': 10,
+        'focused_tests': 13,
+        'shell_snapshot_local_manifest_and_playback_without_access': 11,
         'external_process_media_session': 1,
         'granted_access_idle_ui': 1,
         'notification_listener_component': LISTENER,
@@ -194,6 +194,8 @@ try:
         'external_fixture_package': FIXTURE_PACKAGE,
         'no_autoplay_proven': True,
         'local_manifest_restore_proven': True,
+        'real_local_mediaplayer_proven': True,
+        'local_play_pause_resume_proven': True,
         'explicit_transport_proven': True,
         'trip_runtime_alive': True,
         'full_regression_runs': 0,

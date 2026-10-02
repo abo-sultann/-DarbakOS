@@ -1,20 +1,20 @@
-# Next Task — P7 User Settings Foundation
+# Next Task — P7 Standby Foundation
 
 Updated: 2026-10-02.
 
 ## Objective
-Implement the smallest useful user-facing Settings slice after the accepted P7 Apps gate.
+Implement a lightweight Darbak Standby surface without interrupting Position/Trip recording.
 
 ## Scope
-- Replace the generic Settings placeholder with a dedicated lightweight Settings surface.
-- Expose only safe user-facing settings that Darbak can truthfully own on API25.
-- Keep technical Admin, firmware/MCU/root/recovery and OEM controls out of this surface.
-- Persist only settings actually implemented; no fake toggles.
-- Preserve Arabic RTL, 1024x600 and ~1GB constraints.
-- Add focused API25 tests for Settings persistence/UI behavior only.
+- Add an explicit user-triggered Standby mode/surface suitable for the 1024x600 car screen.
+- Keep the surface calm and minimal; avoid animations, background loops and heavy dependencies.
+- Standby is a Darbak UI state, not device power-off and not Android sleep/root control.
+- Entering/leaving Standby must preserve the continuous TripRuntimeService contract.
+- Long-press or another child-safe deliberate action is required for any sensitive exit/power-adjacent behavior; do not add a screen-off button.
+- Add focused API25 tests for enter/exit and TripRuntime continuity only.
 
 ## Constraints
-Preserve P4 OsmAnd/Trip, P5 Media, P6 Vehicle and the accepted P7 Apps slice. No Full Regression or Guardian suites. Do not start Standby or alerts in this batch.
+Preserve P4 OsmAnd/Trip, P5 Media, P6 Vehicle and accepted P7 Apps/Settings. No Full Regression or Guardian suites. Do not start alerts in this batch.
 
 ## Deferred
-Standby and actionable alerts remain later P7 slices. Physical ARMv7/Test Station/T3 acceptance remains P9/P10.
+Actionable alerts remain the final bounded P7 slice. Physical screen power/ACC/vendor MCU behavior remains P9/P10.

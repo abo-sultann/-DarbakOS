@@ -94,6 +94,8 @@ public final class LocalMediaPlayer {
 
     public void release() { abandonFocus(); releasePlayer(); current = null; }
 
+    public LocalMediaTrack currentTrack() { return current; }
+
     public boolean isPlaying() {
         try { return player != null && !preparing && player.isPlaying(); }
         catch (IllegalStateException e) { return false; }

@@ -192,6 +192,7 @@ public final class MainActivity extends Activity {
         findViewById(R.id.media_local_scan_button).setOnClickListener(v -> scanLocalMedia());
 
         applyUserSettings();
+        renderActionableAlert();
         showSection(state == null ? 0 : state.getInt(STATE_SECTION, 0));
         renderMediaState();
         enterFullscreen();
@@ -246,6 +247,7 @@ public final class MainActivity extends Activity {
             return;
         }
         if (requestCode != REQUEST_LOCATION) return;
+        renderActionableAlert();
         if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             showSpeedUnavailable(R.string.gps_waiting);
             startTripRuntime();
@@ -388,6 +390,15 @@ public final class MainActivity extends Activity {
         for (int i = 0; i < BUTTONS.length; i++) {
             findViewById(BUTTONS[i]).setSelected(i == section);
         }
+    }
+
+
+    private void renderActionableAlert() {
+        TextView alert = (TextView) findViewById(R.id.actionable_alert);
+        boolean locationGranted = checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED;
+        alert.setText(locationGranted ? "" : getString(R.string.alert_location_permission));
+        alert.setVisibility(locationGranted ? View.GONE : View.VISIBLE);
     }
 
 

@@ -72,22 +72,23 @@ Target: t3-p3 / sun8iw11p1 / Android 7.1 API25 / ARMv7 / ~1GB / 1024x600.
 - Artifact `11227578855`.
 - Physical ARMv7/Test Station/T3 acceptance remains deferred to P9/P10.
 
-## P8 — OPEN; hidden Admin/diagnostics slice PASS
-- Technical Admin is separate from user Settings and reachable only by deliberate long-press on the Settings title.
-- Admin is read-only: Darbak version/build plus Android/API/device model diagnostics.
-- Update and Recovery are explicitly locked; no execution control exists. Recovery remains gated on Golden Backup and P9 hardware verification.
-- Run `37012105270` on `321ff039380571775206474aafa6a8f0dc999d04`: Source checks + Build + Lint PASS; preserved P5/P6/P7 focused gates + P8 Admin focused test PASS on API25. Full Regression0; Guardian suites0. Artifact `11228302940`.
-- Next P8 slice: safe local update-package inspection contract only; no install/flash.
+## P8 — CLOSED in API25 emulator software scope
+- Hidden technical Admin is separate from user Settings and remains read-only.
+- Runtime diagnostics report Darbak version/build plus Android/API/device model truthfully.
+- Local Darbak APK inspection is read-only: presence, size, SHA-256, package and version metadata; filename alone never establishes compatibility. No installer action exists.
+- Recovery readiness has explicit states: missing Golden Backup, invalid/missing SHA-256, unverified recovery path, or eligible. P8 records/evaluates state only; it cannot back up, restore, flash or root.
+- Final focused gate run `37014555613` on `0fc6920a3813b4c991964e9b5bc249866b67f4fe`: Source checks + Build + Lint PASS; preserved P5/P6/P7 and all P8 focused verification PASS on API25. Full Regression0; Guardian suites0.
+- Artifact `11229945515`.
+- Real Golden Backup identity/hash and recovery-path verification are intentionally deferred to P9 hardware commissioning.
 
 ## Not yet done
 - P7 Apps Recent/Favorites persistence remains an optional later enhancement.
-- P8 safe update-package inspection and recovery-state foundation.
 - P9 real T3 commissioning + Golden Backup/recovery verification.
 - P10 T3 integration/OEM hiding/autostart/boot.
 - P11 Stable acceptance.
 - Darbak Test Station/ARMv7 and physical T3 acceptance for P4/P5+.
 
 ## Next
-Continue P8 with safe local update-package inspection: metadata/hash/compatibility state only, with no install/flash action. Recovery remains locked until P9.
+Begin P9 real-device commissioning with a non-destructive exact-device baseline and Golden Backup/recovery verification before any deep T3 integration.
 
 GitHub is the project-state authority.

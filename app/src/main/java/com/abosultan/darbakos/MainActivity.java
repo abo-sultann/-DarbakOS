@@ -148,6 +148,8 @@ public final class MainActivity extends Activity {
         findViewById(R.id.settings_back_home).setOnClickListener(v -> showSection(0));
         findViewById(R.id.settings_speed_button).setOnClickListener(v -> toggleSpeedCard());
         findViewById(R.id.settings_standby_button).setOnClickListener(v -> enterStandby());
+        findViewById(R.id.settings_title).setOnLongClickListener(v -> { showAdmin(); return true; });
+        findViewById(R.id.admin_back_settings).setOnClickListener(v -> hideAdmin());
         findViewById(R.id.standby_exit).setOnLongClickListener(v -> { exitStandby(); return true; });
         findViewById(R.id.map_back_home).setOnClickListener(v -> showSection(0));
         findViewById(R.id.media_back_home).setOnClickListener(v -> showSection(0));
@@ -370,6 +372,7 @@ public final class MainActivity extends Activity {
         findViewById(R.id.media_panel).setVisibility(media ? View.VISIBLE : View.GONE);
         findViewById(R.id.vehicle_panel).setVisibility(vehicle ? View.VISIBLE : View.GONE);
         findViewById(R.id.settings_panel).setVisibility(settings ? View.VISIBLE : View.GONE);
+        findViewById(R.id.admin_panel).setVisibility(View.GONE);
         findViewById(R.id.section_panel).setVisibility(!home && !map && !media && !vehicle && !settings ? View.VISIBLE : View.GONE);
         findViewById(R.id.apps_preview).setVisibility(section == 4 ? View.VISIBLE : View.GONE);
 
@@ -405,6 +408,35 @@ public final class MainActivity extends Activity {
     }
 
 
+    private void showAdmin() {
+        findViewById(R.id.settings_panel).setVisibility(View.GONE);
+        findViewById(R.id.admin_panel).setVisibility(View.VISIBLE);
+        renderAdminDiagnostics();
+    }
+
+    private void hideAdmin() {
+        findViewById(R.id.admin_panel).setVisibility(View.GONE);
+        findViewById(R.id.settings_panel).setVisibility(View.VISIBLE);
+    }
+
+    private void renderAdminDiagnostics() {
+        String versionName = "unknown";
+        int versionCode = 0;
+        try {
+            android.content.pm.PackageInfo info = getPackageManager().getPackageInfo(getPackageName(), 0);
+            versionName = info.versionName == null ? "unknown" : info.versionName;
+            versionCode = info.versionCode;
+        } catch (PackageManager.NameNotFoundException ignored) { }
+        String model = android.os.Build.MODEL == null ? "unknown" : android.os.Build.MODEL;
+        ((TextView) findViewById(R.id.admin_app)).setText(
+                getString(R.string.admin_app, versionName, versionCode));
+        ((TextView) findViewById(R.id.admin_device)).setText(
+                getString(R.string.admin_device, android.os.Build.VERSION.RELEASE,
+                        android.os.Build.VERSION.SDK_INT, model));
+        ((TextView) findViewById(R.id.admin_update)).setText(R.string.admin_update_locked);
+        ((TextView) findViewById(R.id.admin_recovery)).setText(R.string.admin_recovery_locked);
+    }
+
     private void enterStandby() {
         standby = true;
         findViewById(R.id.top_bar).setVisibility(View.GONE);
@@ -414,6 +446,7 @@ public final class MainActivity extends Activity {
         findViewById(R.id.media_panel).setVisibility(View.GONE);
         findViewById(R.id.vehicle_panel).setVisibility(View.GONE);
         findViewById(R.id.settings_panel).setVisibility(View.GONE);
+        findViewById(R.id.admin_panel).setVisibility(View.GONE);
         findViewById(R.id.section_panel).setVisibility(View.GONE);
         findViewById(R.id.standby_panel).setVisibility(View.VISIBLE);
     }

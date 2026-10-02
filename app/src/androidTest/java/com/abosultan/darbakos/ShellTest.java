@@ -61,6 +61,9 @@ public final class ShellTest {
                         assertEquals("غير متاح",
                             ((TextView) activity.findViewById(R.id.vehicle_pressure)).getText().toString()
                                 .replace("ضغط الإطار: ", ""));
+                    } else if (index == 4) {
+                        assertEquals(View.VISIBLE, activity.findViewById(R.id.settings_panel).getVisibility());
+                        assertEquals(View.GONE, activity.findViewById(R.id.section_panel).getVisibility());
                     } else {
                         assertEquals(View.VISIBLE, activity.findViewById(R.id.section_panel).getVisibility());
                         assertEquals(activity.getString(titles[index]),

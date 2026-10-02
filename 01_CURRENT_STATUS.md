@@ -1,7 +1,7 @@
 # Current Status
 
-State: P3 CLOSED / P4 CLOSED (API25 emulator scope) / P5 OPEN — External MediaSession foundation PASS / STOP
-Updated: 2026-10-01.
+State: P3 CLOSED / P4 CLOSED / P5 CLOSED / P6 CLOSED (API25 emulator software scope)
+Updated: 2026-10-02.
 Target: t3-p3 / sun8iw11p1 / Android 7.1 API25 / ARMv7 / ~1GB / 1024x600.
 
 ## Accepted product state
@@ -53,15 +53,17 @@ Target: t3-p3 / sun8iw11p1 / Android 7.1 API25 / ARMv7 / ~1GB / 1024x600.
 - Follow-up lifecycle guard `55eb48c6190b6d43b0b1904003a4040b09774b77` also passed CI.
 - P5 is closed for emulator/API25 software scope. Physical ARMv7/T3 audio, removable-media vendor behavior and real third-party players remain P9/P10 acceptance items, not P5 blockers.
 
-## P6 Vehicle boundary — APPROVED
-- P6 must not be blocked by unresolved Toyota TPMS/OBD/CAN decoding or other unavailable hardware sources.
-- Build a unified Vehicle Data boundary with source provenance and freshness. Each adapter is optional/pluggable.
-- Unknown/unconnected values remain explicitly unavailable; never fabricate or preserve stale values as live.
-- TPMS ESP32/CC1101, OBD/CAN, fridge and later sensors continue as independent source integrations and may be connected when proven.
-- P6 software closure is the truthful data contract, adapter boundary and UI consumption; proving every physical source is deferred to its own hardware acceptance.
+## P6 Vehicle — CLOSED within emulator/API25 software scope
+- Unified immutable `VehicleValue` / `VehicleSnapshot` contract is in place with source provenance, observed timestamp and freshness enforcement.
+- `VehicleSourceAdapter` is optional/pluggable; `VehicleDataStore` merges per-field readings and chooses the newest available observation.
+- Missing, future-dated and stale values resolve to explicit unavailable state; stale data is never presented as live.
+- Vehicle UI consumes only the unified snapshot contract and remains truthful with no connected source.
+- Run 36978379715 on commit `1d8d44f3377aec088f1b71fa81dce952ec6bcea3`: Source checks + Build + Lint PASS; P5 compatibility gate PASS; P6 focused `VehicleDataTest` **4/4 PASS** on API25/x86, 1024x600/160dpi/1GB. Full Regression0; Guardian suites0.
+- P6 integration exposed one stale P5 ShellTest assumption that Vehicle still used the generic placeholder panel; the test was corrected to the dedicated Vehicle panel without changing P5 production behavior.
+- Artifact `11214612250`.
+- Physical TPMS ESP32/CC1101, Toyota OBD/CAN, fridge protocols, ARMv7/Test Station and real T3 connectivity remain independent P9/P10 hardware acceptance work and did not block P6.
 
 ## Not yet done
-- P6 Vehicle.
 - P7 Apps/Settings/Standby/alerts.
 - P8 Update/Admin/Recovery.
 - P9 real T3 commissioning + Golden Backup/recovery verification.
@@ -70,6 +72,6 @@ Target: t3-p3 / sun8iw11p1 / Android 7.1 API25 / ARMv7 / ~1GB / 1024x600.
 - Darbak Test Station/ARMv7 and physical T3 acceptance for P4/P5+.
 
 ## Next
-Start P6 Vehicle Data foundation: immutable vehicle snapshot/value contract, provenance + freshness policy, source adapter boundary, truthful unavailable defaults and focused API25 tests. Do not wait for unresolved TPMS/OBD/CAN hardware decoding.
+Start P7 Apps/Settings/Standby/alerts as the next bounded software phase. Preserve P4/P5/P6 contracts and keep hardware-dependent acceptance deferred to P9/P10.
 
 GitHub is the project-state authority.

@@ -180,7 +180,7 @@
         <LinearLayout android:id="@+id/settings_panel" style="@style/Card"
             android:layout_width="match_parent" android:layout_height="match_parent"
             android:visibility="gone" android:orientation="vertical" android:gravity="center">
-            <TextView style="@style/Title" android:text="@string/settings" android:gravity="center" />
+            <TextView android:id="@+id/settings_title" style="@style/Title" android:text="@string/settings" android:gravity="center" />
             <TextView style="@style/Body" android:layout_marginTop="12dp"
                 android:text="@string/settings_user_detail" android:gravity="center" />
             <Button android:id="@+id/settings_speed_button" style="@style/Action"
@@ -193,6 +193,19 @@
             <Button android:id="@+id/settings_back_home" style="@style/Action"
                 android:layout_width="wrap_content" android:layout_marginTop="20dp"
                 android:text="@string/back_home" />
+        </LinearLayout>
+
+        <LinearLayout android:id="@+id/admin_panel" style="@style/Card"
+            android:layout_width="match_parent" android:layout_height="match_parent"
+            android:visibility="gone" android:orientation="vertical" android:gravity="center">
+            <TextView style="@style/Title" android:text="@string/admin_title" android:gravity="center" />
+            <TextView android:id="@+id/admin_app" style="@style/Body" android:layout_marginTop="14dp" android:gravity="center" />
+            <TextView android:id="@+id/admin_device" style="@style/Body" android:layout_marginTop="10dp" android:gravity="center" />
+            <TextView android:id="@+id/admin_update" style="@style/Body" android:layout_marginTop="10dp" android:gravity="center" />
+            <TextView android:id="@+id/admin_recovery" style="@style/Body" android:layout_marginTop="10dp" android:gravity="center" />
+            <Button android:id="@+id/admin_back_settings" style="@style/Action"
+                android:layout_width="wrap_content" android:layout_marginTop="20dp"
+                android:text="@string/admin_back_settings" />
         </LinearLayout>
 
         <LinearLayout android:id="@+id/standby_panel"

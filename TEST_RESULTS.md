@@ -2,6 +2,13 @@
 
 No Darbak OS release is Stable. See the per-stage evidence below.
 
+## 2026-10-02 — P7 Apps first slice: PASS / CHECKPOINT
+
+- Verified code `8ed626e7988997e6d253f7df0ef856fcc5e6c03e`; run [36986279699](https://github.com/abo-sultann/DarbakOS/actions/runs/36986279699) **SUCCESS**.
+- Source checks + Build + Lint PASS. Existing P5/P6 focused verification remained PASS; P7 Apps focused `ShellTest#appsFitRtlAndUnavailableActionsStayInApps` **1/1 PASS** on API25/x86, 1024x600.
+- Apps uses Android launcher discovery, excludes Darbak itself, enables only the real Android app-management action, and keeps unimplemented Recent/Favorites disabled. No new permission, dependency, Service or process.
+- Full Regression0; Guardian suites0. Artifact `11217272345`. **Apps first slice accepted; P7 remains OPEN.**
+
 ## 2026-10-02 — P6 Vehicle Data Foundation: PASS / CLOSED
 
 - Final verified code: `1d8d44f3377aec088f1b71fa81dce952ec6bcea3`; GitHub Actions run [36978379715](https://github.com/abo-sultann/DarbakOS/actions/runs/36978379715): **SUCCESS**.

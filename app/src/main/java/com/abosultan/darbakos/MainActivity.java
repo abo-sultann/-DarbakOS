@@ -3,6 +3,7 @@ package com.abosultan.darbakos;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Bundle;
@@ -49,6 +50,8 @@ import com.abosultan.darbakos.core.LocalMediaTrack;
 /** Darbak OS shell for continuous position/trip, OsmAnd and user-triggered external media control. */
 public final class MainActivity extends Activity {
     private static final String STATE_SECTION = "section";
+    private static final String USER_PREFS = "user_settings";
+    private static final String PREF_SHOW_SPEED = "show_speed";
     private static final int REQUEST_LOCATION = 40;
     private static final int REQUEST_OSMAND_INFO = 41;
     private static final int REQUEST_MEDIA_STORAGE = 42;
@@ -141,6 +144,8 @@ public final class MainActivity extends Activity {
         findViewById(R.id.vehicle_back_home).setOnClickListener(v -> showSection(0));
         findViewById(R.id.back_home).setOnClickListener(v -> showSection(0));
         findViewById(R.id.apps_manage).setOnClickListener(v -> openAppsSettings());
+        findViewById(R.id.settings_back_home).setOnClickListener(v -> showSection(0));
+        findViewById(R.id.settings_speed_button).setOnClickListener(v -> toggleSpeedCard());
         findViewById(R.id.map_back_home).setOnClickListener(v -> showSection(0));
         findViewById(R.id.media_back_home).setOnClickListener(v -> showSection(0));
         findViewById(R.id.vehicle_back_home).setOnClickListener(v -> showSection(0));
@@ -183,6 +188,7 @@ public final class MainActivity extends Activity {
         });
         findViewById(R.id.media_local_scan_button).setOnClickListener(v -> scanLocalMedia());
 
+        applyUserSettings();
         showSection(state == null ? 0 : state.getInt(STATE_SECTION, 0));
         renderMediaState();
         enterFullscreen();
@@ -353,14 +359,16 @@ public final class MainActivity extends Activity {
         boolean map = section == 1;
         boolean media = section == 2;
         boolean vehicle = section == 3;
+        boolean settings = section == 5;
         findViewById(R.id.home_panel).setVisibility(home ? View.VISIBLE : View.GONE);
         findViewById(R.id.map_panel).setVisibility(map ? View.VISIBLE : View.GONE);
         findViewById(R.id.media_panel).setVisibility(media ? View.VISIBLE : View.GONE);
         findViewById(R.id.vehicle_panel).setVisibility(vehicle ? View.VISIBLE : View.GONE);
-        findViewById(R.id.section_panel).setVisibility(!home && !map && !media && !vehicle ? View.VISIBLE : View.GONE);
+        findViewById(R.id.settings_panel).setVisibility(settings ? View.VISIBLE : View.GONE);
+        findViewById(R.id.section_panel).setVisibility(!home && !map && !media && !vehicle && !settings ? View.VISIBLE : View.GONE);
         findViewById(R.id.apps_preview).setVisibility(section == 4 ? View.VISIBLE : View.GONE);
 
-        if (!home && !map && !media && !vehicle) {
+        if (!home && !map && !media && !vehicle && !settings) {
             ((TextView) findViewById(R.id.section_title)).setText(TITLES[section]);
             ((TextView) findViewById(R.id.section_detail)).setText(DETAILS[section]);
         }
@@ -371,11 +379,37 @@ public final class MainActivity extends Activity {
         if (media) renderMediaState();
         if (vehicle) renderVehicleState();
         if (section == 4) renderAppsState();
+        if (settings) renderSettingsState();
         if (home) renderNavigationState();
 
         for (int i = 0; i < BUTTONS.length; i++) {
             findViewById(BUTTONS[i]).setSelected(i == section);
         }
+    }
+
+
+    private SharedPreferences userPrefs() {
+        return getSharedPreferences(USER_PREFS, MODE_PRIVATE);
+    }
+
+    private void applyUserSettings() {
+        boolean showSpeed = userPrefs().getBoolean(PREF_SHOW_SPEED, true);
+        findViewById(R.id.speed_card).setVisibility(showSpeed ? View.VISIBLE : View.GONE);
+        renderSettingsState();
+    }
+
+    private void renderSettingsState() {
+        View button = findViewById(R.id.settings_speed_button);
+        if (!(button instanceof TextView)) return;
+        boolean showSpeed = userPrefs().getBoolean(PREF_SHOW_SPEED, true);
+        ((TextView) button).setText(showSpeed ? R.string.settings_speed_show : R.string.settings_speed_hide);
+    }
+
+    private void toggleSpeedCard() {
+        boolean showSpeed = !userPrefs().getBoolean(PREF_SHOW_SPEED, true);
+        userPrefs().edit().putBoolean(PREF_SHOW_SPEED, showSpeed).apply();
+        findViewById(R.id.speed_card).setVisibility(showSpeed ? View.VISIBLE : View.GONE);
+        renderSettingsState();
     }
 
 

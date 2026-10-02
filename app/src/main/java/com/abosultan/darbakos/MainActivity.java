@@ -52,10 +52,6 @@ public final class MainActivity extends Activity {
     private static final long NAVIGATION_SNAPSHOT_FRESH_MS = 60_000L;
     private static final long VEHICLE_SNAPSHOT_FRESH_MS = 30_000L;
     private final VehicleDataStore vehicleDataStore = new VehicleDataStore();
-    private static final long VEHICLE_SNAPSHOT_FRESH_MS = 30_000L;
-    private final VehicleDataStore vehicleDataStore = new VehicleDataStore();
-    private static final long VEHICLE_FRESH_MS = 30_000L;
-    private final VehicleDataStore vehicleData = new VehicleDataStore();
 
     private static final int[] BUTTONS = {
         R.id.nav_home, R.id.nav_map, R.id.nav_media, R.id.nav_vehicle, R.id.nav_apps,
@@ -382,63 +378,19 @@ public final class MainActivity extends Activity {
 
 
     private void renderVehicleState() {
-        VehicleSnapshot s = vehicleData.snapshot(System.currentTimeMillis(), VEHICLE_FRESH_MS);
+        VehicleSnapshot s = vehicleDataStore.snapshot(System.currentTimeMillis(), VEHICLE_SNAPSHOT_FRESH_MS);
         ((TextView) findViewById(R.id.vehicle_pressure)).setText(getString(R.string.vehicle_pressure_label, vehicleText(s.tirePressure)));
-        ((TextView) findViewById(R.id.vehicle_tire_temperature)).setText(getString(R.string.vehicle_tire_temp_label, vehicleText(s.tireTemperature)));
-        ((TextView) findViewById(R.id.vehicle_fridge_temperature)).setText(getString(R.string.vehicle_fridge_temp_label, vehicleText(s.fridgeTemperature)));
-        ((TextView) findViewById(R.id.vehicle_source)).setText(R.string.vehicle_no_source);
+        ((TextView) findViewById(R.id.vehicle_tire_temperature)).setText(getString(R.string.vehicle_tire_temperature_label, vehicleText(s.tireTemperature)));
+        ((TextView) findViewById(R.id.vehicle_fridge_temperature)).setText(getString(R.string.vehicle_fridge_temperature_label, vehicleText(s.fridgeTemperature)));
+        VehicleValue v = s.tirePressure.available() ? s.tirePressure : (s.tireTemperature.available() ? s.tireTemperature : s.fridgeTemperature);
+        ((TextView) findViewById(R.id.vehicle_source)).setText(v.available()
+                ? getString(R.string.vehicle_source_label, v.source.name())
+                : getString(R.string.vehicle_source_none));
     }
 
     private String vehicleText(VehicleValue v) {
         if (v == null || !v.available()) return getString(R.string.vehicle_unavailable);
         return String.format(Locale.US, "%.1f %s", v.value, v.unit);
-    }
-
-    private void renderVehicleState() {
-        VehicleSnapshot snapshot = vehicleDataStore.snapshot(System.currentTimeMillis(), VEHICLE_SNAPSHOT_FRESH_MS);
-        ((TextView) findViewById(R.id.vehicle_pressure)).setText(getString(R.string.vehicle_pressure_label, vehicleText(snapshot.tirePressure)));
-        ((TextView) findViewById(R.id.vehicle_tire_temperature)).setText(getString(R.string.vehicle_tire_temperature_label, vehicleText(snapshot.tireTemperature)));
-        ((TextView) findViewById(R.id.vehicle_fridge_temperature)).setText(getString(R.string.vehicle_fridge_temperature_label, vehicleText(snapshot.fridgeTemperature)));
-        VehicleValue sourceValue = snapshot.tirePressure.available() ? snapshot.tirePressure :
-                (snapshot.tireTemperature.available() ? snapshot.tireTemperature : snapshot.fridgeTemperature);
-        ((TextView) findViewById(R.id.vehicle_source)).setText(sourceValue.available()
-                ? getString(R.string.vehicle_source_label, sourceValue.source.name())
-                : getString(R.string.vehicle_source_none));
-    }
-
-    private String vehicleText(VehicleValue value) {
-        if (value == null || !value.available()) return getString(R.string.vehicle_unavailable);
-        double number = value.value;
-        String formatted = number == Math.rint(number) ? String.valueOf((long) number) : String.format(Locale.US, "%.1f", number);
-        return formatted + " " + value.unit;
-    }
-
-
-    private void renderVehicleState() {
-        VehicleSnapshot s = vehicleDataStore.snapshot(System.currentTimeMillis(), VEHICLE_SNAPSHOT_FRESH_MS);
-        ((TextView) findViewById(R.id.vehicle_pressure)).setText(
-                getString(R.string.vehicle_pressure_label, vehicleText(s.tirePressure)));
-        ((TextView) findViewById(R.id.vehicle_tire_temperature)).setText(
-                getString(R.string.vehicle_tire_temperature_label, vehicleText(s.tireTemperature)));
-        ((TextView) findViewById(R.id.vehicle_fridge_temperature)).setText(
-                getString(R.string.vehicle_fridge_temperature_label, vehicleText(s.fridgeTemperature)));
-        VehicleValue.Source source = firstSource(s);
-        ((TextView) findViewById(R.id.vehicle_source)).setText(source == VehicleValue.Source.UNKNOWN
-                ? R.string.vehicle_source_none
-                : getString(R.string.vehicle_source_label, source.name()));
-    }
-
-    private String vehicleText(VehicleValue v) {
-        return v != null && v.available()
-                ? String.format(Locale.US, "%.1f %s", v.value, v.unit)
-                : getString(R.string.vehicle_unavailable);
-    }
-
-    private VehicleValue.Source firstSource(VehicleSnapshot s) {
-        if (s.tirePressure.available()) return s.tirePressure.source;
-        if (s.tireTemperature.available()) return s.tireTemperature.source;
-        if (s.fridgeTemperature.available()) return s.fridgeTemperature.source;
-        return VehicleValue.Source.UNKNOWN;
     }
 
     private void renderMediaState() {

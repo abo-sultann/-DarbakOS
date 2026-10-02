@@ -815,3 +815,12 @@ For every test record: date, commit, environment, API/ABI/resolution, scenario, 
 - Local candidate inspection is read-only: presence/size/SHA-256/package/version metadata; package identity determines compatible/incompatible, not filename.
 - No PackageInstaller, install, flash, root, firmware or new runtime permission.
 - Full Regression0; Guardian suites0. Artifact `11228183411`.
+
+
+## 2026-10-02 — P8 recovery readiness + closure PASS
+- Verified code: `0fc6920a3813b4c991964e9b5bc249866b67f4fe`.
+- GitHub Actions run `37014555613`: Source checks + Build + Lint PASS; preserved P5/P6/P7 plus all P8 focused gates PASS on API25.
+- Recovery readiness requires Golden Backup identity + valid SHA-256 + verified recovery path. Missing any prerequisite stays locked.
+- P8 provides no backup/restore/flash/root execution path.
+- Full Regression0; Guardian suites0. Artifact `11229945515`.
+- P8 CLOSED in API25 emulator software scope; P9 exact-device baseline + Golden Backup gate is next.

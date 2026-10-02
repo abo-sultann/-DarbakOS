@@ -103,4 +103,8 @@
     <string name="vehicle_unavailable">غير متاح</string>
     <string name="vehicle_source_none">لا يوجد مصدر بيانات متصل</string>
     <string name="vehicle_source_label">المصدر: %1$s</string>
+    <string name="settings_user_detail">إعدادات المستخدم فقط • الإدارة التقنية منفصلة</string>
+    <string name="settings_speed_show">عرض السرعة في الرئيسية: مفعّل</string>
+    <string name="settings_speed_hide">عرض السرعة في الرئيسية: مخفي</string>
+    <string name="settings_speed_detail">يمكن إخفاء بطاقة السرعة دون إيقاف GPS أو تسجيل الرحلة.</string>
 </resources>

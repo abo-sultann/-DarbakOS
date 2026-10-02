@@ -63,8 +63,15 @@ Target: t3-p3 / sun8iw11p1 / Android 7.1 API25 / ARMv7 / ~1GB / 1024x600.
 - Artifact `11214612250`.
 - Physical TPMS ESP32/CC1101, Toyota OBD/CAN, fridge protocols, ARMv7/Test Station and real T3 connectivity remain independent P9/P10 hardware acceptance work and did not block P6.
 
+## P7 — OPEN; Apps first slice PASS
+- Apps now discovers launchable activities through Android `CATEGORY_LAUNCHER`, excludes Darbak itself and reports a bounded truthful summary without adding a dependency, permission, Service or process.
+- Recent/Favorites remain visibly disabled because their persistence/behavior is not implemented yet. Android app-management entry is the only newly enabled action.
+- Run `36986279699` on `8ed626e7988997e6d253f7df0ef856fcc5e6c03e`: Source checks + Build + Lint PASS; preserved P5/P6 focused gates PASS; P7 Apps focused ShellTest **1/1 PASS** on API25. Full Regression0; Guardian suites0.
+- Artifact `11217272345`.
+- Next P7 slice is user Settings; Standby and actionable alerts follow separately.
+
 ## Not yet done
-- P7 Apps/Settings/Standby/alerts.
+- P7 Settings/Standby/alerts and later Apps Recent/Favorites persistence.
 - P8 Update/Admin/Recovery.
 - P9 real T3 commissioning + Golden Backup/recovery verification.
 - P10 T3 integration/OEM hiding/autostart/boot.
@@ -72,6 +79,6 @@ Target: t3-p3 / sun8iw11p1 / Android 7.1 API25 / ARMv7 / ~1GB / 1024x600.
 - Darbak Test Station/ARMv7 and physical T3 acceptance for P4/P5+.
 
 ## Next
-Start P7 Apps/Settings/Standby/alerts as the next bounded software phase. Preserve P4/P5/P6 contracts and keep hardware-dependent acceptance deferred to P9/P10.
+Continue P7 with the bounded user Settings slice. Keep technical Admin deferred, preserve P4/P5/P6 and the accepted Apps slice, and do not mix Standby/alerts into the same batch.
 
 GitHub is the project-state authority.

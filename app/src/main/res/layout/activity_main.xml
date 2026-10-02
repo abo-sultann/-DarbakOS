@@ -9,6 +9,8 @@
         <TextView style="@style/Title" android:layout_width="wrap_content"
             android:text="@string/brand" android:textColor="@color/gold" />
         <View android:layout_width="0dp" android:layout_height="1dp" android:layout_weight="1" />
+        <TextView android:id="@+id/actionable_alert" style="@style/Body" android:layout_width="wrap_content"
+            android:visibility="gone" android:textColor="@color/gold" android:layout_marginEnd="12dp" />
         <Button android:id="@+id/settings_button" style="@style/Action"
             android:layout_width="wrap_content" android:text="@string/settings" />
     </LinearLayout>

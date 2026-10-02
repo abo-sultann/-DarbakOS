@@ -287,6 +287,8 @@ public final class ShellTest {
                         ((TextView) activity.findViewById(R.id.admin_update)).getText().toString());
                 assertEquals("الاستعادة • مقفلة حتى Golden Backup والتحقق في P9",
                         ((TextView) activity.findViewById(R.id.admin_recovery)).getText().toString());
+                assertEquals("جاهزية الاستعادة • مقفلة • Golden Backup غير مسجل",
+                        ((TextView) activity.findViewById(R.id.admin_recovery_readiness)).getText().toString());
                 activity.findViewById(R.id.admin_back_settings).performClick();
                 assertEquals(View.GONE, activity.findViewById(R.id.admin_panel).getVisibility());
                 assertEquals(View.VISIBLE, activity.findViewById(R.id.settings_panel).getVisibility());

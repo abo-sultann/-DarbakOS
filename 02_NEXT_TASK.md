@@ -1,20 +1,20 @@
-# Next Task — P7 Standby Foundation
+# Next Task — P7 Actionable Alerts Foundation
 
 Updated: 2026-10-02.
 
 ## Objective
-Implement a lightweight Darbak Standby surface without interrupting Position/Trip recording.
+Finish the bounded P7 foundation with quiet-by-default, actionable alerts driven only by existing truthful Darbak state.
 
 ## Scope
-- Add an explicit user-triggered Standby mode/surface suitable for the 1024x600 car screen.
-- Keep the surface calm and minimal; avoid animations, background loops and heavy dependencies.
-- Standby is a Darbak UI state, not device power-off and not Android sleep/root control.
-- Entering/leaving Standby must preserve the continuous TripRuntimeService contract.
-- Long-press or another child-safe deliberate action is required for any sensitive exit/power-adjacent behavior; do not add a screen-off button.
-- Add focused API25 tests for enter/exit and TripRuntime continuity only.
+- Define a lightweight alert contract/state for actionable abnormal conditions.
+- Normal/unavailable-without-action states remain quiet; do not turn ordinary missing hardware into alarm noise.
+- Surface alerts in the existing Home experience without blocking Map/Media/Vehicle/Apps/Settings/Standby.
+- Use existing state contracts only; no new TPMS/OBD/fridge hardware integration in this batch.
+- No fake values, inferred danger or stale data presented as live.
+- Add focused API25 tests for quiet normal state and one deterministic actionable abnormal fixture.
 
 ## Constraints
-Preserve P4 OsmAnd/Trip, P5 Media, P6 Vehicle and accepted P7 Apps/Settings. No Full Regression or Guardian suites. Do not start alerts in this batch.
+Preserve P4 OsmAnd/Trip, P5 Media, P6 Vehicle and accepted P7 Apps/Settings/Standby. No Full Regression or Guardian suites.
 
-## Deferred
-Actionable alerts remain the final bounded P7 slice. Physical screen power/ACC/vendor MCU behavior remains P9/P10.
+## Exit
+If the focused alert gate passes, close the P7 foundation software scope and advance to P8 Update/Admin/Recovery foundation. Apps Recent/Favorites may remain a later enhancement unless required by acceptance.

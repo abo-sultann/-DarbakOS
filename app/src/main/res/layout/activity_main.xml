@@ -162,6 +162,19 @@
                 android:text="@string/media_access_action" />
         </LinearLayout>
 
+        <LinearLayout android:id="@+id/vehicle_panel" style="@style/Card"
+            android:layout_width="match_parent" android:layout_height="match_parent"
+            android:visibility="gone" android:orientation="vertical" android:gravity="center">
+            <TextView style="@style/Title" android:text="@string/vehicle" android:gravity="center" />
+            <TextView android:id="@+id/vehicle_pressure" style="@style/Body" android:layout_marginTop="20dp" android:gravity="center" />
+            <TextView android:id="@+id/vehicle_tire_temperature" style="@style/Body" android:layout_marginTop="12dp" android:gravity="center" />
+            <TextView android:id="@+id/vehicle_fridge_temperature" style="@style/Body" android:layout_marginTop="12dp" android:gravity="center" />
+            <TextView android:id="@+id/vehicle_source" style="@style/Body" android:layout_marginTop="16dp"
+                android:textColor="@color/gold" android:gravity="center" />
+            <Button android:id="@+id/vehicle_back_home" style="@style/Action" android:layout_width="wrap_content"
+                android:layout_marginTop="20dp" android:text="@string/back_home" />
+        </LinearLayout>
+
         <LinearLayout android:id="@+id/section_panel" style="@style/Card"
             android:layout_width="match_parent" android:layout_height="match_parent"
             android:visibility="gone" android:gravity="center">

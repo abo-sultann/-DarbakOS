@@ -19,7 +19,7 @@
         <!-- Physical speed position stays left; Arabic text and navigation stay RTL. -->
         <LinearLayout android:id="@+id/home_panel" android:layout_width="match_parent"
             android:layout_height="match_parent" android:orientation="horizontal" android:layoutDirection="ltr">
-            <LinearLayout style="@style/Card" android:layout_width="0dp"
+            <LinearLayout android:id="@+id/speed_card" style="@style/Card" android:layout_width="0dp"
                 android:layout_height="match_parent" android:layout_weight="0.32"
                 android:layout_marginStart="@dimen/space" android:gravity="center">
                 <TextView style="@style/Body" android:gravity="center" android:text="@string/speed" />

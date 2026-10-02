@@ -807,3 +807,11 @@ For every test record: date, commit, environment, API/ABI/resolution, scenario, 
 - Version/build + Android/API/device diagnostics are truthful runtime values.
 - Update execution unavailable; Recovery explicitly locked until Golden Backup + P9 verification.
 - Full Regression0; Guardian suites0. Artifact `11228302940`.
+
+
+## 2026-10-02 — P8 safe update-package inspection PASS
+- Verified code: `4c5ae57894f55b65afc342cf1df3e66d5fed9afd`.
+- GitHub Actions run `37012770816`: Source checks + Build + Lint PASS; preserved P5/P6/P7/P8 Admin gates + update-inspection focused test PASS on API25.
+- Local candidate inspection is read-only: presence/size/SHA-256/package/version metadata; package identity determines compatible/incompatible, not filename.
+- No PackageInstaller, install, flash, root, firmware or new runtime permission.
+- Full Regression0; Guardian suites0. Artifact `11228183411`.

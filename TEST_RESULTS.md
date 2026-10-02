@@ -2,6 +2,15 @@
 
 No Darbak OS release is Stable. See the per-stage evidence below.
 
+## 2026-10-02 — P6 Vehicle Data Foundation: PASS / CLOSED
+
+- Final verified code: `1d8d44f3377aec088f1b71fa81dce952ec6bcea3`; GitHub Actions run [36978379715](https://github.com/abo-sultann/DarbakOS/actions/runs/36978379715): **SUCCESS**.
+- Source checks, Build and Lint PASS. One bounded API25/x86, 1024x600/160dpi/1GB emulator gate preserved the P5 focused checks and then ran `VehicleDataTest`: **4/4 PASS**. Full Regression0; Guardian suites0.
+- P6 proves unavailable defaults, fresh value + provenance, stale expiry and newest-reading source attribution. `VehicleSourceAdapter` remains optional; no physical TPMS/OBD/CAN/fridge source is fabricated or required.
+- The dedicated Vehicle UI consumes the unified snapshot contract. A stale ShellTest assumption from the prior placeholder Vehicle surface was the only proven regression and was corrected; no P5 production behavior changed.
+- Artifact `11214612250`: `DarbakOS-P1-TEST-1d8d44f3377aec088f1b71fa81dce952ec6bcea3`.
+- Physical ARMv7/T3, TPMS ESP32/CC1101, Toyota OBD/CAN and fridge protocol acceptance remain deferred to P9/P10. **P6 software scope CLOSED.**
+
 ## 2026-10-01 — P5 External MediaSession runner correction: PASS / STOP
 
 - Started from main `d61cfc2a0385018e4e53a6d72c018cdcdd7be7e1`; the owner's explicit P5 request superseded the stale, already closed P4 task. P4/OsmAnd source and accepted evidence are unchanged.

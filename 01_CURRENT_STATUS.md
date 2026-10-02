@@ -76,8 +76,14 @@ Target: t3-p3 / sun8iw11p1 / Android 7.1 API25 / ARMv7 / ~1GB / 1024x600.
 - Run `36988422227` on `eb0af063d6beb7ff4bfe471cca96c8b50d38fae2`: Source checks + Build + Lint PASS; isolated P5 + P6 + P7 Apps/Settings focused gates PASS on API25. Full Regression0; Guardian suites0. Artifact `11218641454`.
 - Two runner/test assumptions were corrected during integration: navigation now recognizes the dedicated Settings panel, and P5 selects its historical Shell tests explicitly so later P7 test additions cannot change its expected count.
 
+## P7 Standby — focused slice PASS
+- Standby is a lightweight Darbak UI state only: no device power-off, Android sleep, root, firmware or MCU behavior.
+- Entering Standby hides normal chrome/content and keeps a calm minimal surface. Back does not exit; deliberate long-press exits to Home.
+- TripRuntimeService remains running through Standby enter/exit; GPS/trip ownership is unchanged.
+- Run `37002048691` on `c4aae68a8613c85960907e4b1c9b55a15df8f88a`: Source checks + Build + Lint PASS; P5 + P6 + P7 Apps/Settings/Standby focused gates PASS on API25. Full Regression0; Guardian suites0. Artifact `11224331940`.
+
 ## Not yet done
-- P7 Standby/alerts and later Apps Recent/Favorites persistence.
+- P7 actionable alerts and later Apps Recent/Favorites persistence.
 - P8 Update/Admin/Recovery.
 - P9 real T3 commissioning + Golden Backup/recovery verification.
 - P10 T3 integration/OEM hiding/autostart/boot.
@@ -85,6 +91,6 @@ Target: t3-p3 / sun8iw11p1 / Android 7.1 API25 / ARMv7 / ~1GB / 1024x600.
 - Darbak Test Station/ARMv7 and physical T3 acceptance for P4/P5+.
 
 ## Next
-Continue P7 with the bounded Standby slice. Standby must remain lightweight and must not stop Position/Trip recording; alerts remain a separate later slice.
+Continue P7 with the bounded actionable-alerts slice. Normal state stays quiet; surface only actionable abnormal states from existing truthful data contracts. Do not add new hardware integrations.
 
 GitHub is the project-state authority.

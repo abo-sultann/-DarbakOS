@@ -22,6 +22,7 @@ import com.abosultan.darbakos.core.OsmAndNavigationSnapshot;
 import com.abosultan.darbakos.core.PositionFix;
 import com.abosultan.darbakos.core.PositionStore;
 import com.abosultan.darbakos.core.TripRuntimeService;
+import com.abosultan.darbakos.core.UpdatePackageInspector;
 import com.abosultan.darbakos.core.VehicleDataStore;
 import com.abosultan.darbakos.core.VehicleSnapshot;
 import com.abosultan.darbakos.core.VehicleValue;
@@ -150,6 +151,7 @@ public final class MainActivity extends Activity {
         findViewById(R.id.settings_standby_button).setOnClickListener(v -> enterStandby());
         findViewById(R.id.settings_title).setOnLongClickListener(v -> { showAdmin(); return true; });
         findViewById(R.id.admin_back_settings).setOnClickListener(v -> hideAdmin());
+        findViewById(R.id.admin_inspect_update).setOnClickListener(v -> inspectLocalUpdate());
         findViewById(R.id.standby_exit).setOnLongClickListener(v -> { exitStandby(); return true; });
         findViewById(R.id.map_back_home).setOnClickListener(v -> showSection(0));
         findViewById(R.id.media_back_home).setOnClickListener(v -> showSection(0));
@@ -435,6 +437,22 @@ public final class MainActivity extends Activity {
                         android.os.Build.VERSION.SDK_INT, model));
         ((TextView) findViewById(R.id.admin_update)).setText(R.string.admin_update_locked);
         ((TextView) findViewById(R.id.admin_recovery)).setText(R.string.admin_recovery_locked);
+        ((TextView) findViewById(R.id.admin_update_inspection)).setText(R.string.admin_update_none);
+    }
+
+    private void inspectLocalUpdate() {
+        File candidate = new File(getExternalFilesDir(null), "DarbakOS-update.apk");
+        TextView view = (TextView) findViewById(R.id.admin_update_inspection);
+        if (!candidate.isFile()) { view.setText(R.string.admin_update_none); return; }
+        UpdatePackageInspector.Result result = UpdatePackageInspector.inspect(this, candidate);
+        String shortHash = result.sha256.length() >= 12 ? result.sha256.substring(0, 12) : result.sha256;
+        if (result.state == UpdatePackageInspector.State.COMPATIBLE) {
+            view.setText(getString(R.string.admin_update_ok,
+                    result.versionName.length() == 0 ? String.valueOf(result.versionCode) : result.versionName,
+                    result.size, shortHash));
+        } else if (result.state == UpdatePackageInspector.State.INCOMPATIBLE) {
+            view.setText(getString(R.string.admin_update_bad, result.packageName, shortHash));
+        } else view.setText(R.string.admin_update_unreadable);
     }
 
     private void enterStandby() {

@@ -786,3 +786,15 @@ No CPU/GPU/long-run/battery claim is inferred from these short tests.
 4. Stable acceptance
 
 For every test record: date, commit, environment, API/ABI/resolution, scenario, result, RAM/CPU where available, crash/ANR/log notes, screenshots/report reference, and follow-up.
+
+
+## 2026-10-02 — P7 foundation closure PASS
+- Verified code: `65831f77e8c3b47b12c3a63f86801c23678add93`.
+- GitHub Actions run `37011339702`: focused API25 gate PASS.
+- Source checks + Build + Lint PASS.
+- Preserved P5 Media and P6 Vehicle gates PASS.
+- P7 Apps PASS; Settings + actionable-alert renderer PASS in one instrumentation lifecycle; Standby enter/child-safe exit/TripRuntime continuity PASS.
+- Alert policy verified: normal state quiet; missing GPS permission actionable; missing vehicle hardware remains unavailable, not an alarm.
+- Full Regression0; Guardian suites0.
+- Artifact `11227578855`.
+- P7 CLOSED in API25 emulator software scope; physical ARMv7/Test Station/T3 acceptance remains deferred.

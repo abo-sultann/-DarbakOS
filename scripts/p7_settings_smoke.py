@@ -8,8 +8,8 @@ serials=[l.split()[0] for l in subprocess.check_output(['adb','devices'],text=Tr
 assert len(serials)==1
 ADB=['adb','-s',serials[0]]
 assert subprocess.check_output(ADB+['shell','getprop','ro.build.version.sdk'],text=True).strip()=='25'
-selected='com.abosultan.darbakos.ShellTest#userSettingsPersistSpeedCardVisibilityAcrossRecreate'
+selected='com.abosultan.darbakos.ShellTest#userSettingsPersistSpeedCardVisibilityAcrossRecreate,com.abosultan.darbakos.AlertTest'
 out=subprocess.check_output(ADB+['shell','am','instrument','-w','-e','class',selected,PACKAGE+'.test/androidx.test.runner.AndroidJUnitRunner'],text=True,timeout=180)
 (OUT/'p7-settings-instrumentation.txt').write_text(out)
-assert 'OK (1 test)' in out and 'FAILURES' not in out,out
-print('PASS: P7 user Settings persistence; 1 focused test')
+assert 'OK (2 tests)' in out and 'FAILURES' not in out,out
+print('PASS: P7 Settings + actionable-alert renderer; 2 focused tests')

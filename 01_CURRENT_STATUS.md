@@ -70,8 +70,14 @@ Target: t3-p3 / sun8iw11p1 / Android 7.1 API25 / ARMv7 / ~1GB / 1024x600.
 - Artifact `11217272345`.
 - Next P7 slice is user Settings; Standby and actionable alerts follow separately.
 
+## P7 Settings — first slice PASS
+- Dedicated user Settings surface replaces the generic placeholder; technical Admin remains separate/deferred.
+- One truthful persisted setting is implemented: show/hide the Home speed card. It changes presentation only and does not stop GPS or TripRuntime recording.
+- Run `36988422227` on `eb0af063d6beb7ff4bfe471cca96c8b50d38fae2`: Source checks + Build + Lint PASS; isolated P5 + P6 + P7 Apps/Settings focused gates PASS on API25. Full Regression0; Guardian suites0. Artifact `11218641454`.
+- Two runner/test assumptions were corrected during integration: navigation now recognizes the dedicated Settings panel, and P5 selects its historical Shell tests explicitly so later P7 test additions cannot change its expected count.
+
 ## Not yet done
-- P7 Settings/Standby/alerts and later Apps Recent/Favorites persistence.
+- P7 Standby/alerts and later Apps Recent/Favorites persistence.
 - P8 Update/Admin/Recovery.
 - P9 real T3 commissioning + Golden Backup/recovery verification.
 - P10 T3 integration/OEM hiding/autostart/boot.
@@ -79,6 +85,6 @@ Target: t3-p3 / sun8iw11p1 / Android 7.1 API25 / ARMv7 / ~1GB / 1024x600.
 - Darbak Test Station/ARMv7 and physical T3 acceptance for P4/P5+.
 
 ## Next
-Continue P7 with the bounded user Settings slice. Keep technical Admin deferred, preserve P4/P5/P6 and the accepted Apps slice, and do not mix Standby/alerts into the same batch.
+Continue P7 with the bounded Standby slice. Standby must remain lightweight and must not stop Position/Trip recording; alerts remain a separate later slice.
 
 GitHub is the project-state authority.

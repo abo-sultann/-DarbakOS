@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.provider.Settings;
@@ -32,6 +33,8 @@ import com.abosultan.darbakos.core.VehicleValue;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 
@@ -137,6 +140,7 @@ public final class MainActivity extends Activity {
         }
         findViewById(R.id.vehicle_back_home).setOnClickListener(v -> showSection(0));
         findViewById(R.id.back_home).setOnClickListener(v -> showSection(0));
+        findViewById(R.id.apps_manage).setOnClickListener(v -> openAppsSettings());
         findViewById(R.id.map_back_home).setOnClickListener(v -> showSection(0));
         findViewById(R.id.media_back_home).setOnClickListener(v -> showSection(0));
         findViewById(R.id.vehicle_back_home).setOnClickListener(v -> showSection(0));
@@ -366,11 +370,54 @@ public final class MainActivity extends Activity {
         }
         if (media) renderMediaState();
         if (vehicle) renderVehicleState();
+        if (section == 4) renderAppsState();
         if (home) renderNavigationState();
 
         for (int i = 0; i < BUTTONS.length; i++) {
             findViewById(BUTTONS[i]).setSelected(i == section);
         }
+    }
+
+
+    private void renderAppsState() {
+        PackageManager pm = getPackageManager();
+        Intent launcher = new Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_LAUNCHER);
+        List<ResolveInfo> resolved = pm.queryIntentActivities(launcher, 0);
+        List<String> labels = new ArrayList<>();
+        for (ResolveInfo info : resolved) {
+            if (info.activityInfo == null || getPackageName().equals(info.activityInfo.packageName)) continue;
+            CharSequence label = info.loadLabel(pm);
+            labels.add(label == null ? info.activityInfo.packageName : label.toString());
+        }
+        Collections.sort(labels, String.CASE_INSENSITIVE_ORDER);
+        TextView detail = (TextView) findViewById(R.id.section_detail);
+        detail.setText(labels.isEmpty()
+                ? getString(R.string.apps_none)
+                : getString(R.string.apps_found, labels.size(), joinAppLabels(labels, 4)));
+        View recent = findViewById(R.id.apps_recent);
+        View favorite = findViewById(R.id.apps_favorite);
+        recent.setEnabled(false);
+        favorite.setEnabled(false);
+        recent.setAlpha(0.55f);
+        favorite.setAlpha(0.55f);
+        View manage = findViewById(R.id.apps_manage);
+        manage.setEnabled(true);
+        manage.setAlpha(1f);
+    }
+
+    private String joinAppLabels(List<String> labels, int limit) {
+        StringBuilder out = new StringBuilder();
+        for (int i = 0; i < labels.size() && i < limit; i++) {
+            if (i > 0) out.append(" • ");
+            out.append(labels.get(i));
+        }
+        return out.toString();
+    }
+
+    private void openAppsSettings() {
+        try {
+            startActivity(new Intent(Settings.ACTION_MANAGE_APPLICATIONS_SETTINGS));
+        } catch (RuntimeException ignored) { }
     }
 
 

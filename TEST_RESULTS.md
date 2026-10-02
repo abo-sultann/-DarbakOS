@@ -798,3 +798,12 @@ For every test record: date, commit, environment, API/ABI/resolution, scenario, 
 - Full Regression0; Guardian suites0.
 - Artifact `11227578855`.
 - P7 CLOSED in API25 emulator software scope; physical ARMv7/Test Station/T3 acceptance remains deferred.
+
+
+## 2026-10-02 — P8 hidden Admin/diagnostics PASS
+- Verified code: `321ff039380571775206474aafa6a8f0dc999d04`.
+- GitHub Actions run `37012105270`: Source checks + Build + Lint PASS; preserved P5/P6/P7 focused gates + P8 Admin focused test PASS on API25.
+- Admin entry is deliberate/hidden (long-press Settings title) and read-only.
+- Version/build + Android/API/device diagnostics are truthful runtime values.
+- Update execution unavailable; Recovery explicitly locked until Golden Backup + P9 verification.
+- Full Regression0; Guardian suites0. Artifact `11228302940`.

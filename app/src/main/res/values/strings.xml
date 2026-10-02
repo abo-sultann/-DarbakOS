@@ -107,4 +107,8 @@
     <string name="settings_speed_show">عرض السرعة في الرئيسية: مفعّل</string>
     <string name="settings_speed_hide">عرض السرعة في الرئيسية: مخفي</string>
     <string name="settings_speed_detail">يمكن إخفاء بطاقة السرعة دون إيقاف GPS أو تسجيل الرحلة.</string>
+    <string name="standby_enter">وضع الاستعداد</string>
+    <string name="standby_title">دربك • استعداد</string>
+    <string name="standby_detail">واجهة هادئة فقط • GPS وتسجيل الرحلة مستمران</string>
+    <string name="standby_exit_hold">اضغط مطولًا للعودة</string>
 </resources>

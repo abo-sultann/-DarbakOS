@@ -26,6 +26,9 @@ import com.abosultan.darbakos.core.VehicleValue;
 import com.abosultan.darbakos.core.VehicleDataStore;
 import com.abosultan.darbakos.core.VehicleSnapshot;
 import com.abosultan.darbakos.core.VehicleValue;
+import com.abosultan.darbakos.core.VehicleDataStore;
+import com.abosultan.darbakos.core.VehicleSnapshot;
+import com.abosultan.darbakos.core.VehicleValue;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -47,6 +50,8 @@ public final class MainActivity extends Activity {
     private static final int REQUEST_OSMAND_INFO = 41;
     private static final int REQUEST_MEDIA_STORAGE = 42;
     private static final long NAVIGATION_SNAPSHOT_FRESH_MS = 60_000L;
+    private static final long VEHICLE_SNAPSHOT_FRESH_MS = 30_000L;
+    private final VehicleDataStore vehicleDataStore = new VehicleDataStore();
     private static final long VEHICLE_SNAPSHOT_FRESH_MS = 30_000L;
     private final VehicleDataStore vehicleDataStore = new VehicleDataStore();
     private static final long VEHICLE_FRESH_MS = 30_000L;
@@ -134,6 +139,7 @@ public final class MainActivity extends Activity {
             final int destination = i;
             findViewById(BUTTONS[i]).setOnClickListener(v -> showSection(destination));
         }
+        findViewById(R.id.vehicle_back_home).setOnClickListener(v -> showSection(0));
         findViewById(R.id.back_home).setOnClickListener(v -> showSection(0));
         findViewById(R.id.map_back_home).setOnClickListener(v -> showSection(0));
         findViewById(R.id.media_back_home).setOnClickListener(v -> showSection(0));
@@ -405,6 +411,34 @@ public final class MainActivity extends Activity {
         double number = value.value;
         String formatted = number == Math.rint(number) ? String.valueOf((long) number) : String.format(Locale.US, "%.1f", number);
         return formatted + " " + value.unit;
+    }
+
+
+    private void renderVehicleState() {
+        VehicleSnapshot s = vehicleDataStore.snapshot(System.currentTimeMillis(), VEHICLE_SNAPSHOT_FRESH_MS);
+        ((TextView) findViewById(R.id.vehicle_pressure)).setText(
+                getString(R.string.vehicle_pressure_label, vehicleText(s.tirePressure)));
+        ((TextView) findViewById(R.id.vehicle_tire_temperature)).setText(
+                getString(R.string.vehicle_tire_temperature_label, vehicleText(s.tireTemperature)));
+        ((TextView) findViewById(R.id.vehicle_fridge_temperature)).setText(
+                getString(R.string.vehicle_fridge_temperature_label, vehicleText(s.fridgeTemperature)));
+        VehicleValue.Source source = firstSource(s);
+        ((TextView) findViewById(R.id.vehicle_source)).setText(source == VehicleValue.Source.UNKNOWN
+                ? R.string.vehicle_source_none
+                : getString(R.string.vehicle_source_label, source.name()));
+    }
+
+    private String vehicleText(VehicleValue v) {
+        return v != null && v.available()
+                ? String.format(Locale.US, "%.1f %s", v.value, v.unit)
+                : getString(R.string.vehicle_unavailable);
+    }
+
+    private VehicleValue.Source firstSource(VehicleSnapshot s) {
+        if (s.tirePressure.available()) return s.tirePressure.source;
+        if (s.tireTemperature.available()) return s.tireTemperature.source;
+        if (s.fridgeTemperature.available()) return s.fridgeTemperature.source;
+        return VehicleValue.Source.UNKNOWN;
     }
 
     private void renderMediaState() {

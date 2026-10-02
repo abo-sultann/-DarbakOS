@@ -169,11 +169,15 @@ public final class ShellTest {
                 for (int i = 0; i < ids.length; i++) {
                     TextView button = activity.findViewById(ids[i]);
                     assertEquals(labels[i], button.getText().toString());
-                    assertFalse("Unconnected action must be disabled", button.isEnabled());
+                    assertEquals("Only Android app management is connected in first P7 slice",
+                            i == 2, button.isEnabled());
                     assertTrue(button.getHeight() >= 56 && button.getWidth() >= 56);
                     assertTrue("Apps actions must run right to left", button.getLeft() < previousLeft);
                     previousLeft = button.getLeft();
                 }
+                String detail = ((TextView) activity.findViewById(R.id.section_detail)).getText().toString();
+                assertFalse(detail.contains(activity.getString(R.string.app_name) + " •"));
+                assertTrue(detail.contains("تطبيق") || detail.equals(activity.getString(R.string.apps_none)));
                 activity.findViewById(R.id.back_home).performClick();
                 assertEquals(View.GONE, activity.findViewById(R.id.apps_preview).getVisibility());
                 assertTrue(activity.findViewById(R.id.nav_home).isSelected());

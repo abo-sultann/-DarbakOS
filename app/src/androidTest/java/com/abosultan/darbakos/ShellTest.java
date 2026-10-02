@@ -219,6 +219,40 @@ public final class ShellTest {
         }
     }
 
+
+    @Test public void standbyRequiresDeliberateExitAndKeepsTripRuntime() {
+        try (ActivityScenario<MainActivity> scenario = ActivityScenario.launch(MainActivity.class)) {
+            InstrumentationRegistry.getInstrumentation().waitForIdleSync();
+            scenario.onActivity(activity -> {
+                activity.findViewById(R.id.settings_button).performClick();
+                activity.findViewById(R.id.settings_standby_button).performClick();
+                assertEquals(View.VISIBLE, activity.findViewById(R.id.standby_panel).getVisibility());
+                assertEquals(View.GONE, activity.findViewById(R.id.top_bar).getVisibility());
+                assertEquals(View.GONE, activity.findViewById(R.id.navigation).getVisibility());
+                assertTrue(isTripRuntimeRunning(activity));
+                activity.onBackPressed();
+                assertEquals("Back must not exit child-safe Standby",
+                        View.VISIBLE, activity.findViewById(R.id.standby_panel).getVisibility());
+                assertTrue(activity.findViewById(R.id.standby_exit).performLongClick());
+                assertEquals(View.GONE, activity.findViewById(R.id.standby_panel).getVisibility());
+                assertEquals(View.VISIBLE, activity.findViewById(R.id.navigation).getVisibility());
+                assertTrue(activity.findViewById(R.id.nav_home).isSelected());
+                assertTrue(isTripRuntimeRunning(activity));
+            });
+        }
+    }
+
+    private static boolean isTripRuntimeRunning(MainActivity activity) {
+        android.app.ActivityManager manager =
+                (android.app.ActivityManager) activity.getSystemService(android.content.Context.ACTIVITY_SERVICE);
+        if (manager == null) return false;
+        for (android.app.ActivityManager.RunningServiceInfo info : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (info.service != null
+                    && "com.abosultan.darbakos.core.TripRuntimeService".equals(info.service.getClassName())) return true;
+        }
+        return false;
+    }
+
     private static void assertVisibleWithin(View view, Rect screen) {
         if (view.getVisibility() != View.VISIBLE) return;
         int[] xy = new int[2];

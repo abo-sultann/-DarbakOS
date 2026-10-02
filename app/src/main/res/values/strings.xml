@@ -100,4 +100,10 @@
     <string name="vehicle_fridge_temp_label">حرارة الثلاجة: %1$s</string>
     <string name="vehicle_unavailable">غير متاح</string>
     <string name="vehicle_no_source">لا يوجد مصدر بيانات متصل</string>
+    <string name="vehicle_pressure_label">ضغط الإطار: %1$s</string>
+    <string name="vehicle_tire_temperature_label">حرارة الإطار: %1$s</string>
+    <string name="vehicle_fridge_temperature_label">حرارة الثلاجة: %1$s</string>
+    <string name="vehicle_unavailable">غير متاح</string>
+    <string name="vehicle_source_none">لا يوجد مصدر بيانات متصل</string>
+    <string name="vehicle_source_label">المصدر: %1$s</string>
 </resources>

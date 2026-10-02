@@ -112,4 +112,10 @@
     <string name="standby_detail">واجهة هادئة فقط • GPS وتسجيل الرحلة مستمران</string>
     <string name="standby_exit_hold">اضغط مطولًا للعودة</string>
     <string name="alert_location_permission">تنبيه • فعّل إذن الموقع لاستمرار GPS وتسجيل الرحلة</string>
+    <string name="admin_title">إدارة دربك • تقني</string>
+    <string name="admin_app">دربك %1$s (%2$d)</string>
+    <string name="admin_device">Android %1$s • API %2$d • %3$s</string>
+    <string name="admin_update_locked">التحديث • غير مفعّل حتى اعتماد مسار آمن</string>
+    <string name="admin_recovery_locked">الاستعادة • مقفلة حتى Golden Backup واختبار P9</string>
+    <string name="admin_back_settings">العودة للإعدادات</string>
 </resources>

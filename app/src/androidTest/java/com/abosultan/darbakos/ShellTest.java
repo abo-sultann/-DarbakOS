@@ -254,15 +254,14 @@ public final class ShellTest {
     }
 
 
-    @Test public void actionableAlertIsQuietWhenGpsPermissionExistsAndVisibleWhenMissing() {
-        android.app.UiAutomation automation = InstrumentationRegistry.getInstrumentation().getUiAutomation();
-        String pkg = InstrumentationRegistry.getInstrumentation().getTargetContext().getPackageName();
-        automation.grantRuntimePermission(pkg, android.Manifest.permission.ACCESS_FINE_LOCATION);
+    @Test public void actionableAlertIsQuietWhenGpsPermissionExists() {
         try (ActivityScenario<MainActivity> scenario = ActivityScenario.launch(MainActivity.class)) {
             scenario.onActivity(activity -> assertEquals(View.GONE,
                     activity.findViewById(R.id.actionable_alert).getVisibility()));
         }
-        automation.revokeRuntimePermission(pkg, android.Manifest.permission.ACCESS_FINE_LOCATION);
+    }
+
+    @Test public void actionableAlertShowsWhenGpsPermissionMissing() {
         try (ActivityScenario<MainActivity> scenario = ActivityScenario.launch(MainActivity.class)) {
             scenario.onActivity(activity -> {
                 TextView alert = activity.findViewById(R.id.actionable_alert);
@@ -273,8 +272,6 @@ public final class ShellTest {
                         "لا يوجد مصدر بيانات متصل",
                         ((TextView) activity.findViewById(R.id.vehicle_state)).getText().toString());
             });
-        } finally {
-            automation.grantRuntimePermission(pkg, android.Manifest.permission.ACCESS_FINE_LOCATION);
         }
     }
 

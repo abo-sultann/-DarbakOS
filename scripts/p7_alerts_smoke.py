@@ -6,7 +6,7 @@ serials=[x.split()[0] for x in subprocess.check_output(['adb','devices'],text=Tr
 assert len(serials)==1
 ADB=['adb','-s',serials[0]]
 assert subprocess.check_output(ADB+['shell','getprop','ro.build.version.sdk'],text=True).strip()=='25'
-subprocess.run(ADB+['shell','am','force-stop','com.abosultan.darbakos.test'],check=True)
+subprocess.run(ADB+['shell','am','force-stop','com.abosultan.darbakos'],check=True)
 subprocess.run(['sleep','2'],check=True)
 sel='com.abosultan.darbakos.AlertTest'
 out=subprocess.check_output(ADB+['shell','am','instrument','-w','-e','class',sel,'com.abosultan.darbakos.test/androidx.test.runner.AndroidJUnitRunner'],text=True,timeout=180)

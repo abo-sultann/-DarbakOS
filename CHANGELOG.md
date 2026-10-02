@@ -189,3 +189,11 @@
 - Added quiet-by-default actionable alerts; missing GPS permission is actionable while ordinary unavailable vehicle hardware stays non-alarming.
 - Final focused API25 run `37011339702` passed P5/P6 plus all P7 gates. No Full Regression or Guardian suites.
 - Advanced the project to P8 Update/Admin/Recovery foundation; real recovery/Golden Backup remains hardware-gated to P9.
+
+
+## 2026-10-02 — P8 software foundation closed
+- Added hidden read-only technical Admin diagnostics.
+- Added read-only local Darbak APK inspection with SHA-256 and package/version identity; no installer execution.
+- Added explicit Recovery Readiness contract requiring Golden Backup identity, valid SHA-256 and verified recovery path.
+- Final focused API25 run `37014555613` passed preserved P5-P7 and all P8 gates. No Full Regression or Guardian suites.
+- Advanced to P9 exact T3 baseline + Golden Backup/recovery verification gate.

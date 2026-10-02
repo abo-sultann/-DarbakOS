@@ -2,6 +2,14 @@
 
 No Darbak OS release is Stable. See the per-stage evidence below.
 
+## 2026-10-02 — P7 Standby slice: PASS / CHECKPOINT
+
+- Verified code `c4aae68a8613c85960907e4b1c9b55a15df8f88a`; run [37002048691](https://github.com/abo-sultann/DarbakOS/actions/runs/37002048691): focused API25 gate **PASS**.
+- Standby is presentation-only: normal chrome/content hides behind a calm surface; Back cannot exit; deliberate long-press returns Home.
+- Focused instrumentation proves `TripRuntimeService` remains running during Standby and after exit.
+- Source checks + Build + Lint + isolated P5/P6/P7 Apps/Settings/Standby gates PASS. Full Regression0; Guardian suites0. Artifact `11224331940`.
+- **Standby slice accepted; P7 remains OPEN only for actionable-alerts foundation.**
+
 ## 2026-10-02 — P7 User Settings first slice: PASS / CHECKPOINT
 
 - Verified code `eb0af063d6beb7ff4bfe471cca96c8b50d38fae2`; run [36988422227](https://github.com/abo-sultann/DarbakOS/actions/runs/36988422227): focused API25 gate **PASS**.

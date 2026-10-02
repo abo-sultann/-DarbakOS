@@ -1,5 +1,14 @@
 # Changelog
 
+## 2026-10-02 — P6 Vehicle Data Foundation closed
+- Added immutable Vehicle value/snapshot contract with provenance and freshness.
+- Added optional source-adapter/store boundary for TPMS, OBD/CAN, fridge and later proven sources.
+- Added dedicated truthful Vehicle UI consumption; unavailable/stale values are not shown as live.
+- Corrected the existing shell navigation test for the dedicated Vehicle panel.
+- Added focused API25 P6 gate; run 36978379715 PASS with VehicleDataTest 4/4, while preserving the P5 focused gate.
+- Advanced project checkpoint to P7 Apps/Settings/Standby/alerts.
+
+
 ## 2026-10-01 — P5 External MediaSession focused gate repaired / PASS / STOP
 - Diagnosed requested run36817089400: two literal backslash-n sequences prevented the Python runner from starting. After repairing syntax, run36817725413 exposed a second runner-only defect: singular JUnit success was rejected despite passing9 +1 tests.
 - Corrected only `scripts/p5_media_smoke.py`; test selection/counts/assertions, fixture, app, workflow and P4/OsmAnd are unchanged.

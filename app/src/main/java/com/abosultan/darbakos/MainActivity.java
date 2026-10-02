@@ -394,9 +394,12 @@ public final class MainActivity extends Activity {
 
 
     private void renderActionableAlert() {
+        renderActionableAlertState(checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED);
+    }
+
+    void renderActionableAlertState(boolean locationGranted) {
         TextView alert = (TextView) findViewById(R.id.actionable_alert);
-        boolean locationGranted = checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED;
         alert.setText(locationGranted ? "" : getString(R.string.alert_location_permission));
         alert.setVisibility(locationGranted ? View.GONE : View.VISIBLE);
     }

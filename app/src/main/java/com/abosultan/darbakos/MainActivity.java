@@ -23,6 +23,7 @@ import com.abosultan.darbakos.core.PositionFix;
 import com.abosultan.darbakos.core.PositionStore;
 import com.abosultan.darbakos.core.TripRuntimeService;
 import com.abosultan.darbakos.core.UpdatePackageInspector;
+import com.abosultan.darbakos.core.RecoveryReadiness;
 import com.abosultan.darbakos.core.VehicleDataStore;
 import com.abosultan.darbakos.core.VehicleSnapshot;
 import com.abosultan.darbakos.core.VehicleValue;
@@ -437,7 +438,20 @@ public final class MainActivity extends Activity {
                         android.os.Build.VERSION.SDK_INT, model));
         ((TextView) findViewById(R.id.admin_update)).setText(R.string.admin_update_locked);
         ((TextView) findViewById(R.id.admin_recovery)).setText(R.string.admin_recovery_locked);
+        renderRecoveryReadiness();
         ((TextView) findViewById(R.id.admin_update_inspection)).setText(R.string.admin_update_none);
+    }
+
+    private void renderRecoveryReadiness() {
+        RecoveryReadiness readiness = RecoveryReadiness.evaluate("", "", false);
+        int text;
+        switch (readiness.state) {
+            case LOCKED_NO_HASH: text=R.string.admin_recovery_no_hash; break;
+            case LOCKED_PATH_UNVERIFIED: text=R.string.admin_recovery_path_unverified; break;
+            case ELIGIBLE: text=R.string.admin_recovery_eligible; break;
+            default: text=R.string.admin_recovery_no_backup;
+        }
+        ((TextView) findViewById(R.id.admin_recovery_readiness)).setText(text);
     }
 
     private void inspectLocalUpdate() {

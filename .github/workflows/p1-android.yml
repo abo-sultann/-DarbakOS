@@ -29,7 +29,7 @@ jobs:
           java-version: '17'
       - uses: gradle/actions/setup-gradle@v4
       - name: Source checks
-        run: python3 scripts/check_baseline.py
+        run: python3 scripts/check_baseline.py && python3 scripts/p9_gate_check.py
       - name: Provision Android command-line tools
         uses: android-actions/setup-android@v3
         with:

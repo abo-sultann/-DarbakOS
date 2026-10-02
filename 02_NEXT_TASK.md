@@ -1,21 +1,20 @@
-# Next Task — P7 Apps / Settings / Standby / Alerts Foundation
+# Next Task — P7 User Settings Foundation
 
 Updated: 2026-10-02.
 
 ## Objective
-Start the next bounded software phase after P6 closure, without reopening accepted P4/P5/P6 behavior.
+Implement the smallest useful user-facing Settings slice after the accepted P7 Apps gate.
 
-## Approved first scope
-- Define the lightweight P7 boundaries for Apps, user Settings, Standby and actionable alerts.
-- Keep Apps focused on installed-app discovery/launch and management entry points; do not build another launcher framework.
-- Keep Settings user-facing and simple; technical Admin remains separate/deferred.
-- Standby must be lightweight, calm and must not stop Position/Trip recording.
-- Alerts are for actionable abnormal states; normal state remains quiet.
-- Preserve Arabic RTL, 1024x600, API25, ~1GB constraints and truthful unavailable states.
-- Add only focused API25 tests for the first P7 slice selected during implementation.
+## Scope
+- Replace the generic Settings placeholder with a dedicated lightweight Settings surface.
+- Expose only safe user-facing settings that Darbak can truthfully own on API25.
+- Keep technical Admin, firmware/MCU/root/recovery and OEM controls out of this surface.
+- Persist only settings actually implemented; no fake toggles.
+- Preserve Arabic RTL, 1024x600 and ~1GB constraints.
+- Add focused API25 tests for Settings persistence/UI behavior only.
 
 ## Constraints
-No firmware/MCU/kernel/root work. No heavy dependency or extra process without proven need. No Full Regression or Guardian suites unless a proven defect requires them. Preserve P4 OsmAnd/Trip, P5 Media and P6 Vehicle contracts.
+Preserve P4 OsmAnd/Trip, P5 Media, P6 Vehicle and the accepted P7 Apps slice. No Full Regression or Guardian suites. Do not start Standby or alerts in this batch.
 
-## Deferred hardware acceptance
-Physical ARMv7/Test Station/T3 behavior, OEM hiding/autostart/boot and hardware-source integration remain P9/P10 work.
+## Deferred
+Standby and actionable alerts remain later P7 slices. Physical ARMv7/Test Station/T3 acceptance remains P9/P10.

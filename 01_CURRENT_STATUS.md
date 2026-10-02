@@ -37,7 +37,7 @@ Target: t3-p3 / sun8iw11p1 / Android 7.1 API25 / ARMv7 / ~1GB / 1024x600.
 - OsmAnd is the offline map/navigation engine; Darbak uses a lightweight external API boundary first rather than forking/embedding the engine.
 - Installed real OsmAnd version compatibility, physical T3/ARMv7 GPS, long-drive behavior, forced process death and sudden power loss are hardware/integration acceptance items, not blockers to the completed emulator/API25 software phase.
 
-## P5 External MediaSession foundation — focused gate PASS / STOP
+## P5 Media — API25 software scope CLOSED
 - Incoming main `d61cfc2a0385018e4e53a6d72c018cdcdd7be7e1`; verified code `7c4bf543eb11a3742dfde7ed2c75d4e1ca69faa2`.
 - [Run36818005050](https://github.com/abo-sultann/DarbakOS/actions/runs/36818005050), job110227196579, attempt1 SUCCESS. Build/Lint PASS:0 errors,17 warnings.
 - Same P5 focused gate: **11/11 PASS** on API25/x86,1024x600/160dpi/1GB, in three configured invocations (9 +1 +1). Full Regression0; Guardian suites0; separate P4/OsmAnd suites0.
@@ -48,8 +48,19 @@ Target: t3-p3 / sun8iw11p1 / Android 7.1 API25 / ARMv7 / ~1GB / 1024x600.
 - Durable evidence: `docs/test-evidence/p5-external-media-20261001/`, including both pre-fix failures, final raw results/logs/Settings UI trees, screenshots, hashes and source comparison.
 - This closes only the current verification gate. P5 remains open outside this foundation; real player/version/audio output, full device boot/wake and ARMv7/Test Station/T3 acceptance are not established.
 
+## P5 closure addendum — 2026-10-02
+- Consolidated API25 gate on `7d0f40bac34e8c2043abc386acbdd4f9f5fd6b24` succeeded, including real framework local WAV playback, Play/Pause/Resume, Audio Focus, external MediaSession arbitration, persistent validated local-media manifest and no-autoplay behavior.
+- Follow-up lifecycle guard `55eb48c6190b6d43b0b1904003a4040b09774b77` also passed CI.
+- P5 is closed for emulator/API25 software scope. Physical ARMv7/T3 audio, removable-media vendor behavior and real third-party players remain P9/P10 acceptance items, not P5 blockers.
+
+## P6 Vehicle boundary — APPROVED
+- P6 must not be blocked by unresolved Toyota TPMS/OBD/CAN decoding or other unavailable hardware sources.
+- Build a unified Vehicle Data boundary with source provenance and freshness. Each adapter is optional/pluggable.
+- Unknown/unconnected values remain explicitly unavailable; never fabricate or preserve stale values as live.
+- TPMS ESP32/CC1101, OBD/CAN, fridge and later sensors continue as independent source integrations and may be connected when proven.
+- P6 software closure is the truthful data contract, adapter boundary and UI consumption; proving every physical source is deferred to its own hardware acceptance.
+
 ## Not yet done
-- P5 remaining media/device integration beyond the verified external-session foundation.
 - P6 Vehicle.
 - P7 Apps/Settings/Standby/alerts.
 - P8 Update/Admin/Recovery.
@@ -59,6 +70,6 @@ Target: t3-p3 / sun8iw11p1 / Android 7.1 API25 / ARMv7 / ~1GB / 1024x600.
 - Darbak Test Station/ARMv7 and physical T3 acceptance for P4/P5+.
 
 ## Next
-STOP after the current P5 evidence/status commit. No next P5 bundle or later phase is started by this gate. The owner's explicit P5 failure-diagnosis request superseded the stale P4 task text; P4 remains closed and unchanged.
+Start P6 Vehicle Data foundation: immutable vehicle snapshot/value contract, provenance + freshness policy, source adapter boundary, truthful unavailable defaults and focused API25 tests. Do not wait for unresolved TPMS/OBD/CAN hardware decoding.
 
 GitHub is the project-state authority.

@@ -63,27 +63,17 @@ Target: t3-p3 / sun8iw11p1 / Android 7.1 API25 / ARMv7 / ~1GB / 1024x600.
 - Artifact `11214612250`.
 - Physical TPMS ESP32/CC1101, Toyota OBD/CAN, fridge protocols, ARMv7/Test Station and real T3 connectivity remain independent P9/P10 hardware acceptance work and did not block P6.
 
-## P7 — OPEN; Apps first slice PASS
-- Apps now discovers launchable activities through Android `CATEGORY_LAUNCHER`, excludes Darbak itself and reports a bounded truthful summary without adding a dependency, permission, Service or process.
-- Recent/Favorites remain visibly disabled because their persistence/behavior is not implemented yet. Android app-management entry is the only newly enabled action.
-- Run `36986279699` on `8ed626e7988997e6d253f7df0ef856fcc5e6c03e`: Source checks + Build + Lint PASS; preserved P5/P6 focused gates PASS; P7 Apps focused ShellTest **1/1 PASS** on API25. Full Regression0; Guardian suites0.
-- Artifact `11217272345`.
-- Next P7 slice is user Settings; Standby and actionable alerts follow separately.
-
-## P7 Settings — first slice PASS
-- Dedicated user Settings surface replaces the generic placeholder; technical Admin remains separate/deferred.
-- One truthful persisted setting is implemented: show/hide the Home speed card. It changes presentation only and does not stop GPS or TripRuntime recording.
-- Run `36988422227` on `eb0af063d6beb7ff4bfe471cca96c8b50d38fae2`: Source checks + Build + Lint PASS; isolated P5 + P6 + P7 Apps/Settings focused gates PASS on API25. Full Regression0; Guardian suites0. Artifact `11218641454`.
-- Two runner/test assumptions were corrected during integration: navigation now recognizes the dedicated Settings panel, and P5 selects its historical Shell tests explicitly so later P7 test additions cannot change its expected count.
-
-## P7 Standby — focused slice PASS
-- Standby is a lightweight Darbak UI state only: no device power-off, Android sleep, root, firmware or MCU behavior.
-- Entering Standby hides normal chrome/content and keeps a calm minimal surface. Back does not exit; deliberate long-press exits to Home.
-- TripRuntimeService remains running through Standby enter/exit; GPS/trip ownership is unchanged.
-- Run `37002048691` on `c4aae68a8613c85960907e4b1c9b55a15df8f88a`: Source checks + Build + Lint PASS; P5 + P6 + P7 Apps/Settings/Standby focused gates PASS on API25. Full Regression0; Guardian suites0. Artifact `11224331940`.
+## P7 — CLOSED in API25 emulator software scope
+- Apps: launchable-app discovery is truthful and bounded; Darbak excludes itself; Android app-management entry is enabled. Recent/Favorites remain a later enhancement, not a foundation blocker.
+- Settings: dedicated user surface with one real persisted Darbak-owned setting (Home speed-card visibility); technical Admin remains outside user Settings.
+- Standby: lightweight calm UI state, child-safe long-press exit, no device sleep/power/root behavior, and TripRuntime continuity preserved.
+- Actionable alerts: Home stays quiet when no action is needed. Missing GPS permission is surfaced as an actionable alert; ordinary missing vehicle hardware remains a truthful unavailable state, not an alarm.
+- Final focused gate run `37011339702` on `65831f77e8c3b47b12c3a63f86801c23678add93`: Source checks + Build + Lint PASS; preserved P5/P6 and P7 Apps/Settings/Alerts/Standby focused verification PASS on API25. Full Regression0; Guardian suites0.
+- Artifact `11227578855`.
+- Physical ARMv7/Test Station/T3 acceptance remains deferred to P9/P10.
 
 ## Not yet done
-- P7 actionable alerts and later Apps Recent/Favorites persistence.
+- P7 Apps Recent/Favorites persistence remains an optional later enhancement.
 - P8 Update/Admin/Recovery.
 - P9 real T3 commissioning + Golden Backup/recovery verification.
 - P10 T3 integration/OEM hiding/autostart/boot.
@@ -91,6 +81,6 @@ Target: t3-p3 / sun8iw11p1 / Android 7.1 API25 / ARMv7 / ~1GB / 1024x600.
 - Darbak Test Station/ARMv7 and physical T3 acceptance for P4/P5+.
 
 ## Next
-Continue P7 with the bounded actionable-alerts slice. Normal state stays quiet; surface only actionable abnormal states from existing truthful data contracts. Do not add new hardware integrations.
+Begin P8 Update/Admin/Recovery foundation with the smallest safe software-only slice. Preserve the hard gate against firmware/MCU/kernel/destructive root and defer real recovery commissioning to P9.
 
 GitHub is the project-state authority.

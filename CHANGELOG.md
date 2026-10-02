@@ -180,3 +180,12 @@
 - Locked firmware/MCU/Golden Backup safety rules.
 - Added laptop-first testing path.
 - Added reuse-first reference policy.
+
+
+## 2026-10-02 — P7 software foundation closed
+- Added truthful installed-app discovery and Android app-management entry without adding another launcher framework.
+- Added dedicated persisted user Settings while keeping technical Admin separate.
+- Added lightweight child-safe Standby that preserves TripRuntime continuity.
+- Added quiet-by-default actionable alerts; missing GPS permission is actionable while ordinary unavailable vehicle hardware stays non-alarming.
+- Final focused API25 run `37011339702` passed P5/P6 plus all P7 gates. No Full Regression or Guardian suites.
+- Advanced the project to P8 Update/Admin/Recovery foundation; real recovery/Golden Backup remains hardware-gated to P9.

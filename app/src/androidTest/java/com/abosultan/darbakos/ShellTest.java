@@ -271,6 +271,29 @@ public final class ShellTest {
         }
     }
 
+    @Test public void hiddenAdminIsReadOnlyAndRecoveryStaysLocked() {
+        try (ActivityScenario<MainActivity> scenario = ActivityScenario.launch(MainActivity.class)) {
+            scenario.onActivity(activity -> {
+                activity.findViewById(R.id.settings_button).performClick();
+                assertEquals(View.GONE, activity.findViewById(R.id.admin_panel).getVisibility());
+                assertTrue(activity.findViewById(R.id.settings_title).performLongClick());
+                assertEquals(View.VISIBLE, activity.findViewById(R.id.admin_panel).getVisibility());
+                assertEquals(View.GONE, activity.findViewById(R.id.settings_panel).getVisibility());
+                String app = ((TextView) activity.findViewById(R.id.admin_app)).getText().toString();
+                String device = ((TextView) activity.findViewById(R.id.admin_device)).getText().toString();
+                assertTrue(app.contains("0.1.0-p1"));
+                assertTrue(device.contains("API 25"));
+                assertEquals("التحديث • غير مفعّل حتى اعتماد مسار آمن",
+                        ((TextView) activity.findViewById(R.id.admin_update)).getText().toString());
+                assertEquals("الاستعادة • مقفلة حتى Golden Backup واختبار P9",
+                        ((TextView) activity.findViewById(R.id.admin_recovery)).getText().toString());
+                activity.findViewById(R.id.admin_back_settings).performClick();
+                assertEquals(View.GONE, activity.findViewById(R.id.admin_panel).getVisibility());
+                assertEquals(View.VISIBLE, activity.findViewById(R.id.settings_panel).getVisibility());
+            });
+        }
+    }
+
     private static void assertVisibleWithin(View view, Rect screen) {
         if (view.getVisibility() != View.VISIBLE) return;
         int[] xy = new int[2];

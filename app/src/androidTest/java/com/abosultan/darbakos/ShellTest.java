@@ -254,17 +254,13 @@ public final class ShellTest {
     }
 
 
-    @Test public void actionableAlertIsQuietWhenGpsPermissionExists() {
-        try (ActivityScenario<MainActivity> scenario = ActivityScenario.launch(MainActivity.class)) {
-            scenario.onActivity(activity -> assertEquals(View.GONE,
-                    activity.findViewById(R.id.actionable_alert).getVisibility()));
-        }
-    }
-
-    @Test public void actionableAlertShowsWhenGpsPermissionMissing() {
+    @Test public void actionableAlertRendererIsQuietUntilActionExists() {
         try (ActivityScenario<MainActivity> scenario = ActivityScenario.launch(MainActivity.class)) {
             scenario.onActivity(activity -> {
                 TextView alert = activity.findViewById(R.id.actionable_alert);
+                activity.renderActionableAlertState(true);
+                assertEquals(View.GONE, alert.getVisibility());
+                activity.renderActionableAlertState(false);
                 assertEquals(View.VISIBLE, alert.getVisibility());
                 assertEquals("تنبيه • فعّل إذن الموقع لاستمرار GPS وتسجيل الرحلة",
                         alert.getText().toString());

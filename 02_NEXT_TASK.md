@@ -1,19 +1,20 @@
-# Next Task — P9 Exact T3 Baseline + Golden Backup Gate
+# Next Task — P9 Physical T3 Baseline Session
 
 Updated: 2026-10-02.
 
 ## Objective
-Start real-device commissioning safely. Identify the exact Allwinner T3 head unit and establish a recoverable Golden Backup gate before any deep system integration.
+Run the first physical, non-destructive Darbak OS commissioning session on the exact Allwinner T3 head unit.
 
-## First slice
-- Collect a non-destructive exact-device baseline only: Android/API, build fingerprint, board/product/device/model, CPU ABI, display, storage, package list and relevant read-only system properties.
-- Record exact MCU/system identifiers that Android exposes read-only; do not flash or change them.
-- Define the Golden Backup manifest: backup identity, files/images included, SHA-256 hashes, acquisition method and verified recovery path.
-- Do not mark Recovery eligible until both backup hashes and an independently verified recovery procedure exist.
-- Preserve the current stable APK and all accepted P4-P8 evidence.
+## Session order
+1. Connect the T3 to a computer with ADB debugging authorized. Do not root/remount.
+2. Run `python3 scripts/p9_t3_baseline.py` and preserve the generated `device-evidence/` folder.
+3. Review exact Android/API/build/board/product/device/model/ABI/display/storage/system identifiers before installing anything.
+4. If the baseline matches the supported API25/ARMv7/1024x600 target and exposes no blocker, install only the current TEST APK artifact and perform a bounded smoke: launch, Home RTL/layout, navigation, Settings/Admin read-only surfaces, Standby enter/exit, and no crash.
+5. Do not enable OEM hiding/autostart/boot/system integration.
+6. Golden Backup/recovery remains LOCKED until exact-device backup acquisition and independently verified recovery procedure are documented and hashed.
 
-## Hard stop
-No firmware/MCU/kernel flashing. No destructive root. No OEM hiding, boot replacement, system-app removal or autostart integration before this gate passes.
+## Stop conditions
+Stop immediately on unexpected reboot, display corruption, package conflict affecting OEM functions, storage anomaly, or any request for root/system modification.
 
 ## Exit
-Exact-device baseline recorded + Golden Backup/recovery path verified and hashed. Only then proceed to deeper P9/P10 T3 integration.
+Physical baseline evidence captured + bounded TEST APK smoke recorded. Golden Backup gate remains a separate prerequisite before P10 deep integration.

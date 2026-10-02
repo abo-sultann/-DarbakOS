@@ -23,6 +23,9 @@ import com.abosultan.darbakos.core.TripRuntimeService;
 import com.abosultan.darbakos.core.VehicleDataStore;
 import com.abosultan.darbakos.core.VehicleSnapshot;
 import com.abosultan.darbakos.core.VehicleValue;
+import com.abosultan.darbakos.core.VehicleDataStore;
+import com.abosultan.darbakos.core.VehicleSnapshot;
+import com.abosultan.darbakos.core.VehicleValue;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -44,6 +47,8 @@ public final class MainActivity extends Activity {
     private static final int REQUEST_OSMAND_INFO = 41;
     private static final int REQUEST_MEDIA_STORAGE = 42;
     private static final long NAVIGATION_SNAPSHOT_FRESH_MS = 60_000L;
+    private static final long VEHICLE_SNAPSHOT_FRESH_MS = 30_000L;
+    private final VehicleDataStore vehicleDataStore = new VehicleDataStore();
     private static final long VEHICLE_FRESH_MS = 30_000L;
     private final VehicleDataStore vehicleData = new VehicleDataStore();
 
@@ -342,9 +347,11 @@ public final class MainActivity extends Activity {
         boolean map = section == 1;
         boolean media = section == 2;
         boolean vehicle = section == 3;
+        boolean vehicle = section == 3;
         findViewById(R.id.home_panel).setVisibility(home ? View.VISIBLE : View.GONE);
         findViewById(R.id.map_panel).setVisibility(map ? View.VISIBLE : View.GONE);
         findViewById(R.id.media_panel).setVisibility(media ? View.VISIBLE : View.GONE);
+        findViewById(R.id.vehicle_panel).setVisibility(vehicle ? View.VISIBLE : View.GONE);
         findViewById(R.id.vehicle_panel).setVisibility(vehicle ? View.VISIBLE : View.GONE);
         findViewById(R.id.section_panel).setVisibility(!home && !map && !media && !vehicle ? View.VISIBLE : View.GONE);
         findViewById(R.id.apps_preview).setVisibility(section == 4 ? View.VISIBLE : View.GONE);
@@ -358,6 +365,7 @@ public final class MainActivity extends Activity {
             renderMapPanel();
         }
         if (media) renderMediaState();
+        if (vehicle) renderVehicleState();
         if (vehicle) renderVehicleState();
         if (home) renderNavigationState();
 
@@ -378,6 +386,25 @@ public final class MainActivity extends Activity {
     private String vehicleText(VehicleValue v) {
         if (v == null || !v.available()) return getString(R.string.vehicle_unavailable);
         return String.format(Locale.US, "%.1f %s", v.value, v.unit);
+    }
+
+    private void renderVehicleState() {
+        VehicleSnapshot snapshot = vehicleDataStore.snapshot(System.currentTimeMillis(), VEHICLE_SNAPSHOT_FRESH_MS);
+        ((TextView) findViewById(R.id.vehicle_pressure)).setText(getString(R.string.vehicle_pressure_label, vehicleText(snapshot.tirePressure)));
+        ((TextView) findViewById(R.id.vehicle_tire_temperature)).setText(getString(R.string.vehicle_tire_temperature_label, vehicleText(snapshot.tireTemperature)));
+        ((TextView) findViewById(R.id.vehicle_fridge_temperature)).setText(getString(R.string.vehicle_fridge_temperature_label, vehicleText(snapshot.fridgeTemperature)));
+        VehicleValue sourceValue = snapshot.tirePressure.available() ? snapshot.tirePressure :
+                (snapshot.tireTemperature.available() ? snapshot.tireTemperature : snapshot.fridgeTemperature);
+        ((TextView) findViewById(R.id.vehicle_source)).setText(sourceValue.available()
+                ? getString(R.string.vehicle_source_label, sourceValue.source.name())
+                : getString(R.string.vehicle_source_none));
+    }
+
+    private String vehicleText(VehicleValue value) {
+        if (value == null || !value.available()) return getString(R.string.vehicle_unavailable);
+        double number = value.value;
+        String formatted = number == Math.rint(number) ? String.valueOf((long) number) : String.format(Locale.US, "%.1f", number);
+        return formatted + " " + value.unit;
     }
 
     private void renderMediaState() {

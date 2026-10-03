@@ -1,20 +1,30 @@
-# Next Task — P9 Physical T3 Baseline Session
+# Next Task — P9 Modern Head Unit Readiness
 
-Updated: 2026-10-02.
+Updated: 2026-10-03.
+
+## Target decision
+The failed Allwinner T3 unit is retired from in-car production use. Darbak OS now targets the incoming modern Android head unit. T3/API25/ARMv7/1024x600 remains a legacy compatibility baseline only and must not constrain new development.
 
 ## Objective
-Run the first physical, non-destructive Darbak OS commissioning session on the exact Allwinner T3 head unit.
+Continue hardware-independent development while the replacement head unit is being selected/acquired, then commission the exact new unit non-destructively.
 
-## Session order
-1. Connect the T3 to a computer with ADB debugging authorized. Do not root/remount.
-2. Run `python3 scripts/p9_t3_baseline.py` and preserve the generated `device-evidence/` folder.
-3. Review exact Android/API/build/board/product/device/model/ABI/display/storage/system identifiers before installing anything.
-4. If the baseline matches the supported API25/ARMv7/1024x600 target and exposes no blocker, install only the current TEST APK artifact and perform a bounded smoke: launch, Home RTL/layout, navigation, Settings/Admin read-only surfaces, Standby enter/exit, and no crash.
-5. Do not enable OEM hiding/autostart/boot/system integration.
-6. Golden Backup/recovery remains LOCKED until exact-device backup acquisition and independently verified recovery procedure are documented and hashed.
+## Software-first slice
+- Preserve all accepted P4-P8 behavior and truthful-state rules.
+- Keep platform-specific/OEM behavior behind adapters; do not hard-code T3/MCU assumptions into product logic.
+- Make layouts responsive to the actual future display rather than assuming 1024x600.
+- Keep current API25 CI as a regression floor until the new unit establishes the production min/target requirements.
+- Do not add heavy dependencies merely because the future hardware is stronger.
+- Prepare baseline tooling so the new unit can be identified before any OEM/boot/system integration.
 
-## Stop conditions
-Stop immediately on unexpected reboot, display corruption, package conflict affecting OEM functions, storage anomaly, or any request for root/system modification.
+## When the new screen arrives
+1. Capture Android/API, build fingerprint, SoC/ABI, RAM/storage, display/density, USB/GPS/Bluetooth/Wi-Fi and read-only OEM/CANBUS identifiers.
+2. Run bounded Darbak APK smoke tests.
+3. Verify ESP32/Darbak TPMS connectivity, GPS, Media and OsmAnd.
+4. Define the new unit's Golden Backup/recovery path where applicable.
+5. Only after those gates, design autostart/OEM/CANBUS integration for the exact new hardware.
+
+## Hard stop
+No firmware/MCU/kernel flashing, destructive root, OEM hiding, boot replacement or system-app removal before the exact replacement unit is known and its recovery path is verified.
 
 ## Exit
-Physical baseline evidence captured + bounded TEST APK smoke recorded. Golden Backup gate remains a separate prerequisite before P10 deep integration.
+Modern-head-unit-ready software baseline + exact replacement-device commissioning evidence. Then advance to P10 integration for that hardware.

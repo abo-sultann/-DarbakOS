@@ -843,3 +843,13 @@ For every test record: date, commit, environment, API/ABI/resolution, scenario, 
 - API35/x86_64, 1920x1080, 2GB modern-display launch smoke PASS with no detected Darbak crash/ANR.
 - This establishes software compatibility only; it does not claim compatibility with the not-yet-selected physical replacement head unit.
 - Follow-up gate adds actual-display navigation/fit verification on API35.
+
+
+## 2026-10-03 — P9 Modern Navigation Gate PASS
+- Verified code: `d315980ba8d69ef603db8989d7fbb51a38351e39`.
+- GitHub Actions run `37151160813`: SUCCESS.
+- Legacy API25 P5-P8 focused regression PASS.
+- API35/x86_64 1920x1080 launch smoke PASS.
+- API35 `ModernHeadUnitTest` PASS after explicitly installing the androidTest APK.
+- Modern gate verifies Home and navigation surfaces (Map/Media/Vehicle/Apps/Settings) fit the actual runtime display and return to Home.
+- Physical replacement-head-unit acceptance remains pending exact hardware.

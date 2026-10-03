@@ -4,7 +4,7 @@ State: P3 CLOSED / P4 CLOSED / P5 CLOSED / P6 CLOSED (API25 emulator software sc
 Updated: 2026-10-02.
 Target: t3-p3 / sun8iw11p1 / Android 7.1 API25 / ARMv7 / ~1GB / 1024x600.
 
-## Accepted product state
+## 2026-10-03 target transition\n- The former Allwinner T3 head unit is retired from in-car production use after hardware failure.\n- New development is modern-head-unit-first and hardware-agnostic where practical.\n- Existing API25/T3 CI evidence remains valuable as a lightweight legacy regression floor, not a production constraint.\n- Exact production API/SoC/RAM/display/OEM/CANBUS assumptions remain intentionally unset until the replacement unit is physically identified.\n- P9 physical T3 commissioning is superseded by P9 Modern Head Unit Readiness.\n\n## Accepted product state
 - P0/P1/P2/P3 are closed within their approved scope. Detailed historical evidence remains in `TEST_RESULTS.md` and `docs/test-evidence/`.
 - P2 final-product shell remains accepted: Arabic RTL, 1024x600, truthful states, no fabricated live data and no media autoplay.
 - Guardian remains passive. Automatic watchdog/recovery executor/persistent support export stay deferred to later recovery/integration phases.

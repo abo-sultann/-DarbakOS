@@ -5,7 +5,7 @@ Status: NOT VERIFIED / RECOVERY LOCKED.
 This manifest is a gate, not proof that a backup exists.
 
 ## Exact device identity
-Fill only from `scripts/p9_t3_baseline.py` evidence:
+Fill only from `scripts/p9_production device_baseline.py` evidence:
 - Baseline capture ID:
 - Android/API:
 - Build fingerprint:
@@ -28,7 +28,7 @@ For every acquired backup image/file record:
 
 ## Eligibility rule
 Recovery stays LOCKED unless:
-1. exact T3 identity is recorded;
+1. exact production device identity is recorded;
 2. the Golden Backup set is acquired and every item has SHA-256;
 3. the recovery procedure is independently verified for this exact device;
 4. recovery evidence is documented.

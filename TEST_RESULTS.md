@@ -833,3 +833,13 @@ For every test record: date, commit, environment, API/ABI/resolution, scenario, 
 - No root/remount/flash/uninstall/destructive command exists in the collector.
 - Test APK/evidence artifact `11229962299`.
 - Next evidence must come from the physical T3; software CI cannot satisfy exact-device identity or Golden Backup/recovery verification.
+
+
+## 2026-10-03 — P9 Modern Head Unit display baseline PASS
+- Verified code: `853172a08c6d25e703fc0c598af7e0355ac477bc`.
+- GitHub Actions run `37150526440`: SUCCESS.
+- Build + Lint PASS.
+- Legacy API25 P5-P8 focused regression PASS.
+- API35/x86_64, 1920x1080, 2GB modern-display launch smoke PASS with no detected Darbak crash/ANR.
+- This establishes software compatibility only; it does not claim compatibility with the not-yet-selected physical replacement head unit.
+- Follow-up gate adds actual-display navigation/fit verification on API35.
